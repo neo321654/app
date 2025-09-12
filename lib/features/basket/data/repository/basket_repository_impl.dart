@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:monobox/features/basket/domain/entities/basket_info_request_entity.dart';
 import 'package:monobox/features/home/data/repository/mappers/products_mapper.dart';
+import 'package:monobox/features/order/presentation/bloc/create_order_state_cubit/create_order_state_cubit.dart';
+import 'package:monobox/injection_container.dart';
 
 import '../../../../core/resources/data_state.dart';
 import '../../../order/data/datasources/remote/order_api_service.dart';
@@ -49,9 +51,18 @@ class BasketRepositoryImpl implements BasketRepository {
 
   @override
   Future<DataState<void>> removeAllBasketItems() async {
-    return DataSuccess(
-      await _basketLocale.removeAllBasketItems(),
-    );
+    print('BASKET REPOSITORY - REMOVING ALL BASKET ITEMS');
+    try {
+      await _basketLocale.removeAllBasketItems();
+      print('BASKET REPOSITORY - ALL BASKET ITEMS REMOVED SUCCESSFULLY');
+      return DataSuccess(null);
+    } catch (e) {
+      print('BASKET REPOSITORY - ERROR REMOVING BASKET ITEMS: $e');
+      return DataFailed(DioException(
+        requestOptions: RequestOptions(path: ''),
+        message: e.toString(),
+      ));
+    }
   }
 
   @override
@@ -68,6 +79,10 @@ class BasketRepositoryImpl implements BasketRepository {
   @override
   Future<DataState<BasketInfoEntity>> getBasketInfo(List<BasketInfoRequestEntity> request, int deliveryId) async {
     try {
+      // Получаем выбранный адрес
+      final selectedAddress = getIt<CreateOrderStateCubit>().state.deliveryAddress;
+      final addressId = selectedAddress?.id;
+      
       var requestDto = BasketInfoRequestBasketDto(
         basket: request.map((r) => BasketInfoRequestDto(
           id: r.id,
@@ -78,9 +93,13 @@ class BasketRepositoryImpl implements BasketRepository {
           )).toList() ?? [],
         )).toList(),
         deliveryId: deliveryId,
+        addressId: addressId,
       );
       BasketInfoDto basketInfo = await _service.basketInfo(requestDto);
-      print(jsonEncode(requestDto.toJson()));
+      print('BASKET REQUEST: ${jsonEncode(requestDto.toJson())}');
+      print('DELIVERY ID: $deliveryId');
+      print('BASKET REQUEST - DELIVERY ID: ${requestDto.deliveryId}');
+      print('BASKET REQUEST - ADDRESS ID: ${requestDto.addressId}');
       return DataSuccess(
         BasketInfoEntity(
           products: ProductsMapper.toProductsEntity(basketInfo.products),

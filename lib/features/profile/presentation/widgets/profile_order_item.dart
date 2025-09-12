@@ -95,7 +95,7 @@ class ProfileOrderItem extends StatelessWidget {
                             height: 4,
                           ),
                           Text(
-                            'Доставлен 12 авг. 13:00',
+                            'Создан ${DateFormat('d MMM kk:mm', 'ru_RU').format(order.createdAt.toLocal())}',
                             style: AppStyles.footnote.copyWith(
                               color: AppColors.gray,
                             ),

@@ -118,8 +118,8 @@ class AddChildPage extends StatelessWidget {
   }
 
   Widget _buildBody(
-    BuildContext context,
-  ) {
+      BuildContext context,
+      ) {
     return BlocListener<AddChildBloc, AddChildState>(
       listener: (context, state) {
         state.maybeWhen(
@@ -133,42 +133,44 @@ class AddChildPage extends StatelessWidget {
           orElse: () {},
         );
       },
-      child: const Column(
-        children: [
-          SizedBox(height: 20),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: RulesLink(),
-          ),
-          SizedBox(height: 16),
-          AddChild(),
-          // SizedBox(
-          //   height: 16,
-          // ),
-          // Padding(
-          //   padding: EdgeInsets.symmetric(horizontal: 16),
-          //   child: GestureDetector(
-          //     //onTap: () => context.navigateTo(const AddChildRoute()),
-          //     child: SizedBox(
-          //       width: double.infinity,
-          //       height: 48,
-          //       child: DottedBorder(
-          //         borderType: BorderType.RRect,
-          //         dashPattern: const [8, 8],
-          //         color: AppColors.gray,
-          //         radius: Radius.circular(AppStyles.radiusElement),
-          //         strokeWidth: 1,
-          //         child: Center(
-          //           child: Text(
-          //             'Сохранить и добавить ещё +',
-          //             style: AppStyles.bodyBold.copyWith(color: AppColors.gray),
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // ),
-        ],
+      child: const SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: 20),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: RulesLink(),
+            ),
+            SizedBox(height: 16),
+            AddChild(),
+            // SizedBox(
+            //   height: 16,
+            // ),
+            // Padding(
+            //   padding: EdgeInsets.symmetric(horizontal: 16),
+            //   child: GestureDetector(
+            //     //onTap: () => context.navigateTo(const AddChildRoute()),
+            //     child: SizedBox(
+            //       width: double.infinity,
+            //       height: 48,
+            //       child: DottedBorder(
+            //         borderType: BorderType.RRect,
+            //         dashPattern: const [8, 8],
+            //         color: AppColors.gray,
+            //         radius: Radius.circular(AppStyles.radiusElement),
+            //         strokeWidth: 1,
+            //         child: Center(
+            //           child: Text(
+            //             'Сохранить и добавить ещё +',
+            //             style: AppStyles.bodyBold.copyWith(color: AppColors.gray),
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+          ],
+        ),
       ),
     );
   }

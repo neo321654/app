@@ -13,6 +13,7 @@ BasketInfoRequestBasketDto _$BasketInfoRequestBasketDtoFromJson(
           .map((e) => BasketInfoRequestDto.fromJson(e as Map<String, dynamic>))
           .toList(),
       deliveryId: (json['delivery_id'] as num).toInt(),
+      addressId: (json['address_id'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$BasketInfoRequestBasketDtoToJson(
@@ -20,4 +21,5 @@ Map<String, dynamic> _$BasketInfoRequestBasketDtoToJson(
     <String, dynamic>{
       'basket': instance.basket,
       'delivery_id': instance.deliveryId,
+      if (instance.addressId case final value?) 'address_id': value,
     };

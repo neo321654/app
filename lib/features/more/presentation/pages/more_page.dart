@@ -289,7 +289,7 @@ class MorePage extends StatelessWidget {
             },
             child: Center(
               child: SizedBox(
-                height: 55.79,
+                height: 150.79,
                 width: double.infinity,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -306,8 +306,11 @@ class MorePage extends StatelessWidget {
                       height: 4,
                     ),
                     Center(
-                      child: SvgPicture.asset(
-                        'assets/icons/monobox_logo.svg',
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: SvgPicture.asset(
+                          'assets/icons/monobox_logo.svg',
+                        ),
                       ),
                     ),
                   ],

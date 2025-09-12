@@ -55,9 +55,10 @@ class _AddChildrenBoxState extends State<AddChildrenBox> {
             ),
             GestureDetector(
               behavior: HitTestBehavior.translucent,
-              onTap: () {
+              onTap: () async {
+                await getIt<Store>().closedAboutChildren();
                 setState(() {
-                  getIt<Store>().closedAboutChildren();
+                  // Обновляем состояние виджета
                 });
               },
               child: Container(

@@ -394,31 +394,31 @@ class LoyaltyPage extends StatelessWidget {
                 ),
                 const LoyaltyDescItem(
                   title: 'Сделайте заказ',
-                  description: 'На сайте, в заведении или в приложении. \nЕсли вы заказывали в заведении, нужно ввести код с чека тут.',
+                  description: '',
                   icon: 'assets/icons/how_works1.svg',
                 ),
                 const SizedBox(
                   height: 24,
                 ),
                 const LoyaltyDescItem(
-                  title: 'Мы начислим бонусы в зависимости\nот вашего статуса заказ',
-                  description: 'На сайте, в заведении или в приложении.\nЕсли вы заказывали в заведении, нужно ввести код с чека тут.',
+                  title: 'Мы начислим бонусы в зависимости\nот вашего статуса заказ',
+                  description: '',
                   icon: 'assets/icons/how_works2.svg',
                 ),
                 const SizedBox(
                   height: 24,
                 ),
                 const LoyaltyDescItem(
-                  title: 'Повысим ваш статус за покупки',
-                  description: 'На сайте, в заведении или в приложении. \nЕсли вы заказывали в заведении, нужно ввести код с чека тут.',
+                  title: 'Повысим ваш статус за покупки',
+                  description: '',
                   icon: 'assets/icons/how_works3.svg',
                 ),
                 const SizedBox(
                   height: 24,
                 ),
                 const LoyaltyDescItem(
-                  title: 'Можете списать бонусами до 35% от суммы заказа',
-                  description: 'На сайте, в заведении или в приложении. \nЕсли вы заказывали в заведении, нужно ввести код с чека тут.',
+                  title: 'Можете списать бонусами до 35% от суммы заказа',
+                  description: '',
                   icon: 'assets/icons/how_works4.svg',
                   isLast: true,
                 ),

@@ -113,14 +113,14 @@ class ProfileBonusses extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              context.watch<ProfileCubit>().state.maybeMap(
-                    done: (value) => value.profile.bonus!.numberCard != null
-                        ? QrButton(
-                            numberCard: value.profile.bonus!.numberCard!,
-                          )
-                        : Container(),
-                    orElse: () => Container(),
-                  ),
+              // context.watch<ProfileCubit>().state.maybeMap(
+              //       done: (value) => value.profile.bonus!.numberCard != null
+              //           ? QrButton(
+              //               numberCard: value.profile.bonus!.numberCard!,
+              //             )
+              //           : Container(),
+              //       orElse: () => Container(),
+              //     ),
             ],
           ),
         ),

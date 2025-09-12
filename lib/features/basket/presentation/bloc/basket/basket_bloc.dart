@@ -208,8 +208,9 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
     Emitter<BasketState> emit,
   ) async {
     if (state is BasketLoaded) {
+      print('BASKET - REMOVING ALL OFFERS');
       deleteOferTimer?.cancel();
-      _removeAllBasketItemsUseCase();
+      await _removeAllBasketItemsUseCase();
 
       final BasketEntity basket = (state as BasketLoaded).basket;
 
@@ -225,6 +226,9 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
           ),
         ),
       );
+      print('BASKET - ALL OFFERS REMOVED SUCCESSFULLY');
+    } else {
+      print('BASKET - CANNOT REMOVE OFFERS: state is not BasketLoaded');
     }
   }
 

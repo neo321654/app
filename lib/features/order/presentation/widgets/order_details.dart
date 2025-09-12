@@ -44,7 +44,23 @@ class _OrderDetailsState extends State<OrderDetails> {
   @override
   void initState() {
     isCanceled = widget.order.status.toLowerCase() == 'отменен';
+
+    // 🔎 Debug: print address info
+    print('fullAddress: ${widget.order.address?.fullAddress}');
+    print('title: ${widget.order.address?.title}');
+
     super.initState();
+  }
+
+  // Проверяем, можно ли отменить заказ
+  bool get canCancelOrder {
+    // Нельзя отменить если заказ уже отменен
+    if (isCanceled) return false;
+    
+    // Нельзя отменить если заказ доставлен
+    if (widget.order.status.toLowerCase() == 'заказ доставлен') return false;
+    
+    return true;
   }
 
   @override
@@ -69,12 +85,8 @@ class _OrderDetailsState extends State<OrderDetails> {
           ),
           RoundedContainer(
             header: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text(
-                  'Доставим к ~13:15',
-                  style: AppStyles.headline,
-                ),
                 OrderBadge(
                   text: isCanceled ? 'Отменен' : widget.order.status,
                   status: OrderStatus.delivered,
@@ -140,13 +152,30 @@ class _OrderDetailsState extends State<OrderDetails> {
                   height: 56,
                   child: BlocBuilder<SettingsBloc, SettingsState>(
                     builder: (context, state) {
+                      // Проверяем, есть ли доступные способы связи
+                      bool hasAvailableContacts = false;
+                      state.maybeWhen(
+                        success: (settings) {
+                          hasAvailableContacts = 
+                            (settings.feedback?.phone != null && (settings.feedback?.phone ?? '').trim().isNotEmpty) ||
+                            (settings.feedback?.vk != null && (settings.feedback?.vk ?? '').trim().isNotEmpty) ||
+                            (settings.feedback?.wa != null && (settings.feedback?.wa ?? '').trim().isNotEmpty) ||
+                            (settings.feedback?.tg != null && (settings.feedback?.tg ?? '').trim().isNotEmpty);
+                        },
+                        orElse: () => hasAvailableContacts = false,
+                      );
+
                       return ElevatedButton(
-                        style: AppStyles.lightGreyElevatedButton,
-                        onPressed: () {
+                        style: hasAvailableContacts 
+                          ? AppStyles.lightGreyElevatedButton 
+                          : AppStyles.lightGreyElevatedButton.copyWith(
+                              backgroundColor: MaterialStateProperty.all(AppColors.lightGray.withOpacity(0.5)),
+                            ),
+                        onPressed: hasAvailableContacts ? () {
                           final List<BottomSheetAction> actions = [];
                           state.maybeWhen(
                             success: (settings) async {
-                              if (settings.feedback?.phone != null) {
+                              if (settings.feedback?.phone != null && (settings.feedback?.phone ?? '').trim().isNotEmpty) {
                                 actions.add(BottomSheetAction(
                                   title: Text(
                                     'Вызов +${(settings.feedback?.phone ?? "")}',
@@ -155,16 +184,40 @@ class _OrderDetailsState extends State<OrderDetails> {
                                     ),
                                   ),
                                   onPressed: (context) async {
-                                    Uri phoneno = Uri(scheme: 'tel', path: '+${(settings.feedback?.phone ?? "")}');
-
-                                    if (await canLaunchUrl(phoneno)) {
-                                      await launchUrl(phoneno);
+                                    try {
+                                      String phoneNumber = settings.feedback?.phone ?? '';
+                                      print('Phone number: $phoneNumber'); // Отладочная информация
+                                      
+                                      Uri phoneno = Uri(scheme: 'tel', path: '+$phoneNumber');
+                                      print('Phone URI: $phoneno'); // Отладочная информация
+                                      
+                                      if (await canLaunchUrl(phoneno)) {
+                                        await launchUrl(phoneno, mode: LaunchMode.externalApplication);
+                                      } else {
+                                        print('Cannot launch phone URI: $phoneno'); // Отладочная информация
+                                        if (!context.mounted) return;
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text('Не удалось совершить звонок'),
+                                            backgroundColor: AppColors.destructive,
+                                          ),
+                                        );
+                                      }
+                                    } catch (e) {
+                                      print('Error launching phone URI: $e'); // Отладочная информация
+                                      if (!context.mounted) return;
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          content: Text('Ошибка при совершении звонка'),
+                                          backgroundColor: AppColors.destructive,
+                                        ),
+                                      );
                                     }
                                   },
                                 ));
                               }
 
-                              if (settings.feedback?.vk != null) {
+                              if (settings.feedback?.vk != null && (settings.feedback?.vk ?? '').trim().isNotEmpty) {
                                 actions.add(BottomSheetAction(
                                   title: Text(
                                     'Написать в BK',
@@ -173,16 +226,45 @@ class _OrderDetailsState extends State<OrderDetails> {
                                     ),
                                   ),
                                   onPressed: (context) async {
-                                    Uri link = Uri.parse(settings.feedback?.vk ?? '');
-
-                                    if (await canLaunchUrl(link)) {
-                                      await launchUrl(link);
+                                    try {
+                                      String vkUrl = settings.feedback?.vk ?? '';
+                                      print('VK URL: $vkUrl'); // Отладочная информация
+                                      
+                                      // Проверяем, что URL начинается с http/https
+                                      if (!vkUrl.startsWith('http://') && !vkUrl.startsWith('https://')) {
+                                        vkUrl = 'https://$vkUrl';
+                                      }
+                                      
+                                      Uri link = Uri.parse(vkUrl);
+                                      print('Parsed VK URI: $link'); // Отладочная информация
+                                      
+                                      if (await canLaunchUrl(link)) {
+                                        await launchUrl(link, mode: LaunchMode.externalApplication);
+                                      } else {
+                                        print('Cannot launch VK URL: $link'); // Отладочная информация
+                                        if (!context.mounted) return;
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text('Не удалось открыть ссылку ВКонтакте'),
+                                            backgroundColor: AppColors.destructive,
+                                          ),
+                                        );
+                                      }
+                                    } catch (e) {
+                                      print('Error launching VK URL: $e'); // Отладочная информация
+                                      if (!context.mounted) return;
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          content: Text('Ошибка при открытии ссылки ВКонтакте'),
+                                          backgroundColor: AppColors.destructive,
+                                        ),
+                                      );
                                     }
                                   },
                                 ));
                               }
 
-                              if (settings.feedback?.wa != null) {
+                              if (settings.feedback?.wa != null && (settings.feedback?.wa ?? '').trim().isNotEmpty) {
                                 actions.add(BottomSheetAction(
                                   title: Text(
                                     'Написать в WhatsApp',
@@ -191,16 +273,45 @@ class _OrderDetailsState extends State<OrderDetails> {
                                     ),
                                   ),
                                   onPressed: (context) async {
-                                    Uri link = Uri.parse(settings.feedback?.wa ?? '');
-
-                                    if (await canLaunchUrl(link)) {
-                                      await launchUrl(link);
+                                    try {
+                                      String waUrl = settings.feedback?.wa ?? '';
+                                      print('WhatsApp URL: $waUrl'); // Отладочная информация
+                                      
+                                      // Проверяем, что URL начинается с http/https
+                                      if (!waUrl.startsWith('http://') && !waUrl.startsWith('https://')) {
+                                        waUrl = 'https://$waUrl';
+                                      }
+                                      
+                                      Uri link = Uri.parse(waUrl);
+                                      print('Parsed WhatsApp URI: $link'); // Отладочная информация
+                                      
+                                      if (await canLaunchUrl(link)) {
+                                        await launchUrl(link, mode: LaunchMode.externalApplication);
+                                      } else {
+                                        print('Cannot launch WhatsApp URL: $link'); // Отладочная информация
+                                        if (!context.mounted) return;
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text('Не удалось открыть ссылку WhatsApp'),
+                                            backgroundColor: AppColors.destructive,
+                                          ),
+                                        );
+                                      }
+                                    } catch (e) {
+                                      print('Error launching WhatsApp URL: $e'); // Отладочная информация
+                                      if (!context.mounted) return;
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          content: Text('Ошибка при открытии ссылки WhatsApp'),
+                                          backgroundColor: AppColors.destructive,
+                                        ),
+                                      );
                                     }
                                   },
                                 ));
                               }
 
-                              if (settings.feedback?.tg != null) {
+                              if (settings.feedback?.tg != null && (settings.feedback?.tg ?? '').trim().isNotEmpty) {
                                 actions.add(BottomSheetAction(
                                   title: Text(
                                     'Написать в Telegram',
@@ -209,10 +320,39 @@ class _OrderDetailsState extends State<OrderDetails> {
                                     ),
                                   ),
                                   onPressed: (context) async {
-                                    Uri link = Uri.parse(settings.feedback?.tg ?? '');
-
-                                    if (await canLaunchUrl(link)) {
-                                      await launchUrl(link);
+                                    try {
+                                      String tgUrl = settings.feedback?.tg ?? '';
+                                      print('Telegram URL: $tgUrl'); // Отладочная информация
+                                      
+                                      // Проверяем, что URL начинается с http/https
+                                      if (!tgUrl.startsWith('http://') && !tgUrl.startsWith('https://')) {
+                                        tgUrl = 'https://$tgUrl';
+                                      }
+                                      
+                                      Uri link = Uri.parse(tgUrl);
+                                      print('Parsed Telegram URI: $link'); // Отладочная информация
+                                      
+                                      if (await canLaunchUrl(link)) {
+                                        await launchUrl(link, mode: LaunchMode.externalApplication);
+                                      } else {
+                                        print('Cannot launch Telegram URL: $link'); // Отладочная информация
+                                        if (!context.mounted) return;
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text('Не удалось открыть ссылку Telegram'),
+                                            backgroundColor: AppColors.destructive,
+                                          ),
+                                        );
+                                      }
+                                    } catch (e) {
+                                      print('Error launching Telegram URL: $e'); // Отладочная информация
+                                      if (!context.mounted) return;
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          content: Text('Ошибка при открытии ссылки Telegram'),
+                                          backgroundColor: AppColors.destructive,
+                                        ),
+                                      );
                                     }
                                   },
                                 ));
@@ -221,29 +361,19 @@ class _OrderDetailsState extends State<OrderDetails> {
                             orElse: () => null,
                           );
 
-                          showAdaptiveActionSheet(
-                            context: context,
-                            androidBorderRadius: 30,
-                            actions: actions,
-                            cancelAction: CancelAction(
-                              title: const Text(
-                                'Отмена',
+                          if (actions.isNotEmpty) {
+                            showAdaptiveActionSheet(
+                              context: context,
+                              androidBorderRadius: 30,
+                              actions: actions,
+                              cancelAction: CancelAction(
+                                title: const Text(
+                                  'Отмена',
+                                ),
                               ),
-                            ),
-                          );
-                          // state.maybeWhen(
-                          //   success: (settings) async {
-                          //     Uri phoneno = Uri(
-                          //         scheme: 'tel',
-                          //         path: '+${(settings.feedback?.phone ?? "")}');
-
-                          //     if (await canLaunchUrl(phoneno)) {
-                          //       await launchUrl(phoneno);
-                          //     }
-                          //   },
-                          //   orElse: () => null,
-                          // );
-                        },
+                            );
+                          }
+                        } : null,
                         child: SizedBox(
                           height: 24,
                           child: Row(
@@ -269,7 +399,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                               Text(
                                 'Связаться',
                                 style: AppStyles.callout.copyWith(
-                                  color: AppColors.darkPrimary,
+                                  color: hasAvailableContacts ? AppColors.darkPrimary : AppColors.gray,
                                   height: 1,
                                 ),
                               ),
@@ -283,7 +413,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                 const SizedBox(
                   height: 12,
                 ),
-                if (!isCanceled)
+                if (canCancelOrder)
                   SizedBox(
                     height: 56,
                     child: ElevatedButton(
@@ -353,18 +483,31 @@ class _OrderDetailsState extends State<OrderDetails> {
                 const SizedBox(
                   height: 16,
                 ),
+                // Text(
+                //   widget.order.address?.title ?? '',
+                //   style: AppStyles.subhead.copyWith(
+                //     color: AppColors.gray,
+                //   ),
+                // ),
                 Text(
-                  widget.order.address?.title ?? '',
-                  style: AppStyles.subhead.copyWith(
-                    color: AppColors.gray,
-                  ),
+                  (widget.order.address?.fullAddress?.isNotEmpty ?? false)
+                      ? widget.order.address!.fullAddress
+                      : (widget.order.address?.title ?? 'Адрес не указан'),
+                  style: AppStyles.subhead.copyWith(color: AppColors.gray),
+                  softWrap: true,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(
                   height: 16,
                 ),
                 InputText(
-                  hintText: widget.order.comment ?? 'Без пожеланий.',
+                  hintText: widget.order.comment?.isNotEmpty == true
+                      ? widget.order.comment!
+                      : 'Без пожеланий.',
                   readOnly: true,
+                  minLines: 1,
+                  maxLines: 4, // до трёх строк
                 ),
               ],
             ),

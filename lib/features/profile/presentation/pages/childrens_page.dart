@@ -9,6 +9,8 @@ import '../../../../injection_container.dart';
 import '../bloc/childrens/childrens_bloc.dart';
 import '../widgets/childrens_list.dart';
 import '../widgets/rules_link.dart';
+import '../widgets/add_child.dart';
+import '../bloc/add_child/add_child_bloc.dart';
 
 @RoutePage()
 class ChildrensPage extends StatelessWidget {
@@ -96,11 +98,7 @@ class ChildrensPage extends StatelessWidget {
       child: BlocConsumer<ChildrensBloc, ChildrensState>(
         listener: (context, state) {
           state.maybeWhen(
-            done: (childrens) {
-              if (childrens.isEmpty) {
-                context.replaceRoute(const AddChildRoute());
-              }
-            },
+            done: (_) {},
             orElse: () {},
           );
         },
@@ -108,12 +106,27 @@ class ChildrensPage extends StatelessWidget {
           return state.maybeWhen(
             done: (childrens) {
               if (childrens.isEmpty) {
-                return const Center(
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2,
-                  ),
+                return StatefulBuilder(
+                  builder: (context, setState) {
+                    return SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                        child: AddChild(
+                          key: UniqueKey(),
+                          onChildAdded: () {
+                            setState(() {});
+                            final bloc = context.read<ChildrensBloc>();
+                            if (!bloc.isClosed) {
+                              bloc.add(const ChildrensEvent.loadChildrens());
+                            }
+                          },
+                        ),
+                      ),
+                    );
+                  },
                 );
-              } else {
+              }
+              else {
                 return SingleChildScrollView(
                   child: Column(
                     children: [

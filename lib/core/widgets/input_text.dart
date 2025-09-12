@@ -27,6 +27,8 @@ class InputText extends StatelessWidget {
     this.scrollPadding,
     this.height,
     this.disableFocusBorder = false,
+    this.minLines,
+    this.maxLines,
   });
 
   final String? label;
@@ -50,6 +52,8 @@ class InputText extends StatelessWidget {
   final EdgeInsets? scrollPadding;
   final double? height;
   final bool disableFocusBorder;
+  final int? minLines;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -66,8 +70,11 @@ class InputText extends StatelessWidget {
             ),
           ),
         if (label?.isNotEmpty == true) AppStyles.xSsmallVGap,
-        SizedBox(
-          height: height,
+        Container(
+          height: height, // will be null (auto) if not provided
+          constraints: height == null
+              ? const BoxConstraints(minHeight: 48)
+              : null, // keep old min height when auto
           child: TextField(
             scrollPadding: scrollPadding ?? const EdgeInsets.all(20.0),
             onSubmitted: onSubmitted,
@@ -79,6 +86,9 @@ class InputText extends StatelessWidget {
             readOnly: readOnly,
             onTap: onTap,
             textCapitalization: textCapitalization,
+            minLines: minLines ?? 1,
+            maxLines: maxLines ?? 1, // null → unlimited
+            textAlignVertical: TextAlignVertical.top,
             decoration: InputDecoration(
               isDense: true,
               prefixIcon: prefixIcon,

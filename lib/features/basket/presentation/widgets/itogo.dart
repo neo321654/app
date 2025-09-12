@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:monobox/features/basket/presentation/bloc/basket_info/basket_info_bloc.dart';
 import 'package:monobox/features/basket/presentation/widgets/itogo_bottom.dart';
+import 'package:monobox/features/order/presentation/bloc/create_order_state_cubit/create_order_state_cubit.dart';
+import 'package:monobox/features/basket/domain/entities/basket_pretotal_info_entity.dart';
 
 import '../../../../config/themes/colors.dart';
 import '../../../../config/themes/styles.dart';
@@ -73,54 +75,79 @@ class Itogo extends StatelessWidget {
                 //     ),
                 //   ),
                 // ),
-                success: (basketInfo) => Column(
-                  children: [
-                    ...basketInfo.pretotalInfo.map(
-                      (pretotalInfo) => Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              pretotalInfo.title,
-                              style: AppStyles.caption1,
-                            ),
-                            Text(
-                              pretotalInfo.value,
-                              style: AppStyles.caption1Bold,
-                            ),
-                          ],
+                success: (basketInfo) {
+                  print('PRETOTAL INFO: \n' + basketInfo.pretotalInfo.map((e) => ' [32m${e.title}: ${e.value} [0m').join("\n"));
+                  print('WARNINGS: ${basketInfo.warnings}');
+                  print('BASKET - SELECTED ADDRESS:  [33m${context.read<CreateOrderStateCubit>().state.deliveryAddress?.address} (ID: ${context.read<CreateOrderStateCubit>().state.deliveryAddress?.id}) [0m');
+                  print('BASKET - DELIVERY TYPE:  [33m${context.read<CreateOrderStateCubit>().state.delivery?.type} (ID: ${context.read<CreateOrderStateCubit>().state.delivery?.id}) [0m');
+                  print('BASKET - DELIVERY NAME:  [33m${context.read<CreateOrderStateCubit>().state.delivery?.name} [0m');
+
+                  // Копируем pretotalInfo для возможного добавления строки доставки
+                  final List<BasketPretotalnfoEntity> pretotalInfo = List.from(basketInfo.pretotalInfo);
+                  final deliveryType = context.read<CreateOrderStateCubit>().state.delivery?.type;
+                  final totalWithDelivery = context.read<CreateOrderStateCubit>().state.delivery?.type == 'delivery'
+                      ? context.read<CreateOrderStateCubit>().state.delivery != null
+                        ? basketInfo.totalInfo.total + _getDeliveryCostFromPretotal(pretotalInfo)
+                        : basketInfo.totalInfo.total
+                      : basketInfo.totalInfo.total;
+
+                  // Проверяем, есть ли строка доставки
+                  bool hasDeliveryRow = pretotalInfo.any((e) => e.title.toLowerCase().contains('доставка'));
+                  // Если доставки нет, но доставка выбрана и сумма больше, чем total, добавляем вручную
+                  if (deliveryType == 'delivery' && !hasDeliveryRow && totalWithDelivery > basketInfo.totalInfo.total) {
+                    final deliveryCost = totalWithDelivery - basketInfo.totalInfo.total;
+                    pretotalInfo.add(BasketPretotalnfoEntity(title: 'Доставка', value: '$deliveryCost ₽'));
+                  }
+
+                  return Column(
+                    children: [
+                      ...pretotalInfo.map(
+                        (pretotalInfo) => Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                pretotalInfo.title,
+                                style: AppStyles.caption1,
+                              ),
+                              Text(
+                                pretotalInfo.value,
+                                style: AppStyles.caption1Bold,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          basketInfo.bonusInfo.title,
-                          style: AppStyles.caption1,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              basketInfo.bonusInfo.value,
-                              style: AppStyles.caption1Bold,
-                            ),
-                            AppStyles.xxsmall6HGap,
-                            SizedBox(
-                              width: 14,
-                              height: 14,
-                              child: SvgPicture.asset(
-                                'assets/icons/bonus_icn.svg',
-                                color: AppColors.lightPrimary,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            basketInfo.bonusInfo.title,
+                            style: AppStyles.caption1,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                basketInfo.bonusInfo.value,
+                                style: AppStyles.caption1Bold,
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                              AppStyles.xxsmall6HGap,
+                              SizedBox(
+                                width: 14,
+                                height: 14,
+                                child: SvgPicture.asset(
+                                  'assets/icons/bonus_icn.svg',
+                                  color: AppColors.lightPrimary,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  );
+                },
               );
             },
           ),
@@ -222,4 +249,16 @@ class Itogo extends StatelessWidget {
       ),
     );
   }
+}
+
+// Добавить вспомогательную функцию для получения стоимости доставки из pretotalInfo
+int _getDeliveryCostFromPretotal(List<BasketPretotalnfoEntity> pretotalInfo) {
+  for (var pretotalItem in pretotalInfo) {
+    if (pretotalItem.title.toLowerCase().contains('доставка')) {
+      final value = pretotalItem.value.replaceAll(' ₽', '').trim();
+      final cost = int.tryParse(value);
+      if (cost != null) return cost;
+    }
+  }
+  return 0;
 }

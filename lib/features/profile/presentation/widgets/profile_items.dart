@@ -8,6 +8,8 @@ import 'package:monobox/features/profile/presentation/widgets/my_address.dart';
 import '../../../../config/routes/app_router.dart';
 import '../../../../config/themes/colors.dart';
 import '../../../../config/themes/styles.dart';
+import '../../../../core/resources/store.dart';
+import '../../../../injection_container.dart';
 import '../models/profile_item.dart' as profile_item_model;
 import 'add_children.dart';
 import 'my_cards.dart';
@@ -68,16 +70,23 @@ class ProfileItems extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (BuildContext context, int index) {
+              // Фильтруем элементы, исключая "Добавить ребёнка" если пользователь закрыл информационное сообщение
+              final filteredItems = _getFilteredItems();
+              if (index >= filteredItems.length) return const SizedBox.shrink();
+              
               return ProfileItem(
-                icon: _prfileItems[index].icon,
-                text: _prfileItems[index].text,
-                subText: index == 1 ? const AddChildrenBox() : null,
-                textColor: (index + 1) == _prfileItems.length ? AppColors.destructive : null,
-                showArrow: (index + 1) != _prfileItems.length,
-                onTap: (BuildContext context) => _prfileItems[index].onTap != null ? _prfileItems[index].onTap!(context) : null,
+                icon: filteredItems[index].icon,
+                text: filteredItems[index].text,
+                subText: filteredItems[index].text == 'Добавить ребёнка' ? const AddChildrenBox() : null,
+                textColor: (index + 1) == filteredItems.length ? AppColors.destructive : null,
+                showArrow: (index + 1) != filteredItems.length,
+                onTap: (BuildContext context) => filteredItems[index].onTap != null ? filteredItems[index].onTap!(context) : null,
               );
             },
             separatorBuilder: (context, index) {
+              final filteredItems = _getFilteredItems();
+              if (index >= filteredItems.length - 1) return const SizedBox.shrink();
+              
               return Container(
                 height: 20,
                 decoration: const BoxDecoration(
@@ -90,11 +99,29 @@ class ProfileItems extends StatelessWidget {
                 ),
               );
             },
-            itemCount: _prfileItems.length,
+            itemCount: _getFilteredItems().length,
           ),
         ],
       ),
     );
+  }
+
+  List<profile_item_model.ProfileItem> _getFilteredItems() {
+    final store = getIt<Store>();
+    final isChildrenClosed = store.isClosedAboutChildren();
+    
+    if (isChildrenClosed) {
+      // Исключаем элемент "Добавить ребёнка" из списка
+      return _prfileItems.where((item) => item.text != 'Добавить ребёнка').toList();
+    }
+    
+    return _prfileItems;
+  }
+
+  // Метод для программного скрытия элемента "Добавить ребёнка"
+  static Future<void> hideAddChildItem() async {
+    final store = getIt<Store>();
+    await store.closedAboutChildren();
   }
 
   final List<profile_item_model.ProfileItem> _prfileItems = [
@@ -114,7 +141,7 @@ class ProfileItems extends StatelessWidget {
     ),
     profile_item_model.ProfileItem(
       icon: 'assets/icons/box.svg',
-      text: 'Все заказы',
+      text: 'Все заказы',
       onTap: (BuildContext context) {
         context.navigateTo(MyOrdersRoute());
       },

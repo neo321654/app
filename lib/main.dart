@@ -189,7 +189,9 @@ class MainWidget extends StatelessWidget {
           ),
           BlocListener<DeliveryBloc, DeliveriesState>(
             listener: (context, state) {
+              print('MAIN - DELIVERY BLOC STATE: ${state.runtimeType}');
               if (state is DeliveriesDone) {
+                print('MAIN - DELIVERIES DONE, LOADING BASKET');
                 getIt<BasketBloc>().add(LoadBasket());
               }
             },
@@ -201,7 +203,12 @@ class MainWidget extends StatelessWidget {
                 int? deliveryId;
 
                 if (getIt<CreateOrderStateCubit>().state.delivery == null) {
-                  deliveryId = getIt<DeliveryBloc>().state.deliveries?.isNotEmpty == true ? getIt<DeliveryBloc>().state.deliveries![0].id : null;
+                  // Ищем доставку (не pickup) по умолчанию
+                  final deliveryOption = getIt<DeliveryBloc>().state.deliveries?.firstWhere(
+                    (delivery) => delivery.type == 'delivery',
+                    orElse: () => getIt<DeliveryBloc>().state.deliveries!.first,
+                  );
+                  deliveryId = deliveryOption?.id;
                 } else {
                   if (getIt<DeliveryBloc>().state.deliveries?.isNotEmpty == true) {
                     //deliveryId = getIt<DeliveryBloc>().state.deliveries!.indexOf(getIt<CreateOrderStateCubit>().state.delivery!);
@@ -209,27 +216,38 @@ class MainWidget extends StatelessWidget {
                   }
                 }
 
-                getIt<BasketInfoBloc>().add(
-                  BasketInfoEvent.getBasketInfo(
-                    [
-                      ...basket.offers.map(
-                        (offer) => BasketInfoRequestEntity(
-                          id: offer.product.id ?? 0,
-                          qnt: offer.quantity ?? 1,
-                            modifiers: offer.addOptions != null
-                                ? offer.addOptions!
-                                .where((modifier) => modifier.id != null)
-                                .map((modifier) => BasketModifireEntity(
-                              id: modifier.id!,
-                              qnt: modifier.quantity,
-                            )).toList()
-                                : [],
-                        ),
-                      )
-                    ],
-                    deliveryId: deliveryId,
-                  ),
-                );
+                print('MAIN - DELIVERY ID: $deliveryId');
+                print('MAIN - SELECTED DELIVERY: ${getIt<CreateOrderStateCubit>().state.delivery?.name} (TYPE: ${getIt<CreateOrderStateCubit>().state.delivery?.type}, ID: ${getIt<CreateOrderStateCubit>().state.delivery?.id})');
+                print('MAIN - SELECTED ADDRESS: ${getIt<CreateOrderStateCubit>().state.deliveryAddress?.address} (ID: ${getIt<CreateOrderStateCubit>().state.deliveryAddress?.id})');
+                print('MAIN - AVAILABLE DELIVERIES: ${getIt<DeliveryBloc>().state.deliveries?.map((d) => '${d.id}:${d.name}(${d.type})').join(', ')}');
+                
+                // ВАЖНО: вызываем пересчет корзины только если адрес уже установлен
+                if (getIt<CreateOrderStateCubit>().state.deliveryAddress != null) {
+                  print('MAIN - CALLING BASKET INFO BLOC with deliveryId: $deliveryId and addressId: ${getIt<CreateOrderStateCubit>().state.deliveryAddress?.id}');
+                  getIt<BasketInfoBloc>().add(
+                    BasketInfoEvent.getBasketInfo(
+                      [
+                        ...basket.offers.map(
+                          (offer) => BasketInfoRequestEntity(
+                            id: offer.product.id ?? 0,
+                            qnt: offer.quantity ?? 1,
+                              modifiers: offer.addOptions != null
+                                  ? offer.addOptions!
+                                  .where((modifier) => modifier.id != null)
+                                  .map((modifier) => BasketModifireEntity(
+                                id: modifier.id!,
+                                qnt: modifier.quantity,
+                              )).toList()
+                                  : [],
+                          ),
+                        )
+                      ],
+                      deliveryId: deliveryId,
+                    ),
+                  );
+                } else {
+                  print('MAIN - SKIPPING BASKET RECALCULATION: address not set yet');
+                }
               }
             },
           ),
@@ -239,6 +257,34 @@ class MainWidget extends StatelessWidget {
                 success: (addresses) {
                   if (addresses.isNotEmpty && getIt<CreateOrderStateCubit>().state.deliveryAddress == null) {
                     getIt<CreateOrderStateCubit>().setDeliveryAddress(addresses[0]);
+                    
+                    // ВАЖНО: только после установки адреса вызываем пересчет корзины
+                    if (getIt<BasketBloc>().state is BasketLoaded) {
+                      final basket = (getIt<BasketBloc>().state as BasketLoaded).basket;
+                      final delivery = getIt<CreateOrderStateCubit>().state.delivery;
+                      
+                      if (delivery != null) {
+                        print('MAIN - ADDRESS SET, RECALCULATING BASKET with deliveryId: ${delivery.id} and addressId: ${addresses[0].id}');
+                        getIt<BasketInfoBloc>().add(
+                          BasketInfoEvent.getBasketInfo(
+                            basket.offers.map((offer) => BasketInfoRequestEntity(
+                              id: offer.product.id ?? 0,
+                              qnt: offer.quantity ?? 1,
+                              modifiers: offer.addOptions != null
+                                  ? offer.addOptions!
+                                      .where((modifier) => modifier.id != null)
+                                      .map((modifier) => BasketModifireEntity(
+                                            id: modifier.id!,
+                                            qnt: modifier.quantity,
+                                          ))
+                                      .toList()
+                                  : [],
+                            )).toList(),
+                            deliveryId: delivery.id,
+                          ),
+                        );
+                      }
+                    }
                   }
                 },
               );

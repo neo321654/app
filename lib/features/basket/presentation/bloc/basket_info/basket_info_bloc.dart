@@ -24,6 +24,9 @@ class BasketInfoBloc extends Bloc<BasketInfoEvent, BasketInfoState> {
     try {
       emit(const BasketInfoState.loading());
 
+      print('BASKET INFO BLOC - REQUEST: ${event.request.length} items');
+      print('BASKET INFO BLOC - DELIVERY ID: ${event.deliveryId}');
+      
       final dataState = await _getBasketInfoUsecase(
           params: BasketRequest(
         baket: event.request,

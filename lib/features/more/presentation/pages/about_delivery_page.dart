@@ -154,7 +154,7 @@ class _AboutDeliveryPageState extends State<AboutDeliveryPage> {
             ),
             RoundedContainer(
               header: Text(
-                'Доставка в Набережных челнах',
+                'Доставка в Москве',
                 style: AppStyles.headline,
               ),
               child: Column(
@@ -162,17 +162,9 @@ class _AboutDeliveryPageState extends State<AboutDeliveryPage> {
                   const SizedBox(
                     height: 12,
                   ),
+                 
                   Text(
-                    'Доставляем заказы с 10:00 до 23:00, принимаем заказы круглосуточно.',
-                    style: AppStyles.body.copyWith(
-                      color: AppColors.black,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    'Оформить заказ можно через приложение Monobox, наш сайт monobox.app и по номеру +7 924 348-95-43.',
+                    'Оформить заказ можно через приложение Мексиканская бабушка, наш сайт mexiba.ru и по номеру +7 495 990-48-65',
                     style: AppStyles.body.copyWith(
                       color: AppColors.black,
                     ),
@@ -203,7 +195,7 @@ class _AboutDeliveryPageState extends State<AboutDeliveryPage> {
                     height: 12,
                   ),
                   Text(
-                    'Время доставки может изменяться в зависимости от нагруженности кухни и вашего адреса, среднее время ожидания в будни — 50 минут, в выходные — 80 минут.',
+                    'Время доставки может изменяться в зависимости от нагруженности кухни и вашего адреса, среднее время ожидания - 30-40 минут.',
                     style: AppStyles.body.copyWith(
                       color: AppColors.black,
                     ),

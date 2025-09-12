@@ -54,241 +54,260 @@ class GiftScale extends StatelessWidget {
             ),
       child: Row(
         children: [
-          SizedBox(
-            width: 99,
-            height: 36,
-            child: ElevatedButton(
-              onPressed: () {
-                _showBottomSheet(context, _bottomSheetKey);
-                // showFlexibleBottomSheet(
-                //   minHeight: 0,
-                //   initHeight: 0.8,
-                //   maxHeight: 0.8,
-                //   context: context,
-                //   builder: _buildBottomSheet,
-                //   isExpand: true,
-                //   bottomSheetBorderRadius: const BorderRadius.only(
-                //     topLeft: Radius.circular(32),
-                //     topRight: Radius.circular(32),
-                //   ),
-                // );
-                // showModalBottomSheet(
-                //   isScrollControlled: true,
-                //   backgroundColor: AppColors.white,
-                //   useRootNavigator: true,
-                //   context: context,
-                //   clipBehavior: Clip.antiAliasWithSaveLayer,
-                //   shape: RoundedRectangleBorder(
-                //     borderRadius: BorderRadius.vertical(
-                //       top: Radius.circular(
-                //         AppStyles.radiusBlock,
-                //       ),
-                //     ),
-                //   ),
-                //   builder: (BuildContext context) {
-                //     return GiftSelector(
-                //       bottomSheetKey: _bottomSheetKey,
-                //     );
-                //   },
-                // );
-              },
-              style: AppStyles.greyElevatedButtonOpacity,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 1, right: 7),
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 2.44),
-                        width: 18,
-                        height: 18,
-                        child: SvgPicture.asset(
-                          'assets/icons/present.svg',
-                          color: AppColors.black,
+          BlocBuilder<GiftsScaleBloc, GiftsScaleState>(
+            builder: (context, state) {
+              List<GiftsScaleEntity> _loyalties = [];
+              state.maybeWhen(
+                success: (giftsScale) {
+                  _loyalties.addAll(giftsScale);
+                },
+                orElse: () {},
+              );
+              if (_loyalties.isEmpty) {
+                // Если подарков нет, ничего не показываем
+                return const SizedBox.shrink();
+              }
+              return Row(
+                children: [
+                  SizedBox(
+                    width: 99,
+                    height: 36,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _showBottomSheet(context, _bottomSheetKey);
+                        // showFlexibleBottomSheet(
+                        //   minHeight: 0,
+                        //   initHeight: 0.8,
+                        //   maxHeight: 0.8,
+                        //   context: context,
+                        //   builder: _buildBottomSheet,
+                        //   isExpand: true,
+                        //   bottomSheetBorderRadius: const BorderRadius.only(
+                        //     topLeft: Radius.circular(32),
+                        //     topRight: Radius.circular(32),
+                        //   ),
+                        // );
+                        // showModalBottomSheet(
+                        //   isScrollControlled: true,
+                        //   backgroundColor: AppColors.white,
+                        //   useRootNavigator: true,
+                        //   context: context,
+                        //   clipBehavior: Clip.antiAliasWithSaveLayer,
+                        //   shape: RoundedRectangleBorder(
+                        //     borderRadius: BorderRadius.vertical(
+                        //       top: Radius.circular(
+                        //         AppStyles.radiusBlock,
+                        //       ),
+                        //     ),
+                        //   ),
+                        //   builder: (BuildContext context) {
+                        //     return GiftSelector(
+                        //       bottomSheetKey: _bottomSheetKey,
+                        //     );
+                        //   },
+                        // );
+                      },
+                      style: AppStyles.greyElevatedButtonOpacity,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 1, right: 7),
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 2.44),
+                                width: 18,
+                                height: 18,
+                                child: SvgPicture.asset(
+                                  'assets/icons/present.svg',
+                                  color: AppColors.black,
+                                ),
+                              ),
+                              // const SizedBox(
+                              //   width: 6,
+                              // ),
+                              Text(
+                                'Подарок',
+                                style: AppStyles.subhead.copyWith(
+                                  height: 1,
+                                  color: AppColors.black,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      // const SizedBox(
-                      //   width: 6,
-                      // ),
-                      Text(
-                        'Подарок',
-                        style: AppStyles.subhead.copyWith(
-                          height: 1,
-                          color: AppColors.black,
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(
-            width: 12,
-          ),
-          Expanded(
-            child: BlocBuilder<GiftsScaleBloc, GiftsScaleState>(
-              builder: (context, state) {
-                var itemsCount = 0;
-                var activePercent = 0;
+                  const SizedBox(
+                    width: 12,
+                  ),
+                  Expanded(
+                    child: BlocBuilder<GiftsScaleBloc, GiftsScaleState>(
+                      builder: (context, state) {
+                        var itemsCount = 0;
+                        var activePercent = 0;
 
-                List<GiftsScaleEntity> _loyalties = [];
+                        List<GiftsScaleEntity> _loyalties = [];
 
-                state.maybeWhen(
-                  success: (giftsScale) {
-                    //_loyalties = loyalties;
-                    itemsCount = giftsScale.length;
-                    _loyalties.addAll(giftsScale);
-                    // loyalties.map((l) {
-                    //   activePercent++;
-                    //   if (l.active) {
-                    //     return;
-                    //   }
-                    // }).toList();
-                  },
-                  orElse: () {},
-                );
+                        state.maybeWhen(
+                          success: (giftsScale) {
+                            //_loyalties = loyalties;
+                            itemsCount = giftsScale.length;
+                            _loyalties.addAll(giftsScale);
+                            // loyalties.map((l) {
+                            //   activePercent++;
+                            //   if (l.active) {
+                            //     return;
+                            //   }
+                            // }).toList();
+                          },
+                          orElse: () {},
+                        );
 
-                double shkalaWidth = 0;
-                double basketTotal = basketBloc.subtotal.toDouble();
+                        double shkalaWidth = 0;
+                        double basketTotal = basketBloc.subtotal.toDouble();
 
-                double oneScaleWith = 100 / (itemsCount + 1) / 100;
+                        double oneScaleWith = 100 / (itemsCount + 1) / 100;
 
-                if (basketTotal > 0) {
-                  for (var i = 0; i < (itemsCount); i++) {
-                    double currentPrice = double.parse(_loyalties[i].price ?? '0');
-                    if (basketTotal >= currentPrice) {
-                      // double prev = (i == 0 ? 0 : double.parse(_loyalties[i - 1].price ?? '0'));
-                      // double current = (double.parse(_loyalties[i].price ?? '0') - prev);
-                      // shkalaWidth += (basketTotal / (current * (i + 1))) / (itemsCount + 2);
-                      // print('currentPrice = ${currentPrice} shkalaWidth = ${shkalaWidth}');
-                      shkalaWidth += oneScaleWith;
+                        if (basketTotal > 0) {
+                          for (var i = 0; i < (itemsCount); i++) {
+                            double currentPrice = double.parse(_loyalties[i].price ?? '0');
+                            if (basketTotal >= currentPrice) {
+                              // double prev = (i == 0 ? 0 : double.parse(_loyalties[i - 1].price ?? '0'));
+                              // double current = (double.parse(_loyalties[i].price ?? '0') - prev);
+                              // shkalaWidth += (basketTotal / (current * (i + 1))) / (itemsCount + 2);
+                              // print('currentPrice = ${currentPrice} shkalaWidth = ${shkalaWidth}');
+                              shkalaWidth += oneScaleWith;
 
-                      print('currentPrice = ${itemsCount} shkalaWidth = ${shkalaWidth}');
-                      if ((i + 1) == itemsCount) {
-                        double startPrice = currentPrice;
-                        //double endPrice = (i + 1) >= itemsCount ? (currentPrice + 1000) : double.parse(_loyalties[i + 1].price ?? '0');
-                        double endPrice = currentPrice + 1000;
-                        print('startPrice = ${startPrice} endPrice = ${endPrice} ${(((100 * (basketTotal - startPrice)) / (endPrice - startPrice)) / 100) * oneScaleWith}');
+                              print('currentPrice = ${itemsCount} shkalaWidth = ${shkalaWidth}');
+                              if ((i + 1) == itemsCount) {
+                                double startPrice = currentPrice;
+                                //double endPrice = (i + 1) >= itemsCount ? (currentPrice + 1000) : double.parse(_loyalties[i + 1].price ?? '0');
+                                double endPrice = currentPrice + 1000;
+                                print('startPrice = ${startPrice} endPrice = ${endPrice} ${(((100 * (basketTotal - startPrice)) / (endPrice - startPrice)) / 100) * oneScaleWith}');
 
-                        shkalaWidth += (((100 * (basketTotal - startPrice)) / (endPrice - startPrice)) / 100) * oneScaleWith;
-                        break;
-                      }
-                    } else {
-                      double startPrice = i == 0 ? 0 : double.parse(_loyalties[i - 1].price ?? '0');
-                      //double endPrice = (i + 1) >= itemsCount ? (currentPrice + 1000) : double.parse(_loyalties[i + 1].price ?? '0');
-                      double endPrice = currentPrice;
-                      print('startPrice = ${startPrice} endPrice = ${endPrice}');
+                                shkalaWidth += (((100 * (basketTotal - startPrice)) / (endPrice - startPrice)) / 100) * oneScaleWith;
+                                break;
+                              }
+                            } else {
+                              double startPrice = i == 0 ? 0 : double.parse(_loyalties[i - 1].price ?? '0');
+                              //double endPrice = (i + 1) >= itemsCount ? (currentPrice + 1000) : double.parse(_loyalties[i + 1].price ?? '0');
+                              double endPrice = currentPrice;
+                              print('startPrice = ${startPrice} endPrice = ${endPrice}');
 
-                      shkalaWidth += (((100 * (basketTotal - startPrice)) / (endPrice - startPrice)) / 100) * oneScaleWith;
-                      break;
-                    }
+                              shkalaWidth += (((100 * (basketTotal - startPrice)) / (endPrice - startPrice)) / 100) * oneScaleWith;
+                              break;
+                            }
 
-                    // else if ((basketTotal > (i == 0 ? 0 : double.parse(_loyalties[i - 1].price ?? '0')) && basketTotal < double.parse(_loyalties[i].price ?? '0'))) {
-                    //   double prev = (i == 0 ? 0 : double.parse(_loyalties[i - 1].price ?? '0'));
-                    //   shkalaWidth += ((basketTotal - prev) / double.parse(_loyalties[i].price ?? '0')) / (itemsCount + 2);
-                    // }
-                  }
-                }
-                return Stack(
-                  children: [
-                    LayoutBuilder(
-                      builder: (BuildContext context, BoxConstraints constraints) {
-                        return Container(
-                          width: constraints.maxWidth,
-                          clipBehavior: Clip.hardEdge,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 2.0,
-                              color: AppColors.superLight,
+                            // else if ((basketTotal > (i == 0 ? 0 : double.parse(_loyalties[i - 1].price ?? '0')) && basketTotal < double.parse(_loyalties[i].price ?? '0'))) {
+                            //   double prev = (i == 0 ? 0 : double.parse(_loyalties[i - 1].price ?? '0'));
+                            //   shkalaWidth += ((basketTotal - prev) / double.parse(_loyalties[i].price ?? '0')) / (itemsCount + 2);
+                            // }
+                          }
+                        }
+                        return Stack(
+                          children: [
+                            LayoutBuilder(
+                              builder: (BuildContext context, BoxConstraints constraints) {
+                                return Container(
+                                  width: constraints.maxWidth,
+                                  clipBehavior: Clip.hardEdge,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      width: 2.0,
+                                      color: AppColors.superLight,
+                                    ),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(
+                                        AppStyles.btnRadius,
+                                      ),
+                                    ),
+                                    color: AppColors.white,
+                                  ),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Container(
+                                      //width: itemsCount > 0 ? (constraints.maxWidth * ((itemsCount - 1) / activePercent)) : 0,
+                                      //width: itemsCount > 0 ? (constraints.maxWidth * (basketBloc.subtotal.toDouble() / ((itemsCount + 2) * 1000))) : 0,
+                                      width: itemsCount > 0 && basketBloc.subtotal.toDouble() > 0 ? (constraints.maxWidth * shkalaWidth) - 2 : 0,
+                                      decoration: const BoxDecoration(
+                                        color: AppColors.lightSeedColor,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(
-                                AppStyles.btnRadius,
+                            Container(
+                              height: 36,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 2.0,
+                                  color: AppColors.superLight,
+                                ),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(
+                                    AppStyles.btnRadius,
+                                  ),
+                                ),
+                              ),
+                              child: Row(
+                                //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  for (int i = 0; i < _loyalties.length; i++)
+                                    Expanded(
+                                      child: GiftScaleItem(
+                                        //value: (int.parse(_loyalties[i].price ?? '0')).toString(),
+                                        //isActive: (i < (activePercent - 2)),
+                                        isActive: (basketBloc.subtotal.toDouble()) >= double.parse(_loyalties[i].price ?? '0'),
+                                      ),
+                                    ),
+                                  Expanded(
+                                    child: Container(),
+                                  ),
+                                ],
                               ),
                             ),
-                            color: AppColors.white,
-                          ),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Container(
-                              //width: itemsCount > 0 ? (constraints.maxWidth * ((itemsCount - 1) / activePercent)) : 0,
-                              //width: itemsCount > 0 ? (constraints.maxWidth * (basketBloc.subtotal.toDouble() / ((itemsCount + 2) * 1000))) : 0,
-                              width: itemsCount > 0 && basketBloc.subtotal.toDouble() > 0 ? (constraints.maxWidth * shkalaWidth) - 2 : 0,
-                              decoration: const BoxDecoration(
-                                color: AppColors.lightSeedColor,
+                            Positioned(
+                              top: 16,
+                              left: 0,
+                              right: 0,
+                              child: SizedBox(
+                                height: 36,
+                                width: double.infinity,
+                                child: Stack(
+                                  //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    for (int i = 0; i < _loyalties.length; i++)
+                                      Positioned(
+                                        top: 0,
+                                        //left: ((((MediaQuery.of(context).size.width - 145) / (_loyalties.length + 1))) * (i)) + 1,
+                                        //left: (1 + constraints.maxWidth * (100 / (_loyalties.length + 1) / 100)) + 150,
+                                        left: ((((MediaQuery.of(context).size.width - 135 + pad) / (_loyalties.length + 1)) * ((i + 1) * .98)) - (50)),
+                                        child: GiftScaleItem(
+                                          //width: ((MediaQuery.of(context).size.width - 146) / (_loyalties.length + 1)) + 10,
+                                          width: 100,
+                                          value: (int.parse(_loyalties[i].price ?? '0')).toString(),
+                                          isActive: (basketBloc.subtotal.toDouble()) >= double.parse(_loyalties[i].price ?? '0'),
+                                        ),
+                                      ),
+                                    // Expanded(
+                                    //   child: Container(),
+                                    // ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
+                          ],
                         );
                       },
                     ),
-                    Container(
-                      height: 36,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 2.0,
-                          color: AppColors.superLight,
-                        ),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(
-                            AppStyles.btnRadius,
-                          ),
-                        ),
-                      ),
-                      child: Row(
-                        //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          for (int i = 0; i < _loyalties.length; i++)
-                            Expanded(
-                              child: GiftScaleItem(
-                                //value: (int.parse(_loyalties[i].price ?? '0')).toString(),
-                                //isActive: (i < (activePercent - 2)),
-                                isActive: (basketBloc.subtotal.toDouble()) >= double.parse(_loyalties[i].price ?? '0'),
-                              ),
-                            ),
-                          Expanded(
-                            child: Container(),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                      top: 16,
-                      left: 0,
-                      right: 0,
-                      child: SizedBox(
-                        height: 36,
-                        width: double.infinity,
-                        child: Stack(
-                          //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            for (int i = 0; i < _loyalties.length; i++)
-                              Positioned(
-                                top: 0,
-                                //left: ((((MediaQuery.of(context).size.width - 145) / (_loyalties.length + 1))) * (i)) + 1,
-                                //left: (1 + constraints.maxWidth * (100 / (_loyalties.length + 1) / 100)) + 150,
-                                left: ((((MediaQuery.of(context).size.width - 135 + pad) / (_loyalties.length + 1)) * ((i + 1) * .98)) - (50)),
-                                child: GiftScaleItem(
-                                  //width: ((MediaQuery.of(context).size.width - 146) / (_loyalties.length + 1)) + 10,
-                                  width: 100,
-                                  value: (int.parse(_loyalties[i].price ?? '0')).toString(),
-                                  isActive: (basketBloc.subtotal.toDouble()) >= double.parse(_loyalties[i].price ?? '0'),
-                                ),
-                              ),
-                            // Expanded(
-                            //   child: Container(),
-                            // ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              },
-            ),
+                  ),
+                ],
+              );
+            },
           ),
         ],
       ),

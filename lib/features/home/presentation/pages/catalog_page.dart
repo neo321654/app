@@ -21,6 +21,8 @@ import '../bloc/cubit/search_cubit.dart';
 import '../widgets/basket_badge.dart';
 import '../widgets/catalog_item.dart';
 import '../widgets/filter_list_container.dart';
+import 'package:monobox/features/home/presentation/bloc/gifts_scale/gifts_scale_bloc.dart';
+import 'package:monobox/features/order/presentation/bloc/create_order_state_cubit/create_order_state_cubit.dart';
 
 @RoutePage()
 class CatalogPage extends StatefulWidget {
@@ -439,11 +441,26 @@ class _CatalogPageState extends State<CatalogPage> {
                     ),
                     child: Column(
                       children: [
-                        const GiftScale(
-                          pad: -1,
-                          disableBox: true,
+                        BlocBuilder<GiftsScaleBloc, GiftsScaleState>(
+                          builder: (context, state) {
+                            final gifts = state.maybeWhen(
+                              success: (giftsScale) => giftsScale,
+                              orElse: () => [],
+                            );
+                            if (gifts.isEmpty) {
+                              return const SizedBox(height: 24);
+                            }
+                            return Column(
+                              children: [
+                                GiftScale(
+                                  pad: -1,
+                                  disableBox: true,
+                                ),
+                                const SizedBox(height: 12),
+                              ],
+                            );
+                          },
                         ),
-                        //const Spacer(),
                         SizedBox(
                           height: 52,
                           child: Row(
@@ -462,14 +479,52 @@ class _CatalogPageState extends State<CatalogPage> {
                                           orElse: () => print("BasketInfoBloc: other state"),
                                         );
 
-                                        return Text(
-                                          state.maybeWhen(
-                                            orElse: () => '...',
-                                            success: (basketInfo) => '${basketInfo.totalInfo.total} ₽',
+                                        return state.maybeWhen(
+                                          orElse: () => Text(
+                                            '...',
+                                            style: AppStyles.bodyBold.copyWith(
+                                              color: AppColors.black,
+                                            ),
                                           ),
-                                          style: AppStyles.bodyBold.copyWith(
-                                            color: AppColors.black,
-                                          ),
+                                          success: (basketInfo) {
+                                            // Получаем тип доставки
+                                            final deliveryType = getIt<CreateOrderStateCubit>().state.delivery?.type;
+                                            int totalWithDelivery = basketInfo.totalInfo.total;
+                                            
+                                            // Добавляем стоимость доставки только если это не самовывоз
+                                            if (deliveryType != 'pickup') {
+                                              // Ищем строку с доставкой в pretotalInfo
+                                              for (var pretotalItem in basketInfo.pretotalInfo) {
+                                                // Проверяем, что это строка с адресом (содержит адрес и стоимость)
+                                                if (pretotalItem.title.contains('ул') || pretotalItem.title.contains('д') || pretotalItem.title.contains('г')) {
+                                                  // Извлекаем стоимость доставки из строки "500 ₽"
+                                                  String deliveryValue = pretotalItem.value;
+                                                  if (deliveryValue.contains('₽')) {
+                                                    // Убираем " ₽" и парсим число
+                                                    String deliveryPriceStr = deliveryValue.replaceAll(' ₽', '').trim();
+                                                    try {
+                                                      int deliveryPrice = int.parse(deliveryPriceStr);
+                                                      totalWithDelivery += deliveryPrice;
+                                                      print('CATALOG - DELIVERY COST FOUND: $deliveryPrice ₽');
+                                                      print('CATALOG - TOTAL WITH DELIVERY: $totalWithDelivery ₽');
+                                                      break; // Нашли доставку, выходим из цикла
+                                                    } catch (e) {
+                                                      print('CATALOG - ERROR PARSING DELIVERY PRICE: $deliveryPriceStr');
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            } else {
+                                              print('CATALOG - PICKUP SELECTED, NOT ADDING DELIVERY COST');
+                                            }
+                                            
+                                            return Text(
+                                              '$totalWithDelivery ₽',
+                                              style: AppStyles.bodyBold.copyWith(
+                                                color: AppColors.black,
+                                              ),
+                                            );
+                                          },
                                         );
                                       },
                                     ),

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,25 +13,31 @@ import 'package:monobox/features/order/presentation/bloc/promocode/promocode_blo
 import 'package:share_plus/share_plus.dart';
 import 'package:shimmer/shimmer.dart';
 
+import 'package:monobox/features/basket/domain/entities/basket_entity.dart';
+import 'package:monobox/features/basket/domain/entities/basket_info_request_entity.dart';
+import 'package:monobox/features/basket/domain/entities/basket_modifire_entity.dart';
+import 'package:monobox/features/basket/presentation/bloc/basket/basket_bloc.dart';
+import 'package:monobox/features/basket/presentation/bloc/basket_info/basket_info_bloc.dart';
+import 'package:monobox/features/basket/presentation/bloc/basket/gifts/gifts_bloc.dart';
+import 'package:monobox/features/basket/presentation/bloc/basket/upsales/upsales_bloc.dart';
+import 'package:monobox/features/basket/presentation/widgets/basket_action_button.dart';
+import 'package:monobox/features/basket/presentation/widgets/basket_item.dart';
+import 'package:monobox/features/basket/presentation/widgets/choose_gifts.dart';
+import 'package:monobox/features/basket/presentation/widgets/choose_upsales.dart';
+import 'package:monobox/features/basket/presentation/widgets/itogo.dart';
+import 'package:monobox/features/basket/presentation/widgets/offers.dart';
+import 'package:monobox/features/order/domain/entities/order_create_entity.dart';
+import 'package:monobox/features/order/domain/entities/ordered_position_entity.dart';
+import 'package:monobox/features/order/domain/entities/upsale_request_entity.dart';
+import 'package:monobox/features/order/presentation/bloc/create_order_state_cubit/create_order_state_cubit.dart';
+import 'package:monobox/features/order/presentation/bloc/deliveries/deliveries_bloc.dart';
+import 'package:monobox/features/order/presentation/models/create_order_state.dart';
+import 'package:monobox/features/order/presentation/widgets/promocode.dart';
+import 'package:monobox/injection_container.dart';
+
 import '../../../../config/themes/colors.dart';
 import '../../../../config/themes/styles.dart';
 import '../../../../core/widgets/text_switcher.dart';
-import '../../../../injection_container.dart';
-import '../../../order/domain/entities/order_create_entity.dart';
-import '../../../order/domain/entities/ordered_position_entity.dart';
-import '../../../order/domain/entities/upsale_request_entity.dart';
-import '../../../order/presentation/bloc/create_order_state_cubit/create_order_state_cubit.dart';
-import '../../../order/presentation/bloc/deliveries/deliveries_bloc.dart';
-import '../../../order/presentation/models/create_order_state.dart';
-import '../../../order/presentation/widgets/promocode.dart';
-import '../bloc/basket/basket_bloc.dart';
-import '../bloc/basket/gifts/gifts_bloc.dart';
-import '../bloc/basket/upsales/upsales_bloc.dart';
-import '../widgets/basket_action_button.dart';
-import '../widgets/choose_gifts.dart';
-import '../widgets/choose_upsales.dart';
-import '../widgets/itogo.dart';
-import '../widgets/offers.dart';
 
 @RoutePage()
 class BasketPage extends StatefulWidget {
@@ -42,6 +49,7 @@ class BasketPage extends StatefulWidget {
 
 class _BasketPageState extends State<BasketPage> {
   late TextEditingController promoTextController;
+  Timer? _debounceTimer;
 
   @override
   void initState() {
@@ -52,6 +60,7 @@ class _BasketPageState extends State<BasketPage> {
   @override
   void dispose() {
     promoTextController.dispose();
+    _debounceTimer?.cancel();
     super.dispose();
   }
 
@@ -298,7 +307,15 @@ class _BasketPageState extends State<BasketPage> {
               BlocListener<DeliveryBloc, DeliveriesState>(
                 listener: (context, state) {
                   if (state is DeliveriesDone && state.deliveries?.isNotEmpty == true) {
-                    context.read<CreateOrderStateCubit>().setDelivery(state.deliveries![0]);
+                    // Автоматически выбираем доставку (не самовывоз)
+                    final deliveryOption = state.deliveries!.firstWhere(
+                      (delivery) => delivery.type == 'delivery',
+                      orElse: () => state.deliveries![0],
+                    );
+                    context.read<CreateOrderStateCubit>().setDelivery(deliveryOption);
+                    
+                    // ПЕРЕСЧЕТ КОРЗИНЫ ТЕПЕРЬ ДЕЛАЕТСЯ В MAIN.DART ПОСЛЕ УСТАНОВКИ АДРЕСА
+                    // Не вызываем здесь BasketInfoBloc, чтобы избежать дублирования
                   }
                 },
               ),
@@ -320,11 +337,59 @@ class _BasketPageState extends State<BasketPage> {
                             return BlocBuilder<DeliveryBloc, DeliveriesState>(
                               builder: (context, deliveriesState) {
                                 if (deliveriesState is DeliveriesDone) {
+                                  // Автоматически выбираем доставку (не самовывоз), если ничего не выбрано
+                                  if (state.delivery == null && deliveriesState.deliveries!.isNotEmpty) {
+                                    // Ищем доставку (не pickup)
+                                    final deliveryOption = deliveriesState.deliveries!.firstWhere(
+                                      (delivery) => delivery.type == 'delivery',
+                                      orElse: () => deliveriesState.deliveries![0], // если нет доставки, берем первую
+                                    );
+                                    
+                                    print('BASKET - AUTO SELECTING DELIVERY: ${deliveryOption.name} (ID: ${deliveryOption.id}, TYPE: ${deliveryOption.type})');
+                                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                                      context.read<CreateOrderStateCubit>().setDelivery(deliveryOption);
+                                    });
+                                  }
+                                  
                                   return TextSwitcher(
                                     items: (deliveriesState.deliveries ?? []).map((e) => e.name).toList(),
                                     selectedIndex: state.delivery == null ? 0 : deliveriesState.deliveries!.indexOf(state.delivery!),
                                     onTap: (int itemIndex) {
-                                      context.read<CreateOrderStateCubit>().setDelivery(deliveriesState.deliveries![itemIndex]);
+                                      final selectedDelivery = deliveriesState.deliveries![itemIndex];
+                                      context.read<CreateOrderStateCubit>().setDelivery(selectedDelivery);
+                                      
+                                      // Отменяем предыдущий таймер, если он есть
+                                      _debounceTimer?.cancel();
+                                      
+                                      // Устанавливаем новый таймер для debounce
+                                      _debounceTimer = Timer(const Duration(milliseconds: 300), () {
+                                        // Обновляем корзину с новым типом доставки только если адрес уже установлен
+                                        if (context.read<BasketBloc>().state is BasketLoaded && 
+                                            context.read<CreateOrderStateCubit>().state.deliveryAddress != null) {
+                                          final basket = (context.read<BasketBloc>().state as BasketLoaded).basket;
+                                          print('BASKET - DELIVERY CHANGED, RECALCULATING with deliveryId: ${selectedDelivery.id} and addressId: ${context.read<CreateOrderStateCubit>().state.deliveryAddress?.id}');
+                                          context.read<BasketInfoBloc>().add(
+                                            BasketInfoEvent.getBasketInfo(
+                                              basket.offers.map((offer) => BasketInfoRequestEntity(
+                                                id: offer.product.id ?? 0,
+                                                qnt: offer.quantity ?? 1,
+                                                modifiers: offer.addOptions != null
+                                                    ? offer.addOptions!
+                                                        .where((modifier) => modifier.id != null)
+                                                        .map((modifier) => BasketModifireEntity(
+                                                              id: modifier.id!,
+                                                              qnt: modifier.quantity,
+                                                            ))
+                                                        .toList()
+                                                    : [],
+                                              )).toList(),
+                                              deliveryId: selectedDelivery.id,
+                                            ),
+                                          );
+                                        } else {
+                                          print('BASKET - DELIVERY CHANGED, SKIPPING RECALCULATION: address not set yet');
+                                        }
+                                      });
                                     },
                                   );
                                 }
@@ -384,10 +449,16 @@ class _BasketPageState extends State<BasketPage> {
                         builder: (context, state) {
                           return state.maybeMap(
                             success: (value) {
-                              if (value.upsales.isNotEmpty) {
+                              if (value.upsales.length > 1) {
                                 return ChooseUpsales(
                                   upsale: value.upsales[1],
                                 );
+                              } else if (value.upsales.isNotEmpty) {
+                                return ChooseUpsales(
+                                  upsale: value.upsales.first,
+                                );
+                              } else {
+                                return Container();
                               }
                               return Container();
                             },

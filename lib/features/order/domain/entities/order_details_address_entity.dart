@@ -33,6 +33,20 @@ class OrderDetailsAddressEntity extends Equatable {
   final String? uid;
   final String? domofon;
 
+  /// Составной адрес в одну строку
+  String get fullAddress {
+    final parts = [
+      country,
+      region,
+      city,
+      house,
+      building,
+      entrance != null ? 'подъезд $entrance' : null,
+      floor != null ? '$floor эт.' : null,
+      appartment != null ? 'кв. $appartment' : null,
+    ].where((e) => e != null && e.isNotEmpty).join(', ');
+    return parts.isNotEmpty ? parts : (title ?? '');
+  }
   @override
   List<Object?> get props => [
         id,

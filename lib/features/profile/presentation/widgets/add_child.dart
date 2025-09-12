@@ -13,9 +13,12 @@ import '../bloc/add_child/add_child_bloc.dart';
 import '../bloc/add_child_form/add_child_form_cubit.dart';
 
 class AddChild extends StatefulWidget {
+  final VoidCallback? onChildAdded;
+
   const AddChild({
-    super.key,
-  });
+    Key? key,
+    this.onChildAdded,
+  }) : super(key: key);
 
   @override
   State<AddChild> createState() => _ChildItemState();
@@ -118,17 +121,18 @@ class _ChildItemState extends State<AddChild> {
                       return ElevatedButton(
                         onPressed: state.nameValid && state.birthDateValid && addChildState is! Loading
                             ? () {
-                                context.read<AddChildBloc>().add(
-                                      AddChildEvent.add(
-                                        AddChildRequestEntity(
-                                          name: nameTextController.text,
-                                          birthdate: DateFormat('dd.MM.yyyy').parse(
-                                            birthdateTextController.text,
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                              }
+                          context.read<AddChildBloc>().add(
+                            AddChildEvent.add(
+                              AddChildRequestEntity(
+                                name: nameTextController.text,
+                                birthdate: DateFormat('dd.MM.yyyy').parse(
+                                  birthdateTextController.text,
+                                ),
+                              ),
+                            ),
+                          );
+                          widget.onChildAdded?.call();
+                        }
                             : null,
                         child: addChildState.maybeMap(
                           loading: (value) => const SizedBox(

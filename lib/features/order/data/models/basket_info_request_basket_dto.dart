@@ -12,10 +12,12 @@ class BasketInfoRequestBasketDto {
   BasketInfoRequestBasketDto({
     required this.basket,
     required this.deliveryId,
+    this.addressId,
   });
 
   final List<BasketInfoRequestDto> basket;
   final int deliveryId;
+  final int? addressId;
 
   factory BasketInfoRequestBasketDto.fromJson(Map<String, dynamic> json) => _$BasketInfoRequestBasketDtoFromJson(json);
 

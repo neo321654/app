@@ -22,34 +22,9 @@ class DeliveryImmediately extends StatelessWidget {
         ),
         color: AppColors.lightScaffoldBackground,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Container(
-            height: 36,
-            width: double.infinity,
-            decoration: const BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  width: 1.0,
-                  color: AppColors.lightGray,
-                ),
-              ),
-            ),
-            child: Text(
-              'Доставим к ~13:15',
-              style: AppStyles.callout,
-            ),
-          ),
-          SizedBox(
-            height: 12,
-          ),
-          Text(
-            'Завершите оформление заказа и мы рассчитаем более точное время',
-            style: AppStyles.body,
-          ),
-        ],
+      child: Text(
+        'Завершите оформление заказа и мы рассчитаем более точное время',
+        style: AppStyles.body,
       ),
     );
   }

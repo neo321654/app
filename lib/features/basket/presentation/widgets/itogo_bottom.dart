@@ -7,6 +7,7 @@ import 'package:monobox/config/themes/styles.dart';
 import 'package:monobox/features/basket/presentation/bloc/basket/basket_bloc.dart';
 import 'package:monobox/features/basket/presentation/bloc/basket_info/basket_info_bloc.dart';
 import 'package:monobox/features/order/presentation/bloc/promocode/promocode_bloc.dart';
+import 'package:monobox/features/order/presentation/bloc/create_order_state_cubit/create_order_state_cubit.dart';
 import 'package:monobox/injection_container.dart';
 
 class ItogoBottom extends StatelessWidget {
@@ -26,14 +27,62 @@ class ItogoBottom extends StatelessWidget {
             children: [
               BlocBuilder<BasketInfoBloc, BasketInfoState>(
                 builder: (context, state) {
-                  return Text(
-                    state.maybeWhen(
-                      orElse: () => '...',
-                      success: (basketInfo) => '${basketInfo.totalInfo.total} ₽',
+                  return state.maybeWhen(
+                    orElse: () => Text(
+                      '...',
+                      style: AppStyles.bodyBold.copyWith(
+                        color: AppColors.black,
+                      ),
                     ),
-                    style: AppStyles.bodyBold.copyWith(
-                      color: AppColors.black,
-                    ),
+                    success: (basketInfo) {
+                      // Получаем тип доставки
+                      final deliveryType = getIt<CreateOrderStateCubit>().state.delivery?.type;
+                      
+                      // Если это самовывоз, показываем только total без доставки
+                      if (deliveryType == 'pickup') {
+                        return Text(
+                          '${basketInfo.totalInfo.total} ₽',
+                          style: AppStyles.bodyBold.copyWith(
+                            color: AppColors.black,
+                          ),
+                        );
+                      }
+                      
+                      // Если это доставка, ищем строку с адресом в pretotalInfo
+                      int totalWithDelivery = basketInfo.totalInfo.total;
+                      bool deliveryFound = false;
+                      
+                      for (var pretotalItem in basketInfo.pretotalInfo) {
+                        // Ищем строку с адресом (содержит адрес и стоимость доставки)
+                        if (pretotalItem.title.contains('ул') || pretotalItem.title.contains('д') || pretotalItem.title.contains('г') || pretotalItem.title.contains('пр-кт')) {
+                          String deliveryValue = pretotalItem.value;
+                          if (deliveryValue.contains('₽')) {
+                            String deliveryPriceStr = deliveryValue.replaceAll(' ₽', '').trim();
+                            try {
+                              int deliveryPrice = int.parse(deliveryPriceStr);
+                              totalWithDelivery += deliveryPrice;
+                              print('BASKET - DELIVERY COST FOUND: $deliveryPrice ₽');
+                              print('BASKET - TOTAL WITH DELIVERY: $totalWithDelivery ₽');
+                              deliveryFound = true;
+                              break; // Нашли доставку, выходим из цикла
+                            } catch (e) {
+                              print('BASKET - ERROR PARSING DELIVERY PRICE: $deliveryPriceStr');
+                            }
+                          }
+                        }
+                      }
+                      
+                      if (!deliveryFound) {
+                        print('BASKET - NO DELIVERY COST FOUND, USING TOTAL ONLY');
+                      }
+                      
+                      return Text(
+                        '$totalWithDelivery ₽',
+                        style: AppStyles.bodyBold.copyWith(
+                          color: AppColors.black,
+                        ),
+                      );
+                    },
                   );
                 },
               ),

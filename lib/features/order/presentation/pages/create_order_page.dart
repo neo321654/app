@@ -25,6 +25,8 @@ import '../../../../injection_container.dart';
 import '../../../address_setup/presentation/bloc/create_address/create_address_bloc.dart';
 import '../../../address_setup/presentation/bloc/user_address/user_address_bloc.dart';
 import '../../../basket/domain/entities/basket_entity.dart';
+import '../../../basket/domain/entities/basket_info_request_entity.dart';
+import '../../../basket/domain/entities/basket_modifire_entity.dart';
 import '../../../basket/presentation/bloc/basket/basket_bloc.dart';
 import '../../../basket/presentation/bloc/basket_info/basket_info_bloc.dart';
 import '../bloc/create_order_state_cubit/create_order_state_cubit.dart';
@@ -109,6 +111,12 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
           BlocListener<OrderBloc, OrderState>(
             listener: (context, state) {
               if (state is OrderCreated) {
+                // ВАЖНО: Очищаем корзину и обновляем список заказов ВСЕГДА после создания заказа
+                print('ORDER CREATED - CLEARING BASKET AND UPDATING ORDERS');
+                getIt<BasketBloc>().add(const RemoveAllOffers());
+                getIt<PromocodeBloc>().emit(const PromocodeState.initial());
+                getIt<OrdersListBloc>().add(const OrdersListEvent.getOrders());
+                
                 if (state.created.paymentUrl?.isNotEmpty == true) {
                   context.navigateTo(
                     CustonWebViewRoute(
@@ -116,34 +124,22 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                       url: state.created.paymentUrl!,
                       onPageFinished: (finishUrl) {
                         if (finishUrl.contains('/tinkoff/success') || finishUrl.contains('/tinkoff/fail')) {
-                          getIt<BasketBloc>().add(const RemoveAllOffers());
-                          getIt<PromocodeBloc>().emit(const PromocodeState.initial());
+                          // Дополнительно обновляем список заказов после оплаты
                           getIt<OrdersListBloc>().add(const OrdersListEvent.getOrders());
                           context.router.parent<TabsRouter>()?.navigate(OrderRoute(
                                 orderId: state.created.id,
                                 isNew: true,
                               ));
-
-                          // context.navigateTo(OrderRoute(
-                          //   orderId: state.created.id,
-                          // ));
                         }
                       },
                     ),
                   );
                 } else {
-                  getIt<BasketBloc>().add(const RemoveAllOffers());
-                  getIt<PromocodeBloc>().emit(const PromocodeState.initial());
-                  getIt<OrdersListBloc>().add(const OrdersListEvent.getOrders());
+                  // Если нет paymentUrl, сразу переходим к заказу
                   context.router.parent<TabsRouter>()?.navigate(OrderRoute(
                         orderId: state.created.id,
                         isNew: true,
                       ));
-                  // context.navigateTo(
-                  //   OrderRoute(
-                  //     orderId: state.created.id,
-                  //   ),
-                  // );
                 }
               }
 
@@ -355,7 +351,31 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                                 items: (deliveriesState.deliveries ?? []).map((e) => e.name).toList(),
                                 selectedIndex: state.delivery == null ? 0 : deliveriesState.deliveries!.indexOf(state.delivery!),
                                 onTap: (int itemIndex) {
-                                  context.read<CreateOrderStateCubit>().setDelivery(deliveriesState.deliveries![itemIndex]);
+                                  final selectedDelivery = deliveriesState.deliveries![itemIndex];
+                                  context.read<CreateOrderStateCubit>().setDelivery(selectedDelivery);
+                                  
+                                  // Обновляем корзину с новым типом доставки
+                                  if (context.read<BasketBloc>().state is BasketLoaded) {
+                                    final basket = (context.read<BasketBloc>().state as BasketLoaded).basket;
+                                    context.read<BasketInfoBloc>().add(
+                                      BasketInfoEvent.getBasketInfo(
+                                        basket.offers.map((offer) => BasketInfoRequestEntity(
+                                          id: offer.product.id ?? 0,
+                                          qnt: offer.quantity ?? 1,
+                                          modifiers: offer.addOptions != null
+                                              ? offer.addOptions!
+                                                  .where((modifier) => modifier.id != null)
+                                                  .map((modifier) => BasketModifireEntity(
+                                                        id: modifier.id!,
+                                                        qnt: modifier.quantity,
+                                                      ))
+                                                  .toList()
+                                              : [],
+                                        )).toList(),
+                                        deliveryId: selectedDelivery.id,
+                                      ),
+                                    );
+                                  }
                                 },
                               );
                             }
@@ -503,12 +523,48 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                         BlocBuilder<BasketInfoBloc, BasketInfoState>(
                           builder: (context, state) {
                             return state.maybeWhen(
-                              success: (basketInfo) => Text(
-                                '${basketInfo.totalInfo.total} ₽',
-                                style: AppStyles.bodyBold.copyWith(
-                                  color: AppColors.black,
-                                ),
-                              ),
+                              success: (basketInfo) {
+                                print('CREATE ORDER - TOTAL FROM BACKEND: ${basketInfo.totalInfo.total} ₽');
+                                print('CREATE ORDER - DISCOUNT FROM BACKEND: ${basketInfo.totalInfo.discountPrice} ₽');
+                                
+                                // Получаем тип доставки
+                                final deliveryType = getIt<CreateOrderStateCubit>().state.delivery?.type;
+                                int totalWithDelivery = basketInfo.totalInfo.total;
+                                
+                                // Добавляем стоимость доставки только если это не самовывоз
+                                if (deliveryType != 'pickup') {
+                                  // Ищем строку с доставкой в pretotalInfo
+                                  for (var pretotalItem in basketInfo.pretotalInfo) {
+                                    // Проверяем, что это строка с адресом (содержит адрес и стоимость)
+                                    if (pretotalItem.title.contains('ул') || pretotalItem.title.contains('д') || pretotalItem.title.contains('г')) {
+                                      // Извлекаем стоимость доставки из строки "500 ₽"
+                                      String deliveryValue = pretotalItem.value;
+                                      if (deliveryValue.contains('₽')) {
+                                        // Убираем " ₽" и парсим число
+                                        String deliveryPriceStr = deliveryValue.replaceAll(' ₽', '').trim();
+                                        try {
+                                          int deliveryPrice = int.parse(deliveryPriceStr);
+                                          totalWithDelivery += deliveryPrice;
+                                          print('CREATE ORDER - DELIVERY COST FOUND: $deliveryPrice ₽');
+                                          print('CREATE ORDER - TOTAL WITH DELIVERY: $totalWithDelivery ₽');
+                                          break; // Нашли доставку, выходим из цикла
+                                        } catch (e) {
+                                          print('CREATE ORDER - ERROR PARSING DELIVERY PRICE: $deliveryPriceStr');
+                                        }
+                                      }
+                                    }
+                                  }
+                                } else {
+                                  print('CREATE ORDER - PICKUP SELECTED, NOT ADDING DELIVERY COST');
+                                }
+                                
+                                return Text(
+                                  '$totalWithDelivery ₽',
+                                  style: AppStyles.bodyBold.copyWith(
+                                    color: AppColors.black,
+                                  ),
+                                );
+                              },
                               orElse: () => Text(
                                 '${basketBloc.subtotal} ₽', // Fallback to subtotal if BasketInfoBloc is not in success state
                                 style: AppStyles.bodyBold.copyWith(
