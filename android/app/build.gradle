@@ -48,7 +48,7 @@ android {
             keyPassword = keyPasswordEnv ?: keystoreProperties['keyPassword']
             storePassword = storePasswordEnv ?: keystoreProperties['storePassword']
 
-            def storeFilePath = keystoreProperties['storeFile'] ?: "/builds/monobox1/app/android/cosfoodmos.jks"
+            def storeFilePath = keystoreProperties['storeFile'] ?: "upload-key.jks"
             storeFile = file(storeFilePath)
 
             // Debug information for CI/CD
