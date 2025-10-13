@@ -18,5 +18,6 @@ class GiftsScaleItemDto {
   final String? price;
   final ProductDto product;
 
-  factory GiftsScaleItemDto.fromJson(Map<String, dynamic> json) => _$GiftsScaleItemDtoFromJson(json);
+  factory GiftsScaleItemDto.fromJson(Map<String, dynamic> json) =>
+      _$GiftsScaleItemDtoFromJson(json);
 }

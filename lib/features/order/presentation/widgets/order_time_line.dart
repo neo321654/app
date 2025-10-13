@@ -39,7 +39,8 @@ class OrderTimeLine extends StatelessWidget {
                     Text(
                       item.title,
                       style: AppStyles.subheadBold.copyWith(
-                        color: !item.isInactive ? AppColors.black : AppColors.gray,
+                        color:
+                            !item.isInactive ? AppColors.black : AppColors.gray,
                       ),
                     ),
                     const SizedBox(

@@ -51,7 +51,9 @@ class ProductBadge extends StatelessWidget {
                   ),
                 ),
               ),
-            if (tag.icon != null && !tag.icon!.startsWith('&#') && !tag.icon!.contains('.svg'))
+            if (tag.icon != null &&
+                !tag.icon!.startsWith('&#') &&
+                !tag.icon!.contains('.svg'))
               SizedBox(
                 width: 11,
                 child: Image.network(tag.icon!),

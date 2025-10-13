@@ -15,7 +15,8 @@ class PromocodeDto {
   final String code;
   final String? message;
 
-  factory PromocodeDto.fromJson(Map<String, dynamic> json) => _$PromocodeDtoFromJson(json);
+  factory PromocodeDto.fromJson(Map<String, dynamic> json) =>
+      _$PromocodeDtoFromJson(json);
 
   Map<String, dynamic> toJson() {
     return _$PromocodeDtoToJson(this);

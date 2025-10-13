@@ -21,7 +21,9 @@ class FeedbackService {
     });
 
     if (images != null) {
-      images.map((image) => formData.files.add(MapEntry('images[]', image))).toList();
+      images
+          .map((image) => formData.files.add(MapEntry('images[]', image)))
+          .toList();
     }
 
     final dynamic response = await dio.post<dynamic>(

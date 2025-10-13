@@ -34,7 +34,8 @@ class Collections extends StatelessWidget {
           child: BlocBuilder<CollectionsBloc, CollectionsState>(
             builder: (context, state) {
               if (state is CollectionsDone) {
-                final List<CollectionEntity> collections = state.collections ?? [];
+                final List<CollectionEntity> collections =
+                    state.collections ?? [];
                 return ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: collections.length,
@@ -55,7 +56,8 @@ class Collections extends StatelessWidget {
                             width: 145,
                             height: 90,
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(AppStyles.btnRadius),
+                              borderRadius:
+                                  BorderRadius.circular(AppStyles.btnRadius),
                               child: FastCachedImage(
                                 width: 145,
                                 height: 90,
@@ -79,7 +81,8 @@ class Collections extends StatelessWidget {
                             // ),
                           ),
                         ),
-                        if (collections.length != (index + 1)) const SizedBox(width: 12),
+                        if (collections.length != (index + 1))
+                          const SizedBox(width: 12),
                         if (collections.length == (index + 1))
                           const SizedBox(
                             width: 16,

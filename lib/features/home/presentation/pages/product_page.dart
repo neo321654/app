@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:monobox/features/home/domain/entities/option_entity.dart';
 import 'package:monobox/features/home/presentation/widgets/product_half_image.dart';
 import 'package:uuid/uuid.dart';
 
@@ -46,16 +45,17 @@ class _ProductPageState extends State<ProductPage> {
   Widget build(BuildContext context) {
     final BasketBloc basketBloc = context.watch<BasketBloc>();
     final BasketOfferEntity? offer = basketBloc.getProductOffer(widget.product);
-    final bloc = widget.productCardState ?? ProductCardStateCubit(
-      widget.product,
-      initialQuantities: offer != null && offer.addOptions != null
-          ? {
-        for (var option in offer.addOptions!)
-          if (option.id != null) option.id!: option.quantity
-      }
-          : {},
-      basketBloc: basketBloc,
-    );
+    final bloc = widget.productCardState ??
+        ProductCardStateCubit(
+          widget.product,
+          initialQuantities: offer != null && offer.addOptions != null
+              ? {
+                  for (var option in offer.addOptions!)
+                    if (option.id != null) option.id!: option.quantity
+                }
+              : {},
+          basketBloc: basketBloc,
+        );
     return BlocProvider.value(
       value: bloc,
       child: Scaffold(
@@ -106,13 +106,16 @@ class _ProductPageState extends State<ProductPage> {
                                           vertical: 12,
                                         ),
                                         decoration: BoxDecoration(
-                                          color: AppColors.lightScaffoldBackground,
+                                          color:
+                                              AppColors.lightScaffoldBackground,
                                           borderRadius: BorderRadius.all(
-                                            Radius.circular(AppStyles.radiusElement),
+                                            Radius.circular(
+                                                AppStyles.radiusElement),
                                           ),
                                         ),
                                         child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               'КБЖУ на 100 г.',
@@ -125,20 +128,28 @@ class _ProductPageState extends State<ProductPage> {
                                               runSpacing: 13,
                                               spacing: 13,
                                               children: [
-                                                ...widget.product.kbzhu.map((kbzhu) => Text(
-                                                      kbzhu.text,
-                                                      style: AppStyles.subhead.copyWith(color: AppColors.gray),
-                                                    ))
+                                                ...widget.product.kbzhu
+                                                    .map((kbzhu) => Text(
+                                                          kbzhu.text,
+                                                          style: AppStyles
+                                                              .subhead
+                                                              .copyWith(
+                                                                  color:
+                                                                      AppColors
+                                                                          .gray),
+                                                        ))
                                               ],
                                             ),
                                           ],
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.only(right: 10),
+                                        padding:
+                                            const EdgeInsets.only(right: 10),
                                         child: CustomPaint(
                                           painter: TrianglePainter(
-                                            strokeColor: AppColors.lightScaffoldBackground,
+                                            strokeColor: AppColors
+                                                .lightScaffoldBackground,
                                             strokeWidth: 10,
                                             paintingStyle: PaintingStyle.fill,
                                           ),
@@ -159,7 +170,9 @@ class _ProductPageState extends State<ProductPage> {
                           children: [
                             Expanded(
                               child: Text(
-                                bloc.product.isHalfPizza ? bloc.productName : widget.product.name,
+                                bloc.product.isHalfPizza
+                                    ? bloc.productName
+                                    : widget.product.name,
                                 style: AppStyles.title3,
                                 maxLines: 3,
                                 overflow: TextOverflow.ellipsis,
@@ -205,7 +218,8 @@ class _ProductPageState extends State<ProductPage> {
                               color: AppColors.dark,
                             ),
                           ),
-                        if (widget.product.description?.isNotEmpty == true) AppStyles.smallVGap,
+                        if (widget.product.description?.isNotEmpty == true)
+                          AppStyles.smallVGap,
                         // const TextSwitcher(
                         //   items: [
                         //     '22 см',
@@ -280,18 +294,29 @@ class _ProductPageState extends State<ProductPage> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                BlocBuilder<ProductCardStateCubit, ProductCardStateState>(
+                                BlocBuilder<ProductCardStateCubit,
+                                    ProductCardStateState>(
                                   builder: (context, state) {
-                                    final basketBloc = context.watch<BasketBloc>();
-                                    final offer = basketBloc.getProductOffer(widget.product);
-                                    final totalPrice = offer != null && offer.quantity != null
-                                        ? context.read<ProductCardStateCubit>().productTotalPrice * Decimal.fromInt(offer.quantity!)
-                                        : context.read<ProductCardStateCubit>().productTotalPrice;
+                                    final basketBloc =
+                                        context.watch<BasketBloc>();
+                                    final offer = basketBloc
+                                        .getProductOffer(widget.product);
+                                    final totalPrice = offer != null &&
+                                            offer.quantity != null
+                                        ? context
+                                                .read<ProductCardStateCubit>()
+                                                .productTotalPrice *
+                                            Decimal.fromInt(offer.quantity!)
+                                        : context
+                                            .read<ProductCardStateCubit>()
+                                            .productTotalPrice;
 
-                                    print('Price BlocBuilder rebuilt with totalPrice: $totalPrice, quantity: ${offer?.quantity ?? 1}');
+                                    print(
+                                        'Price BlocBuilder rebuilt with totalPrice: $totalPrice, quantity: ${offer?.quantity ?? 1}');
                                     return Text(
                                       '$totalPrice ₽',
-                                      style: AppStyles.bodyBold.copyWith(color: AppColors.black),
+                                      style: AppStyles.bodyBold
+                                          .copyWith(color: AppColors.black),
                                     );
                                   },
                                 ),
@@ -311,15 +336,14 @@ class _ProductPageState extends State<ProductPage> {
                                   height: 52,
                                   child: ElevatedButton(
                                     onPressed: () async {
-                                      basketBloc.add(
-                                        AddOffer(
-                                          BasketOfferEntity(
-                                              id: const Uuid().v4(),
-                                              product: widget.product,
-                                              quantity: 1,
-                                            addOptions: bloc.getSelectedOptions()
-                                        ),)
-                                      );
+                                      basketBloc.add(AddOffer(
+                                        BasketOfferEntity(
+                                            id: const Uuid().v4(),
+                                            product: widget.product,
+                                            quantity: 1,
+                                            addOptions:
+                                                bloc.getSelectedOptions()),
+                                      ));
                                       //await AutoRouter.of(context).pop();
                                       // context.navigateTo(
                                       //   HomeNavigationRoute(children: [CatalogRoute()]),
@@ -352,7 +376,8 @@ class _ProductPageState extends State<ProductPage> {
                                     GestureDetector(
                                       behavior: HitTestBehavior.translucent,
                                       onTap: () => offer!.quantity! > 1
-                                          ? basketBloc.add(AddQtyOffer(offer, -1))
+                                          ? basketBloc
+                                              .add(AddQtyOffer(offer, -1))
                                           : basketBloc.add(
                                               RemoveOffer(offer),
                                             ),
@@ -386,7 +411,8 @@ class _ProductPageState extends State<ProductPage> {
                                     ),
                                     GestureDetector(
                                       behavior: HitTestBehavior.translucent,
-                                      onTap: () => basketBloc.add(AddQtyOffer(offer, 1)),
+                                      onTap: () =>
+                                          basketBloc.add(AddQtyOffer(offer, 1)),
                                       child: const SizedBox(
                                         width: 61,
                                         height: double.infinity,

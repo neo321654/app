@@ -91,36 +91,37 @@ class _DeliveryMapState extends State<DeliveryMap> {
       listener: (context, state) {
         state.whenOrNull(
           success: (zones) {
-            final List<MapObject> _mapObjects = [];
+            final List<MapObject> mapObjects = [];
 
             final List<Point> allPoints = [];
 
-            Point _point = const Point(latitude: 0, longitude: 0);
+            Point point = const Point(latitude: 0, longitude: 0);
 
             zones.map((zone) {
-              var _polygons = phpDeserialize(zone.polygon);
+              var polygons = phpDeserialize(zone.polygon);
 
-              _polygons.map((polygon) {
+              polygons.map((polygon) {
                 List<Point> points = [];
                 polygon.map((p1) {
-                  _point = Point(latitude: p1[1], longitude: p1[0]);
-                  allPoints.add(_point);
-                  points.add(_point);
+                  point = Point(latitude: p1[1], longitude: p1[0]);
+                  allPoints.add(point);
+                  points.add(point);
                 }).toList();
 
-                _mapObjects.add(
+                mapObjects.add(
                   _getPolygonMapObject(
                     context,
                     points: points,
                     strokeColor: HexColor(zone.stroke),
-                    fillColor: HexColor(zone.stroke).withOpacity(double.parse(zone.fillOpacity)),
+                    fillColor: HexColor(zone.stroke)
+                        .withOpacity(double.parse(zone.fillOpacity)),
                   ),
                 );
               }).toList();
             }).toList();
 
             setState(() {
-              mapObjects.addAll(_mapObjects);
+              mapObjects.addAll(mapObjects);
             });
 
             if (allPoints.isNotEmpty) {

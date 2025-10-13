@@ -25,5 +25,6 @@ class DeliveryZoneDto {
   final String? price;
   final String polygon;
 
-  factory DeliveryZoneDto.fromJson(Map<String, dynamic> json) => _$DeliveryZoneDtoFromJson(json);
+  factory DeliveryZoneDto.fromJson(Map<String, dynamic> json) =>
+      _$DeliveryZoneDtoFromJson(json);
 }

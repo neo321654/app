@@ -24,7 +24,6 @@ class FilterBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget? iconWidget;
 
-
     if (icon != null && icon!.trim().isNotEmpty) {
       if (icon!.startsWith('&#')) {
         iconWidget = SizedBox(
@@ -79,4 +78,3 @@ class FilterBadge extends StatelessWidget {
     );
   }
 }
-

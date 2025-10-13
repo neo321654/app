@@ -5,7 +5,10 @@ import '../../../../core/resources/data_state.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../repositories/loyalty_repository.dart';
 
-class LoyaltyEntryUsecase implements UseCase<DataState<LoyaltyEntryResponseEntity>, LoyaltyEntryRequestEntity?> {
+class LoyaltyEntryUsecase
+    implements
+        UseCase<DataState<LoyaltyEntryResponseEntity>,
+            LoyaltyEntryRequestEntity?> {
   final LoyaltyRepository repository;
 
   LoyaltyEntryUsecase({required this.repository});

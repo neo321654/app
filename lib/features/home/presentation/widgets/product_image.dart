@@ -25,7 +25,8 @@ class ProductImage extends StatelessWidget {
         Hero(
           tag: 'product_img_${product.id}',
           child: CachedNetworkImage(
-            imageUrl: product.image ?? 'https://admin.monobox.app/storage/images/cb13ef1316d2a915ac4b04dbfa101cca.webp',
+            imageUrl: product.image ??
+                'https://admin.monobox.app/storage/images/cb13ef1316d2a915ac4b04dbfa101cca.webp',
             imageBuilder: (context, imageProvider) => Container(
               width: imageWidth,
               height: imageHeight,

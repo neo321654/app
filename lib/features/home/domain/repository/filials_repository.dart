@@ -7,5 +7,6 @@ import '../entities/city_entity.dart';
 abstract class FilialsRepository {
   Future<DataState<List<CityEntity>>> getCities();
   Future<DataState<List<ShopEntity>>> getFilials();
-  Future<DataState<List<ShopEntity>>> searchFilials(FilialsSearchRequesEntity request);
+  Future<DataState<List<ShopEntity>>> searchFilials(
+      FilialsSearchRequesEntity request);
 }

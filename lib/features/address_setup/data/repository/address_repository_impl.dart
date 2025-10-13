@@ -27,7 +27,8 @@ class AddressRepositoryImpl implements AddressRepository {
     double lat,
     double lon,
   ) async {
-    final DadataResponse<AddressSuggestionData>? resp = await dadataClient.geolocateAddress(
+    final DadataResponse<AddressSuggestionData>? resp =
+        await dadataClient.geolocateAddress(
       RevgeocodeSuggestionRequest(
         latitude: lat,
         longitude: lon,

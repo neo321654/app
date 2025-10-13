@@ -83,7 +83,8 @@ class _AddFeedbackButtonState extends State<AddFeedbackButton> {
                   listener: (context, state) {
                     state.maybeWhen(
                       success: () {
-                        getIt<OrdersListBloc>().add(const OrdersListEvent.getOrders());
+                        getIt<OrdersListBloc>()
+                            .add(const OrdersListEvent.getOrders());
                         AutoRouter.of(context).pop();
                       },
                       orElse: () => null,
@@ -123,7 +124,8 @@ class _AddFeedbackButtonState extends State<AddFeedbackButton> {
                               builder: (context, state) {
                                 return feedbackItem(
                                   title: 'Доставка',
-                                  subTitle: 'Своевременность доставки, целостность заказа',
+                                  subTitle:
+                                      'Своевременность доставки, целостность заказа',
                                   grade: state.grade2,
                                   onTap: (int grade) {
                                     cubit.addGrade2(grade + 1);
@@ -138,7 +140,8 @@ class _AddFeedbackButtonState extends State<AddFeedbackButton> {
                               builder: (context, state) {
                                 return feedbackItem(
                                   title: 'Приложение',
-                                  subTitle: 'Удобство использования, внешний вид и скорость работы',
+                                  subTitle:
+                                      'Удобство использования, внешний вид и скорость работы',
                                   grade: state.grade3,
                                   onTap: (int grade) {
                                     cubit.addGrade3(grade + 1);
@@ -175,11 +178,13 @@ class _AddFeedbackButtonState extends State<AddFeedbackButton> {
                               height: 32,
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 16),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
                               child: SizedBox(
                                 height: 50,
                                 width: double.infinity,
-                                child: BlocBuilder<AddFeedbackBloc, AddFeedbackState>(
+                                child: BlocBuilder<AddFeedbackBloc,
+                                    AddFeedbackState>(
                                   builder: (context, state) {
                                     return ElevatedButton(
                                       onPressed: state.maybeWhen(
@@ -192,7 +197,8 @@ class _AddFeedbackButtonState extends State<AddFeedbackButton> {
                                                   grade1: cubit.state.grade1,
                                                   grade2: cubit.state.grade2,
                                                   grade3: cubit.state.grade3,
-                                                  comment: commentController.text,
+                                                  comment:
+                                                      commentController.text,
                                                   photos: cubit.state.photos,
                                                 ),
                                               ),
@@ -357,7 +363,9 @@ class TakePhotos extends StatelessWidget {
                       title: Text(
                         'Сделать фото',
                         style: AppStyles.bodyRegular.copyWith(
-                          color: !Platform.isIOS ? AppColors.black : const Color(0xFF007AFF),
+                          color: !Platform.isIOS
+                              ? AppColors.black
+                              : const Color(0xFF007AFF),
                         ),
                       ),
                       onPressed: (context) async {
@@ -370,7 +378,9 @@ class TakePhotos extends StatelessWidget {
                       title: Text(
                         'Открыть галерею',
                         style: AppStyles.bodyRegular.copyWith(
-                          color: !Platform.isIOS ? AppColors.black : const Color(0xFF007AFF),
+                          color: !Platform.isIOS
+                              ? AppColors.black
+                              : const Color(0xFF007AFF),
                         ),
                       ),
                       onPressed: (context) async {

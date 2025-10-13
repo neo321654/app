@@ -65,7 +65,9 @@ class MyAddressList extends StatelessWidget {
                 // );
 
                 if (addresses.isNotEmpty) {
-                  context.read<MyAddressCubit>().setCuttentAddress(addresses[0]);
+                  context
+                      .read<MyAddressCubit>()
+                      .setCuttentAddress(addresses[0]);
                 }
                 return BlocBuilder<MyAddressCubit, MyAddressState>(
                   builder: (context, state) {
@@ -81,7 +83,8 @@ class MyAddressList extends StatelessWidget {
                               GestureDetector(
                                 onTap: () {
                                   context.router.push(
-                                    EditAddressRoute(address: state.cuttentAddress!),
+                                    EditAddressRoute(
+                                        address: state.cuttentAddress!),
                                   );
                                 },
                                 child: Padding(
@@ -123,7 +126,9 @@ class MyAddressList extends StatelessWidget {
                                       val: address.address,
                                       isActive: state.cuttentAddress == address,
                                       onTap: () {
-                                        context.read<MyAddressCubit>().setCuttentAddress(address);
+                                        context
+                                            .read<MyAddressCubit>()
+                                            .setCuttentAddress(address);
                                       },
                                     ),
                                   ),
@@ -131,16 +136,19 @@ class MyAddressList extends StatelessWidget {
                                     GestureDetector(
                                       behavior: HitTestBehavior.translucent,
                                       onTap: () => context.router.push(
-                                        EditAddressRoute(address: state.cuttentAddress!),
+                                        EditAddressRoute(
+                                            address: state.cuttentAddress!),
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsets.only(left: 8.0),
+                                        padding:
+                                            const EdgeInsets.only(left: 8.0),
                                         child: SvgPicture.asset(
                                           'assets/icons/pencil_underscore.svg',
                                         ),
                                       ),
                                     ),
-                                  if (state.cuttentAddress == address) const SizedBox(),
+                                  if (state.cuttentAddress == address)
+                                    const SizedBox(),
                                 ],
                               ),
                             ),

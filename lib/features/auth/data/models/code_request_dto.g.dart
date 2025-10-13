@@ -13,9 +13,18 @@ CodeRequestDto _$CodeRequestDtoFromJson(Map<String, dynamic> json) =>
       deviceId: json['deviceId'] as String?,
     );
 
-Map<String, dynamic> _$CodeRequestDtoToJson(CodeRequestDto instance) =>
-    <String, dynamic>{
-      'phoneNumber': instance.phoneNumber,
-      if (instance.code case final value?) 'code': value,
-      if (instance.deviceId case final value?) 'deviceId': value,
-    };
+Map<String, dynamic> _$CodeRequestDtoToJson(CodeRequestDto instance) {
+  final val = <String, dynamic>{
+    'phoneNumber': instance.phoneNumber,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('code', instance.code);
+  writeNotNull('deviceId', instance.deviceId);
+  return val;
+}

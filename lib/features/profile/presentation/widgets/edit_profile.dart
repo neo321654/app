@@ -33,13 +33,15 @@ class _EditProfileState extends State<EditProfile> {
 
     nameTextController = TextEditingController()..addListener(_validateName);
     emailTextController = TextEditingController()..addListener(_validateEmail);
-    birthDateTextController = TextEditingController()..addListener(_validateBirthDay);
+    birthDateTextController = TextEditingController()
+      ..addListener(_validateBirthDay);
 
     getIt<ProfileCubit>().state.mapOrNull(done: (state) {
       nameTextController.text = state.profile.user.name ?? '';
       emailTextController.text = state.profile.user.email ?? '';
       if (state.profile.user.birthdate != null) {
-        birthDateTextController.text = DateFormat('dd.MM.yyyy').format(state.profile.user.birthdate!);
+        birthDateTextController.text =
+            DateFormat('dd.MM.yyyy').format(state.profile.user.birthdate!);
       }
     });
 
@@ -47,7 +49,8 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   void _validateEmail() {
-    final emailAllowSymbols = RegExp(r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
+    final emailAllowSymbols = RegExp(
+        r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
         r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
         r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*'
         r'[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4]'
@@ -55,7 +58,8 @@ class _EditProfileState extends State<EditProfile> {
         r'[0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\'
         r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])');
 
-    editProfileFormCubit.validEmail(emailAllowSymbols.hasMatch(emailTextController.text));
+    editProfileFormCubit
+        .validEmail(emailAllowSymbols.hasMatch(emailTextController.text));
     validateForm();
   }
 
@@ -192,16 +196,22 @@ class _EditProfileState extends State<EditProfile> {
                   DateTime? pickedDate = await showDatePicker(
                     locale: const Locale("ru"),
                     context: context,
-                    initialDate: birthDateTextController.text.isNotEmpty ? DateFormat('dd.MM.yyyy').parse(birthDateTextController.text) : DateTime.now(),
-                    firstDate: DateTime(1900), //DateTime.now() - not to allow to choose before today.
+                    initialDate: birthDateTextController.text.isNotEmpty
+                        ? DateFormat('dd.MM.yyyy')
+                            .parse(birthDateTextController.text)
+                        : DateTime.now(),
+                    firstDate: DateTime(
+                        1900), //DateTime.now() - not to allow to choose before today.
                     lastDate: DateTime.now(),
                   );
 
                   if (pickedDate != null) {
-                    String formattedDate = DateFormat('dd.MM.yyyy').format(pickedDate);
+                    String formattedDate =
+                        DateFormat('dd.MM.yyyy').format(pickedDate);
 
                     setState(() {
-                      birthDateTextController.text = formattedDate; //set output date to TextField value.
+                      birthDateTextController.text =
+                          formattedDate; //set output date to TextField value.
                     });
                   } else {
                     //print("Date is not selected");
@@ -272,17 +282,23 @@ class _EditProfileState extends State<EditProfile> {
               height: 52,
               child: BlocBuilder<UpdateProfileBloc, UpdateProfileState>(
                 builder: (context, updateProfileState) {
-                  return BlocBuilder<EditProfileFormCubit, EditProfileFormState>(
+                  return BlocBuilder<EditProfileFormCubit,
+                      EditProfileFormState>(
                     builder: (context, state) {
                       return ElevatedButton(
-                        onPressed: state.validForm && updateProfileState is! Loading
+                        onPressed: state.validForm &&
+                                updateProfileState is! Loading
                             ? () {
                                 context.read<UpdateProfileBloc>().add(
                                       UpdateProfileEvent.update(
                                         EditUserEntity(
                                           name: nameTextController.text,
                                           email: emailTextController.text,
-                                          birthdate: birthDateTextController.text.isNotEmpty ? DateFormat('dd.MM.yyyy').parse(birthDateTextController.text) : null,
+                                          birthdate: birthDateTextController
+                                                  .text.isNotEmpty
+                                              ? DateFormat('dd.MM.yyyy').parse(
+                                                  birthDateTextController.text)
+                                              : null,
                                         ),
                                       ),
                                     );

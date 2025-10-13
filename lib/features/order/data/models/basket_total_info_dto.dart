@@ -15,5 +15,6 @@ class BasketTotalInfoDto {
   final int total;
   final int discountPrice;
 
-  factory BasketTotalInfoDto.fromJson(Map<String, dynamic> json) => _$BasketTotalInfoDtoFromJson(json);
+  factory BasketTotalInfoDto.fromJson(Map<String, dynamic> json) =>
+      _$BasketTotalInfoDtoFromJson(json);
 }

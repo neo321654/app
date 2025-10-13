@@ -19,7 +19,8 @@ class BasketInfoRequestBasketDto {
   final int deliveryId;
   final int? addressId;
 
-  factory BasketInfoRequestBasketDto.fromJson(Map<String, dynamic> json) => _$BasketInfoRequestBasketDtoFromJson(json);
+  factory BasketInfoRequestBasketDto.fromJson(Map<String, dynamic> json) =>
+      _$BasketInfoRequestBasketDtoFromJson(json);
 
   Map<String, dynamic> toJson() {
     return _$BasketInfoRequestBasketDtoToJson(this);

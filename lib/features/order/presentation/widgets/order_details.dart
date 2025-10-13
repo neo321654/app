@@ -56,10 +56,10 @@ class _OrderDetailsState extends State<OrderDetails> {
   bool get canCancelOrder {
     // Нельзя отменить если заказ уже отменен
     if (isCanceled) return false;
-    
+
     // Нельзя отменить если заказ доставлен
     if (widget.order.status.toLowerCase() == 'заказ доставлен') return false;
-    
+
     return true;
   }
 
@@ -102,8 +102,9 @@ class _OrderDetailsState extends State<OrderDetails> {
                         final dateStr = status.date;
                         final time = dateStr != null && dateStr.isNotEmpty
                             ? DateFormat("hh:mm").format(
-                          DateFormat('yyyy-MM-dd HH:mm:ss').parse(dateStr),
-                        )
+                                DateFormat('yyyy-MM-dd HH:mm:ss')
+                                    .parse(dateStr),
+                              )
                             : 'No time';
                         return OrderTimeLineItem(
                           time: time,
@@ -156,224 +157,316 @@ class _OrderDetailsState extends State<OrderDetails> {
                       bool hasAvailableContacts = false;
                       state.maybeWhen(
                         success: (settings) {
-                          hasAvailableContacts = 
-                            (settings.feedback?.phone != null && (settings.feedback?.phone ?? '').trim().isNotEmpty) ||
-                            (settings.feedback?.vk != null && (settings.feedback?.vk ?? '').trim().isNotEmpty) ||
-                            (settings.feedback?.wa != null && (settings.feedback?.wa ?? '').trim().isNotEmpty) ||
-                            (settings.feedback?.tg != null && (settings.feedback?.tg ?? '').trim().isNotEmpty);
+                          hasAvailableContacts =
+                              (settings.feedback?.phone != null &&
+                                      (settings.feedback?.phone ?? '')
+                                          .trim()
+                                          .isNotEmpty) ||
+                                  (settings.feedback?.vk != null &&
+                                      (settings.feedback?.vk ?? '')
+                                          .trim()
+                                          .isNotEmpty) ||
+                                  (settings.feedback?.wa != null &&
+                                      (settings.feedback?.wa ?? '')
+                                          .trim()
+                                          .isNotEmpty) ||
+                                  (settings.feedback?.tg != null &&
+                                      (settings.feedback?.tg ?? '')
+                                          .trim()
+                                          .isNotEmpty);
                         },
                         orElse: () => hasAvailableContacts = false,
                       );
 
                       return ElevatedButton(
-                        style: hasAvailableContacts 
-                          ? AppStyles.lightGreyElevatedButton 
-                          : AppStyles.lightGreyElevatedButton.copyWith(
-                              backgroundColor: MaterialStateProperty.all(AppColors.lightGray.withOpacity(0.5)),
-                            ),
-                        onPressed: hasAvailableContacts ? () {
-                          final List<BottomSheetAction> actions = [];
-                          state.maybeWhen(
-                            success: (settings) async {
-                              if (settings.feedback?.phone != null && (settings.feedback?.phone ?? '').trim().isNotEmpty) {
-                                actions.add(BottomSheetAction(
-                                  title: Text(
-                                    'Вызов +${(settings.feedback?.phone ?? "")}',
-                                    style: AppStyles.bodyRegular.copyWith(
-                                      color: !Platform.isIOS ? AppColors.black : const Color(0xFF007AFF),
-                                    ),
-                                  ),
-                                  onPressed: (context) async {
-                                    try {
-                                      String phoneNumber = settings.feedback?.phone ?? '';
-                                      print('Phone number: $phoneNumber'); // Отладочная информация
-                                      
-                                      Uri phoneno = Uri(scheme: 'tel', path: '+$phoneNumber');
-                                      print('Phone URI: $phoneno'); // Отладочная информация
-                                      
-                                      if (await canLaunchUrl(phoneno)) {
-                                        await launchUrl(phoneno, mode: LaunchMode.externalApplication);
-                                      } else {
-                                        print('Cannot launch phone URI: $phoneno'); // Отладочная информация
-                                        if (!context.mounted) return;
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(
-                                            content: Text('Не удалось совершить звонок'),
-                                            backgroundColor: AppColors.destructive,
-                                          ),
-                                        );
-                                      }
-                                    } catch (e) {
-                                      print('Error launching phone URI: $e'); // Отладочная информация
-                                      if (!context.mounted) return;
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                          content: Text('Ошибка при совершении звонка'),
-                                          backgroundColor: AppColors.destructive,
-                                        ),
-                                      );
-                                    }
-                                  },
-                                ));
-                              }
-
-                              if (settings.feedback?.vk != null && (settings.feedback?.vk ?? '').trim().isNotEmpty) {
-                                actions.add(BottomSheetAction(
-                                  title: Text(
-                                    'Написать в BK',
-                                    style: AppStyles.bodyRegular.copyWith(
-                                      color: !Platform.isIOS ? AppColors.black : const Color(0xFF007AFF),
-                                    ),
-                                  ),
-                                  onPressed: (context) async {
-                                    try {
-                                      String vkUrl = settings.feedback?.vk ?? '';
-                                      print('VK URL: $vkUrl'); // Отладочная информация
-                                      
-                                      // Проверяем, что URL начинается с http/https
-                                      if (!vkUrl.startsWith('http://') && !vkUrl.startsWith('https://')) {
-                                        vkUrl = 'https://$vkUrl';
-                                      }
-                                      
-                                      Uri link = Uri.parse(vkUrl);
-                                      print('Parsed VK URI: $link'); // Отладочная информация
-                                      
-                                      if (await canLaunchUrl(link)) {
-                                        await launchUrl(link, mode: LaunchMode.externalApplication);
-                                      } else {
-                                        print('Cannot launch VK URL: $link'); // Отладочная информация
-                                        if (!context.mounted) return;
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(
-                                            content: Text('Не удалось открыть ссылку ВКонтакте'),
-                                            backgroundColor: AppColors.destructive,
-                                          ),
-                                        );
-                                      }
-                                    } catch (e) {
-                                      print('Error launching VK URL: $e'); // Отладочная информация
-                                      if (!context.mounted) return;
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                          content: Text('Ошибка при открытии ссылки ВКонтакте'),
-                                          backgroundColor: AppColors.destructive,
-                                        ),
-                                      );
-                                    }
-                                  },
-                                ));
-                              }
-
-                              if (settings.feedback?.wa != null && (settings.feedback?.wa ?? '').trim().isNotEmpty) {
-                                actions.add(BottomSheetAction(
-                                  title: Text(
-                                    'Написать в WhatsApp',
-                                    style: AppStyles.bodyRegular.copyWith(
-                                      color: !Platform.isIOS ? AppColors.black : const Color(0xFF007AFF),
-                                    ),
-                                  ),
-                                  onPressed: (context) async {
-                                    try {
-                                      String waUrl = settings.feedback?.wa ?? '';
-                                      print('WhatsApp URL: $waUrl'); // Отладочная информация
-                                      
-                                      // Проверяем, что URL начинается с http/https
-                                      if (!waUrl.startsWith('http://') && !waUrl.startsWith('https://')) {
-                                        waUrl = 'https://$waUrl';
-                                      }
-                                      
-                                      Uri link = Uri.parse(waUrl);
-                                      print('Parsed WhatsApp URI: $link'); // Отладочная информация
-                                      
-                                      if (await canLaunchUrl(link)) {
-                                        await launchUrl(link, mode: LaunchMode.externalApplication);
-                                      } else {
-                                        print('Cannot launch WhatsApp URL: $link'); // Отладочная информация
-                                        if (!context.mounted) return;
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(
-                                            content: Text('Не удалось открыть ссылку WhatsApp'),
-                                            backgroundColor: AppColors.destructive,
-                                          ),
-                                        );
-                                      }
-                                    } catch (e) {
-                                      print('Error launching WhatsApp URL: $e'); // Отладочная информация
-                                      if (!context.mounted) return;
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                          content: Text('Ошибка при открытии ссылки WhatsApp'),
-                                          backgroundColor: AppColors.destructive,
-                                        ),
-                                      );
-                                    }
-                                  },
-                                ));
-                              }
-
-                              if (settings.feedback?.tg != null && (settings.feedback?.tg ?? '').trim().isNotEmpty) {
-                                actions.add(BottomSheetAction(
-                                  title: Text(
-                                    'Написать в Telegram',
-                                    style: AppStyles.bodyRegular.copyWith(
-                                      color: !Platform.isIOS ? AppColors.black : const Color(0xFF007AFF),
-                                    ),
-                                  ),
-                                  onPressed: (context) async {
-                                    try {
-                                      String tgUrl = settings.feedback?.tg ?? '';
-                                      print('Telegram URL: $tgUrl'); // Отладочная информация
-                                      
-                                      // Проверяем, что URL начинается с http/https
-                                      if (!tgUrl.startsWith('http://') && !tgUrl.startsWith('https://')) {
-                                        tgUrl = 'https://$tgUrl';
-                                      }
-                                      
-                                      Uri link = Uri.parse(tgUrl);
-                                      print('Parsed Telegram URI: $link'); // Отладочная информация
-                                      
-                                      if (await canLaunchUrl(link)) {
-                                        await launchUrl(link, mode: LaunchMode.externalApplication);
-                                      } else {
-                                        print('Cannot launch Telegram URL: $link'); // Отладочная информация
-                                        if (!context.mounted) return;
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(
-                                            content: Text('Не удалось открыть ссылку Telegram'),
-                                            backgroundColor: AppColors.destructive,
-                                          ),
-                                        );
-                                      }
-                                    } catch (e) {
-                                      print('Error launching Telegram URL: $e'); // Отладочная информация
-                                      if (!context.mounted) return;
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                          content: Text('Ошибка при открытии ссылки Telegram'),
-                                          backgroundColor: AppColors.destructive,
-                                        ),
-                                      );
-                                    }
-                                  },
-                                ));
-                              }
-                            },
-                            orElse: () => null,
-                          );
-
-                          if (actions.isNotEmpty) {
-                            showAdaptiveActionSheet(
-                              context: context,
-                              androidBorderRadius: 30,
-                              actions: actions,
-                              cancelAction: CancelAction(
-                                title: const Text(
-                                  'Отмена',
-                                ),
+                        style: hasAvailableContacts
+                            ? AppStyles.lightGreyElevatedButton
+                            : AppStyles.lightGreyElevatedButton.copyWith(
+                                backgroundColor: WidgetStateProperty.all(
+                                    AppColors.lightGray.withOpacity(0.5)),
                               ),
-                            );
-                          }
-                        } : null,
+                        onPressed: hasAvailableContacts
+                            ? () {
+                                final List<BottomSheetAction> actions = [];
+                                state.maybeWhen(
+                                  success: (settings) async {
+                                    if (settings.feedback?.phone != null &&
+                                        (settings.feedback?.phone ?? '')
+                                            .trim()
+                                            .isNotEmpty) {
+                                      actions.add(BottomSheetAction(
+                                        title: Text(
+                                          'Вызов +${(settings.feedback?.phone ?? "")}',
+                                          style: AppStyles.bodyRegular.copyWith(
+                                            color: !Platform.isIOS
+                                                ? AppColors.black
+                                                : const Color(0xFF007AFF),
+                                          ),
+                                        ),
+                                        onPressed: (context) async {
+                                          try {
+                                            String phoneNumber =
+                                                settings.feedback?.phone ?? '';
+                                            print(
+                                                'Phone number: $phoneNumber'); // Отладочная информация
+
+                                            Uri phoneno = Uri(
+                                                scheme: 'tel',
+                                                path: '+$phoneNumber');
+                                            print(
+                                                'Phone URI: $phoneno'); // Отладочная информация
+
+                                            if (await canLaunchUrl(phoneno)) {
+                                              await launchUrl(phoneno,
+                                                  mode: LaunchMode
+                                                      .externalApplication);
+                                            } else {
+                                              print(
+                                                  'Cannot launch phone URI: $phoneno'); // Отладочная информация
+                                              if (!context.mounted) return;
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                const SnackBar(
+                                                  content: Text(
+                                                      'Не удалось совершить звонок'),
+                                                  backgroundColor:
+                                                      AppColors.destructive,
+                                                ),
+                                              );
+                                            }
+                                          } catch (e) {
+                                            print(
+                                                'Error launching phone URI: $e'); // Отладочная информация
+                                            if (!context.mounted) return;
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                content: Text(
+                                                    'Ошибка при совершении звонка'),
+                                                backgroundColor:
+                                                    AppColors.destructive,
+                                              ),
+                                            );
+                                          }
+                                        },
+                                      ));
+                                    }
+
+                                    if (settings.feedback?.vk != null &&
+                                        (settings.feedback?.vk ?? '')
+                                            .trim()
+                                            .isNotEmpty) {
+                                      actions.add(BottomSheetAction(
+                                        title: Text(
+                                          'Написать в BK',
+                                          style: AppStyles.bodyRegular.copyWith(
+                                            color: !Platform.isIOS
+                                                ? AppColors.black
+                                                : const Color(0xFF007AFF),
+                                          ),
+                                        ),
+                                        onPressed: (context) async {
+                                          try {
+                                            String vkUrl =
+                                                settings.feedback?.vk ?? '';
+                                            print(
+                                                'VK URL: $vkUrl'); // Отладочная информация
+
+                                            // Проверяем, что URL начинается с http/https
+                                            if (!vkUrl.startsWith('http://') &&
+                                                !vkUrl.startsWith('https://')) {
+                                              vkUrl = 'https://$vkUrl';
+                                            }
+
+                                            Uri link = Uri.parse(vkUrl);
+                                            print(
+                                                'Parsed VK URI: $link'); // Отладочная информация
+
+                                            if (await canLaunchUrl(link)) {
+                                              await launchUrl(link,
+                                                  mode: LaunchMode
+                                                      .externalApplication);
+                                            } else {
+                                              print(
+                                                  'Cannot launch VK URL: $link'); // Отладочная информация
+                                              if (!context.mounted) return;
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                const SnackBar(
+                                                  content: Text(
+                                                      'Не удалось открыть ссылку ВКонтакте'),
+                                                  backgroundColor:
+                                                      AppColors.destructive,
+                                                ),
+                                              );
+                                            }
+                                          } catch (e) {
+                                            print(
+                                                'Error launching VK URL: $e'); // Отладочная информация
+                                            if (!context.mounted) return;
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                content: Text(
+                                                    'Ошибка при открытии ссылки ВКонтакте'),
+                                                backgroundColor:
+                                                    AppColors.destructive,
+                                              ),
+                                            );
+                                          }
+                                        },
+                                      ));
+                                    }
+
+                                    if (settings.feedback?.wa != null &&
+                                        (settings.feedback?.wa ?? '')
+                                            .trim()
+                                            .isNotEmpty) {
+                                      actions.add(BottomSheetAction(
+                                        title: Text(
+                                          'Написать в WhatsApp',
+                                          style: AppStyles.bodyRegular.copyWith(
+                                            color: !Platform.isIOS
+                                                ? AppColors.black
+                                                : const Color(0xFF007AFF),
+                                          ),
+                                        ),
+                                        onPressed: (context) async {
+                                          try {
+                                            String waUrl =
+                                                settings.feedback?.wa ?? '';
+                                            print(
+                                                'WhatsApp URL: $waUrl'); // Отладочная информация
+
+                                            // Проверяем, что URL начинается с http/https
+                                            if (!waUrl.startsWith('http://') &&
+                                                !waUrl.startsWith('https://')) {
+                                              waUrl = 'https://$waUrl';
+                                            }
+
+                                            Uri link = Uri.parse(waUrl);
+                                            print(
+                                                'Parsed WhatsApp URI: $link'); // Отладочная информация
+
+                                            if (await canLaunchUrl(link)) {
+                                              await launchUrl(link,
+                                                  mode: LaunchMode
+                                                      .externalApplication);
+                                            } else {
+                                              print(
+                                                  'Cannot launch WhatsApp URL: $link'); // Отладочная информация
+                                              if (!context.mounted) return;
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                const SnackBar(
+                                                  content: Text(
+                                                      'Не удалось открыть ссылку WhatsApp'),
+                                                  backgroundColor:
+                                                      AppColors.destructive,
+                                                ),
+                                              );
+                                            }
+                                          } catch (e) {
+                                            print(
+                                                'Error launching WhatsApp URL: $e'); // Отладочная информация
+                                            if (!context.mounted) return;
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                content: Text(
+                                                    'Ошибка при открытии ссылки WhatsApp'),
+                                                backgroundColor:
+                                                    AppColors.destructive,
+                                              ),
+                                            );
+                                          }
+                                        },
+                                      ));
+                                    }
+
+                                    if (settings.feedback?.tg != null &&
+                                        (settings.feedback?.tg ?? '')
+                                            .trim()
+                                            .isNotEmpty) {
+                                      actions.add(BottomSheetAction(
+                                        title: Text(
+                                          'Написать в Telegram',
+                                          style: AppStyles.bodyRegular.copyWith(
+                                            color: !Platform.isIOS
+                                                ? AppColors.black
+                                                : const Color(0xFF007AFF),
+                                          ),
+                                        ),
+                                        onPressed: (context) async {
+                                          try {
+                                            String tgUrl =
+                                                settings.feedback?.tg ?? '';
+                                            print(
+                                                'Telegram URL: $tgUrl'); // Отладочная информация
+
+                                            // Проверяем, что URL начинается с http/https
+                                            if (!tgUrl.startsWith('http://') &&
+                                                !tgUrl.startsWith('https://')) {
+                                              tgUrl = 'https://$tgUrl';
+                                            }
+
+                                            Uri link = Uri.parse(tgUrl);
+                                            print(
+                                                'Parsed Telegram URI: $link'); // Отладочная информация
+
+                                            if (await canLaunchUrl(link)) {
+                                              await launchUrl(link,
+                                                  mode: LaunchMode
+                                                      .externalApplication);
+                                            } else {
+                                              print(
+                                                  'Cannot launch Telegram URL: $link'); // Отладочная информация
+                                              if (!context.mounted) return;
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                const SnackBar(
+                                                  content: Text(
+                                                      'Не удалось открыть ссылку Telegram'),
+                                                  backgroundColor:
+                                                      AppColors.destructive,
+                                                ),
+                                              );
+                                            }
+                                          } catch (e) {
+                                            print(
+                                                'Error launching Telegram URL: $e'); // Отладочная информация
+                                            if (!context.mounted) return;
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                content: Text(
+                                                    'Ошибка при открытии ссылки Telegram'),
+                                                backgroundColor:
+                                                    AppColors.destructive,
+                                              ),
+                                            );
+                                          }
+                                        },
+                                      ));
+                                    }
+                                  },
+                                  orElse: () => null,
+                                );
+
+                                if (actions.isNotEmpty) {
+                                  showAdaptiveActionSheet(
+                                    context: context,
+                                    androidBorderRadius: 30,
+                                    actions: actions,
+                                    cancelAction: CancelAction(
+                                      title: const Text(
+                                        'Отмена',
+                                      ),
+                                    ),
+                                  );
+                                }
+                              }
+                            : null,
                         child: SizedBox(
                           height: 24,
                           child: Row(
@@ -399,7 +492,9 @@ class _OrderDetailsState extends State<OrderDetails> {
                               Text(
                                 'Связаться',
                                 style: AppStyles.callout.copyWith(
-                                  color: hasAvailableContacts ? AppColors.darkPrimary : AppColors.gray,
+                                  color: hasAvailableContacts
+                                      ? AppColors.darkPrimary
+                                      : AppColors.gray,
                                   height: 1,
                                 ),
                               ),
@@ -427,7 +522,9 @@ class _OrderDetailsState extends State<OrderDetails> {
 
                         if (result != null && result) {
                           if (!context.mounted) return;
-                          context.read<OrderBloc>().add(CancelOrder(widget.order.id));
+                          context
+                              .read<OrderBloc>()
+                              .add(CancelOrder(widget.order.id));
                           setState(() {
                             isCanceled = true;
                           });
@@ -490,7 +587,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                 //   ),
                 // ),
                 Text(
-                  (widget.order.address?.fullAddress?.isNotEmpty ?? false)
+                  (widget.order.address?.fullAddress.isNotEmpty ?? false)
                       ? widget.order.address!.fullAddress
                       : (widget.order.address?.title ?? 'Адрес не указан'),
                   style: AppStyles.subhead.copyWith(color: AppColors.gray),
@@ -792,7 +889,9 @@ class _OrderDetailsState extends State<OrderDetails> {
                                 ))
                             .toList();
                         if (!context.mounted) return;
-                        context.router.parent<TabsRouter>()?.navigate(const BasketRoute());
+                        context.router
+                            .parent<TabsRouter>()
+                            ?.navigate(const BasketRoute());
                       }
                     },
                     child: Text(

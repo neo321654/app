@@ -4,7 +4,6 @@ import 'package:monobox/core/resources/store.dart';
 import 'package:monobox/features/address_setup/presentation/bloc/geo_available/geo_available_bloc.dart';
 import 'package:monobox/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:monobox/features/home/presentation/bloc/cities/cities_bloc.dart';
-import 'package:monobox/features/home/presentation/bloc/filials/filials_bloc.dart';
 
 import '../../../../config/themes/colors.dart';
 
@@ -78,13 +77,19 @@ class _YourAddressState extends State<YourAddress> {
                   Expanded(
                     child: Text(
                       'Уточните адрес',
-                      style: AppStyles.title3.copyWith(letterSpacing: -.4, fontSize: 18),
+                      style: AppStyles.title3
+                          .copyWith(letterSpacing: -.4, fontSize: 18),
                     ),
                   ),
                   AppStyles.xxsmallHGap,
                   Expanded(
                     child: Text(
-                      context.read<AddressSetupStateCubit>().state.address!.street ?? '',
+                      context
+                              .read<AddressSetupStateCubit>()
+                              .state
+                              .address!
+                              .street ??
+                          '',
                       style: AppStyles.footnote,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -131,13 +136,20 @@ class _YourAddressState extends State<YourAddress> {
                     return ElevatedButton(
                       onPressed: state.maybeWhen(
                         orElse: () => () {
-                          if (getIt<AuthBloc>().state == const AuthState.authenticated()) {
+                          if (getIt<AuthBloc>().state ==
+                              const AuthState.authenticated()) {
                             int? cityId = getIt<Store>().cityId;
                             String cityName = '';
                             getIt<CitiesBloc>().state.maybeWhen(
                                   success: (cities) {
                                     cities.map((city) {
-                                      if (city.name == context.read<AddressSetupStateCubit>().state.address?.city?.name) {
+                                      if (city.name ==
+                                          context
+                                              .read<AddressSetupStateCubit>()
+                                              .state
+                                              .address
+                                              ?.city
+                                              ?.name) {
                                         cityId = city.id;
                                         cityName = city.name;
                                       }
@@ -147,15 +159,42 @@ class _YourAddressState extends State<YourAddress> {
                                 );
                             getIt<CreateAddressBloc>().add(
                               CreateAddressEvent.addAddress(AddressCreateEntity(
-                                title: context.read<AddressSetupStateCubit>().state.address!.street ?? '',
-                                street: context.read<AddressSetupStateCubit>().state.address!.street2 ?? context.read<AddressSetupStateCubit>().state.address!.street ?? '',
-                                house: context.read<AddressSetupStateCubit>().state.address!.house,
+                                title: context
+                                        .read<AddressSetupStateCubit>()
+                                        .state
+                                        .address!
+                                        .street ??
+                                    '',
+                                street: context
+                                        .read<AddressSetupStateCubit>()
+                                        .state
+                                        .address!
+                                        .street2 ??
+                                    context
+                                        .read<AddressSetupStateCubit>()
+                                        .state
+                                        .address!
+                                        .street ??
+                                    '',
+                                house: context
+                                    .read<AddressSetupStateCubit>()
+                                    .state
+                                    .address!
+                                    .house,
                                 appartment: appartmentController.text,
                                 floor: floorController.text,
                                 entrance: entranceController.text,
                                 domofon: domofonController.text,
-                                latitude: context.read<AddressSetupStateCubit>().state.address!.lat,
-                                longitude: context.read<AddressSetupStateCubit>().state.address!.lon,
+                                latitude: context
+                                    .read<AddressSetupStateCubit>()
+                                    .state
+                                    .address!
+                                    .lat,
+                                longitude: context
+                                    .read<AddressSetupStateCubit>()
+                                    .state
+                                    .address!
+                                    .lon,
                                 cityId: cityId,
                                 city: cityName,
                               )),
@@ -213,7 +252,9 @@ class _YourAddressState extends State<YourAddress> {
               BlocBuilder<AddressSetupStateCubit, AddressSetupState>(
                 builder: (context, state) {
                   return Text(
-                    state.address?.street?.isNotEmpty == true ? state.address!.street! : (widget.address ?? '…'),
+                    state.address?.street?.isNotEmpty == true
+                        ? state.address!.street!
+                        : (widget.address ?? '…'),
                     style: AppStyles.title3,
                   );
                 },
@@ -224,24 +265,29 @@ class _YourAddressState extends State<YourAddress> {
                 height: 52,
                 child: BlocBuilder<GeoAvailableBloc, GeoAvailableState>(
                   builder: (context, geoAvailableState) {
-                    return BlocBuilder<AddressSetupStateCubit, AddressSetupState>(
+                    return BlocBuilder<AddressSetupStateCubit,
+                        AddressSetupState>(
                       builder: (context, state) {
                         return ElevatedButton(
-                          onPressed: state.address?.street?.isNotEmpty == true && (geoAvailableState is! Loading)
-                              ? () {
-                                  //state.address?.street?.isNotEmpty == true ? () => context.read<AddressSetupStateCubit>().streetConfirm() : null;
-                                  if (state.address?.lat != null) {
-                                    getIt<GeoAvailableBloc>().add(
-                                      GeoAvailableEvent.getAvailable(
-                                        state.address!.lat!,
-                                        state.address!.lon!,
-                                      ),
-                                    );
-                                  } else {
-                                    context.read<AddressSetupStateCubit>().streetConfirm();
-                                  }
-                                }
-                              : null,
+                          onPressed:
+                              state.address?.street?.isNotEmpty == true &&
+                                      (geoAvailableState is! Loading)
+                                  ? () {
+                                      //state.address?.street?.isNotEmpty == true ? () => context.read<AddressSetupStateCubit>().streetConfirm() : null;
+                                      if (state.address?.lat != null) {
+                                        getIt<GeoAvailableBloc>().add(
+                                          GeoAvailableEvent.getAvailable(
+                                            state.address!.lat!,
+                                            state.address!.lon!,
+                                          ),
+                                        );
+                                      } else {
+                                        context
+                                            .read<AddressSetupStateCubit>()
+                                            .streetConfirm();
+                                      }
+                                    }
+                                  : null,
                           child: const Text(
                             'Верно',
                           ),

@@ -15,7 +15,7 @@ class GiftScaleItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: width ?? 30,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,

@@ -22,9 +22,7 @@ mixin _$ShopLocationStateState {
   CityEntity? get city => throw _privateConstructorUsedError;
   List<ShopEntity> get shops => throw _privateConstructorUsedError;
 
-  /// Create a copy of ShopLocationStateState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $ShopLocationStateStateCopyWith<ShopLocationStateState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -54,8 +52,6 @@ class _$ShopLocationStateStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of ShopLocationStateState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -117,8 +113,6 @@ class __$$ShopLocationStateStateImplCopyWithImpl<$Res>
       $Res Function(_$ShopLocationStateStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ShopLocationStateState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -206,9 +200,7 @@ class _$ShopLocationStateStateImpl implements _ShopLocationStateState {
   int get hashCode => Object.hash(runtimeType, showMode, showShopMap,
       geoSuggestion, city, const DeepCollectionEquality().hash(_shops));
 
-  /// Create a copy of ShopLocationStateState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ShopLocationStateStateImplCopyWith<_$ShopLocationStateStateImpl>
@@ -234,11 +226,8 @@ abstract class _ShopLocationStateState implements ShopLocationStateState {
   CityEntity? get city;
   @override
   List<ShopEntity> get shops;
-
-  /// Create a copy of ShopLocationStateState
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$ShopLocationStateStateImplCopyWith<_$ShopLocationStateStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

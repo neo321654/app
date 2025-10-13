@@ -24,7 +24,8 @@ class _ChildItemState extends State<ChildItem> {
 
   @override
   void initState() {
-    textController = TextEditingController(text: DateFormat('dd.MM.yyyy').format(widget.child.birthdate));
+    textController = TextEditingController(
+        text: DateFormat('dd.MM.yyyy').format(widget.child.birthdate));
     super.initState();
   }
 
@@ -37,7 +38,7 @@ class _ChildItemState extends State<ChildItem> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.only(bottom: 8),
       child: RoundedContainer(
         header: Text(
           widget.child.name,
@@ -45,7 +46,7 @@ class _ChildItemState extends State<ChildItem> {
         ),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             InputText(

@@ -17,9 +17,17 @@ FilialsSearchRequestDto _$FilialsSearchRequestDtoFromJson(
     );
 
 Map<String, dynamic> _$FilialsSearchRequestDtoToJson(
-        FilialsSearchRequestDto instance) =>
-    <String, dynamic>{
-      if (instance.cityId case final value?) 'city_id': value,
-      if (instance.address case final value?) 'address': value,
-      if (instance.coordinates case final value?) 'coords': value,
-    };
+    FilialsSearchRequestDto instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('city_id', instance.cityId);
+  writeNotNull('address', instance.address);
+  writeNotNull('coords', instance.coordinates);
+  return val;
+}

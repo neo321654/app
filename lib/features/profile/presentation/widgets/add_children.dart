@@ -21,9 +21,9 @@ class _AddChildrenBoxState extends State<AddChildrenBox> {
       return Container();
     }
     return Padding(
-      padding: EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.only(bottom: 16),
       child: Container(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: AppColors.lightScaffoldBackground,
           borderRadius: BorderRadius.all(
@@ -44,7 +44,7 @@ class _AddChildrenBoxState extends State<AddChildrenBox> {
                 color: AppColors.lightPrimary,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 12,
             ),
             Expanded(
@@ -64,7 +64,7 @@ class _AddChildrenBoxState extends State<AddChildrenBox> {
               child: Container(
                 height: 18,
                 width: 18,
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 5.5,
                   vertical: 5.5,
                 ),

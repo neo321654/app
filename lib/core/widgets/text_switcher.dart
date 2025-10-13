@@ -45,7 +45,9 @@ class TextSwitcher extends StatelessWidget {
                     child: Container(
                       height: 40,
                       decoration: BoxDecoration(
-                        color: items.indexOf(i) == selectedIndex ? AppColors.white : AppColors.superLight,
+                        color: items.indexOf(i) == selectedIndex
+                            ? AppColors.white
+                            : AppColors.superLight,
                         borderRadius: BorderRadius.all(
                           Radius.circular(
                             AppStyles.xsmallRadius,
@@ -54,7 +56,8 @@ class TextSwitcher extends StatelessWidget {
                         boxShadow: items.indexOf(i) == selectedIndex
                             ? [
                                 BoxShadow(
-                                  color: AppColors.lightDarkGray.withOpacity(.05),
+                                  color:
+                                      AppColors.lightDarkGray.withOpacity(.05),
                                   blurRadius: 8.0,
                                   offset: const Offset(
                                     0.0,

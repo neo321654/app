@@ -28,9 +28,7 @@ mixin _$CreateOrderState {
   DateTime? get deliveryTime => throw _privateConstructorUsedError;
   bool get itogoIsCollapsed => throw _privateConstructorUsedError;
 
-  /// Create a copy of CreateOrderState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $CreateOrderStateCopyWith<CreateOrderState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -67,8 +65,6 @@ class _$CreateOrderStateCopyWithImpl<$Res, $Val extends CreateOrderState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of CreateOrderState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -132,8 +128,6 @@ class _$CreateOrderStateCopyWithImpl<$Res, $Val extends CreateOrderState>
     ) as $Val);
   }
 
-  /// Create a copy of CreateOrderState
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $AddressEntityCopyWith<$Res>? get deliveryAddress {
@@ -180,8 +174,6 @@ class __$$CreateOrderStateImplCopyWithImpl<$Res>
       $Res Function(_$CreateOrderStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of CreateOrderState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -336,9 +328,7 @@ class _$CreateOrderStateImpl extends _CreateOrderState {
       deliveryTime,
       itogoIsCollapsed);
 
-  /// Create a copy of CreateOrderState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$CreateOrderStateImplCopyWith<_$CreateOrderStateImpl> get copyWith =>
@@ -383,11 +373,8 @@ abstract class _CreateOrderState extends CreateOrderState {
   DateTime? get deliveryTime;
   @override
   bool get itogoIsCollapsed;
-
-  /// Create a copy of CreateOrderState
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$CreateOrderStateImplCopyWith<_$CreateOrderStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -19,9 +19,18 @@ BasketInfoRequestDto _$BasketInfoRequestDtoFromJson(
     );
 
 Map<String, dynamic> _$BasketInfoRequestDtoToJson(
-        BasketInfoRequestDto instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'qnt': instance.qnt,
-      if (instance.modifiers case final value?) 'modifiers': value,
-    };
+    BasketInfoRequestDto instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'qnt': instance.qnt,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('modifiers', instance.modifiers);
+  return val;
+}

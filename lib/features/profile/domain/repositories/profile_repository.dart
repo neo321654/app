@@ -16,7 +16,8 @@ abstract class ProfileRepository {
   Future<DataState<DeleteProfileEntity>> deleteProfile();
   Future<DataState<UserEntity>> editProfile(EditUserEntity editUserEntity);
   Future<DataState<List<ChildEntity>>> getChildren();
-  Future<DataState<ChildEntity>> addChild(AddChildRequestEntity addChildRequestEntity);
+  Future<DataState<ChildEntity>> addChild(
+      AddChildRequestEntity addChildRequestEntity);
 
   Future<DataState<List<NotificationEntity>>> getNotificationsSettings();
   Future<DataState<NotificationItemEntity>> changeNotificationStatus(

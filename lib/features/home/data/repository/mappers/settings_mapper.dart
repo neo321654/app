@@ -65,6 +65,7 @@ class SettingsMapper {
             )
           : null,
       loyalty: model.loyalty,
+      children: model.children ?? false,
     );
   }
 }

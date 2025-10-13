@@ -12,9 +12,17 @@ EditUserDto _$EditUserDtoFromJson(Map<String, dynamic> json) => EditUserDto(
       birthdate: json['birthdate'] as String?,
     );
 
-Map<String, dynamic> _$EditUserDtoToJson(EditUserDto instance) =>
-    <String, dynamic>{
-      if (instance.name case final value?) 'name': value,
-      if (instance.email case final value?) 'email': value,
-      if (instance.birthdate case final value?) 'birthdate': value,
-    };
+Map<String, dynamic> _$EditUserDtoToJson(EditUserDto instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('name', instance.name);
+  writeNotNull('email', instance.email);
+  writeNotNull('birthdate', instance.birthdate);
+  return val;
+}

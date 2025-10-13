@@ -97,13 +97,13 @@ class DopProductItem extends StatelessWidget {
                         );
                       },
                       style: AppStyles.greyElevatedButton.copyWith(
-                        padding: const MaterialStatePropertyAll(
+                        padding: const WidgetStatePropertyAll(
                           EdgeInsets.only(
                             left: 20,
                             right: 16,
                           ),
                         ),
-                        shape: MaterialStatePropertyAll(
+                        shape: WidgetStatePropertyAll(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
@@ -147,10 +147,10 @@ class DopProductItem extends StatelessWidget {
                                     ),
                               child: Container(
                                 color: Colors.transparent,
-                                child: Container(
+                                child: const SizedBox(
                                   height: double.infinity,
                                   width: 33,
-                                  child: const Icon(
+                                  child: Icon(
                                     Icons.remove,
                                     size: 18,
                                   ),
@@ -180,11 +180,12 @@ class DopProductItem extends StatelessWidget {
                           Expanded(
                             child: GestureDetector(
                               behavior: HitTestBehavior.opaque,
-                              onTap: () => basketBloc.add(AddQtyOffer(offer, 1)),
-                              child: Container(
+                              onTap: () =>
+                                  basketBloc.add(AddQtyOffer(offer, 1)),
+                              child: const SizedBox(
                                 width: 33,
                                 height: double.infinity,
-                                child: const Icon(
+                                child: Icon(
                                   Icons.add,
                                   size: 18,
                                 ),

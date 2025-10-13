@@ -78,7 +78,9 @@ class _ChooseAddressState extends State<ChooseAddress> {
                   CityManualyRoute(mode: 'city'),
                 );
                 if (city != null) {
-                  context.read<ShopLocationStateCubit>().setCity(city as CityEntity);
+                  context
+                      .read<ShopLocationStateCubit>()
+                      .setCity(city as CityEntity);
                 }
               },
               child: Container(
@@ -103,15 +105,22 @@ class _ChooseAddressState extends State<ChooseAddress> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      BlocBuilder<ShopLocationStateCubit, ShopLocationStateState>(
+                      BlocBuilder<ShopLocationStateCubit,
+                          ShopLocationStateState>(
                         builder: (context, shopLocationState) {
-                          return BlocBuilder<GeolocateAddressBloc, GeolocateAddressState>(
+                          return BlocBuilder<GeolocateAddressBloc,
+                              GeolocateAddressState>(
                             builder: (context, geolocateState) {
-                              return BlocBuilder<AddressSetupStateCubit, AddressSetupState>(
+                              return BlocBuilder<AddressSetupStateCubit,
+                                  AddressSetupState>(
                                 builder: (context, state) {
                                   return Expanded(
                                     child: Text(
-                                      shopLocationState.city?.name ?? geolocateState.geolocateAddress?.city ?? state.address?.city?.name ?? 'Город',
+                                      shopLocationState.city?.name ??
+                                          geolocateState
+                                              .geolocateAddress?.city ??
+                                          state.address?.city?.name ??
+                                          'Город',
                                       style: AppStyles.subheadBold.copyWith(
                                         color: AppColors.gray,
                                       ),
@@ -151,7 +160,8 @@ class _ChooseAddressState extends State<ChooseAddress> {
                   child: TypeAheadField<GeoSuggestionEntity>(
                     controller: searchController,
                     suggestionsController: suggestionsController,
-                    itemBuilder: (BuildContext context, GeoSuggestionEntity suggestion) {
+                    itemBuilder:
+                        (BuildContext context, GeoSuggestionEntity suggestion) {
                       return SizedBox(
                         height: 40,
                         child: Align(
@@ -175,14 +185,22 @@ class _ChooseAddressState extends State<ChooseAddress> {
 
                       if (value.street?.isNotEmpty == true) {
                         searchController.text = value.value!;
-                        if (value.geoLat?.isNotEmpty == true && value.geoLon?.isNotEmpty == true) {
+                        if (value.geoLat?.isNotEmpty == true &&
+                            value.geoLon?.isNotEmpty == true) {
                           getIt<FilialsBloc>().add(FilialsEvent.searchFilials(
                             lat: double.parse(value.geoLat!),
                             lon: double.parse(value.geoLon!),
                           ));
-                          context.read<ShopLocationStateCubit>().setGeoSuggestion(value);
-                          if (context.read<ShopLocationStateCubit>().state.showMode == 'map') {
-                            (await widget.mapControllerCompleter.future).moveCamera(
+                          context
+                              .read<ShopLocationStateCubit>()
+                              .setGeoSuggestion(value);
+                          if (context
+                                  .read<ShopLocationStateCubit>()
+                                  .state
+                                  .showMode ==
+                              'map') {
+                            (await widget.mapControllerCompleter.future)
+                                .moveCamera(
                               CameraUpdate.newCameraPosition(
                                 CameraPosition(
                                   target: Point(
@@ -203,16 +221,24 @@ class _ChooseAddressState extends State<ChooseAddress> {
                     },
                     suggestionsCallback: (String street) async {
                       if (street.length < 2) return [];
-                      final city = context.read<ShopLocationStateCubit>().state.city?.name ?? '';
+                      final city = context
+                              .read<ShopLocationStateCubit>()
+                              .state
+                              .city
+                              ?.name ??
+                          '';
                       if (city.isEmpty) {
-
                         return [];
                       }
                       context.read<GeoSuggestionCubit>().search(city, street);
-                      return context.read<GeoSuggestionCubit>().state.suggestions;
+                      return context
+                          .read<GeoSuggestionCubit>()
+                          .state
+                          .suggestions;
                     },
                     builder: (context, controller, focusNode) {
-                      return BlocBuilder<AddressSetupStateCubit, AddressSetupState>(
+                      return BlocBuilder<AddressSetupStateCubit,
+                          AddressSetupState>(
                         builder: (context, state) {
                           return InputText(
                             autofocus: false,
@@ -259,7 +285,11 @@ class _ChooseAddressState extends State<ChooseAddress> {
                       ));
 
                       // ignore: use_build_context_synchronously
-                      if (context.read<ShopLocationStateCubit>().state.showMode == 'map') {
+                      if (context
+                              .read<ShopLocationStateCubit>()
+                              .state
+                              .showMode ==
+                          'map') {
                         (await widget.mapControllerCompleter.future).moveCamera(
                           CameraUpdate.newCameraPosition(
                             CameraPosition(
@@ -320,7 +350,9 @@ class _ChooseAddressState extends State<ChooseAddress> {
     if (!serviceEnabled) return null;
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever || permission == LocationPermission.unableToDetermine) {
+      if (permission == LocationPermission.denied ||
+          permission == LocationPermission.deniedForever ||
+          permission == LocationPermission.unableToDetermine) {
         return null;
       }
     }

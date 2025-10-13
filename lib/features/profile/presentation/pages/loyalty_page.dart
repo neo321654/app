@@ -150,11 +150,13 @@ class LoyaltyPage extends StatelessWidget {
                                   children: [
                                     Text(
                                       'Копите бонусы',
-                                      style: AppStyles.title1.copyWith(color: AppColors.white),
+                                      style: AppStyles.title1
+                                          .copyWith(color: AppColors.white),
                                     ),
                                     Text(
                                       'в программе лояльности',
-                                      style: AppStyles.footnote.copyWith(color: AppColors.white),
+                                      style: AppStyles.footnote
+                                          .copyWith(color: AppColors.white),
                                     ),
                                     const Spacer(),
                                     Container(
@@ -176,7 +178,8 @@ class LoyaltyPage extends StatelessWidget {
                                         children: [
                                           Text(
                                             'Зарегистрироваться',
-                                            style: AppStyles.subheadBold.copyWith(
+                                            style:
+                                                AppStyles.subheadBold.copyWith(
                                               color: AppColors.black,
                                               height: 1,
                                             ),
@@ -185,7 +188,8 @@ class LoyaltyPage extends StatelessWidget {
                                             width: 24,
                                             child: SvgPicture.asset(
                                               'assets/icons/arrow_right.svg',
-                                              colorFilter: const ColorFilter.mode(
+                                              colorFilter:
+                                                  const ColorFilter.mode(
                                                 AppColors.black,
                                                 BlendMode.srcIn,
                                               ),
@@ -233,11 +237,13 @@ class LoyaltyPage extends StatelessWidget {
                         children: [
                           Text(
                             'Копите бонусы',
-                            style: AppStyles.title1.copyWith(color: AppColors.white),
+                            style: AppStyles.title1
+                                .copyWith(color: AppColors.white),
                           ),
                           Text(
                             'в программе лояльности',
-                            style: AppStyles.footnote.copyWith(color: AppColors.white),
+                            style: AppStyles.footnote
+                                .copyWith(color: AppColors.white),
                           ),
                           const Spacer(),
                           Container(
@@ -329,12 +335,15 @@ class LoyaltyPage extends StatelessWidget {
                                   alignment: Alignment.centerLeft,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         item.discount,
                                         style: AppStyles.footnoteBold.copyWith(
-                                          color: !item.active ? AppColors.gray : AppColors.lightPrimary,
+                                          color: !item.active
+                                              ? AppColors.gray
+                                              : AppColors.lightPrimary,
                                         ),
                                       ),
                                     ],
@@ -347,7 +356,8 @@ class LoyaltyPage extends StatelessWidget {
                                   width: width / loyalties.length,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         item.title,
@@ -367,18 +377,24 @@ class LoyaltyPage extends StatelessWidget {
                                 ),
                               ),
                               beforeLineStyle: LineStyle(
-                                color: isActive ? AppColors.lightGray : AppColors.lightPrimary,
+                                color: isActive
+                                    ? AppColors.lightGray
+                                    : AppColors.lightPrimary,
                                 thickness: 2,
                               ),
                               afterLineStyle: LineStyle(
                                 //color: isActive ? AppColors.lightGray : AppColors.lightPrimary,
-                                color: isActive || activeWas ? AppColors.lightGray : AppColors.lightPrimary,
+                                color: isActive || activeWas
+                                    ? AppColors.lightGray
+                                    : AppColors.lightPrimary,
                                 thickness: 2,
                               ),
                               indicatorStyle: IndicatorStyle(
                                 width: 8,
                                 height: 8,
-                                color: isActive ? AppColors.lightGray : AppColors.lightPrimary,
+                                color: isActive
+                                    ? AppColors.lightGray
+                                    : AppColors.lightPrimary,
                                 indicatorXY: 0,
                               ),
                             );
@@ -401,7 +417,8 @@ class LoyaltyPage extends StatelessWidget {
                   height: 24,
                 ),
                 const LoyaltyDescItem(
-                  title: 'Мы начислим бонусы в зависимости\nот вашего статуса заказ',
+                  title:
+                      'Мы начислим бонусы в зависимости\nот вашего статуса заказ',
                   description: '',
                   icon: 'assets/icons/how_works2.svg',
                 ),

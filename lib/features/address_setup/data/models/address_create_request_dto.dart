@@ -47,7 +47,8 @@ class AddressCreateRequestDto {
   final double? longitude;
   final int? cityId;
 
-  factory AddressCreateRequestDto.fromJson(Map<String, dynamic> json) => _$AddressCreateRequestDtoFromJson(json);
+  factory AddressCreateRequestDto.fromJson(Map<String, dynamic> json) =>
+      _$AddressCreateRequestDtoFromJson(json);
 
   Map<String, dynamic> toJson() {
     return _$AddressCreateRequestDtoToJson(this);

@@ -9,7 +9,6 @@ import 'package:pretty_qr_code/pretty_qr_code.dart';
 import '../../../../config/themes/colors.dart';
 import '../../../../config/themes/styles.dart';
 
-
 class QrCode extends StatelessWidget {
   const QrCode({
     super.key,

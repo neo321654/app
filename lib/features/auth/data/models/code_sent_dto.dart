@@ -15,5 +15,6 @@ class CodeSentDto {
   final String message;
   final int? expired;
 
-  factory CodeSentDto.fromJson(Map<String, dynamic> json) => _$CodeSentDtoFromJson(json);
+  factory CodeSentDto.fromJson(Map<String, dynamic> json) =>
+      _$CodeSentDtoFromJson(json);
 }

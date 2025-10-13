@@ -78,9 +78,6 @@ class _$CreateAddressEventCopyWithImpl<$Res, $Val extends CreateAddressEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of CreateAddressEvent
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -100,8 +97,6 @@ class __$$AddAddressImplCopyWithImpl<$Res>
       _$AddAddressImpl _value, $Res Function(_$AddAddressImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of CreateAddressEvent
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -140,9 +135,7 @@ class _$AddAddressImpl implements _AddAddress {
   @override
   int get hashCode => Object.hash(runtimeType, address);
 
-  /// Create a copy of CreateAddressEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$AddAddressImplCopyWith<_$AddAddressImpl> get copyWith =>
@@ -222,10 +215,7 @@ abstract class _AddAddress implements CreateAddressEvent {
       _$AddAddressImpl;
 
   AddressCreateEntity get address;
-
-  /// Create a copy of CreateAddressEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$AddAddressImplCopyWith<_$AddAddressImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -247,8 +237,6 @@ class __$$DeleteAddressImplCopyWithImpl<$Res>
       _$DeleteAddressImpl _value, $Res Function(_$DeleteAddressImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of CreateAddressEvent
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -288,9 +276,7 @@ class _$DeleteAddressImpl implements _DeleteAddress {
   @override
   int get hashCode => Object.hash(runtimeType, addressId);
 
-  /// Create a copy of CreateAddressEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$DeleteAddressImplCopyWith<_$DeleteAddressImpl> get copyWith =>
@@ -369,10 +355,7 @@ abstract class _DeleteAddress implements CreateAddressEvent {
   const factory _DeleteAddress(final int addressId) = _$DeleteAddressImpl;
 
   int get addressId;
-
-  /// Create a copy of CreateAddressEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$DeleteAddressImplCopyWith<_$DeleteAddressImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -396,8 +379,6 @@ class __$$EditAddressImplCopyWithImpl<$Res>
       _$EditAddressImpl _value, $Res Function(_$EditAddressImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of CreateAddressEvent
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -411,8 +392,6 @@ class __$$EditAddressImplCopyWithImpl<$Res>
     ));
   }
 
-  /// Create a copy of CreateAddressEvent
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $AddressEntityCopyWith<$Res> get address {
@@ -446,9 +425,7 @@ class _$EditAddressImpl implements _EditAddress {
   @override
   int get hashCode => Object.hash(runtimeType, address);
 
-  /// Create a copy of CreateAddressEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$EditAddressImplCopyWith<_$EditAddressImpl> get copyWith =>
@@ -527,10 +504,7 @@ abstract class _EditAddress implements CreateAddressEvent {
   const factory _EditAddress(final AddressEntity address) = _$EditAddressImpl;
 
   AddressEntity get address;
-
-  /// Create a copy of CreateAddressEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$EditAddressImplCopyWith<_$EditAddressImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -611,9 +585,6 @@ class _$CreateAddressStateCopyWithImpl<$Res, $Val extends CreateAddressState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of CreateAddressState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -630,9 +601,6 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of CreateAddressState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -753,9 +721,6 @@ class __$$SavingImplCopyWithImpl<$Res>
   __$$SavingImplCopyWithImpl(
       _$SavingImpl _value, $Res Function(_$SavingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of CreateAddressState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -881,8 +846,6 @@ class __$$SuccessImplCopyWithImpl<$Res>
       _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of CreateAddressState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -896,8 +859,6 @@ class __$$SuccessImplCopyWithImpl<$Res>
     ));
   }
 
-  /// Create a copy of CreateAddressState
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $AddressEntityCopyWith<$Res> get address {
@@ -931,9 +892,7 @@ class _$SuccessImpl implements _Success {
   @override
   int get hashCode => Object.hash(runtimeType, address);
 
-  /// Create a copy of CreateAddressState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
@@ -1024,10 +983,7 @@ abstract class _Success implements CreateAddressState {
   const factory _Success(final AddressEntity address) = _$SuccessImpl;
 
   AddressEntity get address;
-
-  /// Create a copy of CreateAddressState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1046,9 +1002,6 @@ class __$$DeletedImplCopyWithImpl<$Res>
   __$$DeletedImplCopyWithImpl(
       _$DeletedImpl _value, $Res Function(_$DeletedImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of CreateAddressState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -1172,8 +1125,6 @@ class __$$ErrorStateImplCopyWithImpl<$Res>
       _$ErrorStateImpl _value, $Res Function(_$ErrorStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of CreateAddressState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1212,9 +1163,7 @@ class _$ErrorStateImpl implements _ErrorState {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  /// Create a copy of CreateAddressState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ErrorStateImplCopyWith<_$ErrorStateImpl> get copyWith =>
@@ -1305,10 +1254,7 @@ abstract class _ErrorState implements CreateAddressState {
   const factory _ErrorState(final String message) = _$ErrorStateImpl;
 
   String get message;
-
-  /// Create a copy of CreateAddressState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$ErrorStateImplCopyWith<_$ErrorStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

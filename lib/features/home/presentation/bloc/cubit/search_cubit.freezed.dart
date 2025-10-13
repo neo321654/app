@@ -18,9 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$SearchState {
   List<TagEntity> get selectedTags => throw _privateConstructorUsedError;
 
-  /// Create a copy of SearchState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $SearchStateCopyWith<SearchState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -44,8 +42,6 @@ class _$SearchStateCopyWithImpl<$Res, $Val extends SearchState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of SearchState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -79,8 +75,6 @@ class __$$SearchStateImplCopyWithImpl<$Res>
       _$SearchStateImpl _value, $Res Function(_$SearchStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SearchState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -128,9 +122,7 @@ class _$SearchStateImpl implements _SearchState {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_selectedTags));
 
-  /// Create a copy of SearchState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$SearchStateImplCopyWith<_$SearchStateImpl> get copyWith =>
@@ -143,11 +135,8 @@ abstract class _SearchState implements SearchState {
 
   @override
   List<TagEntity> get selectedTags;
-
-  /// Create a copy of SearchState
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$SearchStateImplCopyWith<_$SearchStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

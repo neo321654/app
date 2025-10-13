@@ -80,18 +80,27 @@ ProductDto _$ProductDtoFromJson(Map<String, dynamic> json) => ProductDto(
       isHalfPizza: json['is_half_pizza'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$ProductDtoToJson(ProductDto instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'title': instance.name,
-      if (instance.picture case final value?) 'image': value,
-      if (instance.description case final value?) 'description': value,
-      if (instance.price case final value?) 'price': value,
-      'tags': instance.tags,
-      'modifiers': instance.modifiers,
-      'kbzhu': instance.kbzhu,
-      if (instance.weight case final value?) 'weight': value,
-      if (instance.weightText case final value?) 'weight_text': value,
-      'is_combo': instance.isCombo,
-      'is_half_pizza': instance.isHalfPizza,
-    };
+Map<String, dynamic> _$ProductDtoToJson(ProductDto instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'title': instance.name,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('image', instance.picture);
+  writeNotNull('description', instance.description);
+  writeNotNull('price', instance.price);
+  val['tags'] = instance.tags;
+  val['modifiers'] = instance.modifiers;
+  val['kbzhu'] = instance.kbzhu;
+  writeNotNull('weight', instance.weight);
+  writeNotNull('weight_text', instance.weightText);
+  val['is_combo'] = instance.isCombo;
+  val['is_half_pizza'] = instance.isHalfPizza;
+  return val;
+}

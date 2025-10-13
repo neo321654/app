@@ -45,5 +45,6 @@ class OrderDetailsDto {
   @JsonKey(name: 'order_statuses')
   final List<OrderDetailsStatusDto> statuses;
 
-  factory OrderDetailsDto.fromJson(Map<String, dynamic> json) => _$OrderDetailsDtoFromJson(json);
+  factory OrderDetailsDto.fromJson(Map<String, dynamic> json) =>
+      _$OrderDetailsDtoFromJson(json);
 }

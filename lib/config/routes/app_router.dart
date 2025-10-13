@@ -59,7 +59,8 @@ class AppRouter extends _$AppRouter {
   List<AutoRoute> get routes => [
         AutoRoute(
           //initial: !getIt<AuthBloc>().state.isFirstEntry,
-          initial: !getIt<AuthBloc>().store.isFirstEntry() && getIt<AuthBloc>().store.cityId != null,
+          initial: !getIt<AuthBloc>().store.isFirstEntry() &&
+              getIt<AuthBloc>().store.cityId != null,
           page: BaseRoute.page,
           children: [
             AutoRoute(
@@ -200,7 +201,8 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           page: AddressMapRoute.page,
           //initial: getIt<AuthBloc>().state.isFirstEntry,
-          initial: getIt<AuthBloc>().store.isFirstEntry() || getIt<AuthBloc>().store.cityId == null,
+          initial: getIt<AuthBloc>().store.isFirstEntry() ||
+              getIt<AuthBloc>().store.cityId == null,
         ),
         AutoRoute(
           page: AuthRoute.page,
@@ -211,7 +213,8 @@ class AppRouter extends _$AppRouter {
       ];
 }
 
-Route<T> modalSheetBuilder<T>(BuildContext context, Widget child, AutoRoutePage<T> page) {
+Route<T> modalSheetBuilder<T>(
+    BuildContext context, Widget child, AutoRoutePage<T> page) {
   return ModalBottomSheetRoute(
     settings: page,
     shape: RoundedRectangleBorder(
@@ -233,7 +236,8 @@ Route<T> modalSheetBuilder<T>(BuildContext context, Widget child, AutoRoutePage<
   );
 }
 
-Route<T> modalSheetBuilder2<T>(BuildContext context, Widget child, AutoRoutePage<T> page) {
+Route<T> modalSheetBuilder2<T>(
+    BuildContext context, Widget child, AutoRoutePage<T> page) {
   return ModalBottomSheetRoute(
     settings: page,
     shape: RoundedRectangleBorder(
@@ -257,7 +261,8 @@ Route<T> modalSheetBuilder2<T>(BuildContext context, Widget child, AutoRoutePage
   );
 }
 
-Route<T> modalSheetBuilder3<T>(BuildContext context, Widget child, AutoRoutePage<T> page) {
+Route<T> modalSheetBuilder3<T>(
+    BuildContext context, Widget child, AutoRoutePage<T> page) {
   return ModalBottomSheetRoute(
     settings: page,
     shape: RoundedRectangleBorder(

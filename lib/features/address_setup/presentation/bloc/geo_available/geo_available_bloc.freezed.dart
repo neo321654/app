@@ -51,9 +51,7 @@ mixin _$GeoAvailableEvent {
   }) =>
       throw _privateConstructorUsedError;
 
-  /// Create a copy of GeoAvailableEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $GeoAvailableEventCopyWith<GeoAvailableEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -77,8 +75,6 @@ class _$GeoAvailableEventCopyWithImpl<$Res, $Val extends GeoAvailableEvent>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of GeoAvailableEvent
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -117,8 +113,6 @@ class __$$GetAvailableImplCopyWithImpl<$Res>
       _$GetAvailableImpl _value, $Res Function(_$GetAvailableImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GeoAvailableEvent
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -165,9 +159,7 @@ class _$GetAvailableImpl implements _GetAvailable {
   @override
   int get hashCode => Object.hash(runtimeType, lat, lon);
 
-  /// Create a copy of GeoAvailableEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetAvailableImplCopyWith<_$GetAvailableImpl> get copyWith =>
@@ -238,11 +230,8 @@ abstract class _GetAvailable implements GeoAvailableEvent {
   double get lat;
   @override
   double get lon;
-
-  /// Create a copy of GeoAvailableEvent
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetAvailableImplCopyWith<_$GetAvailableImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -317,9 +306,6 @@ class _$GeoAvailableStateCopyWithImpl<$Res, $Val extends GeoAvailableState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of GeoAvailableState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -336,9 +322,6 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of GeoAvailableState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -453,9 +436,6 @@ class __$$LoadingImplCopyWithImpl<$Res>
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of GeoAvailableState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -573,8 +553,6 @@ class __$$SuccessImplCopyWithImpl<$Res>
       _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GeoAvailableState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -614,9 +592,7 @@ class _$SuccessImpl implements Success {
   @override
   int get hashCode => Object.hash(runtimeType, geoAvailable);
 
-  /// Create a copy of GeoAvailableState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
@@ -701,10 +677,7 @@ abstract class Success implements GeoAvailableState {
   const factory Success(final GeoAvailableEntity geoAvailable) = _$SuccessImpl;
 
   GeoAvailableEntity get geoAvailable;
-
-  /// Create a copy of GeoAvailableState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -726,8 +699,6 @@ class __$$ErrorStateImplCopyWithImpl<$Res>
       _$ErrorStateImpl _value, $Res Function(_$ErrorStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GeoAvailableState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -766,9 +737,7 @@ class _$ErrorStateImpl implements ErrorState {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  /// Create a copy of GeoAvailableState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ErrorStateImplCopyWith<_$ErrorStateImpl> get copyWith =>
@@ -853,10 +822,7 @@ abstract class ErrorState implements GeoAvailableState {
   const factory ErrorState(final String message) = _$ErrorStateImpl;
 
   String get message;
-
-  /// Create a copy of GeoAvailableState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$ErrorStateImplCopyWith<_$ErrorStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

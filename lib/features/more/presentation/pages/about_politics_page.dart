@@ -119,8 +119,8 @@ class _AboutPoliticsPageState extends State<AboutPoliticsPage> {
   }
 
   Widget _buildBody(
-      BuildContext context,
-      ) {
+    BuildContext context,
+  ) {
     return SingleChildScrollView(
       child: BlocBuilder<PagesBloc, PagesState>(
         builder: (context, state) {

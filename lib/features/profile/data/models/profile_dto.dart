@@ -27,5 +27,6 @@ class ProfileDto {
   final List<ProfileCardDto> cards;
   final ProfileBonusDto? bonus;
 
-  factory ProfileDto.fromJson(Map<String, dynamic> json) => _$ProfileDtoFromJson(json);
+  factory ProfileDto.fromJson(Map<String, dynamic> json) =>
+      _$ProfileDtoFromJson(json);
 }

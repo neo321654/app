@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:monobox/features/address_setup/presentation/models/address_setup_state.dart';
-import 'package:monobox/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 import '../../../../config/themes/colors.dart';

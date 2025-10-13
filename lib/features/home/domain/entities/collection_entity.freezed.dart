@@ -23,9 +23,7 @@ mixin _$CollectionEntity {
   bool get isCollection => throw _privateConstructorUsedError;
   String? get color => throw _privateConstructorUsedError;
 
-  /// Create a copy of CollectionEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $CollectionEntityCopyWith<CollectionEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -55,8 +53,6 @@ class _$CollectionEntityCopyWithImpl<$Res, $Val extends CollectionEntity>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of CollectionEntity
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -121,8 +117,6 @@ class __$$CollectionEntityImplCopyWithImpl<$Res>
       $Res Function(_$CollectionEntityImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of CollectionEntity
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -218,9 +212,7 @@ class _$CollectionEntityImpl implements _CollectionEntity {
   int get hashCode => Object.hash(runtimeType, id, title, picture,
       const DeepCollectionEquality().hash(_products), isCollection, color);
 
-  /// Create a copy of CollectionEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$CollectionEntityImplCopyWith<_$CollectionEntityImpl> get copyWith =>
@@ -249,11 +241,8 @@ abstract class _CollectionEntity implements CollectionEntity {
   bool get isCollection;
   @override
   String? get color;
-
-  /// Create a copy of CollectionEntity
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$CollectionEntityImplCopyWith<_$CollectionEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

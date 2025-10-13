@@ -52,7 +52,8 @@ class Bonuses extends StatelessWidget {
                     children: [
                       Text(
                         context.watch<ProfileCubit>().state.maybeMap(
-                              done: (value) => 'У вас ${value.profile.bonus!.count} бонусов',
+                              done: (value) =>
+                                  'У вас ${value.profile.bonus!.count} бонусов',
                               orElse: () => '',
                             ),
                         style: AppStyles.footnote,
@@ -66,7 +67,10 @@ class Bonuses extends StatelessWidget {
                             builder: (context, state) {
                               return Text(
                                 context.watch<ProfileCubit>().state.maybeMap(
-                                      done: (value) => (state.useBonuses ?? false) ? 'Спишем ${value.profile.bonus!.count}' : 'Можете списать ${value.profile.bonus!.count}',
+                                      done: (value) => (state.useBonuses ??
+                                              false)
+                                          ? 'Спишем ${value.profile.bonus!.count}'
+                                          : 'Можете списать ${value.profile.bonus!.count}',
                                       orElse: () => '',
                                     ),
                                 style: AppStyles.callout,
@@ -92,9 +96,11 @@ class Bonuses extends StatelessWidget {
                         height: 31,
                         width: 55,
                         child: CupertinoSwitch(
-                          activeColor: AppColors.lightPrimary,
+                          activeTrackColor: AppColors.lightPrimary,
                           onChanged: (bool value) {
-                            context.read<CreateOrderStateCubit>().setUseBonuses(value);
+                            context
+                                .read<CreateOrderStateCubit>()
+                                .setUseBonuses(value);
                           },
                           value: state.useBonuses ?? false,
                         ),

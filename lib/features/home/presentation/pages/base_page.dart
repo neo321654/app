@@ -17,8 +17,8 @@ class BasePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double barItemIconContainerWidth = 52;
-    final double barItemIconContainerHeight = 30;
+    const double barItemIconContainerWidth = 52;
+    const double barItemIconContainerHeight = 30;
 
     return WillPopScope(
       onWillPop: () {
@@ -47,7 +47,10 @@ class BasePage extends StatelessWidget {
             return Visibility(
               visible: !(basketBloc.productsCount != null &&
                   basketBloc.productsCount! > 0 &&
-                  (context.router.currentPath.contains('/home-navigation-route/catalog-route') || context.router.currentPath.contains('/create-order-route'))),
+                  (context.router.currentPath
+                          .contains('/home-navigation-route/catalog-route') ||
+                      context.router.currentPath
+                          .contains('/create-order-route'))),
               child: SizedBox(
                 height: MediaQuery.viewPaddingOf(context).bottom + 56,
                 child: BottomNavigationBar(
@@ -155,7 +158,8 @@ class BasePage extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            if (basketBloc.productsCount != null && basketBloc.productsCount! > 0)
+                            if (basketBloc.productsCount != null &&
+                                basketBloc.productsCount! > 0)
                               Positioned(
                                 right: 0,
                                 top: 1,
@@ -203,7 +207,8 @@ class BasePage extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            if (basketBloc.productsCount != null && basketBloc.productsCount! > 0)
+                            if (basketBloc.productsCount != null &&
+                                basketBloc.productsCount! > 0)
                               Positioned(
                                 right: 0,
                                 top: 2,

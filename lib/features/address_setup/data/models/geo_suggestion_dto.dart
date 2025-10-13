@@ -27,7 +27,8 @@ class GeoSuggestionDto {
   final String? geoLat;
   final String? geoLon;
 
-  factory GeoSuggestionDto.fromJson(Map<String, dynamic> json) => _$GeoSuggestionDtoFromJson(json);
+  factory GeoSuggestionDto.fromJson(Map<String, dynamic> json) =>
+      _$GeoSuggestionDtoFromJson(json);
 
   Map<String, dynamic> toJson() {
     return _$GeoSuggestionDtoToJson(this);

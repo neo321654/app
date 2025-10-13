@@ -16,9 +16,10 @@ class BasketModifireDto {
   final int qnt;
 
   Map<String, dynamic> toJson() => {
-    'id': id,
-    'qnt': qnt,
-  };
+        'id': id,
+        'qnt': qnt,
+      };
 
-  factory BasketModifireDto.fromJson(Map<String, dynamic> json) => _$BasketModifireDtoFromJson(json);
+  factory BasketModifireDto.fromJson(Map<String, dynamic> json) =>
+      _$BasketModifireDtoFromJson(json);
 }

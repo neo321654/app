@@ -29,7 +29,7 @@ class CashPropouse extends StatelessWidget {
     return Container(
       height: 48,
       width: double.infinity,
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         left: 16,
         top: 14,
         right: 12,

@@ -34,9 +34,7 @@ mixin _$AddressEntity {
   String? get street => throw _privateConstructorUsedError;
   bool get isDefault => throw _privateConstructorUsedError;
 
-  /// Create a copy of AddressEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $AddressEntityCopyWith<AddressEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -77,8 +75,6 @@ class _$AddressEntityCopyWithImpl<$Res, $Val extends AddressEntity>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of AddressEntity
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -209,8 +205,6 @@ class __$$AddressEntityImplCopyWithImpl<$Res>
       _$AddressEntityImpl _value, $Res Function(_$AddressEntityImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AddressEntity
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -418,9 +412,7 @@ class _$AddressEntityImpl extends _AddressEntity {
       street,
       isDefault);
 
-  /// Create a copy of AddressEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$AddressEntityImplCopyWith<_$AddressEntityImpl> get copyWith =>
@@ -482,11 +474,8 @@ abstract class _AddressEntity extends AddressEntity {
   String? get street;
   @override
   bool get isDefault;
-
-  /// Create a copy of AddressEntity
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$AddressEntityImplCopyWith<_$AddressEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

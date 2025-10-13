@@ -66,9 +66,6 @@ class _$ChildrensEventCopyWithImpl<$Res, $Val extends ChildrensEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of ChildrensEvent
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -85,9 +82,6 @@ class __$$LoadChildrensImplCopyWithImpl<$Res>
   __$$LoadChildrensImplCopyWithImpl(
       _$LoadChildrensImpl _value, $Res Function(_$LoadChildrensImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of ChildrensEvent
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -240,9 +234,6 @@ class _$ChildrensStateCopyWithImpl<$Res, $Val extends ChildrensState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of ChildrensState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -259,9 +250,6 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of ChildrensState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -376,9 +364,6 @@ class __$$LoadingImplCopyWithImpl<$Res>
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of ChildrensState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -495,8 +480,6 @@ class __$$DoneImplCopyWithImpl<$Res>
   __$$DoneImplCopyWithImpl(_$DoneImpl _value, $Res Function(_$DoneImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ChildrensState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -542,9 +525,7 @@ class _$DoneImpl implements _Done {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_childrens));
 
-  /// Create a copy of ChildrensState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$DoneImplCopyWith<_$DoneImpl> get copyWith =>
@@ -629,10 +610,7 @@ abstract class _Done implements ChildrensState {
   const factory _Done(final List<ChildEntity> childrens) = _$DoneImpl;
 
   List<ChildEntity> get childrens;
-
-  /// Create a copy of ChildrensState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$DoneImplCopyWith<_$DoneImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -654,8 +632,6 @@ class __$$ErrorImplCopyWithImpl<$Res>
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ChildrensState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -694,9 +670,7 @@ class _$ErrorImpl implements _Error {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of ChildrensState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
@@ -781,10 +755,7 @@ abstract class _Error implements ChildrensState {
   const factory _Error(final Error error) = _$ErrorImpl;
 
   Error get error;
-
-  /// Create a copy of ChildrensState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

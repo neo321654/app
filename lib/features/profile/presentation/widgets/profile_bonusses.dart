@@ -10,7 +10,6 @@ import '../../../../config/themes/styles.dart';
 import '../../domain/entities/loyalty_entity.dart';
 import '../bloc/loyalty/loyalty_bloc.dart';
 import '../bloc/profile/profile_cubit.dart';
-import 'qr_button.dart';
 
 class ProfileBonusses extends StatelessWidget {
   const ProfileBonusses({
@@ -128,7 +127,8 @@ class ProfileBonusses extends StatelessWidget {
           right: 0,
           top: 0,
           child: GestureDetector(
-            onTap: () => isClickabel ? context.router.push(const LoyaltyRoute()) : null,
+            onTap: () =>
+                isClickabel ? context.router.push(const LoyaltyRoute()) : null,
             child: Container(
               padding: const EdgeInsets.symmetric(
                 horizontal: 12,
@@ -176,14 +176,15 @@ class ProfileBonusses extends StatelessWidget {
                               style: AppStyles.footnote,
                             ),
                             context.watch<ProfileCubit>().state.maybeMap(
-                                  done: (value) => value.profile.bonus!.sumStill != null
-                                      ? Text(
-                                          value.profile.bonus!.sumStill!,
-                                          style: AppStyles.footnote,
-                                        )
-                                      : Container(
-                                          height: 18,
-                                        ),
+                                  done: (value) =>
+                                      value.profile.bonus!.sumStill != null
+                                          ? Text(
+                                              value.profile.bonus!.sumStill!,
+                                              style: AppStyles.footnote,
+                                            )
+                                          : Container(
+                                              height: 18,
+                                            ),
                                   orElse: () => Container(
                                     height: 18,
                                   ),

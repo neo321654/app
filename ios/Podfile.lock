@@ -74,7 +74,6 @@ PODS:
     - Flutter
   - geolocator_apple (1.2.0):
     - Flutter
-    - FlutterMacOS
   - GoogleDataTransport (9.4.1):
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30911.0, >= 2.30908.0)
@@ -108,7 +107,6 @@ PODS:
     - Flutter
   - just_audio (0.0.1):
     - Flutter
-    - FlutterMacOS
   - nanopb (2.30910.0):
     - nanopb/decode (= 2.30910.0)
     - nanopb/encode (= 2.30910.0)
@@ -160,9 +158,9 @@ DEPENDENCIES:
   - flutter_localization (from `.symlinks/plugins/flutter_localization/ios`)
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
   - flutter_pdfview (from `.symlinks/plugins/flutter_pdfview/ios`)
-  - geolocator_apple (from `.symlinks/plugins/geolocator_apple/darwin`)
+  - geolocator_apple (from `.symlinks/plugins/geolocator_apple/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
-  - just_audio (from `.symlinks/plugins/just_audio/darwin`)
+  - just_audio (from `.symlinks/plugins/just_audio/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - pointer_interceptor_ios (from `.symlinks/plugins/pointer_interceptor_ios/ios`)
@@ -217,11 +215,11 @@ EXTERNAL SOURCES:
   flutter_pdfview:
     :path: ".symlinks/plugins/flutter_pdfview/ios"
   geolocator_apple:
-    :path: ".symlinks/plugins/geolocator_apple/darwin"
+    :path: ".symlinks/plugins/geolocator_apple/ios"
   image_picker_ios:
     :path: ".symlinks/plugins/image_picker_ios/ios"
   just_audio:
-    :path: ".symlinks/plugins/just_audio/darwin"
+    :path: ".symlinks/plugins/just_audio/ios"
   package_info_plus:
     :path: ".symlinks/plugins/package_info_plus/ios"
   path_provider_foundation:
@@ -248,11 +246,11 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/yandex_mapkit/ios"
 
 SPEC CHECKSUMS:
-  audio_session: 9bb7f6c970f21241b19f5a3658097ae459681ba0
+  audio_session: 088d2483ebd1dc43f51d253d4a1c517d9a2e7207
   Firebase: 0312a2352584f782ea56f66d91606891d4607f06
-  firebase_core: 3b49a055ff54114cae400581c13671fe53936c36
-  firebase_crashlytics: 66f38fa4dd09ba785fb909ee14e97b02693162f4
-  firebase_messaging: 30fa3ec8cd0dc8a860b7817548911b97345a0875
+  firebase_core: a626d00494efa398e7c54f25f1454a64c8abf197
+  firebase_crashlytics: 17e856fabec68d993662abaf2f6fe2413f0abece
+  firebase_messaging: 06391e8f35dc65a00c56580266285263d2861f10
   FirebaseCore: 7ec4d0484817f12c3373955bc87762d96842d483
   FirebaseCoreExtension: 705ca5b14bf71d2564a0ddc677df1fc86ffa600f
   FirebaseCoreInternal: df84dd300b561c27d5571684f389bf60b0a5c934
@@ -261,34 +259,34 @@ SPEC CHECKSUMS:
   FirebaseMessaging: 88950ba9485052891ebe26f6c43a52bb62248952
   FirebaseRemoteConfigInterop: 6efda51fb5e2f15b16585197e26eaa09574e8a4d
   FirebaseSessions: dbd14adac65ce996228652c1fc3a3f576bdf3ecc
-  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  flutter_keyboard_visibility: 4625131e43015dbbe759d9b20daaf77e0e3f6619
-  flutter_local_notifications: ad39620c743ea4c15127860f4b5641649a988100
-  flutter_localization: 72299fb6cb4e51cae587bd953ed0b958040b71e6
-  flutter_native_splash: c32d145d68aeda5502d5f543ee38c192065986cf
-  flutter_pdfview: 32bf27bda6fd85b9dd2c09628a824df5081246cf
-  geolocator_apple: ab36aa0e8b7d7a2d7639b3b4e48308394e8cef5e
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
+  flutter_keyboard_visibility: 0339d06371254c3eb25eeb90ba8d17dca8f9c069
+  flutter_local_notifications: 4cde75091f6327eb8517fa068a0a5950212d2086
+  flutter_localization: f43b18844a2b3d2c71fd64f04ffd6b1e64dd54d4
+  flutter_native_splash: df59bb2e1421aa0282cb2e95618af4dcb0c56c29
+  flutter_pdfview: 25f53dd6097661e6395b17de506e6060585946bd
+  geolocator_apple: 9bcea1918ff7f0062d98345d238ae12718acfbc1
   GoogleDataTransport: 6c09b596d841063d76d4288cc2d2f42cc36e1e2a
   GoogleUtilities: ea963c370a38a8069cc5f7ba4ca849a60b6d7d15
-  image_picker_ios: 7fe1ff8e34c1790d6fff70a32484959f563a928a
-  just_audio: 4e391f57b79cad2b0674030a00453ca5ce817eed
+  image_picker_ios: c560581cceedb403a6ff17f2f816d7fea1421fc1
+  just_audio: baa7252489dbcf47a4c7cc9ca663e9661c99aafa
   nanopb: 438bc412db1928dac798aa6fd75726007be04262
-  package_info_plus: af8e2ca6888548050f16fa2f1938db7b5a5df499
-  path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
-  pointer_interceptor_ios: ec847ef8b0915778bed2b2cef636f4d177fa8eed
+  package_info_plus: c0502532a26c7662a62a356cebe2692ec5fe4ec4
+  path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
+  pointer_interceptor_ios: 508241697ff0947f853c061945a8b822463947c1
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
-  share_plus: 011d6fb4f9d2576b83179a3a5c5e323202cdabcf
-  shared_preferences_foundation: 9e1978ff2562383bd5676f64ec4e9aa8fa06a6f7
-  smart_auth: 33668081c5f646af84f10492a067d25fdcd16951
-  sqflite_darwin: 20b2a3a3b70e43edae938624ce550a3cbf66a3d0
-  url_launcher_ios: 694010445543906933d732453a59da0a173ae33d
-  video_player_avfoundation: 2cef49524dd1f16c5300b9cd6efd9611ce03639b
-  wakelock_plus: e29112ab3ef0b318e58cfa5c32326458be66b556
-  webview_flutter_wkwebview: 1821ceac936eba6f7984d89a9f3bcb4dea99ebb2
-  yandex_mapkit: d9c479705f0f3888a3fc67b0d9c6156108e74270
+  share_plus: 8875f4f2500512ea181eef553c3e27dba5135aad
+  shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
+  smart_auth: 4bedbc118723912d0e45a07e8ab34039c19e04f2
+  sqflite_darwin: 5a7236e3b501866c1c9befc6771dfd73ffb8702d
+  url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
+  video_player_avfoundation: 7c6c11d8470e1675df7397027218274b6d2360b3
+  wakelock_plus: 78ec7c5b202cab7761af8e2b2b3d0671be6c4ae1
+  webview_flutter_wkwebview: 0982481e3d9c78fd5c6f62a002fcd24fc791f1e4
+  yandex_mapkit: 99516c0d4d24d61bcb3711b5944223e8a3d70b46
   YandexMapsMobile: 7e20ef4db180b901c96f8107fade91d6349248a0
 
-PODFILE CHECKSUM: 5c6ad695f2a794d6712c6e90237982f99ecad941
+PODFILE CHECKSUM: d4475d06f108c40e515d38f97f92e8e065e15ae7
 
 COCOAPODS: 1.16.2

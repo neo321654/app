@@ -34,7 +34,8 @@ class _AuthPageState extends State<AuthPage> {
   late MaskedTextController phoneController;
   late AuthFormCubit authFormCubit;
 
-  bool get validatePhoneStatus => phoneController.text.isNotEmpty && phoneController.text.length == 15;
+  bool get validatePhoneStatus =>
+      phoneController.text.isNotEmpty && phoneController.text.length == 15;
 
   final pinController = TextEditingController();
   final focusNode = FocusNode();
@@ -77,7 +78,9 @@ class _AuthPageState extends State<AuthPage> {
           if (state is AuthSentCode) {
             authFormCubit.setUserPhone(phoneController.text);
             authFormCubit.codeSent(true);
-            authFormCubit.setTimeCount(state.getCodeStatusEntity.expired != null ? (state.getCodeStatusEntity.expired!).round() : 60);
+            authFormCubit.setTimeCount(state.getCodeStatusEntity.expired != null
+                ? (state.getCodeStatusEntity.expired!).round()
+                : 60);
           }
           if (state is RecivedToken) {
             context.read<AuthBloc>().add(
@@ -239,7 +242,8 @@ class _AuthPageState extends State<AuthPage> {
                               ),
                               suffixIcon: state.phoneValid
                                   ? Padding(
-                                      padding: const EdgeInsets.only(right: 17.5),
+                                      padding:
+                                          const EdgeInsets.only(right: 17.5),
                                       child: SvgPicture.asset(
                                         'assets/icons/check.svg',
                                         color: AppColors.positive,
@@ -268,7 +272,9 @@ class _AuthPageState extends State<AuthPage> {
                               return BlocBuilder<AuthFormCubit, AuthFormState>(
                                 builder: (context, state) {
                                   return ElevatedButton(
-                                    onPressed: state.acceptUserAgreement && state.phoneValid && authState is! SendCodeSending
+                                    onPressed: state.acceptUserAgreement &&
+                                            state.phoneValid &&
+                                            authState is! SendCodeSending
                                         ? () {
                                             authFormCubit.setTimeCount(60);
                                             context.read<SendCodeBloc>().add(
@@ -290,7 +296,8 @@ class _AuthPageState extends State<AuthPage> {
                                             )
                                           : Text(
                                               'Получить код',
-                                              style: AppStyles.bodyBold.copyWith(
+                                              style:
+                                                  AppStyles.bodyBold.copyWith(
                                                 color: AppColors.white,
                                               ),
                                             ),
@@ -305,8 +312,13 @@ class _AuthPageState extends State<AuthPage> {
                           height: 20,
                         ),
                         CustomCheckBox(
-                          selected: context.read<AuthFormCubit>().state.acceptLoyality,
-                          onSelect: (value) => context.read<AuthFormCubit>().acceptLoyality(value),
+                          selected: context
+                              .read<AuthFormCubit>()
+                              .state
+                              .acceptLoyality,
+                          onSelect: (value) => context
+                              .read<AuthFormCubit>()
+                              .acceptLoyality(value),
                           label: 'Я хочу учавствовать в программе лояльности',
                         ),
                         const SizedBox(
@@ -319,7 +331,8 @@ class _AuthPageState extends State<AuthPage> {
                               style: AppStyles.footnote,
                               children: [
                                 TextSpan(
-                                  text: 'При входе или регистрации вы принимаете\nусловия ',
+                                  text:
+                                      'При входе или регистрации вы принимаете\nусловия ',
                                   style: AppStyles.footnote,
                                 ),
                                 TextSpan(
@@ -357,7 +370,9 @@ class _AuthPageState extends State<AuthPage> {
                           child: BlocBuilder<SendCodeBloc, SendCodeState>(
                             builder: (context, state) {
                               return Visibility(
-                                visible: state is AuthCheckCodeFailure ? true : false,
+                                visible: state is AuthCheckCodeFailure
+                                    ? true
+                                    : false,
                                 child: (state is AuthCheckCodeFailure)
                                     ? Text(
                                         state.message,
@@ -381,7 +396,8 @@ class _AuthPageState extends State<AuthPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           controller: pinController,
                           focusNode: focusNode,
-                          androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
+                          androidSmsAutofillMethod:
+                              AndroidSmsAutofillMethod.smsUserConsentApi,
                           //androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsRetrieverApi,
                           listenForMultipleSmsOnAndroid: true,
                           defaultPinTheme: defaultPinTheme,
@@ -488,14 +504,19 @@ class _AuthPageState extends State<AuthPage> {
                                   onPressed: state.timeCount > 0
                                       ? null
                                       : () {
-                                          context.read<SendCodeBloc>().add(RequestCode(phone: phoneController.text));
+                                          context.read<SendCodeBloc>().add(
+                                              RequestCode(
+                                                  phone: phoneController.text));
                                         },
                                   style: AppStyles.greyElevatedButtonOpacity,
                                   child: Center(
                                     child: Text(
                                       'Выслать код',
                                       style: AppStyles.footnoteBold.copyWith(
-                                        color: state.timeCount > 0 ? AppColors.darkPrimary.withOpacity(.5) : AppColors.darkPrimary,
+                                        color: state.timeCount > 0
+                                            ? AppColors.darkPrimary
+                                                .withOpacity(.5)
+                                            : AppColors.darkPrimary,
                                       ),
                                     ),
                                   ),

@@ -16,7 +16,7 @@ class OrderBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: 12,
         vertical: 4,
       ),
@@ -27,7 +27,9 @@ class OrderBadge extends StatelessWidget {
             AppStyles.radiusBlock,
           ),
         ),
-        color: status == OrderStatus.delivered ? AppColors.positive : AppColors.lightPrimary,
+        color: status == OrderStatus.delivered
+            ? AppColors.positive
+            : AppColors.lightPrimary,
       ),
       child: Text(
         text,

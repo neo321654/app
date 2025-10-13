@@ -18,9 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$MyAddressState {
   AddressEntity? get cuttentAddress => throw _privateConstructorUsedError;
 
-  /// Create a copy of MyAddressState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $MyAddressStateCopyWith<MyAddressState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -46,8 +44,6 @@ class _$MyAddressStateCopyWithImpl<$Res, $Val extends MyAddressState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of MyAddressState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -61,8 +57,6 @@ class _$MyAddressStateCopyWithImpl<$Res, $Val extends MyAddressState>
     ) as $Val);
   }
 
-  /// Create a copy of MyAddressState
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $AddressEntityCopyWith<$Res>? get cuttentAddress {
@@ -98,8 +92,6 @@ class __$$MyAddressStateImplCopyWithImpl<$Res>
       _$MyAddressStateImpl _value, $Res Function(_$MyAddressStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of MyAddressState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -139,9 +131,7 @@ class _$MyAddressStateImpl implements _MyAddressState {
   @override
   int get hashCode => Object.hash(runtimeType, cuttentAddress);
 
-  /// Create a copy of MyAddressState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$MyAddressStateImplCopyWith<_$MyAddressStateImpl> get copyWith =>
@@ -155,11 +145,8 @@ abstract class _MyAddressState implements MyAddressState {
 
   @override
   AddressEntity? get cuttentAddress;
-
-  /// Create a copy of MyAddressState
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$MyAddressStateImplCopyWith<_$MyAddressStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

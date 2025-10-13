@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:adaptive_action_sheet/adaptive_action_sheet.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -60,14 +59,17 @@ class ShopCard extends StatelessWidget {
                     actions: [
                       BottomSheetAction(
                         onPressed: (context) async {
-                          await Clipboard.setData(ClipboardData(text: shop.address));
+                          await Clipboard.setData(
+                              ClipboardData(text: shop.address));
                           if (!context.mounted) return;
                           AutoRouter.of(context).pop('clipboard');
                         },
                         title: Text(
                           'Скопировать адрес',
                           style: AppStyles.bodyRegular.copyWith(
-                            color: !Platform.isIOS ? AppColors.black : const Color(0xFF007AFF),
+                            color: !Platform.isIOS
+                                ? AppColors.black
+                                : const Color(0xFF007AFF),
                           ),
                         ),
                       ),
@@ -79,7 +81,9 @@ class ShopCard extends StatelessWidget {
                         title: Text(
                           'Заказать самовывоз',
                           style: AppStyles.bodyRegular.copyWith(
-                            color: !Platform.isIOS ? AppColors.black : const Color(0xFF007AFF),
+                            color: !Platform.isIOS
+                                ? AppColors.black
+                                : const Color(0xFF007AFF),
                           ),
                         ),
                       ),
@@ -90,7 +94,9 @@ class ShopCard extends StatelessWidget {
                         title: Text(
                           'Найти в 2ГИС',
                           style: AppStyles.bodyRegular.copyWith(
-                            color: !Platform.isIOS ? AppColors.black : const Color(0xFF007AFF),
+                            color: !Platform.isIOS
+                                ? AppColors.black
+                                : const Color(0xFF007AFF),
                           ),
                         ),
                       ),

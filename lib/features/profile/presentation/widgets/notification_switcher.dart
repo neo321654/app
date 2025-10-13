@@ -24,7 +24,7 @@ class _NotificationSwitcherState extends State<NotificationSwitcher> {
   @override
   Widget build(BuildContext context) {
     return CupertinoSwitch(
-      activeColor: AppColors.lightPrimary,
+      activeTrackColor: AppColors.lightPrimary,
       value: newStatus,
       onChanged: (value) {
         widget.onChanged(value);

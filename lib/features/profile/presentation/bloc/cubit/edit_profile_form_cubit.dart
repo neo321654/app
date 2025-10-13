@@ -32,9 +32,12 @@ class EditProfileFormCubit extends Cubit<EditProfileFormState> {
     return false;
   }
 
-  void formValid({String? email, String? name, String? birthday, bool? acceptLoyality}) {
+  void formValid(
+      {String? email, String? name, String? birthday, bool? acceptLoyality}) {
     bool isValidForm = false;
-    if (email?.isNotEmpty == true || name?.isNotEmpty == true || birthday?.isNotEmpty == true) {
+    if (email?.isNotEmpty == true ||
+        name?.isNotEmpty == true ||
+        birthday?.isNotEmpty == true) {
       if ((email?.isNotEmpty == true && !state.emailValid)) {
         isValidForm = false;
       } else {
@@ -51,9 +54,12 @@ class EditProfileFormCubit extends Cubit<EditProfileFormState> {
     ));
   }
 
-  void formValid2({String? email, String? name, String? birthday, bool? acceptLoyality}) {
+  void formValid2(
+      {String? email, String? name, String? birthday, bool? acceptLoyality}) {
     bool isValidForm = false;
-    if (email?.isNotEmpty == true && name?.isNotEmpty == true && birthday?.isNotEmpty == true) {
+    if (email?.isNotEmpty == true &&
+        name?.isNotEmpty == true &&
+        birthday?.isNotEmpty == true) {
       isValidForm = true;
     }
 

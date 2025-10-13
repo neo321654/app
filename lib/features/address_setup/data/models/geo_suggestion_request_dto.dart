@@ -15,7 +15,8 @@ class GeoSuggestionRequestDto {
   final String search;
   final String city;
 
-  factory GeoSuggestionRequestDto.fromJson(Map<String, dynamic> json) => _$GeoSuggestionRequestDtoFromJson(json);
+  factory GeoSuggestionRequestDto.fromJson(Map<String, dynamic> json) =>
+      _$GeoSuggestionRequestDtoFromJson(json);
 
   Map<String, dynamic> toJson() {
     return _$GeoSuggestionRequestDtoToJson(this);

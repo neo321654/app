@@ -26,5 +26,6 @@ class ActionDto {
   final String? picture;
   final String? mobilePicture;
 
-  factory ActionDto.fromJson(Map<String, dynamic> json) => _$ActionDtoFromJson(json);
+  factory ActionDto.fromJson(Map<String, dynamic> json) =>
+      _$ActionDtoFromJson(json);
 }

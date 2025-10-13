@@ -76,27 +76,48 @@ class Itogo extends StatelessWidget {
                 //   ),
                 // ),
                 success: (basketInfo) {
-                  print('PRETOTAL INFO: \n' + basketInfo.pretotalInfo.map((e) => ' [32m${e.title}: ${e.value} [0m').join("\n"));
+                  print(
+                      'PRETOTAL INFO: \n${basketInfo.pretotalInfo.map((e) => ' [32m${e.title}: ${e.value} [0m').join("\n")}');
                   print('WARNINGS: ${basketInfo.warnings}');
-                  print('BASKET - SELECTED ADDRESS:  [33m${context.read<CreateOrderStateCubit>().state.deliveryAddress?.address} (ID: ${context.read<CreateOrderStateCubit>().state.deliveryAddress?.id}) [0m');
-                  print('BASKET - DELIVERY TYPE:  [33m${context.read<CreateOrderStateCubit>().state.delivery?.type} (ID: ${context.read<CreateOrderStateCubit>().state.delivery?.id}) [0m');
-                  print('BASKET - DELIVERY NAME:  [33m${context.read<CreateOrderStateCubit>().state.delivery?.name} [0m');
+                  print(
+                      'BASKET - SELECTED ADDRESS:  [33m${context.read<CreateOrderStateCubit>().state.deliveryAddress?.address} (ID: ${context.read<CreateOrderStateCubit>().state.deliveryAddress?.id}) [0m');
+                  print(
+                      'BASKET - DELIVERY TYPE:  [33m${context.read<CreateOrderStateCubit>().state.delivery?.type} (ID: ${context.read<CreateOrderStateCubit>().state.delivery?.id}) [0m');
+                  print(
+                      'BASKET - DELIVERY NAME:  [33m${context.read<CreateOrderStateCubit>().state.delivery?.name} [0m');
 
                   // Копируем pretotalInfo для возможного добавления строки доставки
-                  final List<BasketPretotalnfoEntity> pretotalInfo = List.from(basketInfo.pretotalInfo);
-                  final deliveryType = context.read<CreateOrderStateCubit>().state.delivery?.type;
-                  final totalWithDelivery = context.read<CreateOrderStateCubit>().state.delivery?.type == 'delivery'
-                      ? context.read<CreateOrderStateCubit>().state.delivery != null
-                        ? basketInfo.totalInfo.total + _getDeliveryCostFromPretotal(pretotalInfo)
-                        : basketInfo.totalInfo.total
+                  final List<BasketPretotalnfoEntity> pretotalInfo =
+                      List.from(basketInfo.pretotalInfo);
+                  final deliveryType = context
+                      .read<CreateOrderStateCubit>()
+                      .state
+                      .delivery
+                      ?.type;
+                  final totalWithDelivery = context
+                              .read<CreateOrderStateCubit>()
+                              .state
+                              .delivery
+                              ?.type ==
+                          'delivery'
+                      ? context.read<CreateOrderStateCubit>().state.delivery !=
+                              null
+                          ? basketInfo.totalInfo.total +
+                              _getDeliveryCostFromPretotal(pretotalInfo)
+                          : basketInfo.totalInfo.total
                       : basketInfo.totalInfo.total;
 
                   // Проверяем, есть ли строка доставки
-                  bool hasDeliveryRow = pretotalInfo.any((e) => e.title.toLowerCase().contains('доставка'));
+                  bool hasDeliveryRow = pretotalInfo
+                      .any((e) => e.title.toLowerCase().contains('доставка'));
                   // Если доставки нет, но доставка выбрана и сумма больше, чем total, добавляем вручную
-                  if (deliveryType == 'delivery' && !hasDeliveryRow && totalWithDelivery > basketInfo.totalInfo.total) {
-                    final deliveryCost = totalWithDelivery - basketInfo.totalInfo.total;
-                    pretotalInfo.add(BasketPretotalnfoEntity(title: 'Доставка', value: '$deliveryCost ₽'));
+                  if (deliveryType == 'delivery' &&
+                      !hasDeliveryRow &&
+                      totalWithDelivery > basketInfo.totalInfo.total) {
+                    final deliveryCost =
+                        totalWithDelivery - basketInfo.totalInfo.total;
+                    pretotalInfo.add(BasketPretotalnfoEntity(
+                        title: 'Доставка', value: '$deliveryCost ₽'));
                   }
 
                   return Column(

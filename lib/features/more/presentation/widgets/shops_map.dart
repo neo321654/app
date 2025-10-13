@@ -266,7 +266,9 @@ class _ShopsMapState extends State<ShopsMap> {
     if (!serviceEnabled) return null;
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever || permission == LocationPermission.unableToDetermine) {
+      if (permission == LocationPermission.denied ||
+          permission == LocationPermission.deniedForever ||
+          permission == LocationPermission.unableToDetermine) {
         return null;
       }
     }
@@ -297,8 +299,16 @@ class _ShopsMapState extends State<ShopsMap> {
     Point? userPoint;
     if (context.read<ShopLocationStateCubit>().state.geoSuggestion != null) {
       userPoint = Point(
-        latitude: double.parse(context.read<ShopLocationStateCubit>().state.geoSuggestion!.geoLat!),
-        longitude: double.parse(context.read<ShopLocationStateCubit>().state.geoSuggestion!.geoLon!),
+        latitude: double.parse(context
+            .read<ShopLocationStateCubit>()
+            .state
+            .geoSuggestion!
+            .geoLat!),
+        longitude: double.parse(context
+            .read<ShopLocationStateCubit>()
+            .state
+            .geoSuggestion!
+            .geoLon!),
       );
 
       await _moveToPoint(userPoint);
@@ -317,7 +327,9 @@ class _ShopsMapState extends State<ShopsMap> {
     } else {
       _userPosition = await _determinePosition();
       if (_userPosition != null) {
-        await _moveToPoint(Point(latitude: _userPosition!.latitude, longitude: _userPosition!.longitude));
+        await _moveToPoint(Point(
+            latitude: _userPosition!.latitude,
+            longitude: _userPosition!.longitude));
 
         final mapObject = PlacemarkMapObject(
           mapId: const MapObjectId('user_icon'),
@@ -326,7 +338,8 @@ class _ShopsMapState extends State<ShopsMap> {
                 latitude: _userPosition!.latitude,
                 longitude: _userPosition!.longitude,
               ),
-          onTap: (PlacemarkMapObject self, Point point) => print('Tapped me at $point'),
+          onTap: (PlacemarkMapObject self, Point point) =>
+              print('Tapped me at $point'),
           opacity: 1,
           //isDraggable: true,
           onDragStart: (_) => print('Drag start'),
@@ -334,7 +347,8 @@ class _ShopsMapState extends State<ShopsMap> {
           onDragEnd: (_) => print('Drag end'),
           icon: PlacemarkIcon.single(
             PlacemarkIconStyle(
-              image: BitmapDescriptor.fromAssetImage('assets/images/Location.png'),
+              image:
+                  BitmapDescriptor.fromAssetImage('assets/images/Location.png'),
               rotationType: RotationType.rotate,
               scale: 2,
               anchor: const Offset(.5, 1),
@@ -384,7 +398,8 @@ class _ShopsMapState extends State<ShopsMap> {
         // onDragEnd: (_) => print('Drag end'),
         icon: PlacemarkIcon.single(
           PlacemarkIconStyle(
-            image: BitmapDescriptor.fromAssetImage('assets/images/shop_icon5.png'),
+            image:
+                BitmapDescriptor.fromAssetImage('assets/images/shop_icon5.png'),
             rotationType: RotationType.rotate,
             scale: .05,
             anchor: const Offset(.5, 1),

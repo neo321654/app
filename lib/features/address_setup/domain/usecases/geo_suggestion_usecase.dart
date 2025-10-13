@@ -5,7 +5,9 @@ import '../../../../core/usecase/usecase.dart';
 import '../entities/geo_suggestion_entity.dart';
 import '../repository/geo_repository.dart';
 
-class GeoSuggestionUsecase implements UseCase<DataState<List<GeoSuggestionEntity>>, GeoSuggestionParams?> {
+class GeoSuggestionUsecase
+    implements
+        UseCase<DataState<List<GeoSuggestionEntity>>, GeoSuggestionParams?> {
   final GeoRepository repository;
 
   GeoSuggestionUsecase({required this.repository});

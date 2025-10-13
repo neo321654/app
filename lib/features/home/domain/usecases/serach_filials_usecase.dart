@@ -5,7 +5,9 @@ import '../../../../core/usecase/usecase.dart';
 import '../../../more/domain/entities/shop_entity.dart';
 import '../repository/filials_repository.dart';
 
-class SearchFilialsUsecase implements UseCase<DataState<List<ShopEntity>>, FilialsSearchRequesEntity?> {
+class SearchFilialsUsecase
+    implements
+        UseCase<DataState<List<ShopEntity>>, FilialsSearchRequesEntity?> {
   final FilialsRepository repository;
 
   SearchFilialsUsecase({required this.repository});

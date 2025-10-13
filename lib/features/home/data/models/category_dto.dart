@@ -24,5 +24,6 @@ class CategoryDto {
   final bool isCollection;
   final String? color;
 
-  factory CategoryDto.fromJson(Map<String, dynamic> json) => _$CategoryDtoFromJson(json);
+  factory CategoryDto.fromJson(Map<String, dynamic> json) =>
+      _$CategoryDtoFromJson(json);
 }

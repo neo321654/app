@@ -61,7 +61,9 @@ class HomePage extends StatelessWidget {
                     onTap: () {
                       state.maybeWhen(
                         success: (settings) async {
-                          Uri phoneno = Uri(scheme: 'tel', path: '+${(settings.feedback?.phone ?? "")}');
+                          Uri phoneno = Uri(
+                              scheme: 'tel',
+                              path: '+${(settings.feedback?.phone ?? "")}');
 
                           if (await canLaunchUrl(phoneno)) {
                             await launchUrl(phoneno);
@@ -113,21 +115,30 @@ class HomePage extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          if (getIt<AuthBloc>().state != const AuthState.authenticated())
+                          if (getIt<AuthBloc>().state !=
+                              const AuthState.authenticated())
                             Expanded(
                               child: Text(
-                                getIt<AddressSetupStateCubit>().state.address!.street ?? 'Укажите адрес',
+                                getIt<AddressSetupStateCubit>()
+                                        .state
+                                        .address!
+                                        .street ??
+                                    'Укажите адрес',
                                 style: AppStyles.bodyBold,
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                          if (getIt<AuthBloc>().state == const AuthState.authenticated())
+                          if (getIt<AuthBloc>().state ==
+                              const AuthState.authenticated())
                             BlocBuilder<UserAddressBloc, UserAddressState>(
                               builder: (context, state) {
                                 return Expanded(
                                   child: Text(
                                     state.maybeMap(
-                                      success: (value) => value.addresses.isNotEmpty ? value.addresses[0].address : 'Укажите адрес',
+                                      success: (value) =>
+                                          value.addresses.isNotEmpty
+                                              ? value.addresses[0].address
+                                              : 'Укажите адрес',
                                       orElse: () => 'Укажите адрес',
                                     ),
                                     style: AppStyles.bodyBold,
@@ -151,7 +162,8 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               AppStyles.smallHGap,
-              if (context.watch<AuthBloc>().state == const AuthState.authenticated() &&
+              if (context.watch<AuthBloc>().state ==
+                      const AuthState.authenticated() &&
                   context.watch<ProfileCubit>().state.maybeWhen(
                         done: (profile) => true,
                         orElse: () => false,
@@ -180,14 +192,16 @@ class HomePage extends StatelessWidget {
                     ),
                     child: Row(
                       children: [
-                        if (context.watch<AuthBloc>().state != const AuthState.authenticated())
+                        if (context.watch<AuthBloc>().state !=
+                            const AuthState.authenticated())
                           Text(
                             'Бонусы',
                             style: AppStyles.subheadBold.copyWith(
                               height: 1,
                             ),
                           ),
-                        if (context.watch<AuthBloc>().state == const AuthState.authenticated())
+                        if (context.watch<AuthBloc>().state ==
+                            const AuthState.authenticated())
                           context.watch<ProfileCubit>().state.maybeMap(
                                 done: (value) => value.profile.bonus!.available
                                     ? Text(
@@ -407,13 +421,13 @@ class HomePage extends StatelessWidget {
                 AppStyles.smallVGap,
                 const SizedBox(
                   width: double.infinity,
-
                   child: Banners(),
                 ),
                 AppStyles.xxsmall20VGap,
                 BlocBuilder<CollectionsBloc, CollectionsState>(
                   builder: (context, state) {
-                    if (state is CollectionsDone && state.collections?.isEmpty == true) {
+                    if (state is CollectionsDone &&
+                        state.collections?.isEmpty == true) {
                       return Container();
                     }
                     return const Padding(
@@ -491,22 +505,34 @@ class HomePage extends StatelessWidget {
                       AppStyles.xxsmallVGap,
                       BlocBuilder<CategoriesBloc, CategoriesState>(
                         builder: (context, state) {
-                          final double imageWidth = (MediaQuery.of(context).size.width - (2 * 16) - 12) / 2;
+                          final double imageWidth =
+                              (MediaQuery.of(context).size.width -
+                                      (2 * 16) -
+                                      12) /
+                                  2;
                           if (state is CategoriesDone) {
-                            final List<CategoryEntity> categories = state.categories?.where((element) => element.isCollection == false).toList() ?? [];
+                            final List<CategoryEntity> categories = state
+                                    .categories
+                                    ?.where((element) =>
+                                        element.isCollection == false)
+                                    .toList() ??
+                                [];
 
                             return GridView.builder(
                               itemCount: categories.length,
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
-                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
                                 crossAxisSpacing: 12.0,
                                 mainAxisSpacing: 20.0,
-                                childAspectRatio: imageWidth / ((imageWidth + 24 + 8)),
+                                childAspectRatio:
+                                    imageWidth / ((imageWidth + 24 + 8)),
                               ),
                               itemBuilder: (BuildContext context, int index) {
-                                final CategoryEntity category = categories[index];
+                                final CategoryEntity category =
+                                    categories[index];
                                 return GestureDetector(
                                   onTap: () {
                                     context.pushRoute(CatalogRoute(
@@ -514,18 +540,23 @@ class HomePage extends StatelessWidget {
                                     ));
                                   },
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       ClipRRect(
-                                        borderRadius: BorderRadius.circular(AppStyles.btnRadius),
+                                        borderRadius: BorderRadius.circular(
+                                            AppStyles.btnRadius),
                                         child: FastCachedImage(
                                           width: imageWidth,
                                           height: imageWidth,
-                                          url: category.picture ?? 'https://admin.monobox.app/storage/images/cb13ef1316d2a915ac4b04dbfa101cca.webp',
+                                          url: category.picture ??
+                                              'https://admin.monobox.app/storage/images/cb13ef1316d2a915ac4b04dbfa101cca.webp',
                                           fit: BoxFit.cover,
-                                          fadeInDuration: const Duration(seconds: 0),
-                                          errorBuilder: (context, exception, stacktrace) {
+                                          fadeInDuration:
+                                              const Duration(seconds: 0),
+                                          errorBuilder:
+                                              (context, exception, stacktrace) {
                                             return Container();
                                           },
                                           loadingBuilder: (p0, p1) => Container(
@@ -534,7 +565,8 @@ class HomePage extends StatelessWidget {
                                             decoration: BoxDecoration(
                                               color: AppColors.shimmer,
                                               borderRadius: BorderRadius.all(
-                                                Radius.circular(AppStyles.btnRadius),
+                                                Radius.circular(
+                                                    AppStyles.btnRadius),
                                               ),
                                             ),
                                           ),
@@ -591,7 +623,8 @@ class HomePage extends StatelessWidget {
                                               category.title,
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
-                                              style: AppStyles.callout.copyWith(height: 1),
+                                              style: AppStyles.callout
+                                                  .copyWith(height: 1),
                                               textAlign: TextAlign.start,
                                             ),
                                           ),
@@ -606,11 +639,13 @@ class HomePage extends StatelessWidget {
                           return GridView(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               crossAxisSpacing: 12.0,
                               mainAxisSpacing: 20.0,
-                              childAspectRatio: imageWidth / ((imageWidth + 24 + 8)),
+                              childAspectRatio:
+                                  imageWidth / ((imageWidth + 24 + 8)),
                             ),
                             children: [
                               CategoryPlaceHolder(imageWidth: imageWidth),

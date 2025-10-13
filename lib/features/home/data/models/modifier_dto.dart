@@ -29,7 +29,8 @@ class ModifierDto {
   final int? weight;
   final bool isHalfPizza;
 
-  factory ModifierDto.fromJson(Map<String, dynamic> json) => _$ModifierDtoFromJson(json);
+  factory ModifierDto.fromJson(Map<String, dynamic> json) =>
+      _$ModifierDtoFromJson(json);
 
   Map<String, dynamic> toJson() {
     return _$ModifierDtoToJson(this);

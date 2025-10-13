@@ -22,18 +22,18 @@ class ProfileOrders extends StatelessWidget {
           return Row(
             children: [
               if (index == 0)
-                SizedBox(
+                const SizedBox(
                   width: 16,
                 ),
               ProfileOrderItem(
                 order: orders[index],
               ),
               if ((index + 1) != orders.length)
-                SizedBox(
+                const SizedBox(
                   width: 12,
                 ),
               if ((index + 1) == orders.length)
-                SizedBox(
+                const SizedBox(
                   width: 16,
                 ),
             ],

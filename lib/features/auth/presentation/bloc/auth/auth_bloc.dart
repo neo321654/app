@@ -26,7 +26,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             );
           }
         } else {
-          emit((store.isFirstEntry()) ? const AuthState.firstEntry() : const AuthState.guest());
+          emit((store.isFirstEntry())
+              ? const AuthState.firstEntry()
+              : const AuthState.guest());
           if (store.isFirstEntry()) {
             Timer(
               const Duration(seconds: 5),

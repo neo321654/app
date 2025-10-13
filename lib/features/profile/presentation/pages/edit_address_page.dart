@@ -1,7 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -211,13 +209,15 @@ class _EditAddressPageState extends State<EditAddressPage> {
           actions: [
             GestureDetector(
               onTap: () {
-                getIt<CreateAddressBloc>().add(CreateAddressEvent.deleteAddress(widget.address.id));
+                getIt<CreateAddressBloc>()
+                    .add(CreateAddressEvent.deleteAddress(widget.address.id));
               },
               child: Row(
                 children: [
                   Text(
                     'Удалить',
-                    style: AppStyles.subhead.copyWith(color: AppColors.destructive),
+                    style: AppStyles.subhead
+                        .copyWith(color: AppColors.destructive),
                   ),
                   const SizedBox(
                     width: 4,
@@ -264,7 +264,8 @@ class _EditAddressPageState extends State<EditAddressPage> {
                       debounceDuration: const Duration(milliseconds: 300),
                       controller: streetTextController,
                       suggestionsController: suggestionsController,
-                      itemBuilder: (BuildContext context, GeoSuggestionEntity suggestion) {
+                      itemBuilder: (BuildContext context,
+                          GeoSuggestionEntity suggestion) {
                         return SizedBox(
                           height: 40,
                           child: Align(
@@ -286,7 +287,11 @@ class _EditAddressPageState extends State<EditAddressPage> {
                       onSelected: (GeoSuggestionEntity value) {
                         if (value.street?.isNotEmpty == true) {
                           //streetTextController.text = value.value!;
-                          streetTextController.text = (value.streetType?.isNotEmpty == true ? '${value.streetType} ' : '') + value.street!;
+                          streetTextController.text =
+                              (value.streetType?.isNotEmpty == true
+                                      ? '${value.streetType} '
+                                      : '') +
+                                  value.street!;
                         }
 
                         if (value.house?.isNotEmpty == true) {
@@ -310,7 +315,8 @@ class _EditAddressPageState extends State<EditAddressPage> {
 
                         final GeoRepository repository = getIt<GeoRepository>();
 
-                        final DataState<List<GeoSuggestionEntity>> result = await repository.geoSuggestion(city, search);
+                        final DataState<List<GeoSuggestionEntity>> result =
+                            await repository.geoSuggestion(city, search);
 
                         //getIt<GeoSuggestionCubit>().search(city, search);
                         //return getIt<GeoSuggestionCubit>().state.suggestions;
@@ -445,7 +451,8 @@ class _EditAddressPageState extends State<EditAddressPage> {
                               onPressed: editAddressCubit.allowToSave()
                                   ? () {
                                       getIt<CreateAddressBloc>().add(
-                                        CreateAddressEvent.editAddress(AddressEntity(
+                                        CreateAddressEvent.editAddress(
+                                            AddressEntity(
                                           id: widget.address.id,
                                           city: widget.address.city ?? '',
                                           title: streetTextController.text,
@@ -465,7 +472,8 @@ class _EditAddressPageState extends State<EditAddressPage> {
                               child: Center(
                                 child: Text(
                                   'Сохранить',
-                                  style: AppStyles.footnoteBold.copyWith(color: AppColors.white),
+                                  style: AppStyles.footnoteBold
+                                      .copyWith(color: AppColors.white),
                                 ),
                               ),
                             );

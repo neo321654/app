@@ -29,7 +29,8 @@ class OrderPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(
-          value: getIt<OrderDetailsBloc>()..add(OrderDetailsEvent.getOrder(orderId)),
+          value: getIt<OrderDetailsBloc>()
+            ..add(OrderDetailsEvent.getOrder(orderId)),
         ),
       ],
       child: Scaffold(
@@ -99,7 +100,8 @@ class OrderPage extends StatelessWidget {
                 GestureDetector(
                   behavior: HitTestBehavior.translucent,
                   onTap: () async {
-                    await Clipboard.setData(ClipboardData(text: orderId.toString()));
+                    await Clipboard.setData(
+                        ClipboardData(text: orderId.toString()));
                     if (!context.mounted) return;
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -140,7 +142,7 @@ class OrderPage extends StatelessWidget {
                               Container(
                                 width: 20,
                                 height: 20,
-                                padding: EdgeInsets.all(5.15),
+                                padding: const EdgeInsets.all(5.15),
                                 child: SvgPicture.asset(
                                   'assets/icons/check.svg',
                                   color: AppColors.positive,
@@ -162,7 +164,8 @@ class OrderPage extends StatelessWidget {
                         width: 6,
                       ),
                       Container(
-                        padding: const EdgeInsets.only(left: 2.74, top: 2.71, right: 2.95, bottom: 2.93),
+                        padding: const EdgeInsets.only(
+                            left: 2.74, top: 2.71, right: 2.95, bottom: 2.93),
                         width: 20,
                         height: 20,
                         child: SvgPicture.asset(

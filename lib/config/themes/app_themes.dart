@@ -12,7 +12,7 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.lightScaffoldBackground,
     appBarTheme: const AppBarTheme(
       iconTheme: IconThemeData(color: AppColors.dark),
-      color: AppColors.lightScaffoldBackground,
+      backgroundColor: AppColors.lightScaffoldBackground,
       elevation: 0,
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(

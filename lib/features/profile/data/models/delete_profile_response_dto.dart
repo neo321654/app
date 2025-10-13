@@ -14,5 +14,6 @@ class DeleteProfileResponseDto {
 
   final String status;
 
-  factory DeleteProfileResponseDto.fromJson(Map<String, dynamic> json) => _$DeleteProfileResponseDtoFromJson(json);
+  factory DeleteProfileResponseDto.fromJson(Map<String, dynamic> json) =>
+      _$DeleteProfileResponseDtoFromJson(json);
 }

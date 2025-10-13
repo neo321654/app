@@ -28,5 +28,6 @@ class OrderProductDto {
   final bool isCombo;
   final bool isHalfPizza;
 
-  factory OrderProductDto.fromJson(Map<String, dynamic> json) => _$OrderProductDtoFromJson(json);
+  factory OrderProductDto.fromJson(Map<String, dynamic> json) =>
+      _$OrderProductDtoFromJson(json);
 }

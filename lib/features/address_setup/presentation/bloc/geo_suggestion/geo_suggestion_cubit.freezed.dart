@@ -19,9 +19,7 @@ mixin _$GeoSuggestionState {
   List<GeoSuggestionEntity> get suggestions =>
       throw _privateConstructorUsedError;
 
-  /// Create a copy of GeoSuggestionState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $GeoSuggestionStateCopyWith<GeoSuggestionState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -45,8 +43,6 @@ class _$GeoSuggestionStateCopyWithImpl<$Res, $Val extends GeoSuggestionState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of GeoSuggestionState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -80,8 +76,6 @@ class __$$GeoSuggestionStateImplCopyWithImpl<$Res>
       $Res Function(_$GeoSuggestionStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GeoSuggestionState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -130,9 +124,7 @@ class _$GeoSuggestionStateImpl implements _GeoSuggestionState {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_suggestions));
 
-  /// Create a copy of GeoSuggestionState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GeoSuggestionStateImplCopyWith<_$GeoSuggestionStateImpl> get copyWith =>
@@ -146,11 +138,8 @@ abstract class _GeoSuggestionState implements GeoSuggestionState {
 
   @override
   List<GeoSuggestionEntity> get suggestions;
-
-  /// Create a copy of GeoSuggestionState
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GeoSuggestionStateImplCopyWith<_$GeoSuggestionStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

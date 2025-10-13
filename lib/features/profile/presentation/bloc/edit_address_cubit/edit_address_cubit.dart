@@ -105,6 +105,7 @@ class EditAddressCubit extends Cubit<EditAddressState> {
   }
 
   bool allowToSave() {
-    return state.address.title.isNotEmpty == true && state.address.house?.isNotEmpty == true;
+    return state.address.title.isNotEmpty == true &&
+        state.address.house?.isNotEmpty == true;
   }
 }

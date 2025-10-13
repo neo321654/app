@@ -42,7 +42,8 @@ class NotificationList extends StatelessWidget {
                       vertical: 16,
                     ),
                     decoration: BoxDecoration(
-                      border: notifications.last == notification && notifications.last.items.last == item
+                      border: notifications.last == notification &&
+                              notifications.last.items.last == item
                           ? null
                           : const Border(
                               bottom: BorderSide(
@@ -86,7 +87,8 @@ class NotificationList extends StatelessWidget {
                               status: item.status,
                               onChanged: (value) {
                                 context.read<NotificationSettingsBloc>().add(
-                                      NotificationSettingsEvent.changeNotificationStatus(
+                                      NotificationSettingsEvent
+                                          .changeNotificationStatus(
                                         item.id,
                                         value,
                                       ),

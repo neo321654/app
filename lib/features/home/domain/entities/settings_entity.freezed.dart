@@ -21,10 +21,9 @@ mixin _$SettingsEntity {
   FeedbackEntity? get feedback => throw _privateConstructorUsedError;
   MonoboxEntity? get monobox => throw _privateConstructorUsedError;
   bool get loyalty => throw _privateConstructorUsedError;
+  bool get children => throw _privateConstructorUsedError;
 
-  /// Create a copy of SettingsEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $SettingsEntityCopyWith<SettingsEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -40,7 +39,8 @@ abstract class $SettingsEntityCopyWith<$Res> {
       PdfEntity? pdf,
       FeedbackEntity? feedback,
       MonoboxEntity? monobox,
-      bool loyalty});
+      bool loyalty,
+      bool children});
 
   $SocnetEntityCopyWith<$Res>? get socnet;
   $PdfEntityCopyWith<$Res>? get pdf;
@@ -58,8 +58,6 @@ class _$SettingsEntityCopyWithImpl<$Res, $Val extends SettingsEntity>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of SettingsEntity
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -68,6 +66,7 @@ class _$SettingsEntityCopyWithImpl<$Res, $Val extends SettingsEntity>
     Object? feedback = freezed,
     Object? monobox = freezed,
     Object? loyalty = null,
+    Object? children = null,
   }) {
     return _then(_value.copyWith(
       socnet: freezed == socnet
@@ -90,11 +89,13 @@ class _$SettingsEntityCopyWithImpl<$Res, $Val extends SettingsEntity>
           ? _value.loyalty
           : loyalty // ignore: cast_nullable_to_non_nullable
               as bool,
+      children: null == children
+          ? _value.children
+          : children // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
-  /// Create a copy of SettingsEntity
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $SocnetEntityCopyWith<$Res>? get socnet {
@@ -107,8 +108,6 @@ class _$SettingsEntityCopyWithImpl<$Res, $Val extends SettingsEntity>
     });
   }
 
-  /// Create a copy of SettingsEntity
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PdfEntityCopyWith<$Res>? get pdf {
@@ -121,8 +120,6 @@ class _$SettingsEntityCopyWithImpl<$Res, $Val extends SettingsEntity>
     });
   }
 
-  /// Create a copy of SettingsEntity
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $FeedbackEntityCopyWith<$Res>? get feedback {
@@ -135,8 +132,6 @@ class _$SettingsEntityCopyWithImpl<$Res, $Val extends SettingsEntity>
     });
   }
 
-  /// Create a copy of SettingsEntity
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $MonoboxEntityCopyWith<$Res>? get monobox {
@@ -163,7 +158,8 @@ abstract class _$$SettingsEntityImplCopyWith<$Res>
       PdfEntity? pdf,
       FeedbackEntity? feedback,
       MonoboxEntity? monobox,
-      bool loyalty});
+      bool loyalty,
+      bool children});
 
   @override
   $SocnetEntityCopyWith<$Res>? get socnet;
@@ -183,8 +179,6 @@ class __$$SettingsEntityImplCopyWithImpl<$Res>
       _$SettingsEntityImpl _value, $Res Function(_$SettingsEntityImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SettingsEntity
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -193,6 +187,7 @@ class __$$SettingsEntityImplCopyWithImpl<$Res>
     Object? feedback = freezed,
     Object? monobox = freezed,
     Object? loyalty = null,
+    Object? children = null,
   }) {
     return _then(_$SettingsEntityImpl(
       socnet: freezed == socnet
@@ -215,6 +210,10 @@ class __$$SettingsEntityImplCopyWithImpl<$Res>
           ? _value.loyalty
           : loyalty // ignore: cast_nullable_to_non_nullable
               as bool,
+      children: null == children
+          ? _value.children
+          : children // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -227,7 +226,8 @@ class _$SettingsEntityImpl implements _SettingsEntity {
       this.pdf,
       this.feedback,
       this.monobox,
-      this.loyalty = true});
+      this.loyalty = true,
+      this.children = false});
 
   @override
   final SocnetEntity? socnet;
@@ -240,10 +240,13 @@ class _$SettingsEntityImpl implements _SettingsEntity {
   @override
   @JsonKey()
   final bool loyalty;
+  @override
+  @JsonKey()
+  final bool children;
 
   @override
   String toString() {
-    return 'SettingsEntity(socnet: $socnet, pdf: $pdf, feedback: $feedback, monobox: $monobox, loyalty: $loyalty)';
+    return 'SettingsEntity(socnet: $socnet, pdf: $pdf, feedback: $feedback, monobox: $monobox, loyalty: $loyalty, children: $children)';
   }
 
   @override
@@ -256,16 +259,16 @@ class _$SettingsEntityImpl implements _SettingsEntity {
             (identical(other.feedback, feedback) ||
                 other.feedback == feedback) &&
             (identical(other.monobox, monobox) || other.monobox == monobox) &&
-            (identical(other.loyalty, loyalty) || other.loyalty == loyalty));
+            (identical(other.loyalty, loyalty) || other.loyalty == loyalty) &&
+            (identical(other.children, children) ||
+                other.children == children));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, socnet, pdf, feedback, monobox, loyalty);
+  int get hashCode => Object.hash(
+      runtimeType, socnet, pdf, feedback, monobox, loyalty, children);
 
-  /// Create a copy of SettingsEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$SettingsEntityImplCopyWith<_$SettingsEntityImpl> get copyWith =>
@@ -279,7 +282,8 @@ abstract class _SettingsEntity implements SettingsEntity {
       final PdfEntity? pdf,
       final FeedbackEntity? feedback,
       final MonoboxEntity? monobox,
-      final bool loyalty}) = _$SettingsEntityImpl;
+      final bool loyalty,
+      final bool children}) = _$SettingsEntityImpl;
 
   @override
   SocnetEntity? get socnet;
@@ -291,11 +295,10 @@ abstract class _SettingsEntity implements SettingsEntity {
   MonoboxEntity? get monobox;
   @override
   bool get loyalty;
-
-  /// Create a copy of SettingsEntity
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  bool get children;
+  @override
+  @JsonKey(ignore: true)
   _$$SettingsEntityImplCopyWith<_$SettingsEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -306,9 +309,7 @@ mixin _$SocnetEntity {
   String? get tg => throw _privateConstructorUsedError;
   String? get insta => throw _privateConstructorUsedError;
 
-  /// Create a copy of SocnetEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $SocnetEntityCopyWith<SocnetEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -332,8 +333,6 @@ class _$SocnetEntityCopyWithImpl<$Res, $Val extends SocnetEntity>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of SocnetEntity
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -377,8 +376,6 @@ class __$$SocnetEntityImplCopyWithImpl<$Res>
       _$SocnetEntityImpl _value, $Res Function(_$SocnetEntityImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SocnetEntity
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -433,9 +430,7 @@ class _$SocnetEntityImpl implements _SocnetEntity {
   @override
   int get hashCode => Object.hash(runtimeType, vk, tg, insta);
 
-  /// Create a copy of SocnetEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$SocnetEntityImplCopyWith<_$SocnetEntityImpl> get copyWith =>
@@ -454,11 +449,8 @@ abstract class _SocnetEntity implements SocnetEntity {
   String? get tg;
   @override
   String? get insta;
-
-  /// Create a copy of SocnetEntity
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$SocnetEntityImplCopyWith<_$SocnetEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -467,9 +459,7 @@ abstract class _SocnetEntity implements SocnetEntity {
 mixin _$PdfEntity {
   String? get politic => throw _privateConstructorUsedError;
 
-  /// Create a copy of PdfEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $PdfEntityCopyWith<PdfEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -492,8 +482,6 @@ class _$PdfEntityCopyWithImpl<$Res, $Val extends PdfEntity>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of PdfEntity
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -527,8 +515,6 @@ class __$$PdfEntityImplCopyWithImpl<$Res>
       _$PdfEntityImpl _value, $Res Function(_$PdfEntityImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of PdfEntity
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -567,9 +553,7 @@ class _$PdfEntityImpl implements _PdfEntity {
   @override
   int get hashCode => Object.hash(runtimeType, politic);
 
-  /// Create a copy of PdfEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$PdfEntityImplCopyWith<_$PdfEntityImpl> get copyWith =>
@@ -581,11 +565,8 @@ abstract class _PdfEntity implements PdfEntity {
 
   @override
   String? get politic;
-
-  /// Create a copy of PdfEntity
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$PdfEntityImplCopyWith<_$PdfEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -597,9 +578,7 @@ mixin _$FeedbackEntity {
   String? get phone => throw _privateConstructorUsedError;
   String? get wa => throw _privateConstructorUsedError;
 
-  /// Create a copy of FeedbackEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $FeedbackEntityCopyWith<FeedbackEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -623,8 +602,6 @@ class _$FeedbackEntityCopyWithImpl<$Res, $Val extends FeedbackEntity>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of FeedbackEntity
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -673,8 +650,6 @@ class __$$FeedbackEntityImplCopyWithImpl<$Res>
       _$FeedbackEntityImpl _value, $Res Function(_$FeedbackEntityImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of FeedbackEntity
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -737,9 +712,7 @@ class _$FeedbackEntityImpl implements _FeedbackEntity {
   @override
   int get hashCode => Object.hash(runtimeType, vk, tg, phone, wa);
 
-  /// Create a copy of FeedbackEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$FeedbackEntityImplCopyWith<_$FeedbackEntityImpl> get copyWith =>
@@ -762,11 +735,8 @@ abstract class _FeedbackEntity implements FeedbackEntity {
   String? get phone;
   @override
   String? get wa;
-
-  /// Create a copy of FeedbackEntity
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$FeedbackEntityImplCopyWith<_$FeedbackEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -775,9 +745,7 @@ abstract class _FeedbackEntity implements FeedbackEntity {
 mixin _$MonoboxEntity {
   String? get link => throw _privateConstructorUsedError;
 
-  /// Create a copy of MonoboxEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $MonoboxEntityCopyWith<MonoboxEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -801,8 +769,6 @@ class _$MonoboxEntityCopyWithImpl<$Res, $Val extends MonoboxEntity>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of MonoboxEntity
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -836,8 +802,6 @@ class __$$MonoboxEntityImplCopyWithImpl<$Res>
       _$MonoboxEntityImpl _value, $Res Function(_$MonoboxEntityImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of MonoboxEntity
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -876,9 +840,7 @@ class _$MonoboxEntityImpl implements _MonoboxEntity {
   @override
   int get hashCode => Object.hash(runtimeType, link);
 
-  /// Create a copy of MonoboxEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$MonoboxEntityImplCopyWith<_$MonoboxEntityImpl> get copyWith =>
@@ -890,11 +852,8 @@ abstract class _MonoboxEntity implements MonoboxEntity {
 
   @override
   String? get link;
-
-  /// Create a copy of MonoboxEntity
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$MonoboxEntityImplCopyWith<_$MonoboxEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

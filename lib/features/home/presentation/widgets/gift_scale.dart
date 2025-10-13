@@ -24,10 +24,12 @@ class GiftScale extends StatelessWidget {
   Widget build(BuildContext context) {
     BasketBloc basketBloc = context.watch<BasketBloc>();
 
-    final GlobalKey _bottomSheetKey = GlobalKey();
+    final GlobalKey bottomSheetKey = GlobalKey();
 
     return Container(
-      padding: disableBox ? const EdgeInsets.symmetric(vertical: 12) : const EdgeInsets.all(12),
+      padding: disableBox
+          ? const EdgeInsets.symmetric(vertical: 12)
+          : const EdgeInsets.all(12),
       width: double.infinity,
       height: 60,
       decoration: disableBox
@@ -56,14 +58,14 @@ class GiftScale extends StatelessWidget {
         children: [
           BlocBuilder<GiftsScaleBloc, GiftsScaleState>(
             builder: (context, state) {
-              List<GiftsScaleEntity> _loyalties = [];
+              List<GiftsScaleEntity> loyalties = [];
               state.maybeWhen(
                 success: (giftsScale) {
-                  _loyalties.addAll(giftsScale);
+                  loyalties.addAll(giftsScale);
                 },
                 orElse: () {},
               );
-              if (_loyalties.isEmpty) {
+              if (loyalties.isEmpty) {
                 // Если подарков нет, ничего не показываем
                 return const SizedBox.shrink();
               }
@@ -74,7 +76,7 @@ class GiftScale extends StatelessWidget {
                     height: 36,
                     child: ElevatedButton(
                       onPressed: () {
-                        _showBottomSheet(context, _bottomSheetKey);
+                        _showBottomSheet(context, bottomSheetKey);
                         // showFlexibleBottomSheet(
                         //   minHeight: 0,
                         //   initHeight: 0.8,
@@ -115,7 +117,8 @@ class GiftScale extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 2.44),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 2.44),
                                 width: 18,
                                 height: 18,
                                 child: SvgPicture.asset(
@@ -148,13 +151,13 @@ class GiftScale extends StatelessWidget {
                         var itemsCount = 0;
                         var activePercent = 0;
 
-                        List<GiftsScaleEntity> _loyalties = [];
+                        List<GiftsScaleEntity> loyalties = [];
 
                         state.maybeWhen(
                           success: (giftsScale) {
                             //_loyalties = loyalties;
                             itemsCount = giftsScale.length;
-                            _loyalties.addAll(giftsScale);
+                            loyalties.addAll(giftsScale);
                             // loyalties.map((l) {
                             //   activePercent++;
                             //   if (l.active) {
@@ -172,7 +175,8 @@ class GiftScale extends StatelessWidget {
 
                         if (basketTotal > 0) {
                           for (var i = 0; i < (itemsCount); i++) {
-                            double currentPrice = double.parse(_loyalties[i].price ?? '0');
+                            double currentPrice =
+                                double.parse(loyalties[i].price ?? '0');
                             if (basketTotal >= currentPrice) {
                               // double prev = (i == 0 ? 0 : double.parse(_loyalties[i - 1].price ?? '0'));
                               // double current = (double.parse(_loyalties[i].price ?? '0') - prev);
@@ -180,23 +184,36 @@ class GiftScale extends StatelessWidget {
                               // print('currentPrice = ${currentPrice} shkalaWidth = ${shkalaWidth}');
                               shkalaWidth += oneScaleWith;
 
-                              print('currentPrice = ${itemsCount} shkalaWidth = ${shkalaWidth}');
+                              print(
+                                  'currentPrice = $itemsCount shkalaWidth = $shkalaWidth');
                               if ((i + 1) == itemsCount) {
                                 double startPrice = currentPrice;
                                 //double endPrice = (i + 1) >= itemsCount ? (currentPrice + 1000) : double.parse(_loyalties[i + 1].price ?? '0');
                                 double endPrice = currentPrice + 1000;
-                                print('startPrice = ${startPrice} endPrice = ${endPrice} ${(((100 * (basketTotal - startPrice)) / (endPrice - startPrice)) / 100) * oneScaleWith}');
+                                print(
+                                    'startPrice = $startPrice endPrice = $endPrice ${(((100 * (basketTotal - startPrice)) / (endPrice - startPrice)) / 100) * oneScaleWith}');
 
-                                shkalaWidth += (((100 * (basketTotal - startPrice)) / (endPrice - startPrice)) / 100) * oneScaleWith;
+                                shkalaWidth +=
+                                    (((100 * (basketTotal - startPrice)) /
+                                                (endPrice - startPrice)) /
+                                            100) *
+                                        oneScaleWith;
                                 break;
                               }
                             } else {
-                              double startPrice = i == 0 ? 0 : double.parse(_loyalties[i - 1].price ?? '0');
+                              double startPrice = i == 0
+                                  ? 0
+                                  : double.parse(loyalties[i - 1].price ?? '0');
                               //double endPrice = (i + 1) >= itemsCount ? (currentPrice + 1000) : double.parse(_loyalties[i + 1].price ?? '0');
                               double endPrice = currentPrice;
-                              print('startPrice = ${startPrice} endPrice = ${endPrice}');
+                              print(
+                                  'startPrice = $startPrice endPrice = $endPrice');
 
-                              shkalaWidth += (((100 * (basketTotal - startPrice)) / (endPrice - startPrice)) / 100) * oneScaleWith;
+                              shkalaWidth +=
+                                  (((100 * (basketTotal - startPrice)) /
+                                              (endPrice - startPrice)) /
+                                          100) *
+                                      oneScaleWith;
                               break;
                             }
 
@@ -209,7 +226,8 @@ class GiftScale extends StatelessWidget {
                         return Stack(
                           children: [
                             LayoutBuilder(
-                              builder: (BuildContext context, BoxConstraints constraints) {
+                              builder: (BuildContext context,
+                                  BoxConstraints constraints) {
                                 return Container(
                                   width: constraints.maxWidth,
                                   clipBehavior: Clip.hardEdge,
@@ -230,7 +248,12 @@ class GiftScale extends StatelessWidget {
                                     child: Container(
                                       //width: itemsCount > 0 ? (constraints.maxWidth * ((itemsCount - 1) / activePercent)) : 0,
                                       //width: itemsCount > 0 ? (constraints.maxWidth * (basketBloc.subtotal.toDouble() / ((itemsCount + 2) * 1000))) : 0,
-                                      width: itemsCount > 0 && basketBloc.subtotal.toDouble() > 0 ? (constraints.maxWidth * shkalaWidth) - 2 : 0,
+                                      width: itemsCount > 0 &&
+                                              basketBloc.subtotal.toDouble() > 0
+                                          ? (constraints.maxWidth *
+                                                  shkalaWidth) -
+                                              2
+                                          : 0,
                                       decoration: const BoxDecoration(
                                         color: AppColors.lightSeedColor,
                                       ),
@@ -256,12 +279,15 @@ class GiftScale extends StatelessWidget {
                               child: Row(
                                 //mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
-                                  for (int i = 0; i < _loyalties.length; i++)
+                                  for (int i = 0; i < loyalties.length; i++)
                                     Expanded(
                                       child: GiftScaleItem(
                                         //value: (int.parse(_loyalties[i].price ?? '0')).toString(),
                                         //isActive: (i < (activePercent - 2)),
-                                        isActive: (basketBloc.subtotal.toDouble()) >= double.parse(_loyalties[i].price ?? '0'),
+                                        isActive:
+                                            (basketBloc.subtotal.toDouble()) >=
+                                                double.parse(
+                                                    loyalties[i].price ?? '0'),
                                       ),
                                     ),
                                   Expanded(
@@ -280,17 +306,29 @@ class GiftScale extends StatelessWidget {
                                 child: Stack(
                                   //mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
-                                    for (int i = 0; i < _loyalties.length; i++)
+                                    for (int i = 0; i < loyalties.length; i++)
                                       Positioned(
                                         top: 0,
                                         //left: ((((MediaQuery.of(context).size.width - 145) / (_loyalties.length + 1))) * (i)) + 1,
                                         //left: (1 + constraints.maxWidth * (100 / (_loyalties.length + 1) / 100)) + 150,
-                                        left: ((((MediaQuery.of(context).size.width - 135 + pad) / (_loyalties.length + 1)) * ((i + 1) * .98)) - (50)),
+                                        left: ((((MediaQuery.of(context)
+                                                            .size
+                                                            .width -
+                                                        135 +
+                                                        pad) /
+                                                    (loyalties.length + 1)) *
+                                                ((i + 1) * .98)) -
+                                            (50)),
                                         child: GiftScaleItem(
                                           //width: ((MediaQuery.of(context).size.width - 146) / (_loyalties.length + 1)) + 10,
                                           width: 100,
-                                          value: (int.parse(_loyalties[i].price ?? '0')).toString(),
-                                          isActive: (basketBloc.subtotal.toDouble()) >= double.parse(_loyalties[i].price ?? '0'),
+                                          value: (int.parse(
+                                                  loyalties[i].price ?? '0'))
+                                              .toString(),
+                                          isActive: (basketBloc.subtotal
+                                                  .toDouble()) >=
+                                              double.parse(
+                                                  loyalties[i].price ?? '0'),
                                         ),
                                       ),
                                     // Expanded(

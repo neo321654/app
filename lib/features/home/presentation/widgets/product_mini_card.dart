@@ -177,13 +177,13 @@ class ProductMiniCard extends StatelessWidget {
                       );
                     },
                     style: AppStyles.greyElevatedButton.copyWith(
-                      padding: const MaterialStatePropertyAll(
+                      padding: const WidgetStatePropertyAll(
                         EdgeInsets.only(
                           left: 20,
                           right: 16,
                         ),
                       ),
-                      shape: MaterialStatePropertyAll(
+                      shape: WidgetStatePropertyAll(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),

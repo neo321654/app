@@ -16,13 +16,13 @@ class ProductCardStateCubit extends Cubit<ProductCardStateState> {
   final _updateBasketController = PublishSubject<BasketOfferEntity>();
 
   ProductCardStateCubit(
-      this.product, {
-        Map<int, int>? initialQuantities,
-        this.basketBloc,
-      }) : super(ProductCardStateState(
-    product: product,
-    selectedQuantities: initialQuantities ?? {},
-  )) {
+    this.product, {
+    Map<int, int>? initialQuantities,
+    this.basketBloc,
+  }) : super(ProductCardStateState(
+          product: product,
+          selectedQuantities: initialQuantities ?? {},
+        )) {
     // Настройка debouncing для обновления корзины
     _updateBasketController
         .debounceTime(const Duration(milliseconds: 300))
@@ -48,7 +48,8 @@ class ProductCardStateCubit extends Cubit<ProductCardStateState> {
         addOptions: getSelectedOptions(),
       );
       print('Updating basket with offer: $updatedOffer');
-      _updateBasketController.add(updatedOffer); // Добавляем в поток с debouncing
+      _updateBasketController
+          .add(updatedOffer); // Добавляем в поток с debouncing
     }
   }
 
@@ -103,11 +104,13 @@ class ProductCardStateCubit extends Cubit<ProductCardStateState> {
     final newQuantities = Map<int, int>.from(state.selectedQuantities);
     newQuantities[item.id] = quantity.clamp(0, item.maxQuantity ?? 10);
     emit(state.copyWith(selectedQuantities: newQuantities));
-    print('Set modifier ${item.id} to quantity $quantity, new quantities: $newQuantities');
+    print(
+        'Set modifier ${item.id} to quantity $quantity, new quantities: $newQuantities');
     _updateBasket();
   }
 
-  void addUniqModifier(ModifierItemEntity item, List<ModifierItemEntity> modifierItems) {
+  void addUniqModifier(
+      ModifierItemEntity item, List<ModifierItemEntity> modifierItems) {
     final newQuantities = Map<int, int>.from(state.selectedQuantities);
     for (var modItem in modifierItems) {
       newQuantities.remove(modItem.id);
@@ -142,7 +145,8 @@ class ProductCardStateCubit extends Cubit<ProductCardStateState> {
     return price;
   }
 
-  Decimal get productTotalPrice => _getProductPrice() + _getModifiresTotalPrice();
+  Decimal get productTotalPrice =>
+      _getProductPrice() + _getModifiresTotalPrice();
 
   Decimal get productTotalWeight {
     Decimal val = Decimal.parse('0.0');
@@ -158,7 +162,9 @@ class ProductCardStateCubit extends Cubit<ProductCardStateState> {
   String get productName {
     String name = '';
     for (var i = 0; i < 2 && i < pizzaHalfMod().length; i++) {
-      name = name + pizzaHalfMod()[i].title + ((i + 1) < 2 && i + 1 < pizzaHalfMod().length ? ' + ' : '');
+      name = name +
+          pizzaHalfMod()[i].title +
+          ((i + 1) < 2 && i + 1 < pizzaHalfMod().length ? ' + ' : '');
     }
     return name.trim();
   }
@@ -175,7 +181,9 @@ class ProductCardStateCubit extends Cubit<ProductCardStateState> {
     return product.modifiers
         .firstWhere((element) => element == modifier)
         .items
-        .where((item) => state.selectedQuantities.containsKey(item.id) && state.selectedQuantities[item.id]! > 0)
+        .where((item) =>
+            state.selectedQuantities.containsKey(item.id) &&
+            state.selectedQuantities[item.id]! > 0)
         .toList();
   }
 

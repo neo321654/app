@@ -44,7 +44,8 @@ class FilialDto {
   @JsonKey(name: 'end_today_timestamp')
   final int? endTodayTimestamp;
 
-  factory FilialDto.fromJson(Map<String, dynamic> json) => _$FilialDtoFromJson(json);
+  factory FilialDto.fromJson(Map<String, dynamic> json) =>
+      _$FilialDtoFromJson(json);
 
   static String? _timeDelayFromJson(dynamic value) {
     if (value == null) return null;
@@ -70,11 +71,13 @@ class FilialCoordinatesDto {
   @JsonKey(name: 'longitude', fromJson: _stringToDouble)
   final double lon;
 
-  factory FilialCoordinatesDto.fromJson(Map<String, dynamic> json) => _$FilialCoordinatesDtoFromJson(json);
+  factory FilialCoordinatesDto.fromJson(Map<String, dynamic> json) =>
+      _$FilialCoordinatesDtoFromJson(json);
 
   static double _stringToDouble(dynamic value) {
     if (value is num) return value.toDouble();
     if (value is String) return double.parse(value);
-    throw FormatException('Expected a String or number for coordinate, got $value');
+    throw FormatException(
+        'Expected a String or number for coordinate, got $value');
   }
 }

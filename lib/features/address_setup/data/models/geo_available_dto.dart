@@ -19,7 +19,8 @@ class GeoAvailableDto {
   final FilialDto? filial;
   final String? message;
 
-  factory GeoAvailableDto.fromJson(Map<String, dynamic> json) => _$GeoAvailableDtoFromJson(json);
+  factory GeoAvailableDto.fromJson(Map<String, dynamic> json) =>
+      _$GeoAvailableDtoFromJson(json);
 
   // Map<String, dynamic> toJson() {
   //   return _$GeoAvailableRequestDtoToJson(this);

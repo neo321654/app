@@ -19,7 +19,7 @@ class SetAddressManualyButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: AppStyles.whiteElevatedButton.copyWith(
-          padding: MaterialStateProperty.resolveWith(
+          padding: WidgetStateProperty.resolveWith(
             (states) => const EdgeInsets.symmetric(
               horizontal: 16,
               vertical: 8,

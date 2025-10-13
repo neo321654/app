@@ -14,10 +14,20 @@ TagDto _$TagDtoFromJson(Map<String, dynamic> json) => TagDto(
       icon: json['icon'] as String?,
     );
 
-Map<String, dynamic> _$TagDtoToJson(TagDto instance) => <String, dynamic>{
-      'id': instance.id,
-      'title': instance.title,
-      'color': instance.color,
-      if (instance.secondColor case final value?) 'second_color': value,
-      if (instance.icon case final value?) 'icon': value,
-    };
+Map<String, dynamic> _$TagDtoToJson(TagDto instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'title': instance.title,
+    'color': instance.color,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('second_color', instance.secondColor);
+  writeNotNull('icon', instance.icon);
+  return val;
+}

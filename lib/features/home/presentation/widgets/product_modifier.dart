@@ -9,7 +9,7 @@ import '../bloc/product_card_state/product_card_state_cubit.dart';
 import '../../domain/entities/product_entity.dart';
 
 class ProductModifier extends StatelessWidget {
-  const ProductModifier({Key? key, required this.product}) : super(key: key);
+  const ProductModifier({super.key, required this.product});
 
   final ProductEntity product;
 
@@ -17,7 +17,7 @@ class ProductModifier extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ProductCardStateCubit, ProductCardStateState>(
       buildWhen: (previous, current) =>
-      previous.selectedQuantities != current.selectedQuantities,
+          previous.selectedQuantities != current.selectedQuantities,
       builder: (context, state) {
         final cubit = context.read<ProductCardStateCubit>();
         final modifiers = product.modifiers
@@ -31,7 +31,7 @@ class ProductModifier extends StatelessWidget {
             final selected = cubit.selectedModifiersByParent(modifier);
             final totalSelectedQuantity = modifier.items.fold<int>(
               0,
-                  (sum, item) => sum + (state.selectedQuantities[item.id] ?? 0),
+              (sum, item) => sum + (state.selectedQuantities[item.id] ?? 0),
             );
             if (modifier.type == 'switcher') {
               if (selected.isEmpty && modifier.items.isNotEmpty) {
@@ -51,14 +51,16 @@ class ProductModifier extends StatelessWidget {
                 child: TextSwitcher(
                   items: modifier.items.map((item) => item.title).toList(),
                   onTap: (itemIndex) {
-                    cubit.addUniqModifier(modifier.items[itemIndex], modifier.items);
+                    cubit.addUniqModifier(
+                        modifier.items[itemIndex], modifier.items);
                   },
                   selectedIndex: selectedIndex,
                 ),
               );
             }
 
-            final hasImages = modifier.items.any((i) => i.image != null && i.image!.isNotEmpty);
+            final hasImages = modifier.items
+                .any((i) => i.image != null && i.image!.isNotEmpty);
 
             return Padding(
               padding: const EdgeInsets.only(bottom: 24),
@@ -74,7 +76,8 @@ class ProductModifier extends StatelessWidget {
                         if (modifier.maxQuantity != null)
                           Text(
                             '$totalSelectedQuantity из ${modifier.maxQuantity}',
-                            style: AppStyles.caption1.copyWith(color: AppColors.gray),
+                            style: AppStyles.caption1
+                                .copyWith(color: AppColors.gray),
                           ),
                       ],
                     ),
@@ -85,216 +88,272 @@ class ProductModifier extends StatelessWidget {
                       padding: const EdgeInsets.all(12),
                       child: hasImages
                           ? SizedBox(
-                        height: 230,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: modifier.items.length,
-                          itemBuilder: (context, index) {
-                            final item = modifier.items[index];
-                            final quantity = state.selectedQuantities[item.id] ?? 0;
-                            final maxQty = item.maxQuantity ?? 1;
-                            final isSelected = quantity > 0;
-                            final disabled = modifier.maxQuantity != null &&
-                                totalSelectedQuantity >= modifier.maxQuantity! &&
-                                quantity == 0 &&
-                                selected.every((sel) =>
-                                (state.selectedQuantities[sel.id] ?? 0) <=
-                                    (sel.minQuantity ?? 0));
+                              height: 230,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: modifier.items.length,
+                                itemBuilder: (context, index) {
+                                  final item = modifier.items[index];
+                                  final quantity =
+                                      state.selectedQuantities[item.id] ?? 0;
+                                  final maxQty = item.maxQuantity ?? 1;
+                                  final isSelected = quantity > 0;
+                                  final disabled = modifier.maxQuantity !=
+                                          null &&
+                                      totalSelectedQuantity >=
+                                          modifier.maxQuantity! &&
+                                      quantity == 0 &&
+                                      selected.every((sel) =>
+                                          (state.selectedQuantities[sel.id] ??
+                                              0) <=
+                                          (sel.minQuantity ?? 0));
 
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 12),
-                              child: Container(
-                                width: 150,
-                                height: 230,
-                                padding: const EdgeInsets.all(12),
-                                decoration: BoxDecoration(
-                                  color: AppColors.white,
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(AppStyles.mediumRadius)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: AppColors.black.withOpacity(0.05),
-                                      blurRadius: 8.0,
-                                      offset: const Offset(0.0, 4.0),
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(AppStyles.productPicRadius)),
-                                      child: CachedNetworkImage(
-                                        imageUrl: item.image ?? '',
-                                        width: 110,
-                                        height: 90,
-                                        fit: BoxFit.cover,
-                                        placeholder: (_, __) => Container(
-                                            width: 110, height: 90, color: AppColors.shimmer),
-                                        errorWidget: (_, __, ___) => Container(
-                                            width: 110, height: 90, color: AppColors.shimmer),
+                                  return Padding(
+                                    padding: const EdgeInsets.only(right: 12),
+                                    child: Container(
+                                      width: 150,
+                                      height: 230,
+                                      padding: const EdgeInsets.all(12),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.white,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(
+                                                AppStyles.mediumRadius)),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: AppColors.black
+                                                .withOpacity(0.05),
+                                            blurRadius: 8.0,
+                                            offset: const Offset(0.0, 4.0),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    SizedBox(
-                                      height: 40,
-                                      child: Text(
-                                        item.title,
-                                        style: AppStyles.footnote,
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 2),
-                                    SizedBox(
-                                      height: 24,
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          if (item.price != null)
-                                            Text(
-                                              '+${item.price} ₽',
-                                              style: AppStyles.headline,
+                                          ClipRRect(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(AppStyles
+                                                    .productPicRadius)),
+                                            child: CachedNetworkImage(
+                                              imageUrl: item.image ?? '',
+                                              width: 110,
+                                              height: 90,
+                                              fit: BoxFit.cover,
+                                              placeholder: (_, __) => Container(
+                                                  width: 110,
+                                                  height: 90,
+                                                  color: AppColors.shimmer),
+                                              errorWidget: (_, __, ___) =>
+                                                  Container(
+                                                      width: 110,
+                                                      height: 90,
+                                                      color: AppColors.shimmer),
                                             ),
-                                          if (item.weight != null) ...[
-                                            const SizedBox(width: 4),
-                                            Text(
-                                              '${item.weight} г.',
-                                              style: AppStyles.caption2,
+                                          ),
+                                          const SizedBox(height: 4),
+                                          SizedBox(
+                                            height: 40,
+                                            child: Text(
+                                              item.title,
+                                              style: AppStyles.footnote,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
                                             ),
-                                          ],
+                                          ),
+                                          const SizedBox(height: 2),
+                                          SizedBox(
+                                            height: 24,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                if (item.price != null)
+                                                  Text(
+                                                    '+${item.price} ₽',
+                                                    style: AppStyles.headline,
+                                                  ),
+                                                if (item.weight != null) ...[
+                                                  const SizedBox(width: 4),
+                                                  Text(
+                                                    '${item.weight} г.',
+                                                    style: AppStyles.caption2,
+                                                  ),
+                                                ],
+                                              ],
+                                            ),
+                                          ),
+                                          const Spacer(),
+                                          SizedBox(
+                                            width: double.infinity,
+                                            height: 26,
+                                            child: quantity == 0
+                                                ? ElevatedButton(
+                                                    onPressed: !disabled
+                                                        ? () => cubit
+                                                            .incrementModifier(
+                                                                item)
+                                                        : null,
+                                                    style: AppStyles
+                                                        .greyElevatedButton
+                                                        .copyWith(
+                                                      padding:
+                                                          const WidgetStatePropertyAll(
+                                                        EdgeInsets.only(
+                                                            left: 20,
+                                                            right: 16),
+                                                      ),
+                                                      shape:
+                                                          WidgetStatePropertyAll(
+                                                        RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(20),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    child: Text(
+                                                      'Выбрать',
+                                                      style: AppStyles.footnote
+                                                          .copyWith(
+                                                        color: AppColors
+                                                            .darkPrimary,
+                                                        height: 1,
+                                                      ),
+                                                    ),
+                                                  )
+                                                : Container(
+                                                    width: double.infinity,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                        Radius.circular(
+                                                            AppStyles
+                                                                .radiusElement),
+                                                      ),
+                                                      color:
+                                                          AppColors.superLight,
+                                                    ),
+                                                    child: Row(
+                                                      children: [
+                                                        Expanded(
+                                                          child:
+                                                              GestureDetector(
+                                                            onTap: () => cubit
+                                                                .decrementModifier(
+                                                                    item),
+                                                            child: Container(
+                                                              color: Colors
+                                                                  .transparent,
+                                                              child: Center(
+                                                                child: Text(
+                                                                  '−',
+                                                                  style: AppStyles
+                                                                      .callout
+                                                                      .copyWith(
+                                                                    color:
+                                                                        AppColors
+                                                                            .gray,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                          child: Center(
+                                                            child: Text(
+                                                              '$quantity',
+                                                              style: AppStyles
+                                                                  .footnote
+                                                                  .copyWith(
+                                                                color: AppColors
+                                                                    .dark,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                          child:
+                                                              GestureDetector(
+                                                            onTap: quantity <
+                                                                        maxQty &&
+                                                                    (modifier.maxQuantity ==
+                                                                            null ||
+                                                                        totalSelectedQuantity <
+                                                                            modifier.maxQuantity!)
+                                                                ? () {
+                                                                    cubit.incrementModifier(
+                                                                        item);
+                                                                  }
+                                                                : null,
+                                                            child: Container(
+                                                              color: Colors
+                                                                  .transparent,
+                                                              child: Center(
+                                                                child: Text(
+                                                                  '+',
+                                                                  style: AppStyles
+                                                                      .callout
+                                                                      .copyWith(
+                                                                    color:
+                                                                        AppColors
+                                                                            .gray,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                          ),
                                         ],
                                       ),
                                     ),
-                                    const Spacer(),
-                                    SizedBox(
-                                      width: double.infinity,
-                                      height: 26,
-                                      child: quantity == 0
-                                          ? ElevatedButton(
-                                        onPressed: !disabled
-                                            ? () => cubit.incrementModifier(item)
-                                            : null,
-                                        style: AppStyles.greyElevatedButton.copyWith(
-                                          padding: const MaterialStatePropertyAll(
-                                            EdgeInsets.only(left: 20, right: 16),
-                                          ),
-                                          shape: MaterialStatePropertyAll(
-                                            RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(20),
-                                            ),
-                                          ),
-                                        ),
-                                        child: Text(
-                                          'Выбрать',
-                                          style: AppStyles.footnote.copyWith(
-                                            color: AppColors.darkPrimary,
-                                            height: 1,
-                                          ),
-                                        ),
-                                      )
-                                          : Container(
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(AppStyles.radiusElement),
-                                          ),
-                                          color: AppColors.superLight,
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                              child: GestureDetector(
-                                                onTap: () => cubit.decrementModifier(item),
-                                                child: Container(
-                                                  color: Colors.transparent,
-                                                  child: Center(
-                                                    child: Text(
-                                                      '−',
-                                                      style: AppStyles.callout.copyWith(
-                                                        color: AppColors.gray,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Center(
-                                                child: Text(
-                                                  '$quantity',
-                                                  style: AppStyles.footnote.copyWith(
-                                                    color: AppColors.dark,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: GestureDetector(
-                                                onTap: quantity < maxQty &&
-                                                    (modifier.maxQuantity == null ||
-                                                        totalSelectedQuantity <
-                                                            modifier.maxQuantity!)
-                                                    ? () {
-                                                  cubit.incrementModifier(item);
-                                                }
-                                                    : null,
-                                                child: Container(
-                                                  color: Colors.transparent,
-                                                  child: Center(
-                                                    child: Text(
-                                                      '+',
-                                                      style: AppStyles.callout.copyWith(
-                                                        color: AppColors.gray,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                  );
+                                },
                               ),
-                            );
-                          },
-                        ),
-                      )
+                            )
                           : Column(
-                        children: modifier.items.map((item) {
-                          final quantity = state.selectedQuantities[item.id] ?? 0;
-                          final isSelected = quantity > 0;
-                          final disabled = modifier.maxQuantity != null &&
-                              totalSelectedQuantity >= modifier.maxQuantity! &&
-                              !isSelected &&
-                              selected.every((sel) =>
-                              (state.selectedQuantities[sel.id] ?? 0) <=
-                                  (sel.minQuantity ?? 0));
+                              children: modifier.items.map((item) {
+                                final quantity =
+                                    state.selectedQuantities[item.id] ?? 0;
+                                final isSelected = quantity > 0;
+                                final disabled = modifier.maxQuantity != null &&
+                                    totalSelectedQuantity >=
+                                        modifier.maxQuantity! &&
+                                    !isSelected &&
+                                    selected.every((sel) =>
+                                        (state.selectedQuantities[sel.id] ??
+                                            0) <=
+                                        (sel.minQuantity ?? 0));
 
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                            child: CustomCheckBox(
-                              label: item.title,
-                              sufix: Text(
-                                item.price != null ? '+${item.price} ₽' : '',
-                                style: AppStyles.footnote,
-                              ),
-                              disabled: disabled,
-                              onSelect: (active) {
-                                if (active) {
-                                  cubit.addModifier(item);
-                                } else {
-                                  cubit.deleteModifier(item);
-                                }
-                              },
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 8),
+                                  child: CustomCheckBox(
+                                    label: item.title,
+                                    sufix: Text(
+                                      item.price != null
+                                          ? '+${item.price} ₽'
+                                          : '',
+                                      style: AppStyles.footnote,
+                                    ),
+                                    disabled: disabled,
+                                    onSelect: (active) {
+                                      if (active) {
+                                        cubit.addModifier(item);
+                                      } else {
+                                        cubit.deleteModifier(item);
+                                      }
+                                    },
+                                  ),
+                                );
+                              }).toList(),
                             ),
-                          );
-                        }).toList(),
-                      ),
                     ),
                   ),
                 ],

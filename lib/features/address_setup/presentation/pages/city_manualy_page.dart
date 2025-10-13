@@ -85,9 +85,11 @@ class CityManualyPage extends StatelessWidget {
                                   List<CityEntity> cities = success.cities;
                                   return ListView.separated(
                                     shrinkWrap: true,
-                                    physics: const NeverScrollableScrollPhysics(),
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
                                     itemCount: cities.length,
-                                    itemBuilder: (BuildContext context, int index) {
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
                                       final CityEntity city = cities[index];
                                       return ListTile(
                                         title: Text(
@@ -106,8 +108,13 @@ class CityManualyPage extends StatelessWidget {
                                           if (mode == 'city') {
                                             AutoRouter.of(context).pop(city);
                                           } else {
-                                            getIt<AddressSetupStateCubit>().setCity(address_city.CityEntity(name: city.name));
-                                            getIt<AuthBloc>().store.setCityId(city.id);
+                                            getIt<AddressSetupStateCubit>()
+                                                .setCity(
+                                                    address_city.CityEntity(
+                                                        name: city.name));
+                                            getIt<AuthBloc>()
+                                                .store
+                                                .setCityId(city.id);
 
                                             if (mode == 'module') {
                                               AutoRouter.of(context).pop();
@@ -130,7 +137,8 @@ class CityManualyPage extends StatelessWidget {
                                     },
                                   );
                                 },
-                                loading: (value) => const CircularProgressIndicator(),
+                                loading: (value) =>
+                                    const CircularProgressIndicator(),
                                 orElse: () => Container(),
                               );
                             },

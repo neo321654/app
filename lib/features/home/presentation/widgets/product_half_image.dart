@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../config/themes/styles.dart';
@@ -37,7 +36,7 @@ class ProductHalfImage extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Container(
+              SizedBox(
                 height: imageHeight,
                 width: imageWidth / 2,
                 child: Stack(
@@ -53,7 +52,7 @@ class ProductHalfImage extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
+              SizedBox(
                 height: imageHeight,
                 width: imageWidth / 2,
                 child: Stack(

@@ -51,9 +51,7 @@ mixin _$LoyaltyEntryEvent {
   }) =>
       throw _privateConstructorUsedError;
 
-  /// Create a copy of LoyaltyEntryEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $LoyaltyEntryEventCopyWith<LoyaltyEntryEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -77,8 +75,6 @@ class _$LoyaltyEntryEventCopyWithImpl<$Res, $Val extends LoyaltyEntryEvent>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of LoyaltyEntryEvent
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -112,8 +108,6 @@ class __$$PostLoyaltyRequestImplCopyWithImpl<$Res>
       $Res Function(_$PostLoyaltyRequestImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of LoyaltyEntryEvent
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -152,9 +146,7 @@ class _$PostLoyaltyRequestImpl implements _PostLoyaltyRequest {
   @override
   int get hashCode => Object.hash(runtimeType, request);
 
-  /// Create a copy of LoyaltyEntryEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$PostLoyaltyRequestImplCopyWith<_$PostLoyaltyRequestImpl> get copyWith =>
@@ -225,11 +217,8 @@ abstract class _PostLoyaltyRequest implements LoyaltyEntryEvent {
 
   @override
   LoyaltyEntryRequestEntity get request;
-
-  /// Create a copy of LoyaltyEntryEvent
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$PostLoyaltyRequestImplCopyWith<_$PostLoyaltyRequestImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -304,9 +293,6 @@ class _$LoyaltyEntryStateCopyWithImpl<$Res, $Val extends LoyaltyEntryState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of LoyaltyEntryState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -323,9 +309,6 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of LoyaltyEntryState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -440,9 +423,6 @@ class __$$SavingImplCopyWithImpl<$Res>
   __$$SavingImplCopyWithImpl(
       _$SavingImpl _value, $Res Function(_$SavingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of LoyaltyEntryState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -560,8 +540,6 @@ class __$$SuccessImplCopyWithImpl<$Res>
       _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of LoyaltyEntryState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -601,9 +579,7 @@ class _$SuccessImpl implements _Success {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  /// Create a copy of LoyaltyEntryState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
@@ -689,10 +665,7 @@ abstract class _Success implements LoyaltyEntryState {
       _$SuccessImpl;
 
   LoyaltyEntryResponseEntity get response;
-
-  /// Create a copy of LoyaltyEntryState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -714,8 +687,6 @@ class __$$ErrorImplCopyWithImpl<$Res>
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of LoyaltyEntryState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -754,9 +725,7 @@ class _$ErrorImpl implements _Error {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of LoyaltyEntryState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
@@ -841,10 +810,7 @@ abstract class _Error implements LoyaltyEntryState {
   const factory _Error(final Error error) = _$ErrorImpl;
 
   Error get error;
-
-  /// Create a copy of LoyaltyEntryState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

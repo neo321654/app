@@ -21,7 +21,8 @@ class CatalogItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<ProductEntity> products = (catalog.products ?? []).toList();
 
-    final double imageWidth = (MediaQuery.of(context).size.width - (2 * 16) - (5 * 12)) / 2;
+    final double imageWidth =
+        (MediaQuery.of(context).size.width - (2 * 16) - (5 * 12)) / 2;
     final double imageHeight = imageWidth;
 
     return Column(
@@ -78,7 +79,8 @@ class CatalogItem extends StatelessWidget {
   }
 }
 
-class SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight extends SliverGridDelegate {
+class SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight
+    extends SliverGridDelegate {
   /// Creates a delegate that makes grid layouts with a fixed number of tiles in
   /// the cross axis.
   ///
@@ -90,10 +92,10 @@ class SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight extends SliverGrid
     this.mainAxisSpacing = 0.0,
     this.crossAxisSpacing = 0.0,
     this.height = 56.0,
-  })  : assert(crossAxisCount != null && crossAxisCount > 0),
-        assert(mainAxisSpacing != null && mainAxisSpacing >= 0),
-        assert(crossAxisSpacing != null && crossAxisSpacing >= 0),
-        assert(height != null && height > 0);
+  })  : assert(crossAxisCount > 0),
+        assert(mainAxisSpacing >= 0),
+        assert(crossAxisSpacing >= 0),
+        assert(height > 0);
 
   /// The number of children in the cross axis.
   final int crossAxisCount;
@@ -118,7 +120,8 @@ class SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight extends SliverGrid
   @override
   SliverGridLayout getLayout(SliverConstraints constraints) {
     assert(_debugAssertIsValid());
-    final double usableCrossAxisExtent = constraints.crossAxisExtent - crossAxisSpacing * (crossAxisCount - 1);
+    final double usableCrossAxisExtent =
+        constraints.crossAxisExtent - crossAxisSpacing * (crossAxisCount - 1);
     final double childCrossAxisExtent = usableCrossAxisExtent / crossAxisCount;
     final double childMainAxisExtent = height;
     return SliverGridRegularTileLayout(
@@ -132,7 +135,11 @@ class SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight extends SliverGrid
   }
 
   @override
-  bool shouldRelayout(SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight oldDelegate) {
-    return oldDelegate.crossAxisCount != crossAxisCount || oldDelegate.mainAxisSpacing != mainAxisSpacing || oldDelegate.crossAxisSpacing != crossAxisSpacing || oldDelegate.height != height;
+  bool shouldRelayout(
+      SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight oldDelegate) {
+    return oldDelegate.crossAxisCount != crossAxisCount ||
+        oldDelegate.mainAxisSpacing != mainAxisSpacing ||
+        oldDelegate.crossAxisSpacing != crossAxisSpacing ||
+        oldDelegate.height != height;
   }
 }

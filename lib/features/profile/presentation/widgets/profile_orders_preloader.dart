@@ -14,15 +14,15 @@ class ProfileOrdersPreloader extends StatelessWidget {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
-          SizedBox(
+          const SizedBox(
             width: 16,
           ),
           _preloaderContainer(),
-          SizedBox(
+          const SizedBox(
             width: 12,
           ),
           _preloaderContainer(),
-          SizedBox(
+          const SizedBox(
             width: 16,
           ),
         ],
@@ -35,7 +35,7 @@ class ProfileOrdersPreloader extends StatelessWidget {
       width: 310,
       child: RoundedContainer(
         height: 214,
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 20,
         ),

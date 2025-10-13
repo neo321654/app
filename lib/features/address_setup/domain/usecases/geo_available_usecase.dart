@@ -5,7 +5,8 @@ import '../../../../core/resources/data_state.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../repository/geo_repository.dart';
 
-class GeoavailableUsecase implements UseCase<DataState<GeoAvailableEntity>, GeolocateAddressParams?> {
+class GeoavailableUsecase
+    implements UseCase<DataState<GeoAvailableEntity>, GeolocateAddressParams?> {
   final GeoRepository repository;
 
   GeoavailableUsecase({required this.repository});

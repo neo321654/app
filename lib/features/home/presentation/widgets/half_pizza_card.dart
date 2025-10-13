@@ -20,13 +20,14 @@ class HalfPizzaCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productCardCubit = context.read<ProductCardStateCubit>();
-    final bool isSelected = (productCardCubit.state.selectedQuantities[product.id] ?? 0) > 0;
+    final bool isSelected =
+        (productCardCubit.state.selectedQuantities[product.id] ?? 0) > 0;
 
     return Stack(
       clipBehavior: Clip.none,
       alignment: AlignmentDirectional.center,
       children: [
-        Container(
+        SizedBox(
           width: 140,
           height: 200,
           child: Align(
@@ -34,7 +35,11 @@ class HalfPizzaCard extends StatelessWidget {
             child: GestureDetector(
               behavior: HitTestBehavior.translucent,
               onTap: () {
-                if (context.read<ProductCardStateCubit>().pizzaHalfMod().length < 2) {
+                if (context
+                        .read<ProductCardStateCubit>()
+                        .pizzaHalfMod()
+                        .length <
+                    2) {
                   productCardCubit.incrementModifier(product);
                 }
               },
@@ -46,10 +51,14 @@ class HalfPizzaCard extends StatelessWidget {
                 width: 120,
                 height: 188,
                 decoration: BoxDecoration(
-                  color: isSelected ? AppColors.white : AppColors.lightScaffoldBackground,
+                  color: isSelected
+                      ? AppColors.white
+                      : AppColors.lightScaffoldBackground,
                   borderRadius: const BorderRadius.all(Radius.circular(16)),
                   border: Border.all(
-                    color: isSelected ? AppColors.darkPrimary : AppColors.lightScaffoldBackground,
+                    color: isSelected
+                        ? AppColors.darkPrimary
+                        : AppColors.lightScaffoldBackground,
                     width: 1,
                   ),
                 ),
@@ -62,7 +71,8 @@ class HalfPizzaCard extends StatelessWidget {
                         imageUrl: product.image ?? 'https://placehold.co/96x96',
                         imageBuilder: (context, imageProvider) => Container(
                           decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.all(Radius.circular(16)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(16)),
                             image: DecorationImage(
                               image: imageProvider,
                               fit: BoxFit.cover,
@@ -117,7 +127,7 @@ class HalfPizzaCard extends StatelessWidget {
               onTap: () {
                 productCardCubit.decrementModifier(product);
               },
-              child: Container(
+              child: SizedBox(
                 width: 55,
                 height: 30,
                 child: Stack(
@@ -127,7 +137,8 @@ class HalfPizzaCard extends StatelessWidget {
                       height: 24,
                       decoration: BoxDecoration(
                         color: AppColors.white,
-                        borderRadius: const BorderRadius.all(Radius.circular(32)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(32)),
                         border: Border.all(
                           color: AppColors.lightScaffoldBackground,
                           width: 1,
@@ -139,7 +150,10 @@ class HalfPizzaCard extends StatelessWidget {
                           width: 28,
                           child: Center(
                             child: Text(
-                              (productCardCubit.state.selectedQuantities[product.id] ?? 0).toString(),
+                              (productCardCubit.state
+                                          .selectedQuantities[product.id] ??
+                                      0)
+                                  .toString(),
                               style: AppStyles.caption1Bold,
                             ),
                           ),
