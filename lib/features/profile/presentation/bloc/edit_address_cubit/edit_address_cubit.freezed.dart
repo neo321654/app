@@ -18,9 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$EditAddressState {
   AddressEntity get address => throw _privateConstructorUsedError;
 
-  /// Create a copy of EditAddressState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $EditAddressStateCopyWith<EditAddressState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -46,8 +44,6 @@ class _$EditAddressStateCopyWithImpl<$Res, $Val extends EditAddressState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of EditAddressState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -61,8 +57,6 @@ class _$EditAddressStateCopyWithImpl<$Res, $Val extends EditAddressState>
     ) as $Val);
   }
 
-  /// Create a copy of EditAddressState
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $AddressEntityCopyWith<$Res> get address {
@@ -94,8 +88,6 @@ class __$$EditAddressStateImplCopyWithImpl<$Res>
       $Res Function(_$EditAddressStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of EditAddressState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -134,9 +126,7 @@ class _$EditAddressStateImpl implements _EditAddressState {
   @override
   int get hashCode => Object.hash(runtimeType, address);
 
-  /// Create a copy of EditAddressState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$EditAddressStateImplCopyWith<_$EditAddressStateImpl> get copyWith =>
@@ -150,11 +140,8 @@ abstract class _EditAddressState implements EditAddressState {
 
   @override
   AddressEntity get address;
-
-  /// Create a copy of EditAddressState
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$EditAddressStateImplCopyWith<_$EditAddressStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

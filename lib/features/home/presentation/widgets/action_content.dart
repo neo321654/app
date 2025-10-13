@@ -22,7 +22,8 @@ class ActionContent extends StatelessWidget {
         BlocBuilder<ActionBloc, ActionState>(
           builder: (context, state) {
             final double screenWidth = MediaQuery.of(context).size.width;
-            final double height = ((screenWidth - 32) * (AppStyles.bannerHeight / AppStyles.bannerWidth));
+            final double height = ((screenWidth - 32) *
+                (AppStyles.bannerHeight / AppStyles.bannerWidth));
             return state.maybeMap(
               success: (state) {
                 return Column(
@@ -45,11 +46,14 @@ class ActionContent extends StatelessWidget {
                               ),
                             ),
                           ),
-                          placeholder: (context, url) => _bannerPlaceholder(height),
-                          errorWidget: (context, url, error) => _bannerPlaceholder(height),
+                          placeholder: (context, url) =>
+                              _bannerPlaceholder(height),
+                          errorWidget: (context, url, error) =>
+                              _bannerPlaceholder(height),
                         ),
                       ),
-                    if (state.action.content?.isNotEmpty == true) HtmlWidget(state.action.content!),
+                    if (state.action.content?.isNotEmpty == true)
+                      HtmlWidget(state.action.content!),
                   ],
                 );
               },

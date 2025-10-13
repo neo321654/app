@@ -11,7 +11,12 @@ class CreateOrderStateCubit extends Cubit<CreateOrderState> {
       : super(
           CreateOrderState(
             deliveryDate: DateTime.now(),
-            deliveryTime: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, DateTime.now().hour, [15, 30, 45, 60][((DateTime.now().minute) / 15).floor()]),
+            deliveryTime: DateTime(
+                DateTime.now().year,
+                DateTime.now().month,
+                DateTime.now().day,
+                DateTime.now().hour,
+                [15, 30, 45, 60][((DateTime.now().minute) / 15).floor()]),
           ),
         );
 
@@ -132,7 +137,8 @@ class CreateOrderStateCubit extends Cubit<CreateOrderState> {
 
     final currentTime = DateTime.now();
 
-    final DateTime deliveryDate = state.deliveryDate == null ? currentTime : state.deliveryDate!;
+    final DateTime deliveryDate =
+        state.deliveryDate == null ? currentTime : state.deliveryDate!;
 
     deliveryDate.copyWith(
       hour: currentTime.hour,
@@ -143,16 +149,35 @@ class CreateOrderStateCubit extends Cubit<CreateOrderState> {
       minutes: step,
     ));
 
-    final startDateTime = DateTime(deliveryDate.year, deliveryDate.month, deliveryDate.day, deliveryDate.year, int.parse(startTime.split(':')[0]), int.parse(startTime.split(':')[1]));
-    final endDateTime = DateTime(deliveryDate.year, deliveryDate.month, deliveryDate.day, deliveryDate.year, int.parse(endTime.split(':')[0]), int.parse(endTime.split(':')[1]));
+    final startDateTime = DateTime(
+        deliveryDate.year,
+        deliveryDate.month,
+        deliveryDate.day,
+        deliveryDate.year,
+        int.parse(startTime.split(':')[0]),
+        int.parse(startTime.split(':')[1]));
+    final endDateTime = DateTime(
+        deliveryDate.year,
+        deliveryDate.month,
+        deliveryDate.day,
+        deliveryDate.year,
+        int.parse(endTime.split(':')[0]),
+        int.parse(endTime.split(':')[1]));
 
     if (deliveryDate.compareTo(endDateTime) > 0) {
       return deliveryTimes;
     }
 
-    final nearestTime = DateTime(deliveryDate.year, deliveryDate.month, deliveryDate.day, deliveryDate.hour, [15, 30, 45, 60][(deliveryDate.minute / 15).floor()]);
+    final nearestTime = DateTime(
+        deliveryDate.year,
+        deliveryDate.month,
+        deliveryDate.day,
+        deliveryDate.hour,
+        [15, 30, 45, 60][(deliveryDate.minute / 15).floor()]);
 
-    final counterDate = (startDateTime.compareTo(nearestTime) > 0) ? startDateTime : nearestTime;
+    final counterDate = (startDateTime.compareTo(nearestTime) > 0)
+        ? startDateTime
+        : nearestTime;
 
     while (counterDate.compareTo(endDateTime) < 0) {
       deliveryTimes.add(DateFormat.Hm().format(counterDate));
@@ -166,7 +191,8 @@ class CreateOrderStateCubit extends Cubit<CreateOrderState> {
   bool isAllowToCreate() {
     bool isAllow = true;
 
-    if ((state.delivery?.type == 'delivery' && state.deliveryAddress == null) || (state.delivery?.type == 'pickup' && state.deliveryShop == null)) {
+    if ((state.delivery?.type == 'delivery' && state.deliveryAddress == null) ||
+        (state.delivery?.type == 'pickup' && state.deliveryShop == null)) {
       isAllow = false;
     }
 

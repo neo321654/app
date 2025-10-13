@@ -18,9 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AppliedFilterStateState {
   List<TagEntity> get selectedTags => throw _privateConstructorUsedError;
 
-  /// Create a copy of AppliedFilterStateState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $AppliedFilterStateStateCopyWith<AppliedFilterStateState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -45,8 +43,6 @@ class _$AppliedFilterStateStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of AppliedFilterStateState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -83,8 +79,6 @@ class __$$AppliedFilterStateStateImplCopyWithImpl<$Res>
       $Res Function(_$AppliedFilterStateStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AppliedFilterStateState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -133,9 +127,7 @@ class _$AppliedFilterStateStateImpl implements _AppliedFilterStateState {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_selectedTags));
 
-  /// Create a copy of AppliedFilterStateState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$AppliedFilterStateStateImplCopyWith<_$AppliedFilterStateStateImpl>
@@ -149,11 +141,8 @@ abstract class _AppliedFilterStateState implements AppliedFilterStateState {
 
   @override
   List<TagEntity> get selectedTags;
-
-  /// Create a copy of AppliedFilterStateState
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$AppliedFilterStateStateImplCopyWith<_$AppliedFilterStateStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

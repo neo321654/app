@@ -69,11 +69,20 @@ BasketOfferDto _$BasketOfferDtoFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$BasketOfferDtoToJson(BasketOfferDto instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'product': instance.product,
-      if (instance.quantity case final value?) 'quantity': value,
-      if (instance.addOptions case final value?) 'add_options': value,
-      if (instance.removeOptions case final value?) 'remove_options': value,
-    };
+Map<String, dynamic> _$BasketOfferDtoToJson(BasketOfferDto instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'product': instance.product,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('quantity', instance.quantity);
+  writeNotNull('add_options', instance.addOptions);
+  writeNotNull('remove_options', instance.removeOptions);
+  return val;
+}

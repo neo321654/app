@@ -34,8 +34,10 @@ class _SelectDeliveryDateTimeState extends State<SelectDeliveryDateTime> {
                 locale: const Locale("ru"),
                 context: context,
                 initialDate: DateTime.now(),
-                firstDate: cubit.state.deliveryDate!, //DateTime.now() - not to allow to choose before today.
-                lastDate: cubit.state.deliveryDate!.add(const Duration(days: 30)),
+                firstDate: cubit.state
+                    .deliveryDate!, //DateTime.now() - not to allow to choose before today.
+                lastDate:
+                    cubit.state.deliveryDate!.add(const Duration(days: 30)),
               );
 
               if (pickedDate != null) {
@@ -48,7 +50,7 @@ class _SelectDeliveryDateTimeState extends State<SelectDeliveryDateTime> {
             },
             child: Container(
               height: 48,
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                 left: 16,
                 top: 10,
                 right: 12,
@@ -68,7 +70,8 @@ class _SelectDeliveryDateTimeState extends State<SelectDeliveryDateTime> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      DateFormat('d MMMM', 'Ru_ru').format(cubit.state.deliveryDate!),
+                      DateFormat('d MMMM', 'Ru_ru')
+                          .format(cubit.state.deliveryDate!),
                       style: AppStyles.subheadBold.copyWith(
                         color: AppColors.dark,
                       ),
@@ -92,7 +95,7 @@ class _SelectDeliveryDateTimeState extends State<SelectDeliveryDateTime> {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 16,
         ),
         GestureDetector(
@@ -116,7 +119,8 @@ class _SelectDeliveryDateTimeState extends State<SelectDeliveryDateTime> {
                     child: CupertinoPicker(
                       backgroundColor: AppColors.white,
                       scrollController: FixedExtentScrollController(
-                        initialItem: _deliveryTimes.indexOf(cubit.state.deliveryTimeValue),
+                        initialItem: _deliveryTimes
+                            .indexOf(cubit.state.deliveryTimeValue),
                       ),
                       onSelectedItemChanged: (int value) {
                         setState(() {
@@ -140,7 +144,7 @@ class _SelectDeliveryDateTimeState extends State<SelectDeliveryDateTime> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                       left: 16,
                       right: 16,
                       bottom: 16,
@@ -174,7 +178,7 @@ class _SelectDeliveryDateTimeState extends State<SelectDeliveryDateTime> {
           ),
           child: Container(
             height: 48,
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               left: 16,
               top: 10,
               right: 12,

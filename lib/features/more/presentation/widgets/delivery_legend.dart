@@ -37,7 +37,8 @@ class _DeliveryLegendState extends State<DeliveryLegend> {
               padding: const EdgeInsets.only(right: 8),
               child: DeliveryBadge(
                 color: HexColor(zone.fill),
-                text: zone.title + (zone.price != null ? ' ${zone.price}₽' : ''),
+                text:
+                    zone.title + (zone.price != null ? ' ${zone.price}₽' : ''),
               ),
             ),
           ),

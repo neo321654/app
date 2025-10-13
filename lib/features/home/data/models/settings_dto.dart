@@ -14,6 +14,10 @@ class SettingsDto {
     this.feedback,
     this.monobox,
     required this.loyalty,
+    this.children,
+    this.callback,
+    this.usePromocode,
+    this.useLoyalty,
   });
 
   final SocnetDto? socnet;
@@ -21,8 +25,13 @@ class SettingsDto {
   final FeedbackDto? feedback;
   final MonoboxDto? monobox;
   final bool loyalty;
+  final bool? children;
+  final bool? callback;
+  final bool? usePromocode;
+  final bool? useLoyalty;
 
-  factory SettingsDto.fromJson(Map<String, dynamic> json) => _$SettingsDtoFromJson(json);
+  factory SettingsDto.fromJson(Map<String, dynamic> json) =>
+      _$SettingsDtoFromJson(json);
 }
 
 @JsonSerializable(
@@ -41,7 +50,8 @@ class SocnetDto {
   final String? tg;
   final String? insta;
 
-  factory SocnetDto.fromJson(Map<String, dynamic> json) => _$SocnetDtoFromJson(json);
+  factory SocnetDto.fromJson(Map<String, dynamic> json) =>
+      _$SocnetDtoFromJson(json);
 }
 
 @JsonSerializable(
@@ -77,7 +87,8 @@ class FeedbackDto {
   final String? tg;
   final String? wa;
 
-  factory FeedbackDto.fromJson(Map<String, dynamic> json) => _$FeedbackDtoFromJson(json);
+  factory FeedbackDto.fromJson(Map<String, dynamic> json) =>
+      _$FeedbackDtoFromJson(json);
 }
 
 @JsonSerializable(
@@ -92,5 +103,6 @@ class MonoboxDto {
 
   final String? link;
 
-  factory MonoboxDto.fromJson(Map<String, dynamic> json) => _$MonoboxDtoFromJson(json);
+  factory MonoboxDto.fromJson(Map<String, dynamic> json) =>
+      _$MonoboxDtoFromJson(json);
 }

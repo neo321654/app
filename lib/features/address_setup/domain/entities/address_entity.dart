@@ -28,7 +28,9 @@ class AddressEntity with _$AddressEntity {
 
   String _getAddress() {
     return (street?.isNotEmpty == true ? street! : title) +
-        ((street?.isNotEmpty == true && house?.isNotEmpty == true) ? ' д. $house' : '') +
+        ((street?.isNotEmpty == true && house?.isNotEmpty == true)
+            ? ' д. $house'
+            : '') +
         (appartment?.isNotEmpty == true ? ' кв. $appartment' : '');
   }
 }

@@ -166,7 +166,8 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
         emit(
           BasketLoaded(
             basket: basket.copyWith(
-              offers: List<BasketOfferEntity>.from(basket.offers)..removeWhere((offer) => event.offer.id == offer.id),
+              offers: List<BasketOfferEntity>.from(basket.offers)
+                ..removeWhere((offer) => event.offer.id == offer.id),
             ),
           ),
         );
@@ -191,7 +192,8 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
         emit(
           BasketLoaded(
             basket: basket.copyWith(
-              gifts: List<ProductEntity>.from(basket.gifts)..removeWhere((gift) => event.gift.id == gift.id),
+              gifts: List<ProductEntity>.from(basket.gifts)
+                ..removeWhere((gift) => event.gift.id == gift.id),
             ),
           ),
         );
@@ -307,20 +309,32 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
 
   Decimal get subtotal => (state as BasketLoaded).basket.offers.fold(
         Decimal.fromInt(0),
-        (Decimal previousValue, BasketOfferEntity element) => previousValue + (element.product.price * Decimal.fromInt(element.quantity!)),
+        (Decimal previousValue, BasketOfferEntity element) =>
+            previousValue +
+            (element.product.price * Decimal.fromInt(element.quantity!)),
       );
 
   bool isInBasket(ProductEntity product) {
-    return (state as BasketLoaded).basket.offers.any((offer) => offer.product.id == product.id);
+    return (state as BasketLoaded)
+        .basket
+        .offers
+        .any((offer) => offer.product.id == product.id);
   }
 
   bool giftIsInBasket(ProductEntity product) {
-    return (state as BasketLoaded).basket.gifts.any((gifts) => gifts.id == product.id);
+    return (state as BasketLoaded)
+        .basket
+        .gifts
+        .any((gifts) => gifts.id == product.id);
   }
 
   void chooseGift(ProductEntity? product) {
     if ((state as BasketLoaded).basket.gifts.isNotEmpty) {
-      (state as BasketLoaded).basket.gifts.map((gift) => add(RemoveGift(gift))).toList();
+      (state as BasketLoaded)
+          .basket
+          .gifts
+          .map((gift) => add(RemoveGift(gift)))
+          .toList();
     }
 
     if (product != null) {
@@ -431,7 +445,6 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
       );
     }
   }
-
 
   void _onUpdateOffer(UpdateOffer event, Emitter<BasketState> emit) {
     if (state is BasketLoaded) {

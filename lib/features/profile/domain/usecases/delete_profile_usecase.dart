@@ -4,7 +4,8 @@ import '../../../../core/resources/data_state.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../repositories/profile_repository.dart';
 
-class DeleteProfileUsecase implements UseCase<DataState<DeleteProfileEntity>, void> {
+class DeleteProfileUsecase
+    implements UseCase<DataState<DeleteProfileEntity>, void> {
   final ProfileRepository profileRepository;
 
   DeleteProfileUsecase({required this.profileRepository});

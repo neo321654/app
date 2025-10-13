@@ -43,7 +43,8 @@ class ShopAddresses extends StatelessWidget {
                 success: (value) {
                   shops.clear();
                   if (getIt<AuthBloc>().store.cityId != null) {
-                    shops.addAll(value.shops.where((shop) => shop.cityId == getIt<AuthBloc>().store.cityId));
+                    shops.addAll(value.shops.where((shop) =>
+                        shop.cityId == getIt<AuthBloc>().store.cityId));
                   } else {
                     shops.addAll(value.shops);
                   }
@@ -51,8 +52,16 @@ class ShopAddresses extends StatelessWidget {
                 orElse: () => null,
               );
 
-              if (shops.isNotEmpty && (context.read<CreateOrderStateCubit>().state.deliveryShop == null || !shops.contains(context.read<CreateOrderStateCubit>().state.deliveryShop))) {
-                context.read<CreateOrderStateCubit>().setDeliveryShop((shops[0]));
+              if (shops.isNotEmpty &&
+                  (context.read<CreateOrderStateCubit>().state.deliveryShop ==
+                          null ||
+                      !shops.contains(context
+                          .read<CreateOrderStateCubit>()
+                          .state
+                          .deliveryShop))) {
+                context
+                    .read<CreateOrderStateCubit>()
+                    .setDeliveryShop((shops[0]));
               }
 
               return Padding(
@@ -63,7 +72,8 @@ class ShopAddresses extends StatelessWidget {
                   itemCount: shops.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
-                      padding: EdgeInsets.only(bottom: (shops.length > (index + 1)) ? 20 : 0),
+                      padding: EdgeInsets.only(
+                          bottom: (shops.length > (index + 1)) ? 20 : 0),
                       child: YourAddressItem(
                         val: shops[index].address,
                         isActive: state.deliveryShop?.id == shops[index].id,

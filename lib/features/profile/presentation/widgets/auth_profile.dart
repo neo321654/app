@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:monobox/config/routes/app_router.dart';
@@ -147,15 +146,18 @@ class AuthProfile extends StatelessWidget {
                                   ),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         'Копите бонусы',
-                                        style: AppStyles.title1.copyWith(color: AppColors.white),
+                                        style: AppStyles.title1
+                                            .copyWith(color: AppColors.white),
                                       ),
                                       Text(
                                         'в программе лояльности',
-                                        style: AppStyles.footnote.copyWith(color: AppColors.white),
+                                        style: AppStyles.footnote
+                                            .copyWith(color: AppColors.white),
                                       ),
                                       const Spacer(),
                                       Container(
@@ -177,7 +179,8 @@ class AuthProfile extends StatelessWidget {
                                           children: [
                                             Text(
                                               'Зарегистрироваться',
-                                              style: AppStyles.subheadBold.copyWith(
+                                              style: AppStyles.subheadBold
+                                                  .copyWith(
                                                 color: AppColors.black,
                                                 height: 1,
                                               ),
@@ -186,7 +189,8 @@ class AuthProfile extends StatelessWidget {
                                               width: 24,
                                               child: SvgPicture.asset(
                                                 'assets/icons/arrow_right.svg',
-                                                colorFilter: const ColorFilter.mode(
+                                                colorFilter:
+                                                    const ColorFilter.mode(
                                                   AppColors.black,
                                                   BlendMode.srcIn,
                                                 ),

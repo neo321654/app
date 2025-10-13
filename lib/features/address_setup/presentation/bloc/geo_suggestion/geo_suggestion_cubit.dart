@@ -18,7 +18,8 @@ class GeoSuggestionCubit extends Cubit<GeoSuggestionState> {
     String search,
   ) async {
     try {
-      final dataState = await _usecase(params: GeoSuggestionParams(city: city, search: search));
+      final dataState = await _usecase(
+          params: GeoSuggestionParams(city: city, search: search));
 
       if (dataState is DataSuccess && dataState.data != null) {
         emit(GeoSuggestionState(suggestions: dataState.data!));

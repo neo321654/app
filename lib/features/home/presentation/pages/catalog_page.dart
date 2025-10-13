@@ -41,7 +41,8 @@ class _CatalogPageState extends State<CatalogPage> {
   late ItemScrollController itemScrollController;
   late ItemScrollController itemScrollControllerMenu;
   late ItemPositionsListener itemPositionsListener;
-  final List<CategoryEntity> categories = getIt<CategoriesBloc>().state.categories ?? [];
+  final List<CategoryEntity> categories =
+      getIt<CategoriesBloc>().state.categories ?? [];
 
   late CategoriesStateCubit satetCubit;
 
@@ -60,9 +61,11 @@ class _CatalogPageState extends State<CatalogPage> {
 
     if (widget.selectedCategoryId != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        var slelectedCat = categories.firstWhere((element) => element.id == widget.selectedCategoryId);
+        var slelectedCat = categories
+            .firstWhere((element) => element.id == widget.selectedCategoryId);
         itemScrollController.jumpTo(index: categories.indexOf(slelectedCat));
-        itemScrollControllerMenu.jumpTo(index: categories.indexOf(slelectedCat));
+        itemScrollControllerMenu.jumpTo(
+            index: categories.indexOf(slelectedCat));
         listeMenu = false;
         Future.delayed(const Duration(milliseconds: 500), () {
           setState(() {
@@ -80,7 +83,10 @@ class _CatalogPageState extends State<CatalogPage> {
 
     selectedIndex = itemPositionsListener.itemPositions.value
         .where((ItemPosition position) => position.itemTrailingEdge > 0)
-        .reduce((ItemPosition min, ItemPosition position) => (position.itemTrailingEdge) < (min.itemTrailingEdge) ? position : min)
+        .reduce((ItemPosition min, ItemPosition position) =>
+            (position.itemTrailingEdge) < (min.itemTrailingEdge)
+                ? position
+                : min)
         .index;
 
     if (satetCubit.state != categories[selectedIndex].id) {
@@ -242,7 +248,9 @@ class _CatalogPageState extends State<CatalogPage> {
                         var category = categories[index];
                         var isFirstCollection = false;
                         if (index > 0) {
-                          isFirstCollection = !categories[index - 1].isCollection && category.isCollection;
+                          isFirstCollection =
+                              !categories[index - 1].isCollection &&
+                                  category.isCollection;
                         }
                         return Row(
                           children: [
@@ -250,7 +258,8 @@ class _CatalogPageState extends State<CatalogPage> {
                             if (index == 0)
                               FilterListContainer(
                                 isFirstCollection: false,
-                                onTap: () => context.router.push(const FiltersRoute()),
+                                onTap: () =>
+                                    context.router.push(const FiltersRoute()),
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 16,
                                 ),
@@ -279,7 +288,8 @@ class _CatalogPageState extends State<CatalogPage> {
                                               right: -5,
                                               top: 0,
                                               child: BasketBadge(
-                                                counter: state.selectedTags.length,
+                                                counter:
+                                                    state.selectedTags.length,
                                                 active: true,
                                               ),
                                             );
@@ -324,7 +334,14 @@ class _CatalogPageState extends State<CatalogPage> {
                                   duration: const Duration(
                                     milliseconds: 300,
                                   ),
-                                  alignment: .5 - ((menuKeys[categories.indexOf(category)].currentContext!.size!.width + 8) / 2) / (MediaQuery.of(context).size.width),
+                                  alignment: .5 -
+                                      ((menuKeys[categories.indexOf(category)]
+                                                      .currentContext!
+                                                      .size!
+                                                      .width +
+                                                  8) /
+                                              2) /
+                                          (MediaQuery.of(context).size.width),
                                 );
                                 satetCubit.setSelectedCategoryId(category.id);
                                 itemScrollController
@@ -336,7 +353,8 @@ class _CatalogPageState extends State<CatalogPage> {
                                   alignment: -.05,
                                 )
                                     .then((value) {
-                                  Future.delayed(const Duration(milliseconds: 600), () {
+                                  Future.delayed(
+                                      const Duration(milliseconds: 600), () {
                                     setState(() {
                                       listeMenu = true;
                                     });
@@ -357,7 +375,8 @@ class _CatalogPageState extends State<CatalogPage> {
                                 ),
                               ),
                             ),
-                            if (index == categories.length - 1) AppStyles.xsmallHGap,
+                            if (index == categories.length - 1)
+                              AppStyles.xsmallHGap,
                           ],
                         );
                       },
@@ -395,7 +414,10 @@ class _CatalogPageState extends State<CatalogPage> {
                 padding: EdgeInsets.only(
                   left: 16,
                   right: 16,
-                  bottom: (basketBloc.productsCount != null && basketBloc.productsCount! > 0) ? 145 : 0,
+                  bottom: (basketBloc.productsCount != null &&
+                          basketBloc.productsCount! > 0)
+                      ? 145
+                      : 0,
                 ),
                 child: RefreshIndicator(
                   onRefresh: () async {
@@ -415,7 +437,8 @@ class _CatalogPageState extends State<CatalogPage> {
                   ),
                 ),
               ),
-              if (basketBloc.productsCount != null && basketBloc.productsCount! > 0)
+              if (basketBloc.productsCount != null &&
+                  basketBloc.productsCount! > 0)
                 Positioned(
                   bottom: 0,
                   left: 0,
@@ -450,13 +473,13 @@ class _CatalogPageState extends State<CatalogPage> {
                             if (gifts.isEmpty) {
                               return const SizedBox(height: 24);
                             }
-                            return Column(
+                            return const Column(
                               children: [
                                 GiftScale(
                                   pad: -1,
                                   disableBox: true,
                                 ),
-                                const SizedBox(height: 12),
+                                SizedBox(height: 12),
                               ],
                             );
                           },
@@ -470,13 +493,18 @@ class _CatalogPageState extends State<CatalogPage> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    BlocBuilder<BasketInfoBloc, BasketInfoState>(
+                                    BlocBuilder<BasketInfoBloc,
+                                        BasketInfoState>(
                                       builder: (context, state) {
                                         state.maybeWhen(
-                                          loading: () => print("BasketInfoBloc: loading state"),
-                                          success: (basketInfo) => print("BasketInfoBloc: success, total = ${basketInfo.totalInfo.total}"),
-                                          error: (message) => print("BasketInfoBloc: error, message = $message"),
-                                          orElse: () => print("BasketInfoBloc: other state"),
+                                          loading: () => print(
+                                              "BasketInfoBloc: loading state"),
+                                          success: (basketInfo) => print(
+                                              "BasketInfoBloc: success, total = ${basketInfo.totalInfo.total}"),
+                                          error: (message) => print(
+                                              "BasketInfoBloc: error, message = $message"),
+                                          orElse: () => print(
+                                              "BasketInfoBloc: other state"),
                                         );
 
                                         return state.maybeWhen(
@@ -488,39 +516,64 @@ class _CatalogPageState extends State<CatalogPage> {
                                           ),
                                           success: (basketInfo) {
                                             // Получаем тип доставки
-                                            final deliveryType = getIt<CreateOrderStateCubit>().state.delivery?.type;
-                                            int totalWithDelivery = basketInfo.totalInfo.total;
-                                            
+                                            final deliveryType =
+                                                getIt<CreateOrderStateCubit>()
+                                                    .state
+                                                    .delivery
+                                                    ?.type;
+                                            int totalWithDelivery =
+                                                basketInfo.totalInfo.total;
+
                                             // Добавляем стоимость доставки только если это не самовывоз
                                             if (deliveryType != 'pickup') {
                                               // Ищем строку с доставкой в pretotalInfo
-                                              for (var pretotalItem in basketInfo.pretotalInfo) {
+                                              for (var pretotalItem
+                                                  in basketInfo.pretotalInfo) {
                                                 // Проверяем, что это строка с адресом (содержит адрес и стоимость)
-                                                if (pretotalItem.title.contains('ул') || pretotalItem.title.contains('д') || pretotalItem.title.contains('г')) {
+                                                if (pretotalItem.title
+                                                        .contains('ул') ||
+                                                    pretotalItem.title
+                                                        .contains('д') ||
+                                                    pretotalItem.title
+                                                        .contains('г')) {
                                                   // Извлекаем стоимость доставки из строки "500 ₽"
-                                                  String deliveryValue = pretotalItem.value;
-                                                  if (deliveryValue.contains('₽')) {
+                                                  String deliveryValue =
+                                                      pretotalItem.value;
+                                                  if (deliveryValue
+                                                      .contains('₽')) {
                                                     // Убираем " ₽" и парсим число
-                                                    String deliveryPriceStr = deliveryValue.replaceAll(' ₽', '').trim();
+                                                    String deliveryPriceStr =
+                                                        deliveryValue
+                                                            .replaceAll(
+                                                                ' ₽', '')
+                                                            .trim();
                                                     try {
-                                                      int deliveryPrice = int.parse(deliveryPriceStr);
-                                                      totalWithDelivery += deliveryPrice;
-                                                      print('CATALOG - DELIVERY COST FOUND: $deliveryPrice ₽');
-                                                      print('CATALOG - TOTAL WITH DELIVERY: $totalWithDelivery ₽');
+                                                      int deliveryPrice =
+                                                          int.parse(
+                                                              deliveryPriceStr);
+                                                      totalWithDelivery +=
+                                                          deliveryPrice;
+                                                      print(
+                                                          'CATALOG - DELIVERY COST FOUND: $deliveryPrice ₽');
+                                                      print(
+                                                          'CATALOG - TOTAL WITH DELIVERY: $totalWithDelivery ₽');
                                                       break; // Нашли доставку, выходим из цикла
                                                     } catch (e) {
-                                                      print('CATALOG - ERROR PARSING DELIVERY PRICE: $deliveryPriceStr');
+                                                      print(
+                                                          'CATALOG - ERROR PARSING DELIVERY PRICE: $deliveryPriceStr');
                                                     }
                                                   }
                                                 }
                                               }
                                             } else {
-                                              print('CATALOG - PICKUP SELECTED, NOT ADDING DELIVERY COST');
+                                              print(
+                                                  'CATALOG - PICKUP SELECTED, NOT ADDING DELIVERY COST');
                                             }
-                                            
+
                                             return Text(
                                               '$totalWithDelivery ₽',
-                                              style: AppStyles.bodyBold.copyWith(
+                                              style:
+                                                  AppStyles.bodyBold.copyWith(
                                                 color: AppColors.black,
                                               ),
                                             );
@@ -548,19 +601,25 @@ class _CatalogPageState extends State<CatalogPage> {
                                 flex: 2,
                                 child: SizedBox(
                                   height: 52,
-                                  child: BlocBuilder<BasketInfoBloc, BasketInfoState>(
+                                  child: BlocBuilder<BasketInfoBloc,
+                                      BasketInfoState>(
                                     builder: (context, state) {
                                       return ElevatedButton(
                                         onPressed: state.maybeWhen(
                                           orElse: () => null,
                                           success: (basketInfo) => () {
-                                            context.router.parent<TabsRouter>()?.navigate(const BasketRoute());
+                                            context.router
+                                                .parent<TabsRouter>()
+                                                ?.navigate(const BasketRoute());
                                           },
                                         ),
                                         child: Text(
                                           state.maybeWhen(
                                             orElse: () => 'В корзину',
-                                            success: (basketInfo) => basketInfo.warnings.isEmpty ? 'В корзину' : basketInfo.warnings[0],
+                                            success: (basketInfo) =>
+                                                basketInfo.warnings.isEmpty
+                                                    ? 'В корзину'
+                                                    : basketInfo.warnings[0],
                                           ),
                                         ),
                                       );

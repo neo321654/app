@@ -28,9 +28,7 @@ mixin _$UserAddress {
   double? get lat => throw _privateConstructorUsedError;
   double? get lon => throw _privateConstructorUsedError;
 
-  /// Create a copy of UserAddress
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $UserAddressCopyWith<UserAddress> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -65,8 +63,6 @@ class _$UserAddressCopyWithImpl<$Res, $Val extends UserAddress>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of UserAddress
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -161,8 +157,6 @@ class __$$UserAddressImplCopyWithImpl<$Res>
       _$UserAddressImpl _value, $Res Function(_$UserAddressImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UserAddress
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -293,9 +287,7 @@ class _$UserAddressImpl implements _UserAddress {
   int get hashCode => Object.hash(runtimeType, city, house, street, street2,
       flat, floor, entry, domofon, comment, lat, lon);
 
-  /// Create a copy of UserAddress
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$UserAddressImplCopyWith<_$UserAddressImpl> get copyWith =>
@@ -338,11 +330,8 @@ abstract class _UserAddress implements UserAddress {
   double? get lat;
   @override
   double? get lon;
-
-  /// Create a copy of UserAddress
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$UserAddressImplCopyWith<_$UserAddressImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

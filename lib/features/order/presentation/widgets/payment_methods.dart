@@ -57,7 +57,8 @@ class PaymentMethods extends StatelessWidget {
                   return BlocBuilder<PaymentMethodsBloc, PaymentMethodsState>(
                     builder: (context, paymentMethodsState) {
                       if (paymentMethodsState is PaymentMethodsDone) {
-                        final paymentMethods = paymentMethodsState.paymentMethods ?? [];
+                        final paymentMethods =
+                            paymentMethodsState.paymentMethods ?? [];
                         return ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: paymentMethods.length,
@@ -70,8 +71,12 @@ class PaymentMethods extends StatelessWidget {
                               PaymentMethodItem(
                                 title: paymentMethods[index].name,
                                 icon: 'assets/icons/cash.svg',
-                                isSelected: state.paymentMethodIndex == index ? true : false,
-                                onTap: () => context.read<CreateOrderStateCubit>().setPaymentMethodIndex(index),
+                                isSelected: state.paymentMethodIndex == index
+                                    ? true
+                                    : false,
+                                onTap: () => context
+                                    .read<CreateOrderStateCubit>()
+                                    .setPaymentMethodIndex(index),
                               ),
                               if ((index + 1) != paymentMethods.length)
                                 const SizedBox(
@@ -157,11 +162,12 @@ class PaymentMethods extends StatelessWidget {
                       right: 16,
                     ),
                     child: CashPropouse(
-                      controller: cashPropouseTextcontroller,
-                      onSubmitted: (value) {
-                      context.read<BasketBloc>().add(SetMoneyChange(moneyChange: value));
-                      }
-                    ),
+                        controller: cashPropouseTextcontroller,
+                        onSubmitted: (value) {
+                          context
+                              .read<BasketBloc>()
+                              .add(SetMoneyChange(moneyChange: value));
+                        }),
                   );
                 }
                 return Container();
@@ -205,7 +211,9 @@ class PaymentMethodItem extends StatelessWidget {
           ),
           border: Border.all(
             width: 1.0,
-            color: isSelected ? AppColors.darkPrimary : AppColors.lightScaffoldBackground,
+            color: isSelected
+                ? AppColors.darkPrimary
+                : AppColors.lightScaffoldBackground,
           ),
         ),
         child: Align(

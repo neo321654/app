@@ -14,7 +14,8 @@ class GeoAvailableRequestDto {
 
   final CoordinatesDto coords;
 
-  factory GeoAvailableRequestDto.fromJson(Map<String, dynamic> json) => _$GeoAvailableRequestDtoFromJson(json);
+  factory GeoAvailableRequestDto.fromJson(Map<String, dynamic> json) =>
+      _$GeoAvailableRequestDtoFromJson(json);
 
   Map<String, dynamic> toJson() {
     return _$GeoAvailableRequestDtoToJson(this);

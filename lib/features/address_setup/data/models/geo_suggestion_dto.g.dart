@@ -18,14 +18,22 @@ GeoSuggestionDto _$GeoSuggestionDtoFromJson(Map<String, dynamic> json) =>
       geoLon: json['geo_lon'] as String?,
     );
 
-Map<String, dynamic> _$GeoSuggestionDtoToJson(GeoSuggestionDto instance) =>
-    <String, dynamic>{
-      if (instance.value case final value?) 'value': value,
-      if (instance.street case final value?) 'street': value,
-      if (instance.streetType case final value?) 'street_type': value,
-      if (instance.house case final value?) 'house': value,
-      if (instance.block case final value?) 'block': value,
-      if (instance.flat case final value?) 'flat': value,
-      if (instance.geoLat case final value?) 'geo_lat': value,
-      if (instance.geoLon case final value?) 'geo_lon': value,
-    };
+Map<String, dynamic> _$GeoSuggestionDtoToJson(GeoSuggestionDto instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('value', instance.value);
+  writeNotNull('street', instance.street);
+  writeNotNull('street_type', instance.streetType);
+  writeNotNull('house', instance.house);
+  writeNotNull('block', instance.block);
+  writeNotNull('flat', instance.flat);
+  writeNotNull('geo_lat', instance.geoLat);
+  writeNotNull('geo_lon', instance.geoLon);
+  return val;
+}

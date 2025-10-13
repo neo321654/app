@@ -50,9 +50,7 @@ mixin _$AddFeedbackEvent {
   }) =>
       throw _privateConstructorUsedError;
 
-  /// Create a copy of AddFeedbackEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $AddFeedbackEventCopyWith<AddFeedbackEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -76,8 +74,6 @@ class _$AddFeedbackEventCopyWithImpl<$Res, $Val extends AddFeedbackEvent>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of AddFeedbackEvent
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -111,8 +107,6 @@ class __$$AddFeedbackImplCopyWithImpl<$Res>
       _$AddFeedbackImpl _value, $Res Function(_$AddFeedbackImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AddFeedbackEvent
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -152,9 +146,7 @@ class _$AddFeedbackImpl implements _AddFeedback {
   @override
   int get hashCode => Object.hash(runtimeType, feedback);
 
-  /// Create a copy of AddFeedbackEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$AddFeedbackImplCopyWith<_$AddFeedbackImpl> get copyWith =>
@@ -223,11 +215,8 @@ abstract class _AddFeedback implements AddFeedbackEvent {
 
   @override
   AddFeedbackEntity get feedback;
-
-  /// Create a copy of AddFeedbackEvent
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$AddFeedbackImplCopyWith<_$AddFeedbackImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -302,9 +291,6 @@ class _$AddFeedbackStateCopyWithImpl<$Res, $Val extends AddFeedbackState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of AddFeedbackState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -321,9 +307,6 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of AddFeedbackState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -438,9 +421,6 @@ class __$$LoadingImplCopyWithImpl<$Res>
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of AddFeedbackState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -555,9 +535,6 @@ class __$$SuccessImplCopyWithImpl<$Res>
   __$$SuccessImplCopyWithImpl(
       _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of AddFeedbackState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -675,8 +652,6 @@ class __$$ErrorStateImplCopyWithImpl<$Res>
       _$ErrorStateImpl _value, $Res Function(_$ErrorStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AddFeedbackState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -715,9 +690,7 @@ class _$ErrorStateImpl implements ErrorState {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of AddFeedbackState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ErrorStateImplCopyWith<_$ErrorStateImpl> get copyWith =>
@@ -802,10 +775,7 @@ abstract class ErrorState implements AddFeedbackState {
   const factory ErrorState(final Error error) = _$ErrorStateImpl;
 
   Error get error;
-
-  /// Create a copy of AddFeedbackState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$ErrorStateImplCopyWith<_$ErrorStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

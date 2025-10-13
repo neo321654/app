@@ -56,9 +56,11 @@ class More extends StatelessWidget {
                       height: 31,
                       width: 55,
                       child: CupertinoSwitch(
-                        activeColor: AppColors.lightPrimary,
+                        activeTrackColor: AppColors.lightPrimary,
                         onChanged: (bool value) {
-                          context.read<CreateOrderStateCubit>().setMakeCall(value);
+                          context
+                              .read<CreateOrderStateCubit>()
+                              .setMakeCall(value);
                         },
                         value: state.makeCall ?? false,
                       ),
@@ -75,8 +77,10 @@ class More extends StatelessWidget {
                 return BlocBuilder<PaymentMethodsBloc, PaymentMethodsState>(
                   builder: (context, paymentMethodsState) {
                     if (paymentMethodsState is PaymentMethodsDone) {
-                      final paymentMethods = paymentMethodsState.paymentMethods ?? [];
-                      final paymentMethod = paymentMethods[state.paymentMethodIndex ?? 0];
+                      final paymentMethods =
+                          paymentMethodsState.paymentMethods ?? [];
+                      final paymentMethod =
+                          paymentMethods[state.paymentMethodIndex ?? 0];
 
                       if (paymentMethod.name.toLowerCase() == 'онлайн') {
                         return Column(
@@ -113,15 +117,19 @@ class More extends StatelessWidget {
                                     maxLines: 2,
                                   ),
                                 ),
-                                BlocBuilder<CreateOrderStateCubit, CreateOrderState>(
+                                BlocBuilder<CreateOrderStateCubit,
+                                    CreateOrderState>(
                                   builder: (context, state) {
                                     return SizedBox(
                                       height: 31,
                                       width: 55,
                                       child: CupertinoSwitch(
-                                        activeColor: AppColors.lightPrimary,
+                                        activeTrackColor:
+                                            AppColors.lightPrimary,
                                         onChanged: (bool value) {
-                                          context.read<CreateOrderStateCubit>().setStayNearDoor(value);
+                                          context
+                                              .read<CreateOrderStateCubit>()
+                                              .setStayNearDoor(value);
                                         },
                                         value: state.stayNearDoor ?? false,
                                       ),

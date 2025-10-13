@@ -50,9 +50,7 @@ mixin _$UpsalesEvent {
   }) =>
       throw _privateConstructorUsedError;
 
-  /// Create a copy of UpsalesEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $UpsalesEventCopyWith<UpsalesEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -76,8 +74,6 @@ class _$UpsalesEventCopyWithImpl<$Res, $Val extends UpsalesEvent>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of UpsalesEvent
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -111,8 +107,6 @@ class __$$GetUpsalesImplCopyWithImpl<$Res>
       _$GetUpsalesImpl _value, $Res Function(_$GetUpsalesImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UpsalesEvent
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -151,9 +145,7 @@ class _$GetUpsalesImpl implements _GetUpsales {
   @override
   int get hashCode => Object.hash(runtimeType, request);
 
-  /// Create a copy of UpsalesEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetUpsalesImplCopyWith<_$GetUpsalesImpl> get copyWith =>
@@ -222,11 +214,8 @@ abstract class _GetUpsales implements UpsalesEvent {
 
   @override
   UpsaleRequestEntity get request;
-
-  /// Create a copy of UpsalesEvent
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetUpsalesImplCopyWith<_$GetUpsalesImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -301,9 +290,6 @@ class _$UpsalesStateCopyWithImpl<$Res, $Val extends UpsalesState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of UpsalesState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -320,9 +306,6 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of UpsalesState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -437,9 +420,6 @@ class __$$LoadingImplCopyWithImpl<$Res>
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of UpsalesState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -557,8 +537,6 @@ class __$$SuccessImplCopyWithImpl<$Res>
       _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UpsalesState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -603,9 +581,7 @@ class _$SuccessImpl implements _Success {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_upsales));
 
-  /// Create a copy of UpsalesState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
@@ -690,10 +666,7 @@ abstract class _Success implements UpsalesState {
   const factory _Success(final List<UpsaleEntity> upsales) = _$SuccessImpl;
 
   List<UpsaleEntity> get upsales;
-
-  /// Create a copy of UpsalesState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -715,8 +688,6 @@ class __$$ErrorStateImplCopyWithImpl<$Res>
       _$ErrorStateImpl _value, $Res Function(_$ErrorStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UpsalesState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -755,9 +726,7 @@ class _$ErrorStateImpl implements _ErrorState {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  /// Create a copy of UpsalesState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ErrorStateImplCopyWith<_$ErrorStateImpl> get copyWith =>
@@ -842,10 +811,7 @@ abstract class _ErrorState implements UpsalesState {
   const factory _ErrorState(final String message) = _$ErrorStateImpl;
 
   String get message;
-
-  /// Create a copy of UpsalesState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$ErrorStateImplCopyWith<_$ErrorStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

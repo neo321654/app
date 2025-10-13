@@ -20,6 +20,10 @@ SettingsDto _$SettingsDtoFromJson(Map<String, dynamic> json) => SettingsDto(
           ? null
           : MonoboxDto.fromJson(json['monobox'] as Map<String, dynamic>),
       loyalty: json['loyalty'] as bool,
+      children: json['children'] as bool?,
+      callback: json['callback'] as bool?,
+      usePromocode: json['use_promocode'] as bool?,
+      useLoyalty: json['use_loyalty'] as bool?,
     );
 
 SocnetDto _$SocnetDtoFromJson(Map<String, dynamic> json) => SocnetDto(

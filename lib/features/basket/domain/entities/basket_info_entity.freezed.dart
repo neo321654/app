@@ -23,9 +23,7 @@ mixin _$BasketInfoEntity {
   BasketPretotalnfoEntity get bonusInfo => throw _privateConstructorUsedError;
   List<String> get warnings => throw _privateConstructorUsedError;
 
-  /// Create a copy of BasketInfoEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $BasketInfoEntityCopyWith<BasketInfoEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -57,8 +55,6 @@ class _$BasketInfoEntityCopyWithImpl<$Res, $Val extends BasketInfoEntity>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of BasketInfoEntity
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -92,8 +88,6 @@ class _$BasketInfoEntityCopyWithImpl<$Res, $Val extends BasketInfoEntity>
     ) as $Val);
   }
 
-  /// Create a copy of BasketInfoEntity
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $BasketTotalInfoEntityCopyWith<$Res> get totalInfo {
@@ -102,8 +96,6 @@ class _$BasketInfoEntityCopyWithImpl<$Res, $Val extends BasketInfoEntity>
     });
   }
 
-  /// Create a copy of BasketInfoEntity
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $BasketPretotalnfoEntityCopyWith<$Res> get bonusInfo {
@@ -142,8 +134,6 @@ class __$$BasketInfoEntityImplCopyWithImpl<$Res>
       $Res Function(_$BasketInfoEntityImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of BasketInfoEntity
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -248,9 +238,7 @@ class _$BasketInfoEntityImpl implements _BasketInfoEntity {
       bonusInfo,
       const DeepCollectionEquality().hash(_warnings));
 
-  /// Create a copy of BasketInfoEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$BasketInfoEntityImplCopyWith<_$BasketInfoEntityImpl> get copyWith =>
@@ -276,11 +264,8 @@ abstract class _BasketInfoEntity implements BasketInfoEntity {
   BasketPretotalnfoEntity get bonusInfo;
   @override
   List<String> get warnings;
-
-  /// Create a copy of BasketInfoEntity
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$BasketInfoEntityImplCopyWith<_$BasketInfoEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

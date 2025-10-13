@@ -46,7 +46,8 @@ class AddressDto {
   @JsonKey(name: 'default', defaultValue: false)
   final bool isDefault;
 
-  factory AddressDto.fromJson(Map<String, dynamic> json) => _$AddressDtoFromJson(json);
+  factory AddressDto.fromJson(Map<String, dynamic> json) =>
+      _$AddressDtoFromJson(json);
 
   Map<String, dynamic> toJson() {
     return _$AddressDtoToJson(this);

@@ -8,5 +8,6 @@ abstract class BasketRepository {
   Future<DataState<void>> addBasketItem(BasketOfferEntity offer);
   Future<DataState<void>> removeBasketItem(BasketOfferEntity offer);
   Future<DataState<void>> removeAllBasketItems();
-  Future<DataState<BasketInfoEntity>> getBasketInfo(List<BasketInfoRequestEntity> request, int deliveryId);
+  Future<DataState<BasketInfoEntity>> getBasketInfo(
+      List<BasketInfoRequestEntity> request, int deliveryId);
 }

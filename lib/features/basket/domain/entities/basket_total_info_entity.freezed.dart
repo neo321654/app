@@ -19,9 +19,7 @@ mixin _$BasketTotalInfoEntity {
   int get total => throw _privateConstructorUsedError;
   int get discountPrice => throw _privateConstructorUsedError;
 
-  /// Create a copy of BasketTotalInfoEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $BasketTotalInfoEntityCopyWith<BasketTotalInfoEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -46,8 +44,6 @@ class _$BasketTotalInfoEntityCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of BasketTotalInfoEntity
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -88,8 +84,6 @@ class __$$BasketTotalInfoEntityImplCopyWithImpl<$Res>
       $Res Function(_$BasketTotalInfoEntityImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of BasketTotalInfoEntity
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -138,9 +132,7 @@ class _$BasketTotalInfoEntityImpl implements _BasketTotalInfoEntity {
   @override
   int get hashCode => Object.hash(runtimeType, total, discountPrice);
 
-  /// Create a copy of BasketTotalInfoEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$BasketTotalInfoEntityImplCopyWith<_$BasketTotalInfoEntityImpl>
@@ -157,11 +149,8 @@ abstract class _BasketTotalInfoEntity implements BasketTotalInfoEntity {
   int get total;
   @override
   int get discountPrice;
-
-  /// Create a copy of BasketTotalInfoEntity
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$BasketTotalInfoEntityImplCopyWith<_$BasketTotalInfoEntityImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

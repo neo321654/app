@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pinput/pinput.dart';
 
 import '../../../../config/routes/app_router.dart';
 import '../../../../config/themes/colors.dart';
@@ -52,7 +51,8 @@ class YourAddress extends StatelessWidget {
                 }).toList();
 
                 if (!selectedAddressExists && addresses.isNotEmpty) {
-                  getIt<CreateOrderStateCubit>().setDeliveryAddress(addresses[0]);
+                  getIt<CreateOrderStateCubit>()
+                      .setDeliveryAddress(addresses[0]);
                 }
 
                 return Padding(
@@ -68,9 +68,12 @@ class YourAddress extends StatelessWidget {
                             padding: const EdgeInsets.only(bottom: 20),
                             child: YourAddressItem(
                               val: addresses[index].address,
-                              isActive: state.deliveryAddress?.id == addresses[index].id,
+                              isActive: state.deliveryAddress?.id ==
+                                  addresses[index].id,
                               onTap: () {
-                                context.read<CreateOrderStateCubit>().setDeliveryAddress((addresses[index]));
+                                context
+                                    .read<CreateOrderStateCubit>()
+                                    .setDeliveryAddress((addresses[index]));
                               },
                               onEditTap: () {
                                 context.router.push(

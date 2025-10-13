@@ -29,7 +29,8 @@ class ProductCard extends StatelessWidget {
     final BasketBloc basketBloc = context.watch<BasketBloc>();
     final BasketOfferEntity? offer = basketBloc.getProductOffer(product);
 
-    final double imageWidth = (MediaQuery.of(context).size.width - (2 * 16) - (5 * 12)) / 2;
+    final double imageWidth =
+        (MediaQuery.of(context).size.width - (2 * 16) - (5 * 12)) / 2;
     //const double imageWidth = 134;
 
     return Container(
@@ -121,7 +122,8 @@ class ProductCard extends StatelessWidget {
                         ),
                       ),
                       placeholder: (context, url) => _paceholder(imageWidth),
-                      errorWidget: (context, url, error) => _paceholder(imageWidth),
+                      errorWidget: (context, url, error) =>
+                          _paceholder(imageWidth),
                     ),
                   ),
                 ),
@@ -203,13 +205,13 @@ class ProductCard extends StatelessWidget {
                       }
                     },
                     style: AppStyles.greyElevatedButton.copyWith(
-                      padding: const MaterialStatePropertyAll(
+                      padding: const WidgetStatePropertyAll(
                         EdgeInsets.only(
                           left: 20,
                           right: 16,
                         ),
                       ),
-                      shape: MaterialStatePropertyAll(
+                      shape: WidgetStatePropertyAll(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),

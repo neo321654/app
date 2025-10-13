@@ -31,7 +31,8 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     try {
       emit(const OrderCreating());
 
-      final DataState<OrderCreatedEntity>? dataState = await _createOrderUsecase.call(params: event.order);
+      final DataState<OrderCreatedEntity>? dataState =
+          await _createOrderUsecase.call(params: event.order);
 
       if (dataState is DataSuccess && dataState?.data != null) {
         emit(OrderCreated(dataState!.data!));

@@ -17,5 +17,6 @@ abstract class FilialsApiService {
   Future<List<FilialDto>> getFilials();
 
   @POST('/filials/search')
-  Future<List<FilialDto>> searchFilials(@Body() FilialsSearchRequestDto request);
+  Future<List<FilialDto>> searchFilials(
+      @Body() FilialsSearchRequestDto request);
 }

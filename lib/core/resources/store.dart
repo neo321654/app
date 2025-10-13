@@ -17,7 +17,8 @@ class Store {
     return _instance!;
   }
 
-  Future<void> setToken(String token) async => await _sharedPreferences!.setString(
+  Future<void> setToken(String token) async =>
+      await _sharedPreferences!.setString(
         keyAccessToken,
         token,
       );
@@ -48,7 +49,8 @@ class Store {
         false,
       );
 
-  Future<void> setLoggedIn(bool isLoggedIn) async => await _sharedPreferences!.setBool(
+  Future<void> setLoggedIn(bool isLoggedIn) async =>
+      await _sharedPreferences!.setBool(
         keyIsLoggedIn,
         isLoggedIn,
       );

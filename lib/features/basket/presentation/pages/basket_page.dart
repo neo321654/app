@@ -13,7 +13,6 @@ import 'package:monobox/features/order/presentation/bloc/promocode/promocode_blo
 import 'package:share_plus/share_plus.dart';
 import 'package:shimmer/shimmer.dart';
 
-import 'package:monobox/features/basket/domain/entities/basket_entity.dart';
 import 'package:monobox/features/basket/domain/entities/basket_info_request_entity.dart';
 import 'package:monobox/features/basket/domain/entities/basket_modifire_entity.dart';
 import 'package:monobox/features/basket/presentation/bloc/basket/basket_bloc.dart';
@@ -21,7 +20,6 @@ import 'package:monobox/features/basket/presentation/bloc/basket_info/basket_inf
 import 'package:monobox/features/basket/presentation/bloc/basket/gifts/gifts_bloc.dart';
 import 'package:monobox/features/basket/presentation/bloc/basket/upsales/upsales_bloc.dart';
 import 'package:monobox/features/basket/presentation/widgets/basket_action_button.dart';
-import 'package:monobox/features/basket/presentation/widgets/basket_item.dart';
 import 'package:monobox/features/basket/presentation/widgets/choose_gifts.dart';
 import 'package:monobox/features/basket/presentation/widgets/choose_upsales.dart';
 import 'package:monobox/features/basket/presentation/widgets/itogo.dart';
@@ -105,7 +103,8 @@ class _BasketPageState extends State<BasketPage> {
                         });
 
                     if (result != null && result) {
-                      getIt<PromocodeBloc>().emit(const PromocodeState.initial());
+                      getIt<PromocodeBloc>()
+                          .emit(const PromocodeState.initial());
                       basketBloc.add(const RemoveAllOffers());
                     }
                   },
@@ -118,7 +117,12 @@ class _BasketPageState extends State<BasketPage> {
                     asset: 'assets/icons/share.svg',
                     onPressed: () {
                       final List<String> products = [];
-                      (context.read<BasketBloc>().state as BasketLoaded).basket.offers.map((offer) => products.add('${offer.product.name} - ${offer.quantity} шт')).toList();
+                      (context.read<BasketBloc>().state as BasketLoaded)
+                          .basket
+                          .offers
+                          .map((offer) => products.add(
+                              '${offer.product.name} - ${offer.quantity} шт'))
+                          .toList();
                       Share.share(products.join('\n'));
                     },
                   ),
@@ -258,21 +262,23 @@ class _BasketPageState extends State<BasketPage> {
       ],
       child: BlocConsumer<BasketBloc, BasketState>(
         listener: (context, state) {
-          if (!context.read<BasketBloc>().isEmpty && context.read<GiftsBloc>().state is Initial) {
+          if (!context.read<BasketBloc>().isEmpty &&
+              context.read<GiftsBloc>().state is Initial) {
             context.read<GiftsBloc>().add(
                   GiftsEvent.getGifts(
                     OrderCreateEntity(
                       deliveryId: 1,
                       paymentId: 1,
-                      orderedPositions: (getIt<BasketBloc>().state as BasketLoaded)
-                          .basket
-                          .offers
-                          .map((offer) => OrderedPositionEntity(
-                                productId: offer.product.id!,
-                                quantity: offer.quantity!,
-                              modifiers: offer.addOptions,
-                      ))
-                          .toList(),
+                      orderedPositions:
+                          (getIt<BasketBloc>().state as BasketLoaded)
+                              .basket
+                              .offers
+                              .map((offer) => OrderedPositionEntity(
+                                    productId: offer.product.id!,
+                                    quantity: offer.quantity!,
+                                    modifiers: offer.addOptions,
+                                  ))
+                              .toList(),
                     ),
                   ),
                 );
@@ -288,15 +294,16 @@ class _BasketPageState extends State<BasketPage> {
                       OrderCreateEntity(
                         deliveryId: 1,
                         paymentId: 1,
-                        orderedPositions: (getIt<BasketBloc>().state as BasketLoaded)
-                            .basket
-                            .offers
-                            .map((offer) => OrderedPositionEntity(
-                                  productId: offer.product.id!,
-                                  quantity: offer.quantity!,
-                                  modifiers: offer.addOptions,
-                        ))
-                            .toList(),
+                        orderedPositions:
+                            (getIt<BasketBloc>().state as BasketLoaded)
+                                .basket
+                                .offers
+                                .map((offer) => OrderedPositionEntity(
+                                      productId: offer.product.id!,
+                                      quantity: offer.quantity!,
+                                      modifiers: offer.addOptions,
+                                    ))
+                                .toList(),
                       ),
                     ),
                   );
@@ -306,14 +313,17 @@ class _BasketPageState extends State<BasketPage> {
             listeners: [
               BlocListener<DeliveryBloc, DeliveriesState>(
                 listener: (context, state) {
-                  if (state is DeliveriesDone && state.deliveries?.isNotEmpty == true) {
+                  if (state is DeliveriesDone &&
+                      state.deliveries?.isNotEmpty == true) {
                     // Автоматически выбираем доставку (не самовывоз)
                     final deliveryOption = state.deliveries!.firstWhere(
                       (delivery) => delivery.type == 'delivery',
                       orElse: () => state.deliveries![0],
                     );
-                    context.read<CreateOrderStateCubit>().setDelivery(deliveryOption);
-                    
+                    context
+                        .read<CreateOrderStateCubit>()
+                        .setDelivery(deliveryOption);
+
                     // ПЕРЕСЧЕТ КОРЗИНЫ ТЕПЕРЬ ДЕЛАЕТСЯ В MAIN.DART ПОСЛЕ УСТАНОВКИ АДРЕСА
                     // Не вызываем здесь BasketInfoBloc, чтобы избежать дублирования
                   }
@@ -332,62 +342,108 @@ class _BasketPageState extends State<BasketPage> {
                       const SizedBox(height: 8),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: BlocBuilder<CreateOrderStateCubit, CreateOrderState>(
+                        child: BlocBuilder<CreateOrderStateCubit,
+                            CreateOrderState>(
                           builder: (context, state) {
                             return BlocBuilder<DeliveryBloc, DeliveriesState>(
                               builder: (context, deliveriesState) {
                                 if (deliveriesState is DeliveriesDone) {
                                   // Автоматически выбираем доставку (не самовывоз), если ничего не выбрано
-                                  if (state.delivery == null && deliveriesState.deliveries!.isNotEmpty) {
+                                  if (state.delivery == null &&
+                                      deliveriesState.deliveries!.isNotEmpty) {
                                     // Ищем доставку (не pickup)
-                                    final deliveryOption = deliveriesState.deliveries!.firstWhere(
+                                    final deliveryOption =
+                                        deliveriesState.deliveries!.firstWhere(
                                       (delivery) => delivery.type == 'delivery',
-                                      orElse: () => deliveriesState.deliveries![0], // если нет доставки, берем первую
+                                      orElse: () => deliveriesState.deliveries![
+                                          0], // если нет доставки, берем первую
                                     );
-                                    
-                                    print('BASKET - AUTO SELECTING DELIVERY: ${deliveryOption.name} (ID: ${deliveryOption.id}, TYPE: ${deliveryOption.type})');
-                                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                                      context.read<CreateOrderStateCubit>().setDelivery(deliveryOption);
+
+                                    print(
+                                        'BASKET - AUTO SELECTING DELIVERY: ${deliveryOption.name} (ID: ${deliveryOption.id}, TYPE: ${deliveryOption.type})');
+                                    WidgetsBinding.instance
+                                        .addPostFrameCallback((_) {
+                                      context
+                                          .read<CreateOrderStateCubit>()
+                                          .setDelivery(deliveryOption);
                                     });
                                   }
-                                  
+
                                   return TextSwitcher(
-                                    items: (deliveriesState.deliveries ?? []).map((e) => e.name).toList(),
-                                    selectedIndex: state.delivery == null ? 0 : deliveriesState.deliveries!.indexOf(state.delivery!),
+                                    items: (deliveriesState.deliveries ?? [])
+                                        .map((e) => e.name)
+                                        .toList(),
+                                    selectedIndex: state.delivery == null
+                                        ? 0
+                                        : deliveriesState.deliveries!
+                                            .indexOf(state.delivery!),
                                     onTap: (int itemIndex) {
-                                      final selectedDelivery = deliveriesState.deliveries![itemIndex];
-                                      context.read<CreateOrderStateCubit>().setDelivery(selectedDelivery);
-                                      
+                                      final selectedDelivery = deliveriesState
+                                          .deliveries![itemIndex];
+                                      context
+                                          .read<CreateOrderStateCubit>()
+                                          .setDelivery(selectedDelivery);
+
                                       // Отменяем предыдущий таймер, если он есть
                                       _debounceTimer?.cancel();
-                                      
+
                                       // Устанавливаем новый таймер для debounce
-                                      _debounceTimer = Timer(const Duration(milliseconds: 300), () {
+                                      _debounceTimer = Timer(
+                                          const Duration(milliseconds: 300),
+                                          () {
                                         // Обновляем корзину с новым типом доставки только если адрес уже установлен
-                                        if (context.read<BasketBloc>().state is BasketLoaded && 
-                                            context.read<CreateOrderStateCubit>().state.deliveryAddress != null) {
-                                          final basket = (context.read<BasketBloc>().state as BasketLoaded).basket;
-                                          print('BASKET - DELIVERY CHANGED, RECALCULATING with deliveryId: ${selectedDelivery.id} and addressId: ${context.read<CreateOrderStateCubit>().state.deliveryAddress?.id}');
+                                        if (context.read<BasketBloc>().state
+                                                is BasketLoaded &&
+                                            context
+                                                    .read<
+                                                        CreateOrderStateCubit>()
+                                                    .state
+                                                    .deliveryAddress !=
+                                                null) {
+                                          final basket = (context
+                                                  .read<BasketBloc>()
+                                                  .state as BasketLoaded)
+                                              .basket;
+                                          print(
+                                              'BASKET - DELIVERY CHANGED, RECALCULATING with deliveryId: ${selectedDelivery.id} and addressId: ${context.read<CreateOrderStateCubit>().state.deliveryAddress?.id}');
                                           context.read<BasketInfoBloc>().add(
-                                            BasketInfoEvent.getBasketInfo(
-                                              basket.offers.map((offer) => BasketInfoRequestEntity(
-                                                id: offer.product.id ?? 0,
-                                                qnt: offer.quantity ?? 1,
-                                                modifiers: offer.addOptions != null
-                                                    ? offer.addOptions!
-                                                        .where((modifier) => modifier.id != null)
-                                                        .map((modifier) => BasketModifireEntity(
-                                                              id: modifier.id!,
-                                                              qnt: modifier.quantity,
-                                                            ))
-                                                        .toList()
-                                                    : [],
-                                              )).toList(),
-                                              deliveryId: selectedDelivery.id,
-                                            ),
-                                          );
+                                                BasketInfoEvent.getBasketInfo(
+                                                  basket.offers
+                                                      .map((offer) =>
+                                                          BasketInfoRequestEntity(
+                                                            id: offer.product
+                                                                    .id ??
+                                                                0,
+                                                            qnt: offer
+                                                                    .quantity ??
+                                                                1,
+                                                            modifiers: offer
+                                                                        .addOptions !=
+                                                                    null
+                                                                ? offer
+                                                                    .addOptions!
+                                                                    .where((modifier) =>
+                                                                        modifier
+                                                                            .id !=
+                                                                        null)
+                                                                    .map((modifier) =>
+                                                                        BasketModifireEntity(
+                                                                          id: modifier
+                                                                              .id!,
+                                                                          qnt: modifier
+                                                                              .quantity,
+                                                                        ))
+                                                                    .toList()
+                                                                : [],
+                                                          ))
+                                                      .toList(),
+                                                  deliveryId:
+                                                      selectedDelivery.id,
+                                                ),
+                                              );
                                         } else {
-                                          print('BASKET - DELIVERY CHANGED, SKIPPING RECALCULATION: address not set yet');
+                                          print(
+                                              'BASKET - DELIVERY CHANGED, SKIPPING RECALCULATION: address not set yet');
                                         }
                                       });
                                     },

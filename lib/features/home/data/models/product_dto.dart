@@ -58,7 +58,8 @@ class ProductDto {
 
   final bool isHalfPizza;
 
-  factory ProductDto.fromJson(Map<String, dynamic> json) => _$ProductDtoFromJson(json);
+  factory ProductDto.fromJson(Map<String, dynamic> json) =>
+      _$ProductDtoFromJson(json);
 
   Map<String, dynamic> toJson() {
     return _$ProductDtoToJson(this);

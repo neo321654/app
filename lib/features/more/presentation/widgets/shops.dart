@@ -24,8 +24,8 @@ class Shops extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<ShopEntity> _shops = [];
-    final List<ShopEntity> _shopsAll = [];
+    final List<ShopEntity> shops = [];
+    final List<ShopEntity> shopsAll = [];
 
     final bloc = context.watch<FilialsBloc>();
     context.watch<ShopLocationStateCubit>();
@@ -33,12 +33,15 @@ class Shops extends StatelessWidget {
     bloc.state.mapOrNull(
       success: (value) {
         if (context.read<ShopLocationStateCubit>().state.city != null) {
-          _shops.addAll(value.shops.where((shop) => shop.cityId == context.read<ShopLocationStateCubit>().state.city!.id));
+          shops.addAll(value.shops.where((shop) =>
+              shop.cityId ==
+              context.read<ShopLocationStateCubit>().state.city!.id));
 
-          _shopsAll.addAll(value.shops);
+          shopsAll.addAll(value.shops);
 
-          _shopsAll.sort((a, b) {
-            if (a.cityId == context.read<ShopLocationStateCubit>().state.city!.id) {
+          shopsAll.sort((a, b) {
+            if (a.cityId ==
+                context.read<ShopLocationStateCubit>().state.city!.id) {
               return 0;
             } else {
               return 1;
@@ -46,14 +49,15 @@ class Shops extends StatelessWidget {
           });
         } else {
           if (getIt<AuthBloc>().store.cityId != null) {
-            _shops.addAll(value.shops.where((shop) => shop.cityId == getIt<AuthBloc>().store.cityId));
+            shops.addAll(value.shops.where(
+                (shop) => shop.cityId == getIt<AuthBloc>().store.cityId));
           } else {
-            _shops.addAll(value.shops);
+            shops.addAll(value.shops);
           }
 
-          _shopsAll.addAll(value.shops);
+          shopsAll.addAll(value.shops);
 
-          _shopsAll.sort((a, b) {
+          shopsAll.sort((a, b) {
             if (a.cityId == getIt<AuthBloc>().store.cityId) {
               return 0;
             } else {
@@ -62,7 +66,7 @@ class Shops extends StatelessWidget {
           });
         }
 
-        context.read<ShopLocationStateCubit>().setShops(_shopsAll);
+        context.read<ShopLocationStateCubit>().setShops(shopsAll);
       },
     );
 
@@ -73,7 +77,9 @@ class Shops extends StatelessWidget {
             builder: (context, state) {
               return TextSwitcher(
                 items: const ['Списком', 'На карте'],
-                onTap: (itemIndex) => context.read<ShopLocationStateCubit>().changeViewMode(itemIndex == 0 ? 'list' : 'map'),
+                onTap: (itemIndex) => context
+                    .read<ShopLocationStateCubit>()
+                    .changeViewMode(itemIndex == 0 ? 'list' : 'map'),
                 selectedIndex: state.showMode == 'list' ? 0 : 1,
               );
             },
@@ -88,15 +94,16 @@ class Shops extends StatelessWidget {
                   Visibility(
                     maintainState: true,
                     visible: state.showMode == 'list',
-                    child: ShopsList(shops: _shops),
+                    child: ShopsList(shops: shops),
                   ),
                   Visibility(
                     maintainState: true,
                     visible: state.showMode == 'map',
-                    child: BlocBuilder<ShopLocationStateCubit, ShopLocationStateState>(
+                    child: BlocBuilder<ShopLocationStateCubit,
+                        ShopLocationStateState>(
                       builder: (context, state) {
                         return ShopsMap(
-                          shops: _shopsAll,
+                          shops: shopsAll,
                           mapControllerCompleter: mapControllerCompleter,
                         );
                       },

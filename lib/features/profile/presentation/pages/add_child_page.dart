@@ -118,8 +118,8 @@ class AddChildPage extends StatelessWidget {
   }
 
   Widget _buildBody(
-      BuildContext context,
-      ) {
+    BuildContext context,
+  ) {
     return BlocListener<AddChildBloc, AddChildState>(
       listener: (context, state) {
         state.maybeWhen(
@@ -178,7 +178,8 @@ class AddChildPage extends StatelessWidget {
   Widget _confirmBackDialog(BuildContext context) {
     if (Platform.isIOS) {
       return CupertinoAlertDialog(
-        title: const Text("Если вы покинете экран, введённые данные будут утеряны"),
+        title: const Text(
+            "Если вы покинете экран, введённые данные будут утеряны"),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
@@ -215,7 +216,8 @@ class AddChildPage extends StatelessWidget {
     }
 
     return AlertDialog(
-      title: const Text("Если вы покинете экран, введённые данные будут утеряны"),
+      title:
+          const Text("Если вы покинете экран, введённые данные будут утеряны"),
       titleTextStyle: AppStyles.title2.copyWith(
         fontSize: 24,
         fontWeight: FontWeight.w400,

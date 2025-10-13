@@ -88,7 +88,8 @@ class BasketItem extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: NetworkImage(offer.product.image ?? 'https://placehold.co/134x134'),
+                  image: NetworkImage(
+                      offer.product.image ?? 'https://placehold.co/134x134'),
                 ),
                 borderRadius: BorderRadius.all(
                   Radius.circular(
@@ -131,7 +132,8 @@ class BasketItem extends StatelessWidget {
                   const SizedBox(
                     height: 8,
                   ),
-                  if (offer.addOptions?.isEmpty == true && offer.removeOptions?.isEmpty == true)
+                  if (offer.addOptions?.isEmpty == true &&
+                      offer.removeOptions?.isEmpty == true)
                     Text(
                       'Без изменений',
                       style: AppStyles.caption1.copyWith(
@@ -180,10 +182,10 @@ class BasketItem extends StatelessWidget {
                             GestureDetector(
                               behavior: HitTestBehavior.opaque,
                               onTap: onDec,
-                              child: Container(
+                              child: const SizedBox(
                                 height: double.infinity,
                                 width: 33,
-                                child: const Icon(
+                                child: Icon(
                                   Icons.remove,
                                   size: 18,
                                 ),
@@ -211,10 +213,10 @@ class BasketItem extends StatelessWidget {
                             GestureDetector(
                               behavior: HitTestBehavior.opaque,
                               onTap: onInc,
-                              child: Container(
+                              child: const SizedBox(
                                 width: 33,
                                 height: double.infinity,
-                                child: const Icon(
+                                child: Icon(
                                   Icons.add,
                                   size: 18,
                                 ),

@@ -13,7 +13,8 @@ class KbzhuDto {
 
   final String text;
 
-  factory KbzhuDto.fromJson(Map<String, dynamic> json) => _$KbzhuDtoFromJson(json);
+  factory KbzhuDto.fromJson(Map<String, dynamic> json) =>
+      _$KbzhuDtoFromJson(json);
 
   Map<String, dynamic> toJson() {
     return _$KbzhuDtoToJson(this);

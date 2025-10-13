@@ -100,10 +100,10 @@ final class SetPromo extends BasketEvent {
 class UpdateOffer extends BasketEvent {
   final BasketOfferEntity offer;
 
-  UpdateOffer(this.offer);
+  const UpdateOffer(this.offer);
 
   @override
   List<Object> get props => <Object>[
-    offer,
-  ];
+        offer,
+      ];
 }

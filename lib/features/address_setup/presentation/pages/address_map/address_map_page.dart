@@ -89,7 +89,8 @@ class _AddressMapPageState extends State<AddressMapPage> {
     );
   }
 
-  void _onCameraPositionChanged(CameraPosition cameraPosition, CameraUpdateReason reason, bool finished) {
+  void _onCameraPositionChanged(
+      CameraPosition cameraPosition, CameraUpdateReason reason, bool finished) {
     if (finished) {
       setState(() {
         dragged = false;
@@ -175,11 +176,14 @@ class _AddressMapPageState extends State<AddressMapPage> {
           BlocListener<GeoAvailableBloc, GeoAvailableState>(
             listener: (context, state) {
               if (state is Success) {
-                if (state.geoAvailable.status == 'success' || state.geoAvailable.filial?.cityId != null) {
-                  print('cityId = ' + state.geoAvailable.filial!.cityId.toString());
+                if (state.geoAvailable.status == 'success' ||
+                    state.geoAvailable.filial?.cityId != null) {
+                  print('cityId = ${state.geoAvailable.filial!.cityId}');
                   getIt<Store>().setCityId(state.geoAvailable.filial!.cityId);
                   context.read<AddressSetupStateCubit>().streetConfirm();
-                } else if (state.geoAvailable.status == 'error' || (state.geoAvailable.status == 'success' && state.geoAvailable.filial?.cityId == null)) {
+                } else if (state.geoAvailable.status == 'error' ||
+                    (state.geoAvailable.status == 'success' &&
+                        state.geoAvailable.filial?.cityId == null)) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       elevation: 0,
@@ -341,7 +345,8 @@ class _AddressMapPageState extends State<AddressMapPage> {
                   address: widget.address,
                   inputDetails: state.streetConfirm,
                   onPressed: () {
-                    if (getIt<AuthBloc>().state == const AuthState.authenticated()) {
+                    if (getIt<AuthBloc>().state ==
+                        const AuthState.authenticated()) {
                       getIt<AddressSetupStateCubit>().clear();
                     }
 
@@ -415,7 +420,9 @@ class _AddressMapPageState extends State<AddressMapPage> {
     if (!serviceEnabled) return null;
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever || permission == LocationPermission.unableToDetermine) {
+      if (permission == LocationPermission.denied ||
+          permission == LocationPermission.deniedForever ||
+          permission == LocationPermission.unableToDetermine) {
         return null;
       }
     }

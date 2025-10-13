@@ -15,5 +15,6 @@ class BasketPretotalnfoDto {
   final String? title;
   final String? value;
 
-  factory BasketPretotalnfoDto.fromJson(Map<String, dynamic> json) => _$BasketPretotalnfoDtoFromJson(json);
+  factory BasketPretotalnfoDto.fromJson(Map<String, dynamic> json) =>
+      _$BasketPretotalnfoDtoFromJson(json);
 }

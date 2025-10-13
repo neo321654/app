@@ -24,5 +24,6 @@ class ProfileBonusDto {
   final String? nextStatus;
   final String? numberCard;
 
-  factory ProfileBonusDto.fromJson(Map<String, dynamic> json) => _$ProfileBonusDtoFromJson(json);
+  factory ProfileBonusDto.fromJson(Map<String, dynamic> json) =>
+      _$ProfileBonusDtoFromJson(json);
 }

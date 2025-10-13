@@ -6,5 +6,6 @@ import '../entities/loyalty_entity.dart';
 
 abstract class LoyaltyRepository {
   Future<DataState<List<LoyaltyEntity>>> loyaltyInfo();
-  Future<DataState<LoyaltyEntryResponseEntity>> loyaltyEntry(LoyaltyEntryRequestEntity request);
+  Future<DataState<LoyaltyEntryResponseEntity>> loyaltyEntry(
+      LoyaltyEntryRequestEntity request);
 }

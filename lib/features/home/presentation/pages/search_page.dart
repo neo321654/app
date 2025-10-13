@@ -46,12 +46,15 @@ class _SearchPageState extends State<SearchPage> {
       _makeSearch('');
     }
     controller = TextEditingController();
-    suggestionsController = SuggestionsController()..addListener(suggestionsControllerListener);
+    suggestionsController = SuggestionsController()
+      ..addListener(suggestionsControllerListener);
     super.initState();
   }
 
   void suggestionsControllerListener() {
-    if (suggestionsController.isOpen && !isShowSuggestions && suggestionsController.suggestions?.isNotEmpty == true) {
+    if (suggestionsController.isOpen &&
+        !isShowSuggestions &&
+        suggestionsController.suggestions?.isNotEmpty == true) {
       setState(() {
         isShowSuggestions = true;
       });
@@ -67,7 +70,9 @@ class _SearchPageState extends State<SearchPage> {
       // });
     }
 
-    if (suggestionsController.isOpen && isShowSuggestions && suggestionsController.suggestions?.isEmpty == true) {
+    if (suggestionsController.isOpen &&
+        isShowSuggestions &&
+        suggestionsController.suggestions?.isEmpty == true) {
       setState(() {
         isShowSuggestions = false;
       });
@@ -78,7 +83,9 @@ class _SearchPageState extends State<SearchPage> {
       // });
     }
 
-    if (!suggestionsController.isOpen && isShowSuggestions && suggestionsController.suggestions?.isEmpty == false) {
+    if (!suggestionsController.isOpen &&
+        isShowSuggestions &&
+        suggestionsController.suggestions?.isEmpty == false) {
       setState(() {
         isShowSuggestions = false;
       });
@@ -101,7 +108,13 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     if (getIt<CategoriesBloc>().state is CategoriesDone) {
-      getIt<CategoriesBloc>().state.categories?.map((category) => category.products?.map((product) => products.add(product)).toList()).toList();
+      getIt<CategoriesBloc>()
+          .state
+          .categories
+          ?.map((category) => category.products
+              ?.map((product) => products.add(product))
+              .toList())
+          .toList();
     }
 
     return Scaffold(
@@ -189,7 +202,11 @@ class _SearchPageState extends State<SearchPage> {
                 final filteredProducts = products;
                 filteredProducts.retainWhere((x) => names.remove(x.name));
 
-                return filteredProducts.where((element) => element.name.toLowerCase().contains(search.toLowerCase())).toList();
+                return filteredProducts
+                    .where((element) => element.name
+                        .toLowerCase()
+                        .contains(search.toLowerCase()))
+                    .toList();
               },
               builder: (context, controller, focusNode) {
                 return Stack(
@@ -219,7 +236,9 @@ class _SearchPageState extends State<SearchPage> {
                       ),
                     ),
                     InputText(
-                      autofocus: controller.text.isEmpty && !widget.startSearch ? true : false,
+                      autofocus: controller.text.isEmpty && !widget.startSearch
+                          ? true
+                          : false,
                       focusNode: focusNode,
                       controller: controller,
                       disableFocusBorder: true,
@@ -354,7 +373,8 @@ class _SearchPageState extends State<SearchPage> {
               // ),
               transitionBuilder: (context, animation, child) {
                 return FadeTransition(
-                  opacity: CurvedAnimation(parent: animation, curve: Curves.fastOutSlowIn),
+                  opacity: CurvedAnimation(
+                      parent: animation, curve: Curves.fastOutSlowIn),
                   child: child,
                 );
               },
@@ -416,7 +436,8 @@ class _SearchPageState extends State<SearchPage> {
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: products.length,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
                           crossAxisCount: 2,
                           crossAxisSpacing: 12.0,
                           mainAxisSpacing: 16.0,
@@ -447,14 +468,21 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   void _makeSearch(String searchText) {
-    if (searchText.isEmpty && context.read<SearchCubit>().state.selectedTags.isEmpty) {
+    if (searchText.isEmpty &&
+        context.read<SearchCubit>().state.selectedTags.isEmpty) {
       context.read<ProductsBloc>().add(const ProductsEvent.clear());
     } else {
       context.read<ProductsBloc>().add(
             ProductsEvent.getProducts(
               ProductRequestEntity(
                 search: searchText,
-                filters: FilterEntity(tags: context.read<SearchCubit>().state.selectedTags.map((t) => FilterTagEntity(id: t.id)).toList()),
+                filters: FilterEntity(
+                    tags: context
+                        .read<SearchCubit>()
+                        .state
+                        .selectedTags
+                        .map((t) => FilterTagEntity(id: t.id))
+                        .toList()),
               ),
             ),
           );

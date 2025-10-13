@@ -13,7 +13,8 @@ class AddressSetupStateCubit extends Cubit<AddressSetupState> {
           ),
         );
 
-  void setStreet(String streetName, {double? lat, double? lon, String? street2}) {
+  void setStreet(String streetName,
+      {double? lat, double? lon, String? street2}) {
     emit(
       state.copyWith(
         address: state.address!.copyWith(
@@ -120,6 +121,7 @@ class AddressSetupStateCubit extends Cubit<AddressSetupState> {
   }
 
   bool allowToSave() {
-    return state.address?.street?.isNotEmpty == true && state.address?.house?.isNotEmpty == true;
+    return state.address?.street?.isNotEmpty == true &&
+        state.address?.house?.isNotEmpty == true;
   }
 }

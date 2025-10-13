@@ -10,7 +10,9 @@ class CategoriesMapper {
       id: category.id,
       title: category.title,
       picture: category.picture,
-      products: category.products != null ? ProductsMapper.toProductsEntity(category.products!) : null,
+      products: category.products != null
+          ? ProductsMapper.toProductsEntity(category.products!)
+          : null,
       color: category.color,
       isCollection: category.isCollection,
     );

@@ -19,7 +19,8 @@ class BasketInfoRequestDto {
   final int qnt;
   final List<BasketModifireDto>? modifiers;
 
-  factory BasketInfoRequestDto.fromJson(Map<String, dynamic> json) => _$BasketInfoRequestDtoFromJson(json);
+  factory BasketInfoRequestDto.fromJson(Map<String, dynamic> json) =>
+      _$BasketInfoRequestDtoFromJson(json);
 
   Map<String, dynamic> toJson() {
     final result = _$BasketInfoRequestDtoToJson(this);

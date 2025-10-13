@@ -18,7 +18,8 @@ class FilialsSearchRequestDto {
   @JsonKey(name: 'coords')
   final CoordinatesDto? coordinates;
 
-  factory FilialsSearchRequestDto.fromJson(Map<String, dynamic> json) => _$FilialsSearchRequestDtoFromJson(json);
+  factory FilialsSearchRequestDto.fromJson(Map<String, dynamic> json) =>
+      _$FilialsSearchRequestDtoFromJson(json);
 
   Map<String, dynamic> toJson() {
     return _$FilialsSearchRequestDtoToJson(this);

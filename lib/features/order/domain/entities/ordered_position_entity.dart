@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 
 import '../../../home/domain/entities/option_entity.dart';
 
-
 class OrderedPositionEntity extends Equatable {
   final int productId;
   final int quantity;
@@ -16,8 +15,8 @@ class OrderedPositionEntity extends Equatable {
 
   @override
   List<Object?> get props => [
-    productId,
-    quantity,
-    modifiers,
-  ];
+        productId,
+        quantity,
+        modifiers,
+      ];
 }

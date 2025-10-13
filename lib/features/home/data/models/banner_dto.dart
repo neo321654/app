@@ -22,5 +22,6 @@ class BannerDto {
   @JsonKey(name: 'link')
   final String? url;
 
-  factory BannerDto.fromJson(Map<String, dynamic> json) => _$BannerDtoFromJson(json);
+  factory BannerDto.fromJson(Map<String, dynamic> json) =>
+      _$BannerDtoFromJson(json);
 }

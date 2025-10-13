@@ -44,7 +44,8 @@ class OrderCreateRequestDto {
   final String? promocode;
   final String? bonusWithdraw;
 
-  factory OrderCreateRequestDto.fromJson(Map<String, dynamic> json) => _$OrderCreateRequestDtoFromJson(json);
+  factory OrderCreateRequestDto.fromJson(Map<String, dynamic> json) =>
+      _$OrderCreateRequestDtoFromJson(json);
 
   Map<String, dynamic> toJson() {
     return _$OrderCreateRequestDtoToJson(this);
@@ -67,7 +68,8 @@ class OrderProductDto {
   final int quantity;
   final List<BasketModifireDto> modifiers;
 
-  factory OrderProductDto.fromJson(Map<String, dynamic> json) => _$OrderProductDtoFromJson(json);
+  factory OrderProductDto.fromJson(Map<String, dynamic> json) =>
+      _$OrderProductDtoFromJson(json);
 
   Map<String, dynamic> toJson() {
     return _$OrderProductDtoToJson(this);
@@ -98,7 +100,8 @@ class OrderCustomerDto {
   final String? birthdate;
   final String? email;
 
-  factory OrderCustomerDto.fromJson(Map<String, dynamic> json) => _$OrderCustomerDtoFromJson(json);
+  factory OrderCustomerDto.fromJson(Map<String, dynamic> json) =>
+      _$OrderCustomerDtoFromJson(json);
 
   Map<String, dynamic> toJson() {
     return _$OrderCustomerDtoToJson(this);
@@ -117,7 +120,8 @@ class OrderAddressDto {
   final OrderAddressCoordsDto? coords;
   final String? comment;
 
-  factory OrderAddressDto.fromJson(Map<String, dynamic> json) => _$OrderAddressDtoFromJson(json);
+  factory OrderAddressDto.fromJson(Map<String, dynamic> json) =>
+      _$OrderAddressDtoFromJson(json);
 
   Map<String, dynamic> toJson() {
     return _$OrderAddressDtoToJson(this);
@@ -136,7 +140,8 @@ class OrderAddressCoordsDto {
   final double x;
   final double y;
 
-  factory OrderAddressCoordsDto.fromJson(Map<String, dynamic> json) => _$OrderAddressCoordsDtoFromJson(json);
+  factory OrderAddressCoordsDto.fromJson(Map<String, dynamic> json) =>
+      _$OrderAddressCoordsDtoFromJson(json);
 
   Map<String, dynamic> toJson() {
     return _$OrderAddressCoordsDtoToJson(this);

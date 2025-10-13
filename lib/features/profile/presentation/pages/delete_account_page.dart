@@ -145,7 +145,8 @@ class DeleteAccountPage extends StatelessWidget {
                 ),
                 const LoyaltyDescItem(
                   title: 'Статуса гостя',
-                  description: 'Достигнутый статус будет потерян. Вы не сможете экономить на заказах.',
+                  description:
+                      'Достигнутый статус будет потерян. Вы не сможете экономить на заказах.',
                   icon: 'assets/icons/bonus_box.svg',
                 ),
                 const SizedBox(
@@ -153,7 +154,8 @@ class DeleteAccountPage extends StatelessWidget {
                 ),
                 const LoyaltyDescItem(
                   title: 'История заказов, карты и адреса',
-                  description: 'Вы потеряете доступ ко всем сохраннёным данным на аккаунте.',
+                  description:
+                      'Вы потеряете доступ ко всем сохраннёным данным на аккаунте.',
                   icon: 'assets/icons/bonus_box.svg',
                   isLast: true,
                 ),
@@ -192,12 +194,14 @@ class DeleteAccountPage extends StatelessWidget {
 
                             if (result != null && result) {
                               if (!context.mounted) return;
-                              getIt<DeleteProfileBloc>().add(const DeleteProfileEvent.delete());
+                              getIt<DeleteProfileBloc>()
+                                  .add(const DeleteProfileEvent.delete());
                               context.router.pop();
                             }
                           });
                         },
-                        child: BlocBuilder<DeleteProfileBloc, DeleteProfileState>(
+                        child:
+                            BlocBuilder<DeleteProfileBloc, DeleteProfileState>(
                           builder: (context, state) {
                             return state.maybeWhen(
                               deleting: () => const Padding(
@@ -225,7 +229,8 @@ class DeleteAccountPage extends StatelessWidget {
                                   ),
                                   const Text(
                                     'Всё равно удалить',
-                                    style: TextStyle(color: AppColors.destructive),
+                                    style:
+                                        TextStyle(color: AppColors.destructive),
                                   ),
                                 ],
                               ),
@@ -249,7 +254,8 @@ class DeleteAccountPage extends StatelessWidget {
                                 ),
                                 const Text(
                                   'Всё равно удалить',
-                                  style: TextStyle(color: AppColors.destructive),
+                                  style:
+                                      TextStyle(color: AppColors.destructive),
                                 ),
                               ],
                             );

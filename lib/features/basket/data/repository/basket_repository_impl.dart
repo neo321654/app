@@ -55,7 +55,7 @@ class BasketRepositoryImpl implements BasketRepository {
     try {
       await _basketLocale.removeAllBasketItems();
       print('BASKET REPOSITORY - ALL BASKET ITEMS REMOVED SUCCESSFULLY');
-      return DataSuccess(null);
+      return const DataSuccess(null);
     } catch (e) {
       print('BASKET REPOSITORY - ERROR REMOVING BASKET ITEMS: $e');
       return DataFailed(DioException(
@@ -77,21 +77,28 @@ class BasketRepositoryImpl implements BasketRepository {
   }
 
   @override
-  Future<DataState<BasketInfoEntity>> getBasketInfo(List<BasketInfoRequestEntity> request, int deliveryId) async {
+  Future<DataState<BasketInfoEntity>> getBasketInfo(
+      List<BasketInfoRequestEntity> request, int deliveryId) async {
     try {
       // Получаем выбранный адрес
-      final selectedAddress = getIt<CreateOrderStateCubit>().state.deliveryAddress;
+      final selectedAddress =
+          getIt<CreateOrderStateCubit>().state.deliveryAddress;
       final addressId = selectedAddress?.id;
-      
+
       var requestDto = BasketInfoRequestBasketDto(
-        basket: request.map((r) => BasketInfoRequestDto(
-          id: r.id,
-          qnt: r.qnt,
-          modifiers: r.modifiers.map((m) => BasketModifireDto(
-            id: m.id ?? 0,
-            qnt: m.qnt ?? 0,
-          )).toList() ?? [],
-        )).toList(),
+        basket: request
+            .map((r) => BasketInfoRequestDto(
+                  id: r.id,
+                  qnt: r.qnt,
+                  modifiers: r.modifiers
+                          .map((m) => BasketModifireDto(
+                                id: m.id ?? 0,
+                                qnt: m.qnt ?? 0,
+                              ))
+                          .toList() ??
+                      [],
+                ))
+            .toList(),
         deliveryId: deliveryId,
         addressId: addressId,
       );
@@ -109,9 +116,9 @@ class BasketRepositoryImpl implements BasketRepository {
           ),
           pretotalInfo: basketInfo.pretotalInfo
               .map((pretotalInfo) => BasketPretotalnfoEntity(
-            title: pretotalInfo.title ?? "",
-            value: pretotalInfo.value ?? "",
-          ))
+                    title: pretotalInfo.title ?? "",
+                    value: pretotalInfo.value ?? "",
+                  ))
               .toList(),
           bonusInfo: BasketPretotalnfoEntity(
             title: basketInfo.bonusInfo.title ?? "",
@@ -126,12 +133,14 @@ class BasketRepositoryImpl implements BasketRepository {
       final responseData = e.response?.data.toString();
       if (responseData != null) {
         const maxLogLength = 1000;
-        print('Response data: ${responseData.length > maxLogLength ? responseData.substring(0, maxLogLength) + '...' : responseData}');
+        print(
+            'Response data: ${responseData.length > maxLogLength ? '${responseData.substring(0, maxLogLength)}...' : responseData}');
       }
 
       String errorMessage = 'Не удалось получить информацию о корзине.';
       if (e.response?.statusCode == 500) {
-        errorMessage = 'Ошибка сервера: неверный формат запроса. Пожалуйста, попробуйте снова.';
+        errorMessage =
+            'Ошибка сервера: неверный формат запроса. Пожалуйста, попробуйте снова.';
       }
 
       return DataFailed(

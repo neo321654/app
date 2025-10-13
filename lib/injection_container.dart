@@ -93,7 +93,8 @@ import 'features/home/presentation/bloc/collections/collections_bloc.dart';
 import 'features/home/presentation/bloc/cubit/applied_filter_state_cubit.dart';
 import 'features/home/presentation/bloc/cubit/search_cubit.dart';
 import 'features/home/presentation/bloc/filials/filials_bloc.dart';
-import 'features/home/presentation/bloc/cities/cities_bloc.dart' as filial_cities_bloc;
+import 'features/home/presentation/bloc/cities/cities_bloc.dart'
+    as filial_cities_bloc;
 import 'features/home/presentation/bloc/gifts_scale/gifts_scale_bloc.dart';
 import 'features/home/presentation/bloc/products/products_bloc.dart';
 import 'features/home/presentation/bloc/settings/settings_bloc.dart';
@@ -154,7 +155,8 @@ Future setupDependencies() async {
     level: kDebugMode ? Level.trace : Level.off,
   );
 
-  final DadataClient dadataClient = DadataClient(token: '935ee067813f09dcba08f4ebaf63d422a4006d6d');
+  final DadataClient dadataClient =
+      DadataClient(token: '935ee067813f09dcba08f4ebaf63d422a4006d6d');
 
   final Store store = await Store.getInstance();
 

@@ -29,8 +29,10 @@ class OrderDto {
   final bool needReview;
   final List<OrderProductDto> products;
 
-  factory OrderDto.fromJson(Map<String, dynamic> json) => _$OrderDtoFromJson(json);
+  factory OrderDto.fromJson(Map<String, dynamic> json) =>
+      _$OrderDtoFromJson(json);
 }
+
 String? _numberFromJson(dynamic value) {
   if (value is int) {
     return value.toString();

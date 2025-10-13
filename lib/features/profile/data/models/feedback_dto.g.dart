@@ -13,10 +13,18 @@ FeedbackDto _$FeedbackDtoFromJson(Map<String, dynamic> json) => FeedbackDto(
       content: json['content'] as String?,
     );
 
-Map<String, dynamic> _$FeedbackDtoToJson(FeedbackDto instance) =>
-    <String, dynamic>{
-      if (instance.rate1 case final value?) 'rate1': value,
-      if (instance.rate2 case final value?) 'rate2': value,
-      if (instance.rate3 case final value?) 'rate3': value,
-      if (instance.content case final value?) 'content': value,
-    };
+Map<String, dynamic> _$FeedbackDtoToJson(FeedbackDto instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('rate1', instance.rate1);
+  writeNotNull('rate2', instance.rate2);
+  writeNotNull('rate3', instance.rate3);
+  writeNotNull('content', instance.content);
+  return val;
+}

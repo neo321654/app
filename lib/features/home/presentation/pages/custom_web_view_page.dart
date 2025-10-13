@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:monobox/config/themes/styles.dart';
@@ -94,7 +93,8 @@ class _CustonWebViewPageState extends State<CustonWebViewPage> {
           bottom: MediaQuery.of(context).padding.bottom,
         ),
         child: (Platform.isAndroid && widget.url.contains('.pdf'))
-            ? const PDF().cachedFromUrl(widget.url, placeholder: (_) => const Center(child: Text('Загрузка...')))
+            ? const PDF().cachedFromUrl(widget.url,
+                placeholder: (_) => const Center(child: Text('Загрузка...')))
             : WebViewWidget(
                 controller: controller,
               ),

@@ -140,7 +140,16 @@ class HalfPizzaPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      if (context.read<ProductCardStateCubit>().pizzaHalfMod().isNotEmpty && context.read<ProductCardStateCubit>().pizzaHalfMod()[0].image?.isNotEmpty == true)
+                      if (context
+                              .read<ProductCardStateCubit>()
+                              .pizzaHalfMod()
+                              .isNotEmpty &&
+                          context
+                                  .read<ProductCardStateCubit>()
+                                  .pizzaHalfMod()[0]
+                                  .image
+                                  ?.isNotEmpty ==
+                              true)
                         Container(
                           alignment: Alignment.centerLeft,
                           height: 251,
@@ -150,11 +159,19 @@ class HalfPizzaPage extends StatelessWidget {
                             children: [
                               Positioned(
                                 //right: -(MediaQuery.of(context).size.width / 4) * 1.5,
-                                right: -(((MediaQuery.of(context).size.width / 4) * (251 / (MediaQuery.of(context).size.width / 4))) / 2),
+                                right: -(((MediaQuery.of(context).size.width /
+                                            4) *
+                                        (251 /
+                                            (MediaQuery.of(context).size.width /
+                                                4))) /
+                                    2),
                                 child: CachedNetworkImage(
                                   fit: BoxFit.fitHeight,
                                   height: 251,
-                                  imageUrl: context.read<ProductCardStateCubit>().pizzaHalfMod()[0].image!,
+                                  imageUrl: context
+                                      .read<ProductCardStateCubit>()
+                                      .pizzaHalfMod()[0]
+                                      .image!,
                                 ),
                                 // child: Image.network(
                                 //   context.read<ProductCardStateCubit>().pizzaHalfMod()[0].image!,
@@ -166,13 +183,23 @@ class HalfPizzaPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                      if (context.read<ProductCardStateCubit>().pizzaHalfMod().length == 2 && context.read<ProductCardStateCubit>().pizzaHalfMod()[1].image?.isNotEmpty == true)
+                      if (context
+                                  .read<ProductCardStateCubit>()
+                                  .pizzaHalfMod()
+                                  .length ==
+                              2 &&
+                          context
+                                  .read<ProductCardStateCubit>()
+                                  .pizzaHalfMod()[1]
+                                  .image
+                                  ?.isNotEmpty ==
+                              true)
                         Positioned(
                           right: 0,
                           child: Container(
                             height: 251,
                             width: MediaQuery.of(context).size.width / 2,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 //color: Colors.red,
                                 // image: DecorationImage(
                                 //   alignment: FractionalOffset.centerRight,
@@ -186,11 +213,21 @@ class HalfPizzaPage extends StatelessWidget {
                               children: [
                                 Positioned(
                                   //left: -(MediaQuery.of(context).size.width / 4) * 1.4,
-                                  left: -(((MediaQuery.of(context).size.width / 4) * (251 / (MediaQuery.of(context).size.width / 4))) / 2),
+                                  left: -(((MediaQuery.of(context).size.width /
+                                              4) *
+                                          (251 /
+                                              (MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  4))) /
+                                      2),
                                   child: CachedNetworkImage(
                                     fit: BoxFit.fitHeight,
                                     height: 251,
-                                    imageUrl: context.read<ProductCardStateCubit>().pizzaHalfMod()[1].image!,
+                                    imageUrl: context
+                                        .read<ProductCardStateCubit>()
+                                        .pizzaHalfMod()[1]
+                                        .image!,
                                   ),
                                   // child: Image.network(
                                   //   context.read<ProductCardStateCubit>().pizzaHalfMod()[1].image!,
@@ -219,10 +256,20 @@ class HalfPizzaPage extends StatelessWidget {
                         return Padding(
                           padding: EdgeInsets.only(
                             left: index == 0 ? 16 : 0,
-                            right: product.modifiers.firstWhere((element) => element.type == 'is_half_pizza').items.length == (index + 1) ? 16 : 0,
+                            right: product.modifiers
+                                        .firstWhere((element) =>
+                                            element.type == 'is_half_pizza')
+                                        .items
+                                        .length ==
+                                    (index + 1)
+                                ? 16
+                                : 0,
                           ),
                           child: HalfPizzaCard(
-                            product: product.modifiers.firstWhere((element) => element.type == 'is_half_pizza').items[index],
+                            product: product.modifiers
+                                .firstWhere((element) =>
+                                    element.type == 'is_half_pizza')
+                                .items[index],
                           ),
                         );
                       },
@@ -231,7 +278,11 @@ class HalfPizzaPage extends StatelessWidget {
                           width: 3,
                         );
                       },
-                      itemCount: product.modifiers.firstWhere((element) => element.type == 'is_half_pizza').items.length,
+                      itemCount: product.modifiers
+                          .firstWhere(
+                              (element) => element.type == 'is_half_pizza')
+                          .items
+                          .length,
                     ),
                   );
                 },
@@ -283,7 +334,8 @@ class HalfPizzaPage extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              BlocBuilder<ProductCardStateCubit, ProductCardStateState>(
+                              BlocBuilder<ProductCardStateCubit,
+                                  ProductCardStateState>(
                                 builder: (context, state) {
                                   return Text(
                                     '${context.read<ProductCardStateCubit>().productTotalPrice} ₽',
@@ -302,7 +354,8 @@ class HalfPizzaPage extends StatelessWidget {
                               const SizedBox(
                                 height: 4,
                               ),
-                              BlocBuilder<ProductCardStateCubit, ProductCardStateState>(
+                              BlocBuilder<ProductCardStateCubit,
+                                  ProductCardStateState>(
                                 builder: (context, state) {
                                   return Text(
                                     '${context.read<ProductCardStateCubit>().productTotalWeight} г',
@@ -317,21 +370,33 @@ class HalfPizzaPage extends StatelessWidget {
                           flex: 2,
                           child: SizedBox(
                             height: 52,
-                            child: BlocBuilder<ProductCardStateCubit, ProductCardStateState>(
+                            child: BlocBuilder<ProductCardStateCubit,
+                                ProductCardStateState>(
                               builder: (context, state) {
                                 return ElevatedButton(
-                                  onPressed: context.read<ProductCardStateCubit>().pizzaHalfMod().length >= 2
+                                  onPressed: context
+                                              .read<ProductCardStateCubit>()
+                                              .pizzaHalfMod()
+                                              .length >=
+                                          2
                                       ? () {
                                           context.router.push(
                                             ProductRoute(
                                               product: product,
-                                              productCardState: context.read<ProductCardStateCubit>(),
+                                              productCardState: context.read<
+                                                  ProductCardStateCubit>(),
                                             ),
                                           );
                                         }
                                       : null,
                                   child: Text(
-                                    context.read<ProductCardStateCubit>().pizzaHalfMod().length >= 2 ? 'Далее' : 'Выберите половинку',
+                                    context
+                                                .read<ProductCardStateCubit>()
+                                                .pizzaHalfMod()
+                                                .length >=
+                                            2
+                                        ? 'Далее'
+                                        : 'Выберите половинку',
                                   ),
                                 );
                               },

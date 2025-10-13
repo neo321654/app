@@ -29,22 +29,31 @@ OrderCreateRequestDto _$OrderCreateRequestDtoFromJson(
     );
 
 Map<String, dynamic> _$OrderCreateRequestDtoToJson(
-        OrderCreateRequestDto instance) =>
-    <String, dynamic>{
-      'payment_id': instance.paymentId,
-      'delivery_id': instance.deliveryId,
-      if (instance.addressId case final value?) 'address_id': value,
-      if (instance.filialId case final value?) 'filial_id': value,
-      'products': instance.products,
-      if (instance.gifts case final value?) 'gifts': value,
-      if (instance.completeBefore case final value?) 'complete_before': value,
-      'remote_delivery': instance.remoteDelivery,
-      if (instance.needCall case final value?) 'need_call': value,
-      if (instance.moneyChange case final value?) 'money_change': value,
-      if (instance.orderComment case final value?) 'order_comment': value,
-      if (instance.promocode case final value?) 'promocode': value,
-      if (instance.bonusWithdraw case final value?) 'bonus_withdraw': value,
-    };
+    OrderCreateRequestDto instance) {
+  final val = <String, dynamic>{
+    'payment_id': instance.paymentId,
+    'delivery_id': instance.deliveryId,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('address_id', instance.addressId);
+  writeNotNull('filial_id', instance.filialId);
+  val['products'] = instance.products;
+  writeNotNull('gifts', instance.gifts);
+  writeNotNull('complete_before', instance.completeBefore);
+  val['remote_delivery'] = instance.remoteDelivery;
+  writeNotNull('need_call', instance.needCall);
+  writeNotNull('money_change', instance.moneyChange);
+  writeNotNull('order_comment', instance.orderComment);
+  writeNotNull('promocode', instance.promocode);
+  writeNotNull('bonus_withdraw', instance.bonusWithdraw);
+  return val;
+}
 
 OrderProductDto _$OrderProductDtoFromJson(Map<String, dynamic> json) =>
     OrderProductDto(
@@ -73,14 +82,22 @@ OrderCustomerDto _$OrderCustomerDtoFromJson(Map<String, dynamic> json) =>
       email: json['email'] as String?,
     );
 
-Map<String, dynamic> _$OrderCustomerDtoToJson(OrderCustomerDto instance) =>
-    <String, dynamic>{
-      if (instance.phone case final value?) 'phone': value,
-      if (instance.name case final value?) 'name': value,
-      if (instance.surname case final value?) 'surname': value,
-      if (instance.birthdate case final value?) 'birthdate': value,
-      if (instance.email case final value?) 'email': value,
-    };
+Map<String, dynamic> _$OrderCustomerDtoToJson(OrderCustomerDto instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('phone', instance.phone);
+  writeNotNull('name', instance.name);
+  writeNotNull('surname', instance.surname);
+  writeNotNull('birthdate', instance.birthdate);
+  writeNotNull('email', instance.email);
+  return val;
+}
 
 OrderAddressDto _$OrderAddressDtoFromJson(Map<String, dynamic> json) =>
     OrderAddressDto(
@@ -91,11 +108,19 @@ OrderAddressDto _$OrderAddressDtoFromJson(Map<String, dynamic> json) =>
       comment: json['comment'] as String?,
     );
 
-Map<String, dynamic> _$OrderAddressDtoToJson(OrderAddressDto instance) =>
-    <String, dynamic>{
-      if (instance.coords case final value?) 'coords': value,
-      if (instance.comment case final value?) 'comment': value,
-    };
+Map<String, dynamic> _$OrderAddressDtoToJson(OrderAddressDto instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('coords', instance.coords);
+  writeNotNull('comment', instance.comment);
+  return val;
+}
 
 OrderAddressCoordsDto _$OrderAddressCoordsDtoFromJson(
         Map<String, dynamic> json) =>

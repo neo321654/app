@@ -42,15 +42,18 @@ class LoyaltyRepositoryImpl implements LoyaltyRepository {
   }
 
   @override
-  Future<DataState<LoyaltyEntryResponseEntity>> loyaltyEntry(LoyaltyEntryRequestEntity request) async {
+  Future<DataState<LoyaltyEntryResponseEntity>> loyaltyEntry(
+      LoyaltyEntryRequestEntity request) async {
     try {
-      LoyaltyEntryResponseDto response = await service.loyaltyEntry(LoyaltyEntryRequestDto(
+      LoyaltyEntryResponseDto response =
+          await service.loyaltyEntry(LoyaltyEntryRequestDto(
         name: request.name,
         email: request.email,
         birthdate: request.birthdate,
       ));
 
-      return DataSuccess(LoyaltyEntryResponseEntity(status: response.status, message: response.message));
+      return DataSuccess(LoyaltyEntryResponseEntity(
+          status: response.status, message: response.message));
     } on DioException catch (e) {
       return DataFailed(
         DioException(

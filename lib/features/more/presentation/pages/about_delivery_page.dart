@@ -54,7 +54,8 @@ class _AboutDeliveryPageState extends State<AboutDeliveryPage> {
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(
-          value: getIt<DeliveryZonesBloc>()..add(const DeliveryZonesEvent.getZones()),
+          value: getIt<DeliveryZonesBloc>()
+            ..add(const DeliveryZonesEvent.getZones()),
         ),
         BlocProvider.value(
           value: getIt<AddressSetupStateCubit>(),
@@ -162,7 +163,6 @@ class _AboutDeliveryPageState extends State<AboutDeliveryPage> {
                   const SizedBox(
                     height: 12,
                   ),
-                 
                   Text(
                     'Оформить заказ можно через приложение Мексиканская бабушка, наш сайт mexiba.ru и по номеру +7 495 990-48-65',
                     style: AppStyles.body.copyWith(
@@ -272,7 +272,8 @@ class _AboutDeliveryPageState extends State<AboutDeliveryPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            BlocBuilder<AddressSetupStateCubit, AddressSetupState>(
+                            BlocBuilder<AddressSetupStateCubit,
+                                AddressSetupState>(
                               builder: (context, state) {
                                 return Text(
                                   state.address?.city?.name ?? 'Город',
@@ -306,7 +307,8 @@ class _AboutDeliveryPageState extends State<AboutDeliveryPage> {
                     direction: VerticalDirection.up,
                     controller: searchController,
                     suggestionsController: suggestionsController,
-                    itemBuilder: (BuildContext context, GeoSuggestionEntity suggestion) {
+                    itemBuilder:
+                        (BuildContext context, GeoSuggestionEntity suggestion) {
                       return SizedBox(
                         height: 40,
                         child: Align(
@@ -330,7 +332,8 @@ class _AboutDeliveryPageState extends State<AboutDeliveryPage> {
                         searchController.text = value.value!;
                       }
 
-                      if (value.geoLat?.isNotEmpty == true && value.geoLon?.isNotEmpty == true) {
+                      if (value.geoLat?.isNotEmpty == true &&
+                          value.geoLon?.isNotEmpty == true) {
                         (await mapControllerCompleter.future).moveCamera(
                           CameraUpdate.newCameraPosition(
                             CameraPosition(
@@ -352,13 +355,19 @@ class _AboutDeliveryPageState extends State<AboutDeliveryPage> {
                       if (search.length < 2) {
                         return [];
                       }
-                      final String city = getIt<AddressSetupStateCubit>().state.address?.city?.name ?? '';
+                      final String city = getIt<AddressSetupStateCubit>()
+                              .state
+                              .address
+                              ?.city
+                              ?.name ??
+                          '';
 
                       getIt<GeoSuggestionCubit>().search(city, search);
                       return getIt<GeoSuggestionCubit>().state.suggestions;
                     },
                     builder: (context, controller, focusNode) {
-                      return BlocBuilder<AddressSetupStateCubit, AddressSetupState>(
+                      return BlocBuilder<AddressSetupStateCubit,
+                          AddressSetupState>(
                         builder: (context, state) {
                           return InputText(
                             autofocus: false,
@@ -368,7 +377,10 @@ class _AboutDeliveryPageState extends State<AboutDeliveryPage> {
                             hintStyle: AppStyles.subhead.copyWith(
                               color: AppColors.gray,
                             ),
-                            readOnly: state.address?.city?.name?.isNotEmpty == true ? false : true,
+                            readOnly:
+                                state.address?.city?.name?.isNotEmpty == true
+                                    ? false
+                                    : true,
                             //onSubmitted: (text) => _makeSearch(text),
                           );
                         },

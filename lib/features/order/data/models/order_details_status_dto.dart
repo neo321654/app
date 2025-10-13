@@ -23,5 +23,6 @@ class OrderDetailsStatusDto {
   final bool active;
   final String? date;
 
-  factory OrderDetailsStatusDto.fromJson(Map<String, dynamic> json) => _$OrderDetailsStatusDtoFromJson(json);
+  factory OrderDetailsStatusDto.fromJson(Map<String, dynamic> json) =>
+      _$OrderDetailsStatusDtoFromJson(json);
 }

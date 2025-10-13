@@ -11,7 +11,9 @@ class CollectionsMapper {
       id: model.id,
       name: model.title,
       picture: model.picture,
-      products: model.products != null ? ProductsMapper.toProductsModel(model.products!) : null,
+      products: model.products != null
+          ? ProductsMapper.toProductsModel(model.products!)
+          : null,
       isCollection: model.isCollection,
       color: model.color,
     );
@@ -34,7 +36,9 @@ class CollectionsMapper {
       id: model.id,
       title: model.name,
       picture: model.picture,
-      products: model.products != null ? ProductsMapper.toProductsEntity(model.products!) : null,
+      products: model.products != null
+          ? ProductsMapper.toProductsEntity(model.products!)
+          : null,
       isCollection: model.isCollection,
       color: model.color,
     );

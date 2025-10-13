@@ -25,8 +25,6 @@ class BasketInfoDto {
   final BasketPretotalnfoDto bonusInfo;
   final List<String> warnings;
 
-
-
   factory BasketInfoDto.fromJson(Map<String, dynamic> json) {
     return _$BasketInfoDtoFromJson(json);
   }

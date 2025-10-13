@@ -139,14 +139,18 @@ class _AddressManualyPageState extends State<AddressManualyPage> {
   }
 
   Widget _buildBody(BuildContext context) {
-    final AddressSetupStateCubit addressCubit = context.watch<AddressSetupStateCubit>();
+    final AddressSetupStateCubit addressCubit =
+        context.watch<AddressSetupStateCubit>();
     return BlocListener<GeoAvailableBloc, GeoAvailableState>(
       listener: (context, state) {
         if (state is Success) {
-          if (state.geoAvailable.status == 'success' || state.geoAvailable.filial?.cityId != null) {
+          if (state.geoAvailable.status == 'success' ||
+              state.geoAvailable.filial?.cityId != null) {
             getIt<Store>().setCityId(state.geoAvailable.filial!.cityId);
             context.read<AddressSetupStateCubit>().streetConfirm();
-          } else if (state.geoAvailable.status == 'error' || (state.geoAvailable.status == 'success' && state.geoAvailable.filial?.cityId == null)) {
+          } else if (state.geoAvailable.status == 'error' ||
+              (state.geoAvailable.status == 'success' &&
+                  state.geoAvailable.filial?.cityId == null)) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 elevation: 0,
@@ -268,7 +272,8 @@ class _AddressManualyPageState extends State<AddressManualyPage> {
                             debounceDuration: const Duration(milliseconds: 300),
                             controller: streetTextController,
                             suggestionsController: suggestionsController,
-                            itemBuilder: (BuildContext context, GeoSuggestionEntity suggestion) {
+                            itemBuilder: (BuildContext context,
+                                GeoSuggestionEntity suggestion) {
                               return SizedBox(
                                 height: 40,
                                 child: Align(
@@ -290,7 +295,11 @@ class _AddressManualyPageState extends State<AddressManualyPage> {
                             onSelected: (GeoSuggestionEntity value) {
                               if (value.street?.isNotEmpty == true) {
                                 //streetTextController.text = value.value!;
-                                streetTextController.text = (value.streetType?.isNotEmpty == true ? '${value.streetType} ' : '') + value.street!;
+                                streetTextController.text =
+                                    (value.streetType?.isNotEmpty == true
+                                            ? '${value.streetType} '
+                                            : '') +
+                                        value.street!;
                               }
 
                               if (value.house?.isNotEmpty == true) {
@@ -310,11 +319,20 @@ class _AddressManualyPageState extends State<AddressManualyPage> {
                               if (search.length < 2) {
                                 return [];
                               }
-                              final String city = getIt<AddressSetupStateCubit>().state.address?.city?.name ?? '';
+                              final String city =
+                                  getIt<AddressSetupStateCubit>()
+                                          .state
+                                          .address
+                                          ?.city
+                                          ?.name ??
+                                      '';
 
-                              final GeoRepository repository = getIt<GeoRepository>();
+                              final GeoRepository repository =
+                                  getIt<GeoRepository>();
 
-                              final DataState<List<GeoSuggestionEntity>> result = await repository.geoSuggestion(city, search);
+                              final DataState<List<GeoSuggestionEntity>>
+                                  result =
+                                  await repository.geoSuggestion(city, search);
 
                               //getIt<GeoSuggestionCubit>().search(city, search);
                               //return getIt<GeoSuggestionCubit>().state.suggestions;
@@ -322,7 +340,8 @@ class _AddressManualyPageState extends State<AddressManualyPage> {
                               return result.data!;
                             },
                             builder: (context, controller, focusNode) {
-                              return BlocBuilder<AddressSetupStateCubit, AddressSetupState>(
+                              return BlocBuilder<AddressSetupStateCubit,
+                                  AddressSetupState>(
                                 builder: (context, state) {
                                   return InputText(
                                     autofocus: false,
@@ -332,7 +351,11 @@ class _AddressManualyPageState extends State<AddressManualyPage> {
                                     hintStyle: AppStyles.subhead.copyWith(
                                       color: AppColors.gray,
                                     ),
-                                    readOnly: state.address?.city?.name?.isNotEmpty == true ? false : true,
+                                    readOnly:
+                                        state.address?.city?.name?.isNotEmpty ==
+                                                true
+                                            ? false
+                                            : true,
                                     //onSubmitted: (text) => _makeSearch(text),
                                   );
                                 },
@@ -409,7 +432,8 @@ class _AddressManualyPageState extends State<AddressManualyPage> {
                       BlocBuilder<AddressSetupStateCubit, AddressSetupState>(
                         builder: (context, state) {
                           return Visibility(
-                            visible: getIt<AddressSetupStateCubit>().allowToSave(),
+                            visible:
+                                getIt<AddressSetupStateCubit>().allowToSave(),
                             child: TextArea(
                               maxLength: 70,
                               maxLines: 3,
@@ -453,42 +477,78 @@ class _AddressManualyPageState extends State<AddressManualyPage> {
                           Expanded(
                             child: SizedBox(
                               height: 46,
-                              child: BlocBuilder<AddressSetupStateCubit, AddressSetupState>(
+                              child: BlocBuilder<AddressSetupStateCubit,
+                                  AddressSetupState>(
                                 builder: (context, state) {
                                   return ElevatedButton(
-                                    onPressed: getIt<AddressSetupStateCubit>().allowToSave()
+                                    onPressed: getIt<AddressSetupStateCubit>()
+                                            .allowToSave()
                                         ? () {
-                                            if (getIt<AuthBloc>().state == const AuthState.authenticated()) {
+                                            if (getIt<AuthBloc>().state ==
+                                                const AuthState
+                                                    .authenticated()) {
                                               getIt<CreateAddressBloc>().add(
-                                                CreateAddressEvent.addAddress(AddressCreateEntity(
-                                                  city: addressCubit.state.address?.city?.name ?? '',
-                                                  title: streetTextController.text,
-                                                  street: streetTextController.text,
-                                                  house: houseTextController.text,
-                                                  appartment: flatTextController.text,
-                                                  floor: floorTextController.text,
-                                                  entrance: entryTextController.text,
-                                                  domofon: domofonTextController.text,
-                                                  latitude: context.read<AddressSetupStateCubit>().state.address!.lat,
-                                                  longitude: context.read<AddressSetupStateCubit>().state.address!.lon,
+                                                CreateAddressEvent.addAddress(
+                                                    AddressCreateEntity(
+                                                  city: addressCubit
+                                                          .state
+                                                          .address
+                                                          ?.city
+                                                          ?.name ??
+                                                      '',
+                                                  title:
+                                                      streetTextController.text,
+                                                  street:
+                                                      streetTextController.text,
+                                                  house:
+                                                      houseTextController.text,
+                                                  appartment:
+                                                      flatTextController.text,
+                                                  floor:
+                                                      floorTextController.text,
+                                                  entrance:
+                                                      entryTextController.text,
+                                                  domofon: domofonTextController
+                                                      .text,
+                                                  latitude: context
+                                                      .read<
+                                                          AddressSetupStateCubit>()
+                                                      .state
+                                                      .address!
+                                                      .lat,
+                                                  longitude: context
+                                                      .read<
+                                                          AddressSetupStateCubit>()
+                                                      .state
+                                                      .address!
+                                                      .lon,
                                                   cityId: getIt<Store>().cityId,
-                                                  comment: commentTextController.text,
+                                                  comment: commentTextController
+                                                      .text,
                                                 )),
                                               );
                                             }
 
                                             if (widget.mode == 'back') {
-                                              AutoRouter.of(context).replaceAll([const MyAddressesRoute()]);
-                                              getIt<AddressSetupStateCubit>().clear();
+                                              AutoRouter.of(context).replaceAll(
+                                                  [const MyAddressesRoute()]);
+                                              getIt<AddressSetupStateCubit>()
+                                                  .clear();
                                             } else if (widget.mode == 'order') {
-                                              AutoRouter.of(context).replaceAll([
+                                              AutoRouter.of(context)
+                                                  .replaceAll([
                                                 CreateOrderRoute(
-                                                  basket: (context.read<BasketBloc>().state as BasketLoaded).basket,
+                                                  basket: (context
+                                                          .read<BasketBloc>()
+                                                          .state as BasketLoaded)
+                                                      .basket,
                                                 )
                                               ]);
-                                              getIt<AddressSetupStateCubit>().clear();
+                                              getIt<AddressSetupStateCubit>()
+                                                  .clear();
                                             } else {
-                                              AutoRouter.of(context).replaceAll([const HomeRoute()]);
+                                              AutoRouter.of(context).replaceAll(
+                                                  [const HomeRoute()]);
                                             }
                                           }
                                         : null,
@@ -496,7 +556,8 @@ class _AddressManualyPageState extends State<AddressManualyPage> {
                                     child: Center(
                                       child: Text(
                                         'Ввести',
-                                        style: AppStyles.footnoteBold.copyWith(color: AppColors.white),
+                                        style: AppStyles.footnoteBold
+                                            .copyWith(color: AppColors.white),
                                       ),
                                     ),
                                   );

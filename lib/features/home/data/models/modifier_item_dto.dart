@@ -25,7 +25,8 @@ class ModifierItemDto {
   final String? picture;
   final String? weight;
 
-  factory ModifierItemDto.fromJson(Map<String, dynamic> json) => _$ModifierItemDtoFromJson(json);
+  factory ModifierItemDto.fromJson(Map<String, dynamic> json) =>
+      _$ModifierItemDtoFromJson(json);
 
   Map<String, dynamic> toJson() {
     return _$ModifierItemDtoToJson(this);

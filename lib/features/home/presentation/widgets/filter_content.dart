@@ -28,7 +28,8 @@ class FilterContent extends StatelessWidget {
           builder: (context, state) {
             return state.maybeMap(
               success: (state) {
-                return BlocBuilder<AppliedFilterStateCubit, AppliedFilterStateState>(
+                return BlocBuilder<AppliedFilterStateCubit,
+                    AppliedFilterStateState>(
                   builder: (context, appliedFilterState) {
                     return Wrap(
                       runSpacing: 8,
@@ -36,14 +37,22 @@ class FilterContent extends StatelessWidget {
                       children: [
                         ...state.tags.map(
                           (tag) => GestureDetector(
-                            onTap: () => context.read<AppliedFilterStateCubit>().isActive(tag)
-                                ? context.read<AppliedFilterStateCubit>().unselectTag(tag)
-                                : context.read<AppliedFilterStateCubit>().selectTag(tag),
+                            onTap: () => context
+                                    .read<AppliedFilterStateCubit>()
+                                    .isActive(tag)
+                                ? context
+                                    .read<AppliedFilterStateCubit>()
+                                    .unselectTag(tag)
+                                : context
+                                    .read<AppliedFilterStateCubit>()
+                                    .selectTag(tag),
                             child: FilterBadge(
                               text: tag.title,
                               color: tag.color,
                               icon: tag.icon,
-                              isActive: context.read<AppliedFilterStateCubit>().isActive(tag),
+                              isActive: context
+                                  .read<AppliedFilterStateCubit>()
+                                  .isActive(tag),
                             ),
                           ),
                         ),
@@ -99,7 +108,10 @@ class FilterContent extends StatelessWidget {
                   height: 52,
                   child: ElevatedButton(
                     onPressed: () async {
-                      getIt<SearchCubit>().setFilters(context.read<AppliedFilterStateCubit>().state.selectedTags);
+                      getIt<SearchCubit>().setFilters(context
+                          .read<AppliedFilterStateCubit>()
+                          .state
+                          .selectedTags);
                       await AutoRouter.of(context).pop(true);
                       if (!context.mounted) return;
                       context.navigateTo(SearchRoute(startSearch: true));

@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
@@ -67,20 +66,24 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
     cashPropouseTextController = TextEditingController();
     commentController = TextEditingController();
     promoTextController = TextEditingController()
-      ..setText(
-          (getIt<BasketBloc>().state is BasketLoaded && (getIt<BasketBloc>().state as BasketLoaded).basket.promocode != null) ? (getIt<BasketBloc>().state as BasketLoaded).basket.promocode! : '');
+      ..setText((getIt<BasketBloc>().state is BasketLoaded &&
+              (getIt<BasketBloc>().state as BasketLoaded).basket.promocode !=
+                  null)
+          ? (getIt<BasketBloc>().state as BasketLoaded).basket.promocode!
+          : '');
     super.initState();
   }
 
   @override
-   void dispose() {
-      cashPropouseTextController.dispose();
-      promoTextController.dispose();
-      super.dispose();
-     }
+  void dispose() {
+    cashPropouseTextController.dispose();
+    promoTextController.dispose();
+    super.dispose();
+  }
 
   void _setCashPropouse() {
-    getIt<BasketBloc>().add(SetMoneyChange(moneyChange: cashPropouseTextController.text));
+    getIt<BasketBloc>()
+        .add(SetMoneyChange(moneyChange: cashPropouseTextController.text));
   }
 
   @override
@@ -116,17 +119,21 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                 getIt<BasketBloc>().add(const RemoveAllOffers());
                 getIt<PromocodeBloc>().emit(const PromocodeState.initial());
                 getIt<OrdersListBloc>().add(const OrdersListEvent.getOrders());
-                
+
                 if (state.created.paymentUrl?.isNotEmpty == true) {
                   context.navigateTo(
                     CustonWebViewRoute(
                       title: '',
                       url: state.created.paymentUrl!,
                       onPageFinished: (finishUrl) {
-                        if (finishUrl.contains('/tinkoff/success') || finishUrl.contains('/tinkoff/fail')) {
+                        if (finishUrl.contains('/tinkoff/success') ||
+                            finishUrl.contains('/tinkoff/fail')) {
                           // Дополнительно обновляем список заказов после оплаты
-                          getIt<OrdersListBloc>().add(const OrdersListEvent.getOrders());
-                          context.router.parent<TabsRouter>()?.navigate(OrderRoute(
+                          getIt<OrdersListBloc>()
+                              .add(const OrdersListEvent.getOrders());
+                          context.router
+                              .parent<TabsRouter>()
+                              ?.navigate(OrderRoute(
                                 orderId: state.created.id,
                                 isNew: true,
                               ));
@@ -203,7 +210,9 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
           ),
           BlocListener<CreateOrderStateCubit, CreateOrderState>(
             listenWhen: (previousState, currentState) {
-              if (previousState.delivery != currentState.delivery || currentState.paymentMethodIndex != currentState.paymentMethodIndex) {
+              if (previousState.delivery != currentState.delivery ||
+                  currentState.paymentMethodIndex !=
+                      currentState.paymentMethodIndex) {
                 return true;
               }
               return false;
@@ -307,18 +316,23 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
               snap: true,
               // Set custom snapping points.
               //snappings: [194 / 314, 1.0],
-              snappings: [(Platform.isIOS ? 0.72 : 0.65), (Platform.isIOS ? 1 : 1.0)],
+              snappings: [
+                (Platform.isIOS ? 0.72 : 0.65),
+                (Platform.isIOS ? 1 : 1.0)
+              ],
               // Define to what the snappings relate to. In this case,
               // the total available space that the sheet can expand to.
               //positioning: SnapPositioning.relativeToAvailableSpace,
               positioning: SnapPositioning.relativeToSheetHeight,
             ),
             listener: (state) {
-              if (state.isCollapsed != getIt<CreateOrderStateCubit>().state.itogoIsCollapsed) {
+              if (state.isCollapsed !=
+                  getIt<CreateOrderStateCubit>().state.itogoIsCollapsed) {
                 getIt<CreateOrderStateCubit>().changeItogoIsCollapsed();
               }
             },
-            builder: (context, state) => Itogo(sheetController: sheetController),
+            builder: (context, state) =>
+                Itogo(sheetController: sheetController),
             body: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -345,36 +359,63 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                           builder: (context, deliveriesState) {
                             if (deliveriesState is DeliveriesDone) {
                               if (state.delivery == null) {
-                                context.read<CreateOrderStateCubit>().setDelivery(deliveriesState.deliveries![0]);
+                                context
+                                    .read<CreateOrderStateCubit>()
+                                    .setDelivery(
+                                        deliveriesState.deliveries![0]);
                               }
                               return TextSwitcher(
-                                items: (deliveriesState.deliveries ?? []).map((e) => e.name).toList(),
-                                selectedIndex: state.delivery == null ? 0 : deliveriesState.deliveries!.indexOf(state.delivery!),
+                                items: (deliveriesState.deliveries ?? [])
+                                    .map((e) => e.name)
+                                    .toList(),
+                                selectedIndex: state.delivery == null
+                                    ? 0
+                                    : deliveriesState.deliveries!
+                                        .indexOf(state.delivery!),
                                 onTap: (int itemIndex) {
-                                  final selectedDelivery = deliveriesState.deliveries![itemIndex];
-                                  context.read<CreateOrderStateCubit>().setDelivery(selectedDelivery);
-                                  
+                                  final selectedDelivery =
+                                      deliveriesState.deliveries![itemIndex];
+                                  context
+                                      .read<CreateOrderStateCubit>()
+                                      .setDelivery(selectedDelivery);
+
                                   // Обновляем корзину с новым типом доставки
-                                  if (context.read<BasketBloc>().state is BasketLoaded) {
-                                    final basket = (context.read<BasketBloc>().state as BasketLoaded).basket;
+                                  if (context.read<BasketBloc>().state
+                                      is BasketLoaded) {
+                                    final basket = (context
+                                            .read<BasketBloc>()
+                                            .state as BasketLoaded)
+                                        .basket;
                                     context.read<BasketInfoBloc>().add(
-                                      BasketInfoEvent.getBasketInfo(
-                                        basket.offers.map((offer) => BasketInfoRequestEntity(
-                                          id: offer.product.id ?? 0,
-                                          qnt: offer.quantity ?? 1,
-                                          modifiers: offer.addOptions != null
-                                              ? offer.addOptions!
-                                                  .where((modifier) => modifier.id != null)
-                                                  .map((modifier) => BasketModifireEntity(
-                                                        id: modifier.id!,
-                                                        qnt: modifier.quantity,
-                                                      ))
-                                                  .toList()
-                                              : [],
-                                        )).toList(),
-                                        deliveryId: selectedDelivery.id,
-                                      ),
-                                    );
+                                          BasketInfoEvent.getBasketInfo(
+                                            basket.offers
+                                                .map((offer) =>
+                                                    BasketInfoRequestEntity(
+                                                      id: offer.product.id ?? 0,
+                                                      qnt: offer.quantity ?? 1,
+                                                      modifiers: offer
+                                                                  .addOptions !=
+                                                              null
+                                                          ? offer.addOptions!
+                                                              .where(
+                                                                  (modifier) =>
+                                                                      modifier
+                                                                          .id !=
+                                                                      null)
+                                                              .map((modifier) =>
+                                                                  BasketModifireEntity(
+                                                                    id: modifier
+                                                                        .id!,
+                                                                    qnt: modifier
+                                                                        .quantity,
+                                                                  ))
+                                                              .toList()
+                                                          : [],
+                                                    ))
+                                                .toList(),
+                                            deliveryId: selectedDelivery.id,
+                                          ),
+                                        );
                                   }
                                 },
                               );
@@ -416,10 +457,12 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                     builder: (context, state) {
                       if (state.delivery != null) {
                         if (state.delivery!.type == 'delivery') {
-                          return BlocListener<CreateAddressBloc, CreateAddressState>(
+                          return BlocListener<CreateAddressBloc,
+                              CreateAddressState>(
                             listener: (context, state) {
                               state.whenOrNull(
-                                success: (address) => getIt<UserAddressBloc>().add(
+                                success: (address) =>
+                                    getIt<UserAddressBloc>().add(
                                   const UserAddressEvent.getAddresses(),
                                 ),
                               );
@@ -458,7 +501,8 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                     height: 8,
                   ),
                   context.watch<ProfileCubit>().state.maybeMap(
-                        done: (value) => value.profile.bonus != null && value.profile.bonus!.count > 0
+                        done: (value) => value.profile.bonus != null &&
+                                value.profile.bonus!.count > 0
                             ? const Padding(
                                 padding: EdgeInsets.only(bottom: 8),
                                 child: Bonuses(),
@@ -486,7 +530,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                   const SizedBox(
                     height: 8,
                   ),
-                   Comment(controller: commentController),
+                  Comment(controller: commentController),
                   const SizedBox(
                     height: 8,
                   ),
@@ -524,40 +568,57 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                           builder: (context, state) {
                             return state.maybeWhen(
                               success: (basketInfo) {
-                                print('CREATE ORDER - TOTAL FROM BACKEND: ${basketInfo.totalInfo.total} ₽');
-                                print('CREATE ORDER - DISCOUNT FROM BACKEND: ${basketInfo.totalInfo.discountPrice} ₽');
-                                
+                                print(
+                                    'CREATE ORDER - TOTAL FROM BACKEND: ${basketInfo.totalInfo.total} ₽');
+                                print(
+                                    'CREATE ORDER - DISCOUNT FROM BACKEND: ${basketInfo.totalInfo.discountPrice} ₽');
+
                                 // Получаем тип доставки
-                                final deliveryType = getIt<CreateOrderStateCubit>().state.delivery?.type;
-                                int totalWithDelivery = basketInfo.totalInfo.total;
-                                
+                                final deliveryType =
+                                    getIt<CreateOrderStateCubit>()
+                                        .state
+                                        .delivery
+                                        ?.type;
+                                int totalWithDelivery =
+                                    basketInfo.totalInfo.total;
+
                                 // Добавляем стоимость доставки только если это не самовывоз
                                 if (deliveryType != 'pickup') {
                                   // Ищем строку с доставкой в pretotalInfo
-                                  for (var pretotalItem in basketInfo.pretotalInfo) {
+                                  for (var pretotalItem
+                                      in basketInfo.pretotalInfo) {
                                     // Проверяем, что это строка с адресом (содержит адрес и стоимость)
-                                    if (pretotalItem.title.contains('ул') || pretotalItem.title.contains('д') || pretotalItem.title.contains('г')) {
+                                    if (pretotalItem.title.contains('ул') ||
+                                        pretotalItem.title.contains('д') ||
+                                        pretotalItem.title.contains('г')) {
                                       // Извлекаем стоимость доставки из строки "500 ₽"
                                       String deliveryValue = pretotalItem.value;
                                       if (deliveryValue.contains('₽')) {
                                         // Убираем " ₽" и парсим число
-                                        String deliveryPriceStr = deliveryValue.replaceAll(' ₽', '').trim();
+                                        String deliveryPriceStr = deliveryValue
+                                            .replaceAll(' ₽', '')
+                                            .trim();
                                         try {
-                                          int deliveryPrice = int.parse(deliveryPriceStr);
+                                          int deliveryPrice =
+                                              int.parse(deliveryPriceStr);
                                           totalWithDelivery += deliveryPrice;
-                                          print('CREATE ORDER - DELIVERY COST FOUND: $deliveryPrice ₽');
-                                          print('CREATE ORDER - TOTAL WITH DELIVERY: $totalWithDelivery ₽');
+                                          print(
+                                              'CREATE ORDER - DELIVERY COST FOUND: $deliveryPrice ₽');
+                                          print(
+                                              'CREATE ORDER - TOTAL WITH DELIVERY: $totalWithDelivery ₽');
                                           break; // Нашли доставку, выходим из цикла
                                         } catch (e) {
-                                          print('CREATE ORDER - ERROR PARSING DELIVERY PRICE: $deliveryPriceStr');
+                                          print(
+                                              'CREATE ORDER - ERROR PARSING DELIVERY PRICE: $deliveryPriceStr');
                                         }
                                       }
                                     }
                                   }
                                 } else {
-                                  print('CREATE ORDER - PICKUP SELECTED, NOT ADDING DELIVERY COST');
+                                  print(
+                                      'CREATE ORDER - PICKUP SELECTED, NOT ADDING DELIVERY COST');
                                 }
-                                
+
                                 return Text(
                                   '$totalWithDelivery ₽',
                                   style: AppStyles.bodyBold.copyWith(
@@ -588,40 +649,81 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                     flex: 2,
                     child: SizedBox(
                       height: 52,
-                      child: BlocBuilder<CreateOrderStateCubit, CreateOrderState>(
+                      child:
+                          BlocBuilder<CreateOrderStateCubit, CreateOrderState>(
                         builder: (context, createOrderState) {
                           return BlocBuilder<OrderBloc, OrderState>(
                             builder: (context, state) {
                               return ElevatedButton(
-                                onPressed: (state is OrderCreating || !getIt<CreateOrderStateCubit>().isAllowToCreate())
+                                onPressed: (state is OrderCreating ||
+                                        !getIt<CreateOrderStateCubit>()
+                                            .isAllowToCreate())
                                     ? null
                                     : () {
-                                        final DeliveryEntity delivery = getIt<CreateOrderStateCubit>().state.delivery!;
+                                        final DeliveryEntity delivery =
+                                            getIt<CreateOrderStateCubit>()
+                                                .state
+                                                .delivery!;
 
-                                        final PaymentMethodEntity paymentMethod =
-                                            (getIt<PaymentMethodsBloc>().state as PaymentMethodsDone).paymentMethods![getIt<CreateOrderStateCubit>().state.paymentMethodIndex ?? 0];
-                                        final List<OrderedPositionEntity> orderedPositions = [];
+                                        final PaymentMethodEntity
+                                            paymentMethod =
+                                            (getIt<PaymentMethodsBloc>().state
+                                                        as PaymentMethodsDone)
+                                                    .paymentMethods![
+                                                getIt<CreateOrderStateCubit>()
+                                                        .state
+                                                        .paymentMethodIndex ??
+                                                    0];
+                                        final List<OrderedPositionEntity>
+                                            orderedPositions = [];
                                         (basketBloc.state as BasketLoaded)
                                             .basket
                                             .offers
                                             .map(
-                                              (o) => orderedPositions.add(
-                                                  OrderedPositionEntity(
-                                                    productId: o.product.id!,
-                                                    quantity: o.quantity ?? 1,
-                                                    modifiers: o.addOptions ?? [],
-                                                  )
-                                              ),
+                                              (o) => orderedPositions
+                                                  .add(OrderedPositionEntity(
+                                                productId: o.product.id!,
+                                                quantity: o.quantity ?? 1,
+                                                modifiers: o.addOptions ?? [],
+                                              )),
                                             )
                                             .toList();
-                                        int? addressId = context.read<CreateOrderStateCubit>().state.delivery?.type == 'delivery'
-                                            ? context.read<CreateOrderStateCubit>().state.deliveryAddress?.id
-                                            : context.read<CreateOrderStateCubit>().state.deliveryShop?.id;
+                                        int? addressId = context
+                                                    .read<
+                                                        CreateOrderStateCubit>()
+                                                    .state
+                                                    .delivery
+                                                    ?.type ==
+                                                'delivery'
+                                            ? context
+                                                .read<CreateOrderStateCubit>()
+                                                .state
+                                                .deliveryAddress
+                                                ?.id
+                                            : context
+                                                .read<CreateOrderStateCubit>()
+                                                .state
+                                                .deliveryShop
+                                                ?.id;
 
-                                        String? bonusWithdraw = (context.read<CreateOrderStateCubit>().state.useBonuses ?? false)
-                                            ? context.read<ProfileCubit>().state.maybeMap(
+                                        String? bonusWithdraw = (context
+                                                    .read<
+                                                        CreateOrderStateCubit>()
+                                                    .state
+                                                    .useBonuses ??
+                                                false)
+                                            ? context
+                                                .read<ProfileCubit>()
+                                                .state
+                                                .maybeMap(
                                                   done: (value) {
-                                                    return value.profile.bonus != null ? value.profile.bonus!.count.toString() : '';
+                                                    return value.profile
+                                                                .bonus !=
+                                                            null
+                                                        ? value.profile.bonus!
+                                                            .count
+                                                            .toString()
+                                                        : '';
                                                   },
                                                   orElse: () => '',
                                                 )
@@ -629,18 +731,52 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
 
                                         context.read<OrderBloc>().createOrder(
                                               context.read<OrderBloc>().offer(
-                                                    paymentMethod: paymentMethod,
+                                                    paymentMethod:
+                                                        paymentMethod,
                                                     delivery: delivery,
-                                                    orderedPositions: orderedPositions,
-                                                    addressId: context.read<CreateOrderStateCubit>().state.delivery?.type == 'delivery'
-                                                        ? context.read<CreateOrderStateCubit>().state.deliveryAddress?.id
+                                                    orderedPositions:
+                                                        orderedPositions,
+                                                    addressId: context
+                                                                .read<
+                                                                    CreateOrderStateCubit>()
+                                                                .state
+                                                                .delivery
+                                                                ?.type ==
+                                                            'delivery'
+                                                        ? context
+                                                            .read<
+                                                                CreateOrderStateCubit>()
+                                                            .state
+                                                            .deliveryAddress
+                                                            ?.id
                                                         : null,
-                                                    filialId:
-                                                        context.read<CreateOrderStateCubit>().state.delivery?.type != 'delivery' ? context.read<CreateOrderStateCubit>().state.deliveryShop?.id : null,
-                                                    promocode: (basketBloc.state as BasketLoaded).basket.promocode,
-                                                    moneyChange: (basketBloc.state as BasketLoaded).basket.moneyChange,
-                                                    bonusWithdraw: bonusWithdraw,
-                                                    orderComment: commentController.text,
+                                                    filialId: context
+                                                                .read<
+                                                                    CreateOrderStateCubit>()
+                                                                .state
+                                                                .delivery
+                                                                ?.type !=
+                                                            'delivery'
+                                                        ? context
+                                                            .read<
+                                                                CreateOrderStateCubit>()
+                                                            .state
+                                                            .deliveryShop
+                                                            ?.id
+                                                        : null,
+                                                    promocode: (basketBloc.state
+                                                            as BasketLoaded)
+                                                        .basket
+                                                        .promocode,
+                                                    moneyChange:
+                                                        (basketBloc.state
+                                                                as BasketLoaded)
+                                                            .basket
+                                                            .moneyChange,
+                                                    bonusWithdraw:
+                                                        bonusWithdraw,
+                                                    orderComment:
+                                                        commentController.text,
                                                   ),
                                             );
                                         // Navigator.of(context).push(
@@ -655,12 +791,20 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                                           strokeWidth: 2,
                                         ),
                                       )
-                                    : BlocBuilder<PaymentMethodsBloc, PaymentMethodsState>(
+                                    : BlocBuilder<PaymentMethodsBloc,
+                                        PaymentMethodsState>(
                                         builder: (context, state) {
-                                          if (getIt<PaymentMethodsBloc>().state is PaymentMethodsDone) {
+                                          if (getIt<PaymentMethodsBloc>().state
+                                              is PaymentMethodsDone) {
                                             return Text(
-                                              ((getIt<PaymentMethodsBloc>().state as PaymentMethodsDone)
-                                                          .paymentMethods![getIt<CreateOrderStateCubit>().state.paymentMethodIndex ?? 0]
+                                              ((getIt<PaymentMethodsBloc>()
+                                                                  .state
+                                                              as PaymentMethodsDone)
+                                                          .paymentMethods![getIt<
+                                                                      CreateOrderStateCubit>()
+                                                                  .state
+                                                                  .paymentMethodIndex ??
+                                                              0]
                                                           .name
                                                           .toLowerCase() ==
                                                       'онлайн'

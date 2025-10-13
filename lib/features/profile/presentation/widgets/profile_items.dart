@@ -12,7 +12,6 @@ import '../../../../core/resources/store.dart';
 import '../../../../injection_container.dart';
 import '../models/profile_item.dart' as profile_item_model;
 import 'add_children.dart';
-import 'my_cards.dart';
 import 'profile_item.dart';
 
 class ProfileItems extends StatelessWidget {
@@ -73,20 +72,28 @@ class ProfileItems extends StatelessWidget {
               // Фильтруем элементы, исключая "Добавить ребёнка" если пользователь закрыл информационное сообщение
               final filteredItems = _getFilteredItems();
               if (index >= filteredItems.length) return const SizedBox.shrink();
-              
+
               return ProfileItem(
                 icon: filteredItems[index].icon,
                 text: filteredItems[index].text,
-                subText: filteredItems[index].text == 'Добавить ребёнка' ? const AddChildrenBox() : null,
-                textColor: (index + 1) == filteredItems.length ? AppColors.destructive : null,
+                subText: filteredItems[index].text == 'Добавить ребёнка'
+                    ? const AddChildrenBox()
+                    : null,
+                textColor: (index + 1) == filteredItems.length
+                    ? AppColors.destructive
+                    : null,
                 showArrow: (index + 1) != filteredItems.length,
-                onTap: (BuildContext context) => filteredItems[index].onTap != null ? filteredItems[index].onTap!(context) : null,
+                onTap: (BuildContext context) =>
+                    filteredItems[index].onTap != null
+                        ? filteredItems[index].onTap!(context)
+                        : null,
               );
             },
             separatorBuilder: (context, index) {
               final filteredItems = _getFilteredItems();
-              if (index >= filteredItems.length - 1) return const SizedBox.shrink();
-              
+              if (index >= filteredItems.length - 1)
+                return const SizedBox.shrink();
+
               return Container(
                 height: 20,
                 decoration: const BoxDecoration(
@@ -109,12 +116,14 @@ class ProfileItems extends StatelessWidget {
   List<profile_item_model.ProfileItem> _getFilteredItems() {
     final store = getIt<Store>();
     final isChildrenClosed = store.isClosedAboutChildren();
-    
+
     if (isChildrenClosed) {
       // Исключаем элемент "Добавить ребёнка" из списка
-      return _prfileItems.where((item) => item.text != 'Добавить ребёнка').toList();
+      return _prfileItems
+          .where((item) => item.text != 'Добавить ребёнка')
+          .toList();
     }
-    
+
     return _prfileItems;
   }
 

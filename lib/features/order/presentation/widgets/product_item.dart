@@ -48,14 +48,14 @@ class ProductItem extends StatelessWidget {
               ),
             ),
           ),
-        SizedBox(
+        const SizedBox(
           width: 12,
         ),
         Text(
           '${product.qnt} x',
           style: AppStyles.footnote,
         ),
-        SizedBox(
+        const SizedBox(
           width: 7,
         ),
         Expanded(

@@ -66,9 +66,6 @@ class _$DeleteProfileEventCopyWithImpl<$Res, $Val extends DeleteProfileEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of DeleteProfileEvent
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -85,9 +82,6 @@ class __$$DeleteImplCopyWithImpl<$Res>
   __$$DeleteImplCopyWithImpl(
       _$DeleteImpl _value, $Res Function(_$DeleteImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of DeleteProfileEvent
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -240,9 +234,6 @@ class _$DeleteProfileStateCopyWithImpl<$Res, $Val extends DeleteProfileState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of DeleteProfileState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -259,9 +250,6 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of DeleteProfileState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -376,9 +364,6 @@ class __$$DeletingImplCopyWithImpl<$Res>
   __$$DeletingImplCopyWithImpl(
       _$DeletingImpl _value, $Res Function(_$DeletingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of DeleteProfileState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -496,8 +481,6 @@ class __$$SuccessImplCopyWithImpl<$Res>
       _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of DeleteProfileState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -536,9 +519,7 @@ class _$SuccessImpl implements _Success {
   @override
   int get hashCode => Object.hash(runtimeType, status);
 
-  /// Create a copy of DeleteProfileState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
@@ -623,10 +604,7 @@ abstract class _Success implements DeleteProfileState {
   const factory _Success(final DeleteProfileEntity status) = _$SuccessImpl;
 
   DeleteProfileEntity get status;
-
-  /// Create a copy of DeleteProfileState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -648,8 +626,6 @@ class __$$ErrorStateImplCopyWithImpl<$Res>
       _$ErrorStateImpl _value, $Res Function(_$ErrorStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of DeleteProfileState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -688,9 +664,7 @@ class _$ErrorStateImpl implements _ErrorState {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of DeleteProfileState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ErrorStateImplCopyWith<_$ErrorStateImpl> get copyWith =>
@@ -775,10 +749,7 @@ abstract class _ErrorState implements DeleteProfileState {
   const factory _ErrorState(final Error error) = _$ErrorStateImpl;
 
   Error get error;
-
-  /// Create a copy of DeleteProfileState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$ErrorStateImplCopyWith<_$ErrorStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

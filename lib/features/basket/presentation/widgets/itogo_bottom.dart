@@ -36,8 +36,9 @@ class ItogoBottom extends StatelessWidget {
                     ),
                     success: (basketInfo) {
                       // Получаем тип доставки
-                      final deliveryType = getIt<CreateOrderStateCubit>().state.delivery?.type;
-                      
+                      final deliveryType =
+                          getIt<CreateOrderStateCubit>().state.delivery?.type;
+
                       // Если это самовывоз, показываем только total без доставки
                       if (deliveryType == 'pickup') {
                         return Text(
@@ -47,35 +48,43 @@ class ItogoBottom extends StatelessWidget {
                           ),
                         );
                       }
-                      
+
                       // Если это доставка, ищем строку с адресом в pretotalInfo
                       int totalWithDelivery = basketInfo.totalInfo.total;
                       bool deliveryFound = false;
-                      
+
                       for (var pretotalItem in basketInfo.pretotalInfo) {
                         // Ищем строку с адресом (содержит адрес и стоимость доставки)
-                        if (pretotalItem.title.contains('ул') || pretotalItem.title.contains('д') || pretotalItem.title.contains('г') || pretotalItem.title.contains('пр-кт')) {
+                        if (pretotalItem.title.contains('ул') ||
+                            pretotalItem.title.contains('д') ||
+                            pretotalItem.title.contains('г') ||
+                            pretotalItem.title.contains('пр-кт')) {
                           String deliveryValue = pretotalItem.value;
                           if (deliveryValue.contains('₽')) {
-                            String deliveryPriceStr = deliveryValue.replaceAll(' ₽', '').trim();
+                            String deliveryPriceStr =
+                                deliveryValue.replaceAll(' ₽', '').trim();
                             try {
                               int deliveryPrice = int.parse(deliveryPriceStr);
                               totalWithDelivery += deliveryPrice;
-                              print('BASKET - DELIVERY COST FOUND: $deliveryPrice ₽');
-                              print('BASKET - TOTAL WITH DELIVERY: $totalWithDelivery ₽');
+                              print(
+                                  'BASKET - DELIVERY COST FOUND: $deliveryPrice ₽');
+                              print(
+                                  'BASKET - TOTAL WITH DELIVERY: $totalWithDelivery ₽');
                               deliveryFound = true;
                               break; // Нашли доставку, выходим из цикла
                             } catch (e) {
-                              print('BASKET - ERROR PARSING DELIVERY PRICE: $deliveryPriceStr');
+                              print(
+                                  'BASKET - ERROR PARSING DELIVERY PRICE: $deliveryPriceStr');
                             }
                           }
                         }
                       }
-                      
+
                       if (!deliveryFound) {
-                        print('BASKET - NO DELIVERY COST FOUND, USING TOTAL ONLY');
+                        print(
+                            'BASKET - NO DELIVERY COST FOUND, USING TOTAL ONLY');
                       }
-                      
+
                       return Text(
                         '$totalWithDelivery ₽',
                         style: AppStyles.bodyBold.copyWith(
@@ -113,7 +122,8 @@ class ItogoBottom extends StatelessWidget {
                     orElse: () => null,
                     success: (basketInfo) => () {
                       getIt<PromocodeBloc>().state.maybeWhen(
-                            error: (error) => getIt<PromocodeBloc>().emit(const PromocodeState.initial()),
+                            error: (error) => getIt<PromocodeBloc>()
+                                .emit(const PromocodeState.initial()),
                             orElse: () => null,
                           );
                       context.navigateTo(CreateOrderRoute(
@@ -124,7 +134,9 @@ class ItogoBottom extends StatelessWidget {
                   child: Text(
                     state.maybeWhen(
                       orElse: () => 'Оформить',
-                      success: (basketInfo) => basketInfo.warnings.isEmpty ? 'Оформить' : basketInfo.warnings[0],
+                      success: (basketInfo) => basketInfo.warnings.isEmpty
+                          ? 'Оформить'
+                          : basketInfo.warnings[0],
                     ),
                   ),
                 );

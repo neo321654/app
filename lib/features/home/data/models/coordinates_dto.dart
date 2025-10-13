@@ -16,7 +16,8 @@ class CoordinatesDto {
   @JsonKey(name: 'longitude')
   final double lon;
 
-  factory CoordinatesDto.fromJson(Map<String, dynamic> json) => _$CoordinatesDtoFromJson(json);
+  factory CoordinatesDto.fromJson(Map<String, dynamic> json) =>
+      _$CoordinatesDtoFromJson(json);
 
   Map<String, dynamic> toJson() {
     return _$CoordinatesDtoToJson(this);

@@ -51,9 +51,7 @@ mixin _$AddChildEvent {
   }) =>
       throw _privateConstructorUsedError;
 
-  /// Create a copy of AddChildEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $AddChildEventCopyWith<AddChildEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -77,8 +75,6 @@ class _$AddChildEventCopyWithImpl<$Res, $Val extends AddChildEvent>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of AddChildEvent
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -110,8 +106,6 @@ class __$$AddImplCopyWithImpl<$Res>
   __$$AddImplCopyWithImpl(_$AddImpl _value, $Res Function(_$AddImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AddChildEvent
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -151,9 +145,7 @@ class _$AddImpl implements _Add {
   @override
   int get hashCode => Object.hash(runtimeType, addChildRequest);
 
-  /// Create a copy of AddChildEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$AddImplCopyWith<_$AddImpl> get copyWith =>
@@ -221,11 +213,8 @@ abstract class _Add implements AddChildEvent {
 
   @override
   AddChildRequestEntity get addChildRequest;
-
-  /// Create a copy of AddChildEvent
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$AddImplCopyWith<_$AddImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -300,9 +289,6 @@ class _$AddChildStateCopyWithImpl<$Res, $Val extends AddChildState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of AddChildState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -319,9 +305,6 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of AddChildState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -436,9 +419,6 @@ class __$$LoadingImplCopyWithImpl<$Res>
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of AddChildState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -555,8 +535,6 @@ class __$$DoneImplCopyWithImpl<$Res>
   __$$DoneImplCopyWithImpl(_$DoneImpl _value, $Res Function(_$DoneImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AddChildState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -595,9 +573,7 @@ class _$DoneImpl implements Done {
   @override
   int get hashCode => Object.hash(runtimeType, child);
 
-  /// Create a copy of AddChildState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$DoneImplCopyWith<_$DoneImpl> get copyWith =>
@@ -682,10 +658,7 @@ abstract class Done implements AddChildState {
   const factory Done(final ChildEntity child) = _$DoneImpl;
 
   ChildEntity get child;
-
-  /// Create a copy of AddChildState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$DoneImplCopyWith<_$DoneImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -707,8 +680,6 @@ class __$$ErrorStateImplCopyWithImpl<$Res>
       _$ErrorStateImpl _value, $Res Function(_$ErrorStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AddChildState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -747,9 +718,7 @@ class _$ErrorStateImpl implements ErrorState {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of AddChildState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ErrorStateImplCopyWith<_$ErrorStateImpl> get copyWith =>
@@ -834,10 +803,7 @@ abstract class ErrorState implements AddChildState {
   const factory ErrorState(final Error error) = _$ErrorStateImpl;
 
   Error get error;
-
-  /// Create a copy of AddChildState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$ErrorStateImplCopyWith<_$ErrorStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

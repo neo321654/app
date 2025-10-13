@@ -21,9 +21,7 @@ mixin _$BasketInfoRequestEntity {
   List<BasketModifireEntity> get modifiers =>
       throw _privateConstructorUsedError;
 
-  /// Create a copy of BasketInfoRequestEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $BasketInfoRequestEntityCopyWith<BasketInfoRequestEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -48,8 +46,6 @@ class _$BasketInfoRequestEntityCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of BasketInfoRequestEntity
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -96,8 +92,6 @@ class __$$BasketInfoRequestEntityImplCopyWithImpl<$Res>
       $Res Function(_$BasketInfoRequestEntityImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of BasketInfoRequestEntity
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -164,9 +158,7 @@ class _$BasketInfoRequestEntityImpl implements _BasketInfoRequestEntity {
   int get hashCode => Object.hash(
       runtimeType, id, qnt, const DeepCollectionEquality().hash(_modifiers));
 
-  /// Create a copy of BasketInfoRequestEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$BasketInfoRequestEntityImplCopyWith<_$BasketInfoRequestEntityImpl>
@@ -187,11 +179,8 @@ abstract class _BasketInfoRequestEntity implements BasketInfoRequestEntity {
   int get qnt;
   @override
   List<BasketModifireEntity> get modifiers;
-
-  /// Create a copy of BasketInfoRequestEntity
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$BasketInfoRequestEntityImplCopyWith<_$BasketInfoRequestEntityImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

@@ -91,7 +91,7 @@ class OtherSous extends StatelessWidget {
                   );
                 },
                 style: AppStyles.greyElevatedButton.copyWith(
-                  shape: MaterialStatePropertyAll(
+                  shape: WidgetStatePropertyAll(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),

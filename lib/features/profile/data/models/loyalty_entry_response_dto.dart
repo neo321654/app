@@ -16,5 +16,6 @@ class LoyaltyEntryResponseDto {
   final String status;
   final String message;
 
-  factory LoyaltyEntryResponseDto.fromJson(Map<String, dynamic> json) => _$LoyaltyEntryResponseDtoFromJson(json);
+  factory LoyaltyEntryResponseDto.fromJson(Map<String, dynamic> json) =>
+      _$LoyaltyEntryResponseDtoFromJson(json);
 }

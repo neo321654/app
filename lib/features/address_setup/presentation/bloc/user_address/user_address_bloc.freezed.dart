@@ -66,9 +66,6 @@ class _$UserAddressEventCopyWithImpl<$Res, $Val extends UserAddressEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of UserAddressEvent
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -85,9 +82,6 @@ class __$$GetAddressesImplCopyWithImpl<$Res>
   __$$GetAddressesImplCopyWithImpl(
       _$GetAddressesImpl _value, $Res Function(_$GetAddressesImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of UserAddressEvent
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -240,9 +234,6 @@ class _$UserAddressStateCopyWithImpl<$Res, $Val extends UserAddressState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of UserAddressState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -259,9 +250,6 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of UserAddressState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -376,9 +364,6 @@ class __$$LoadingImplCopyWithImpl<$Res>
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of UserAddressState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -496,8 +481,6 @@ class __$$SuccessImplCopyWithImpl<$Res>
       _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UserAddressState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -544,9 +527,7 @@ class _$SuccessImpl implements Success {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_addresses));
 
-  /// Create a copy of UserAddressState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
@@ -631,10 +612,7 @@ abstract class Success implements UserAddressState {
   const factory Success(final List<AddressEntity> addresses) = _$SuccessImpl;
 
   List<AddressEntity> get addresses;
-
-  /// Create a copy of UserAddressState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -656,8 +634,6 @@ class __$$ErrorStateImplCopyWithImpl<$Res>
       _$ErrorStateImpl _value, $Res Function(_$ErrorStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UserAddressState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -696,9 +672,7 @@ class _$ErrorStateImpl implements ErrorState {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  /// Create a copy of UserAddressState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ErrorStateImplCopyWith<_$ErrorStateImpl> get copyWith =>
@@ -783,10 +757,7 @@ abstract class ErrorState implements UserAddressState {
   const factory ErrorState(final String message) = _$ErrorStateImpl;
 
   String get message;
-
-  /// Create a copy of UserAddressState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$ErrorStateImplCopyWith<_$ErrorStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

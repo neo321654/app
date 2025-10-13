@@ -19,9 +19,11 @@ class GeoRepositoryImpl implements GeoRepository {
   GeoRepositoryImpl({required this.service});
 
   @override
-  Future<DataState<List<GeoSuggestionEntity>>> geoSuggestion(String city, String search) async {
+  Future<DataState<List<GeoSuggestionEntity>>> geoSuggestion(
+      String city, String search) async {
     try {
-      List<GeoSuggestionDto> geoSuggestions = await service.suggestions(GeoSuggestionRequestDto(
+      List<GeoSuggestionDto> geoSuggestions =
+          await service.suggestions(GeoSuggestionRequestDto(
         search: search,
         city: city,
       ));
@@ -49,8 +51,9 @@ class GeoRepositoryImpl implements GeoRepository {
     double lon,
   ) async {
     try {
-      GeoAvailableDto available = await service.available(GeoAvailableRequestDto(
-          coords: CoordinatesDto(
+      GeoAvailableDto available =
+          await service.available(GeoAvailableRequestDto(
+              coords: CoordinatesDto(
         lat: lat,
         lon: lon,
       )));
@@ -58,7 +61,9 @@ class GeoRepositoryImpl implements GeoRepository {
       return DataSuccess(GeoAvailableEntity(
         status: available.status,
         message: available.message,
-        filial: available.filial != null ? FilialMapper.toEntity(available.filial!) : null,
+        filial: available.filial != null
+            ? FilialMapper.toEntity(available.filial!)
+            : null,
       ));
     } on DioException catch (e) {
       if (e.response?.statusCode == 403) {

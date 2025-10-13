@@ -22,9 +22,7 @@ mixin _$EditProfileFormState {
   bool get validForm => throw _privateConstructorUsedError;
   bool get acceptLoyality => throw _privateConstructorUsedError;
 
-  /// Create a copy of EditProfileFormState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $EditProfileFormStateCopyWith<EditProfileFormState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -54,8 +52,6 @@ class _$EditProfileFormStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of EditProfileFormState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -114,8 +110,6 @@ class __$$EditProfileFormStateImplCopyWithImpl<$Res>
       $Res Function(_$EditProfileFormStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of EditProfileFormState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -202,9 +196,7 @@ class _$EditProfileFormStateImpl implements _EditProfileFormState {
   int get hashCode => Object.hash(runtimeType, nameValid, emailValid,
       birthDateValid, validForm, acceptLoyality);
 
-  /// Create a copy of EditProfileFormState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$EditProfileFormStateImplCopyWith<_$EditProfileFormStateImpl>
@@ -231,11 +223,8 @@ abstract class _EditProfileFormState implements EditProfileFormState {
   bool get validForm;
   @override
   bool get acceptLoyality;
-
-  /// Create a copy of EditProfileFormState
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$EditProfileFormStateImplCopyWith<_$EditProfileFormStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

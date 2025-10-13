@@ -105,7 +105,8 @@ class NotificationsSettingsPage extends StatelessWidget {
             height: 24,
           ),
           RoundedContainer(
-            child: BlocBuilder<NotificationSettingsBloc, NotificationSettingsState>(
+            child: BlocBuilder<NotificationSettingsBloc,
+                NotificationSettingsState>(
               builder: (context, state) {
                 return state.maybeMap(
                   success: (value) => NotificationList(

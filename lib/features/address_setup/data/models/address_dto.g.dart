@@ -26,23 +26,32 @@ AddressDto _$AddressDtoFromJson(Map<String, dynamic> json) => AddressDto(
       isDefault: json['default'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$AddressDtoToJson(AddressDto instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'title': instance.title,
-      if (instance.comment case final value?) 'comment': value,
-      if (instance.zipcode case final value?) 'zipcode': value,
-      if (instance.country case final value?) 'country': value,
-      if (instance.region case final value?) 'region': value,
-      if (instance.city case final value?) 'city': value,
-      if (instance.house case final value?) 'house': value,
-      if (instance.building case final value?) 'building': value,
-      if (instance.entrance case final value?) 'entrance': value,
-      if (instance.floor case final value?) 'floor': value,
-      if (instance.appartment case final value?) 'appartment': value,
-      if (instance.kladrId case final value?) 'kladr_id': value,
-      if (instance.uid case final value?) 'uid': value,
-      if (instance.domofon case final value?) 'domofon': value,
-      if (instance.street case final value?) 'street': value,
-      'default': instance.isDefault,
-    };
+Map<String, dynamic> _$AddressDtoToJson(AddressDto instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'title': instance.title,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('comment', instance.comment);
+  writeNotNull('zipcode', instance.zipcode);
+  writeNotNull('country', instance.country);
+  writeNotNull('region', instance.region);
+  writeNotNull('city', instance.city);
+  writeNotNull('house', instance.house);
+  writeNotNull('building', instance.building);
+  writeNotNull('entrance', instance.entrance);
+  writeNotNull('floor', instance.floor);
+  writeNotNull('appartment', instance.appartment);
+  writeNotNull('kladr_id', instance.kladrId);
+  writeNotNull('uid', instance.uid);
+  writeNotNull('domofon', instance.domofon);
+  writeNotNull('street', instance.street);
+  val['default'] = instance.isDefault;
+  return val;
+}

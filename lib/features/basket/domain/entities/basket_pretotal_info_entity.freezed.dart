@@ -19,9 +19,7 @@ mixin _$BasketPretotalnfoEntity {
   String get title => throw _privateConstructorUsedError;
   String get value => throw _privateConstructorUsedError;
 
-  /// Create a copy of BasketPretotalnfoEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $BasketPretotalnfoEntityCopyWith<BasketPretotalnfoEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -46,8 +44,6 @@ class _$BasketPretotalnfoEntityCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of BasketPretotalnfoEntity
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -89,8 +85,6 @@ class __$$BasketPretotalnfoEntityImplCopyWithImpl<$Res>
       $Res Function(_$BasketPretotalnfoEntityImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of BasketPretotalnfoEntity
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -138,9 +132,7 @@ class _$BasketPretotalnfoEntityImpl implements _BasketPretotalnfoEntity {
   @override
   int get hashCode => Object.hash(runtimeType, title, value);
 
-  /// Create a copy of BasketPretotalnfoEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$BasketPretotalnfoEntityImplCopyWith<_$BasketPretotalnfoEntityImpl>
@@ -157,11 +149,8 @@ abstract class _BasketPretotalnfoEntity implements BasketPretotalnfoEntity {
   String get title;
   @override
   String get value;
-
-  /// Create a copy of BasketPretotalnfoEntity
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$BasketPretotalnfoEntityImplCopyWith<_$BasketPretotalnfoEntityImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

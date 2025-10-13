@@ -68,7 +68,8 @@ class _TextAreaState extends State<TextArea> {
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: AppColors.darkPrimary, width: 1.0),
+                  borderSide: const BorderSide(
+                      color: AppColors.darkPrimary, width: 1.0),
                   borderRadius: BorderRadius.all(
                     Radius.circular(
                       AppStyles.btnRadius,

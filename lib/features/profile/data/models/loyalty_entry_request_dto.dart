@@ -17,7 +17,8 @@ class LoyaltyEntryRequestDto {
   final String email;
   final String birthdate;
 
-  factory LoyaltyEntryRequestDto.fromJson(Map<String, dynamic> json) => _$LoyaltyEntryRequestDtoFromJson(json);
+  factory LoyaltyEntryRequestDto.fromJson(Map<String, dynamic> json) =>
+      _$LoyaltyEntryRequestDtoFromJson(json);
 
   Map<String, dynamic> toJson() {
     return _$LoyaltyEntryRequestDtoToJson(this);

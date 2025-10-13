@@ -65,9 +65,6 @@ class _$TagsEventCopyWithImpl<$Res, $Val extends TagsEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of TagsEvent
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -84,9 +81,6 @@ class __$$GetTagsImplCopyWithImpl<$Res>
   __$$GetTagsImplCopyWithImpl(
       _$GetTagsImpl _value, $Res Function(_$GetTagsImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of TagsEvent
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -238,9 +232,6 @@ class _$TagsStateCopyWithImpl<$Res, $Val extends TagsState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of TagsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -257,9 +248,6 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of TagsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -374,9 +362,6 @@ class __$$LoadingImplCopyWithImpl<$Res>
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of TagsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -494,8 +479,6 @@ class __$$SuccessImplCopyWithImpl<$Res>
       _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of TagsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -540,9 +523,7 @@ class _$SuccessImpl implements Success {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_tags));
 
-  /// Create a copy of TagsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
@@ -627,10 +608,7 @@ abstract class Success implements TagsState {
   const factory Success(final List<TagEntity> tags) = _$SuccessImpl;
 
   List<TagEntity> get tags;
-
-  /// Create a copy of TagsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -652,8 +630,6 @@ class __$$ErrorStateImplCopyWithImpl<$Res>
       _$ErrorStateImpl _value, $Res Function(_$ErrorStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of TagsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -692,9 +668,7 @@ class _$ErrorStateImpl implements ErrorState {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  /// Create a copy of TagsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ErrorStateImplCopyWith<_$ErrorStateImpl> get copyWith =>
@@ -779,10 +753,7 @@ abstract class ErrorState implements TagsState {
   const factory ErrorState(final String message) = _$ErrorStateImpl;
 
   String get message;
-
-  /// Create a copy of TagsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$ErrorStateImplCopyWith<_$ErrorStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -22,9 +22,7 @@ mixin _$FeedbackState {
   String? get comment => throw _privateConstructorUsedError;
   List<File> get photos => throw _privateConstructorUsedError;
 
-  /// Create a copy of FeedbackState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $FeedbackStateCopyWith<FeedbackState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,8 +47,6 @@ class _$FeedbackStateCopyWithImpl<$Res, $Val extends FeedbackState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of FeedbackState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -105,8 +101,6 @@ class __$$FeedbackStateImplCopyWithImpl<$Res>
       _$FeedbackStateImpl _value, $Res Function(_$FeedbackStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of FeedbackState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -193,9 +187,7 @@ class _$FeedbackStateImpl implements _FeedbackState {
   int get hashCode => Object.hash(runtimeType, grade1, grade2, grade3, comment,
       const DeepCollectionEquality().hash(_photos));
 
-  /// Create a copy of FeedbackState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$FeedbackStateImplCopyWith<_$FeedbackStateImpl> get copyWith =>
@@ -220,11 +212,8 @@ abstract class _FeedbackState implements FeedbackState {
   String? get comment;
   @override
   List<File> get photos;
-
-  /// Create a copy of FeedbackState
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$FeedbackStateImplCopyWith<_$FeedbackStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -10,6 +10,7 @@ class SettingsEntity with _$SettingsEntity {
     FeedbackEntity? feedback,
     MonoboxEntity? monobox,
     @Default(true) bool loyalty,
+    @Default(false) bool children,
   }) = _SettingsEntity;
 }
 

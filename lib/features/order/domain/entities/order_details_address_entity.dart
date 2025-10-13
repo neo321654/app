@@ -47,6 +47,7 @@ class OrderDetailsAddressEntity extends Equatable {
     ].where((e) => e != null && e.isNotEmpty).join(', ');
     return parts.isNotEmpty ? parts : (title ?? '');
   }
+
   @override
   List<Object?> get props => [
         id,

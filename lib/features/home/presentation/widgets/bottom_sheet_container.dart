@@ -47,7 +47,9 @@ class BottomSheetContainer extends StatelessWidget {
                   ),
                 ),
                 Row(
-                  mainAxisAlignment: header != null ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
+                  mainAxisAlignment: header != null
+                      ? MainAxisAlignment.spaceBetween
+                      : MainAxisAlignment.end,
                   children: [
                     if (header != null)
                       Padding(
@@ -122,7 +124,9 @@ class BottomSheetContainer extends StatelessWidget {
                   ),
                   if (header != null)
                     Row(
-                      mainAxisAlignment: header != null ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
+                      mainAxisAlignment: header != null
+                          ? MainAxisAlignment.spaceBetween
+                          : MainAxisAlignment.end,
                       children: [
                         if (header != null)
                           Padding(

@@ -51,7 +51,8 @@ class Banners extends StatelessWidget {
                     disableCenter: true,
                     showIndicator: false,
                     enlargeStrategy: CenterPageEnlargeStrategy.height,
-                    viewportFraction: (screenWidth - 2 * horizontalPadding) / screenWidth,
+                    viewportFraction:
+                        (screenWidth - 2 * horizontalPadding) / screenWidth,
                     autoPlay: bannersCount > 1,
                     autoPlayInterval: const Duration(seconds: 5),
                   ),
@@ -64,20 +65,24 @@ class Banners extends StatelessWidget {
                               AutoRouter.of(context).push(
                                 ActionRoute(
                                   title: banner.title,
-                                  actionId: int.parse(banner.url!.split('/').last),
+                                  actionId:
+                                      int.parse(banner.url!.split('/').last),
                                 ),
                               );
                             }
                           },
                           child: Padding(
                             padding: EdgeInsets.only(
-                              left: banners.indexOf(banner) == 0 ? horizontalPadding : 0,
+                              left: banners.indexOf(banner) == 0
+                                  ? horizontalPadding
+                                  : 0,
                               right: banners.indexOf(banner) == bannersCount - 1
                                   ? horizontalPadding
                                   : bannerSpacing,
                             ),
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(AppStyles.btnRadius),
+                              borderRadius:
+                                  BorderRadius.circular(AppStyles.btnRadius),
                               child: FastCachedImage(
                                 url: banner.image,
                                 fit: BoxFit.contain,
@@ -85,10 +90,12 @@ class Banners extends StatelessWidget {
                                 height: bannerHeight,
                                 fadeInDuration: const Duration(seconds: 0),
                                 errorBuilder: (context, exception, stacktrace) {
-                                  return _bannerPlaceholder(bannerWidth, bannerHeight);
+                                  return _bannerPlaceholder(
+                                      bannerWidth, bannerHeight);
                                 },
                                 loadingBuilder: (context, progress) {
-                                  return _bannerPlaceholder(bannerWidth, bannerHeight);
+                                  return _bannerPlaceholder(
+                                      bannerWidth, bannerHeight);
                                 },
                               ),
                             ),

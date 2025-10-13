@@ -56,9 +56,7 @@ mixin _$BasketInfoEvent {
   }) =>
       throw _privateConstructorUsedError;
 
-  /// Create a copy of BasketInfoEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $BasketInfoEventCopyWith<BasketInfoEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -82,8 +80,6 @@ class _$BasketInfoEventCopyWithImpl<$Res, $Val extends BasketInfoEvent>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of BasketInfoEvent
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -122,8 +118,6 @@ class __$$GetBasketInfoImplCopyWithImpl<$Res>
       _$GetBasketInfoImpl _value, $Res Function(_$GetBasketInfoImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of BasketInfoEvent
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -180,9 +174,7 @@ class _$GetBasketInfoImpl implements _GetBasketInfo {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_request), deliveryId);
 
-  /// Create a copy of BasketInfoEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetBasketInfoImplCopyWith<_$GetBasketInfoImpl> get copyWith =>
@@ -257,11 +249,8 @@ abstract class _GetBasketInfo implements BasketInfoEvent {
   List<BasketInfoRequestEntity> get request;
   @override
   int? get deliveryId;
-
-  /// Create a copy of BasketInfoEvent
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetBasketInfoImplCopyWith<_$GetBasketInfoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -336,9 +325,6 @@ class _$BasketInfoStateCopyWithImpl<$Res, $Val extends BasketInfoState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of BasketInfoState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -355,9 +341,6 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of BasketInfoState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -472,9 +455,6 @@ class __$$LoadingImplCopyWithImpl<$Res>
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of BasketInfoState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -594,8 +574,6 @@ class __$$SuccessImplCopyWithImpl<$Res>
       _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of BasketInfoState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -609,8 +587,6 @@ class __$$SuccessImplCopyWithImpl<$Res>
     ));
   }
 
-  /// Create a copy of BasketInfoState
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $BasketInfoEntityCopyWith<$Res> get basketInfo {
@@ -645,9 +621,7 @@ class _$SuccessImpl implements _Success {
   @override
   int get hashCode => Object.hash(runtimeType, basketInfo);
 
-  /// Create a copy of BasketInfoState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
@@ -732,10 +706,7 @@ abstract class _Success implements BasketInfoState {
   const factory _Success(final BasketInfoEntity basketInfo) = _$SuccessImpl;
 
   BasketInfoEntity get basketInfo;
-
-  /// Create a copy of BasketInfoState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -757,8 +728,6 @@ class __$$ErrorImplCopyWithImpl<$Res>
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of BasketInfoState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -797,9 +766,7 @@ class _$ErrorImpl implements _Error {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  /// Create a copy of BasketInfoState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
@@ -884,10 +851,7 @@ abstract class _Error implements BasketInfoState {
   const factory _Error(final String message) = _$ErrorImpl;
 
   String get message;
-
-  /// Create a copy of BasketInfoState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

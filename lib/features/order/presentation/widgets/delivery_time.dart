@@ -23,14 +23,16 @@ class DeliveryTime extends StatelessWidget {
         header: BlocBuilder<CreateOrderStateCubit, CreateOrderState>(
           builder: (context, state) {
             return Text(
-              state.delivery?.type == 'delivery' ? 'Время доставки' : 'Получение',
+              state.delivery?.type == 'delivery'
+                  ? 'Время доставки'
+                  : 'Получение',
               style: AppStyles.headline,
             );
           },
         ),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             BlocBuilder<CreateOrderStateCubit, CreateOrderState>(
@@ -42,12 +44,14 @@ class DeliveryTime extends StatelessWidget {
                   ],
                   selectedIndex: state.deliveryTimeTypeIndex ?? 0,
                   onTap: (int itemIndex) {
-                    context.read<CreateOrderStateCubit>().setDeliveryTimeTypeIndex(itemIndex);
+                    context
+                        .read<CreateOrderStateCubit>()
+                        .setDeliveryTimeTypeIndex(itemIndex);
                   },
                 );
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             BlocBuilder<CreateOrderStateCubit, CreateOrderState>(

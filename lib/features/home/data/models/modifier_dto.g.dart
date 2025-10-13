@@ -20,14 +20,23 @@ ModifierDto _$ModifierDtoFromJson(Map<String, dynamic> json) => ModifierDto(
       isHalfPizza: json['is_half_pizza'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$ModifierDtoToJson(ModifierDto instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'title': instance.title,
-      if (instance.type case final value?) 'type': value,
-      'items': instance.items,
-      if (instance.minQuantity case final value?) 'min_quantity': value,
-      if (instance.maxQuantity case final value?) 'max_quantity': value,
-      if (instance.weight case final value?) 'weight': value,
-      'is_half_pizza': instance.isHalfPizza,
-    };
+Map<String, dynamic> _$ModifierDtoToJson(ModifierDto instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'title': instance.title,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('type', instance.type);
+  val['items'] = instance.items;
+  writeNotNull('min_quantity', instance.minQuantity);
+  writeNotNull('max_quantity', instance.maxQuantity);
+  writeNotNull('weight', instance.weight);
+  val['is_half_pizza'] = instance.isHalfPizza;
+  return val;
+}

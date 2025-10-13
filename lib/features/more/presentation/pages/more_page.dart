@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:monobox/injection_container.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../config/routes/app_router.dart';
@@ -14,7 +13,8 @@ import '../../../../config/themes/colors.dart';
 import '../../../../config/themes/styles.dart';
 import '../../../../core/widgets/rounded_container.dart';
 import '../../../home/presentation/bloc/settings/settings_bloc.dart';
-import '../../../profile/presentation/models/profile_item.dart' as profile_item_model;
+import '../../../profile/presentation/models/profile_item.dart'
+    as profile_item_model;
 import '../../../profile/presentation/widgets/profile_item.dart';
 import '../widgets/social_networks.dart';
 
@@ -67,7 +67,10 @@ class MorePage extends StatelessWidget {
                     return ProfileItem(
                       icon: _prfileItems[index].icon,
                       text: _prfileItems[index].text,
-                      onTap: (BuildContext context) => _prfileItems[index].onTap != null ? _prfileItems[index].onTap!(context) : null,
+                      onTap: (BuildContext context) =>
+                          _prfileItems[index].onTap != null
+                              ? _prfileItems[index].onTap!(context)
+                              : null,
                     );
                   },
                   separatorBuilder: (context, index) {
@@ -103,11 +106,16 @@ class MorePage extends StatelessWidget {
                                   title: Text(
                                     'Вызов +${(settings.feedback?.phone ?? "")}',
                                     style: AppStyles.bodyRegular.copyWith(
-                                      color: !Platform.isIOS ? AppColors.black : const Color(0xFF007AFF),
+                                      color: !Platform.isIOS
+                                          ? AppColors.black
+                                          : const Color(0xFF007AFF),
                                     ),
                                   ),
                                   onPressed: (context) async {
-                                    Uri phoneno = Uri(scheme: 'tel', path: '+${(settings.feedback?.phone ?? "")}');
+                                    Uri phoneno = Uri(
+                                        scheme: 'tel',
+                                        path:
+                                            '+${(settings.feedback?.phone ?? "")}');
 
                                     if (await canLaunchUrl(phoneno)) {
                                       await launchUrl(phoneno);
@@ -121,12 +129,18 @@ class MorePage extends StatelessWidget {
                                   title: Text(
                                     'Написать в BK',
                                     style: AppStyles.bodyRegular.copyWith(
-                                      color: !Platform.isIOS ? AppColors.black : const Color(0xFF007AFF),
+                                      color: !Platform.isIOS
+                                          ? AppColors.black
+                                          : const Color(0xFF007AFF),
                                     ),
                                   ),
                                   onPressed: (context) async {
-                                    String urlString = settings.feedback?.vk ?? '';
-                                    if (Uri.tryParse(urlString)?.scheme.isEmpty ?? true) {
+                                    String urlString =
+                                        settings.feedback?.vk ?? '';
+                                    if (Uri.tryParse(urlString)
+                                            ?.scheme
+                                            .isEmpty ??
+                                        true) {
                                       urlString = 'https://$urlString';
                                     }
                                     Uri link = Uri.parse(urlString);
@@ -142,12 +156,18 @@ class MorePage extends StatelessWidget {
                                   title: Text(
                                     'Написать в WhatsApp',
                                     style: AppStyles.bodyRegular.copyWith(
-                                      color: !Platform.isIOS ? AppColors.black : const Color(0xFF007AFF),
+                                      color: !Platform.isIOS
+                                          ? AppColors.black
+                                          : const Color(0xFF007AFF),
                                     ),
                                   ),
                                   onPressed: (context) async {
-                                    String urlString = settings.feedback?.wa ?? '';
-                                    if (Uri.tryParse(urlString)?.scheme.isEmpty ?? true) {
+                                    String urlString =
+                                        settings.feedback?.wa ?? '';
+                                    if (Uri.tryParse(urlString)
+                                            ?.scheme
+                                            .isEmpty ??
+                                        true) {
                                       urlString = 'https://$urlString';
                                     }
                                     Uri link = Uri.parse(urlString);
@@ -163,12 +183,18 @@ class MorePage extends StatelessWidget {
                                   title: Text(
                                     'Написать в Telegram',
                                     style: AppStyles.bodyRegular.copyWith(
-                                      color: !Platform.isIOS ? AppColors.black : const Color(0xFF007AFF),
+                                      color: !Platform.isIOS
+                                          ? AppColors.black
+                                          : const Color(0xFF007AFF),
                                     ),
                                   ),
                                   onPressed: (context) async {
-                                    String urlString = settings.feedback?.tg ?? '';
-                                    if (Uri.tryParse(urlString)?.scheme.isEmpty ?? true) {
+                                    String urlString =
+                                        settings.feedback?.tg ?? '';
+                                    if (Uri.tryParse(urlString)
+                                            ?.scheme
+                                            .isEmpty ??
+                                        true) {
                                       urlString = 'https://$urlString';
                                     }
                                     Uri link = Uri.parse(urlString);
@@ -276,7 +302,8 @@ class MorePage extends StatelessWidget {
             onTap: () async {
               final settingsState = context.read<SettingsBloc>();
               if (settingsState.state is Success) {
-                String linkString = (settingsState.state as Success).settings.monobox!.link!;
+                String linkString =
+                    (settingsState.state as Success).settings.monobox!.link!;
                 Uri url = Uri.parse(linkString);
                 if (url.scheme.isEmpty) {
                   linkString = 'https://$linkString';

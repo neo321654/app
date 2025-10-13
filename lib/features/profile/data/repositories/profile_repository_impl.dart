@@ -47,12 +47,15 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }
 
   @override
-  Future<DataState<UserEntity>> editProfile(EditUserEntity editUserEntity) async {
+  Future<DataState<UserEntity>> editProfile(
+      EditUserEntity editUserEntity) async {
     try {
       UserDto profile = await service.editProfile(EditUserDto(
         name: editUserEntity.name,
         email: editUserEntity.email,
-        birthdate: editUserEntity.birthdate != null ? DateFormat('dd.MM.yyyy').format(editUserEntity.birthdate!) : null,
+        birthdate: editUserEntity.birthdate != null
+            ? DateFormat('dd.MM.yyyy').format(editUserEntity.birthdate!)
+            : null,
       ));
 
       return DataSuccess(
@@ -117,7 +120,8 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }
 
   @override
-  Future<DataState<ChildEntity>> addChild(AddChildRequestEntity addChildRequestEntity) async {
+  Future<DataState<ChildEntity>> addChild(
+      AddChildRequestEntity addChildRequestEntity) async {
     try {
       ChildDto child = await service.addChild(
         AddChildRequestDto(
@@ -161,7 +165,8 @@ class ProfileRepositoryImpl implements ProfileRepository {
   @override
   Future<DataState<List<NotificationEntity>>> getNotificationsSettings() async {
     try {
-      List<NotificationDto> notifications = await service.getNotificationsSettings();
+      List<NotificationDto> notifications =
+          await service.getNotificationsSettings();
 
       return DataSuccess(
         NotificationMapper.toEntities(notifications),
@@ -177,9 +182,11 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }
 
   @override
-  Future<DataState<NotificationItemEntity>> changeNotificationStatus(NotificationStatusEntity status) async {
+  Future<DataState<NotificationItemEntity>> changeNotificationStatus(
+      NotificationStatusEntity status) async {
     try {
-      NotificationItemDto notificationItem = await service.changeNotificationStatus(
+      NotificationItemDto notificationItem =
+          await service.changeNotificationStatus(
         status.id,
         NotificationStatusDto(
           status: status.status,

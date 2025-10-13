@@ -29,14 +29,15 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       //=> _rowHeight.value = _rowKey.currentContext.size.height
-      if (_rowKey.currentContext!.size!.height > (MediaQuery.of(context).size.height * .9)) {
+      if (_rowKey.currentContext!.size!.height >
+          (MediaQuery.of(context).size.height * .9)) {
         setState(() {
           useHeightFactor = true;
         });
       }
-      print('height =' + _rowKey.currentContext!.size!.height.toString());
-      print('height = 2 ' + (MediaQuery.of(context).size.width * .8).toString());
-      print('height = useHeightFactor ' + useHeightFactor.toString());
+      print('height =${_rowKey.currentContext!.size!.height}');
+      print('height = 2 ${MediaQuery.of(context).size.width * .8}');
+      print('height = useHeightFactor $useHeightFactor');
     });
   }
 
@@ -61,7 +62,9 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Row(
-              mainAxisAlignment: widget.header != null ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
+              mainAxisAlignment: widget.header != null
+                  ? MainAxisAlignment.spaceBetween
+                  : MainAxisAlignment.end,
               children: [
                 if (widget.header != null) widget.header!,
                 GestureDetector(
@@ -261,7 +264,9 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
               ),
             ),
             Row(
-              mainAxisAlignment: widget.header != null ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
+              mainAxisAlignment: widget.header != null
+                  ? MainAxisAlignment.spaceBetween
+                  : MainAxisAlignment.end,
               children: [
                 if (widget.header != null)
                   Padding(

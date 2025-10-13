@@ -8,8 +8,12 @@ class AddressSuggestionMapper {
   ) {
     return GeolocateAddressEntity(
       value: addressSuggestion.value,
-      lat: addressSuggestion.data?.geoLat?.isNotEmpty == true ? double.parse(addressSuggestion.data!.geoLat!) : null,
-      lon: addressSuggestion.data?.geoLon?.isNotEmpty == true ? double.parse(addressSuggestion.data!.geoLon!) : null,
+      lat: addressSuggestion.data?.geoLat?.isNotEmpty == true
+          ? double.parse(addressSuggestion.data!.geoLat!)
+          : null,
+      lon: addressSuggestion.data?.geoLon?.isNotEmpty == true
+          ? double.parse(addressSuggestion.data!.geoLon!)
+          : null,
       city: addressSuggestion.data?.city,
       house: addressSuggestion.data?.house,
       street: addressSuggestion.data?.street,

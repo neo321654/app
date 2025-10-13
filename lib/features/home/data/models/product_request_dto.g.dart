@@ -14,8 +14,16 @@ ProductRequestDto _$ProductRequestDtoFromJson(Map<String, dynamic> json) =>
           : FilterDto.fromJson(json['filters'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$ProductRequestDtoToJson(ProductRequestDto instance) =>
-    <String, dynamic>{
-      if (instance.search case final value?) 'search': value,
-      if (instance.filters case final value?) 'filters': value,
-    };
+Map<String, dynamic> _$ProductRequestDtoToJson(ProductRequestDto instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('search', instance.search);
+  writeNotNull('filters', instance.filters);
+  return val;
+}

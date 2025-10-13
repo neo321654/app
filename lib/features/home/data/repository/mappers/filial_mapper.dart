@@ -4,10 +4,11 @@ import '../../models/filial_dto.dart';
 class FilialMapper {
   static ShopEntity toEntity(FilialDto model) {
     final List<String> workTime = model.rezhim?.map((rezhimMap) {
-      final days = rezhimMap['days'] as String? ?? '';
-      final time = rezhimMap['time'] as String? ?? '';
-      return '$days $time';
-    }).toList() ?? [];
+          final days = rezhimMap['days'] as String? ?? '';
+          final time = rezhimMap['time'] as String? ?? '';
+          return '$days $time';
+        }).toList() ??
+        [];
 
     return ShopEntity(
       id: model.id,

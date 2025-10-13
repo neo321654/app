@@ -28,7 +28,9 @@ class PositionRetainedScrollPhysics extends ScrollPhysics {
 
     final diff = newPosition.maxScrollExtent - oldPosition.maxScrollExtent;
 
-    if (oldPosition.pixels > oldPosition.minScrollExtent && diff > 0 && shouldRetain) {
+    if (oldPosition.pixels > oldPosition.minScrollExtent &&
+        diff > 0 &&
+        shouldRetain) {
       return position + diff;
     } else {
       return position;

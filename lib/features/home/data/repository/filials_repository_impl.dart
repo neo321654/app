@@ -45,9 +45,11 @@ class FilialsRepositoryImpl extends FilialsRepository {
   }
 
   @override
-  Future<DataState<List<ShopEntity>>> searchFilials(FilialsSearchRequesEntity request) async {
+  Future<DataState<List<ShopEntity>>> searchFilials(
+      FilialsSearchRequesEntity request) async {
     try {
-      List<FilialDto> filials = await service.searchFilials(FilialsSearchRequestDto(
+      List<FilialDto> filials =
+          await service.searchFilials(FilialsSearchRequestDto(
         cityId: request.cityId,
         address: request.address,
         coordinates: request.coordinates != null

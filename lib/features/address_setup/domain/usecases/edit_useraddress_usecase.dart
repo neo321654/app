@@ -4,7 +4,8 @@ import '../../../../core/resources/data_state.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../repository/address_repository.dart';
 
-class EditUserAddressesUsecase implements UseCase<DataState<void>, AddressEntity?> {
+class EditUserAddressesUsecase
+    implements UseCase<DataState<void>, AddressEntity?> {
   final AddressRepository repository;
 
   EditUserAddressesUsecase({required this.repository});

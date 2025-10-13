@@ -21,7 +21,8 @@ class AuthorizationInterceptor extends Interceptor {
     //options.headers['Authorization'] = 'Bearer bullram_token';
     // options.headers['X-Company'] =
     //     'cJT7s3JST1ZZiys9hvb5K!H0MLvf=7Karaj5mREFuwSz2?4qavpPh0SzSGkAM/pDvU45cbuzGZJGwXSm7SpA7XCMmlLbsgXLv4/c9qZ4ktPx5ge1jQqRlcCOwIStz8eOxUPObVvkWoFC76bp-7-Xkf';
-    options.headers['X-Company'] = 'vwB1upps8YgnUtjZRTVbWLCegEhnRHgAEGhCAGIRA8PC8X0AURyMkM8jxu7V';
+    options.headers['X-Company'] =
+        'vwB1upps8YgnUtjZRTVbWLCegEhnRHgAEGhCAGIRA8PC8X0AURyMkM8jxu7V';
     //options.headers['X-Company'] = 'Fw30rfZhjp4NCzfijq2DLGWodTN49g3VjXFQn61rVPp9RmUfrjd4kKr7PXFp';
     return handler.next(options);
   }

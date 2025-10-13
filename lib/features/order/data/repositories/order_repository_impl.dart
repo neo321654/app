@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:decimal/decimal.dart';
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
@@ -39,8 +37,8 @@ class OrderRepositoryImpl implements OrderRepository {
 
   @override
   Future<DataState<OrderCreatedEntity>?> createOrder(
-      OrderCreateEntity orderEntity,
-      ) async {
+    OrderCreateEntity orderEntity,
+  ) async {
     try {
       final orderDto = OrderMapper.toModel(orderEntity);
       OrderCreateResponseDto orderCreated = await service.create(orderDto);
@@ -79,7 +77,7 @@ class OrderRepositoryImpl implements OrderRepository {
                     title: p.title,
                     subtitle: p.subtitle,
                     active: p.active,
-                    date: p.date??'',
+                    date: p.date ?? '',
                   ))
               .toList(),
           products: order.products
@@ -127,7 +125,8 @@ class OrderRepositoryImpl implements OrderRepository {
             number: order.number,
             status: order.status,
             totalPrice: Decimal.parse(order.totalPrice.toString()),
-            createdAt: DateFormat('dd.MM.yyyy HH:mm').parse(order.createdAt, true),
+            createdAt:
+                DateFormat('dd.MM.yyyy HH:mm').parse(order.createdAt, true),
             needReview: order.needReview,
             products: order.products
                 .map((p) => OrderProductEntity(
@@ -146,7 +145,8 @@ class OrderRepositoryImpl implements OrderRepository {
   }
 
   @override
-  Future<DataState<List<ProductEntity>>> getGifts(OrderCreateEntity orderEntity) async {
+  Future<DataState<List<ProductEntity>>> getGifts(
+      OrderCreateEntity orderEntity) async {
     GiftsDto gifts = await service.gifts(
       OrderMapper.toModel(
         orderEntity,
@@ -159,7 +159,8 @@ class OrderRepositoryImpl implements OrderRepository {
   }
 
   @override
-  Future<DataState<List<UpsaleEntity>>> getUpsales(UpsaleRequestEntity upsaleRequest) async {
+  Future<DataState<List<UpsaleEntity>>> getUpsales(
+      UpsaleRequestEntity upsaleRequest) async {
     List<UpsalesDto> upsales = await service.upsale(
       UpsaleRequestDto(
         types: upsaleRequest.types,

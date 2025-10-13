@@ -16,9 +16,9 @@ class AddChild extends StatefulWidget {
   final VoidCallback? onChildAdded;
 
   const AddChild({
-    Key? key,
+    super.key,
     this.onChildAdded,
-  }) : super(key: key);
+  });
 
   @override
   State<AddChild> createState() => _ChildItemState();
@@ -34,7 +34,8 @@ class _ChildItemState extends State<AddChild> {
   void initState() {
     addChildFormCubit = AddChildFormCubit();
 
-    birthdateTextController = TextEditingController()..addListener(_validateBirthdate);
+    birthdateTextController = TextEditingController()
+      ..addListener(_validateBirthdate);
     nameTextController = TextEditingController()..addListener(_validateName);
     super.initState();
   }
@@ -92,12 +93,14 @@ class _ChildItemState extends State<AddChild> {
                   locale: const Locale("ru"),
                   context: context,
                   initialDate: DateTime.now(),
-                  firstDate: DateTime(1900), //DateTime.now() - not to allow to choose before today.
+                  firstDate: DateTime(
+                      1900), //DateTime.now() - not to allow to choose before today.
                   lastDate: DateTime.now(),
                 );
 
                 if (pickedDate != null) {
-                  String formattedDate = DateFormat('dd.MM.yyyy').format(pickedDate);
+                  String formattedDate =
+                      DateFormat('dd.MM.yyyy').format(pickedDate);
                   setState(() {
                     birthdateTextController.text = formattedDate;
 
@@ -119,20 +122,23 @@ class _ChildItemState extends State<AddChild> {
                   return BlocBuilder<AddChildFormCubit, AddChildFormState>(
                     builder: (context, state) {
                       return ElevatedButton(
-                        onPressed: state.nameValid && state.birthDateValid && addChildState is! Loading
+                        onPressed: state.nameValid &&
+                                state.birthDateValid &&
+                                addChildState is! Loading
                             ? () {
-                          context.read<AddChildBloc>().add(
-                            AddChildEvent.add(
-                              AddChildRequestEntity(
-                                name: nameTextController.text,
-                                birthdate: DateFormat('dd.MM.yyyy').parse(
-                                  birthdateTextController.text,
-                                ),
-                              ),
-                            ),
-                          );
-                          widget.onChildAdded?.call();
-                        }
+                                context.read<AddChildBloc>().add(
+                                      AddChildEvent.add(
+                                        AddChildRequestEntity(
+                                          name: nameTextController.text,
+                                          birthdate:
+                                              DateFormat('dd.MM.yyyy').parse(
+                                            birthdateTextController.text,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                widget.onChildAdded?.call();
+                              }
                             : null,
                         child: addChildState.maybeMap(
                           loading: (value) => const SizedBox(

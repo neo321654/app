@@ -17,13 +17,22 @@ ModifierItemDto _$ModifierItemDtoFromJson(Map<String, dynamic> json) =>
       weight: json['weight'] as String?,
     );
 
-Map<String, dynamic> _$ModifierItemDtoToJson(ModifierItemDto instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'title': instance.title,
-      if (instance.price case final value?) 'price': value,
-      if (instance.minQuantity case final value?) 'min_quantity': value,
-      if (instance.maxQuantity case final value?) 'max_quantity': value,
-      if (instance.picture case final value?) 'picture': value,
-      if (instance.weight case final value?) 'weight': value,
-    };
+Map<String, dynamic> _$ModifierItemDtoToJson(ModifierItemDto instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'title': instance.title,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('price', instance.price);
+  writeNotNull('min_quantity', instance.minQuantity);
+  writeNotNull('max_quantity', instance.maxQuantity);
+  writeNotNull('picture', instance.picture);
+  writeNotNull('weight', instance.weight);
+  return val;
+}

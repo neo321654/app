@@ -42,7 +42,10 @@ class Promocode extends StatelessWidget {
                 promocodeState.maybeWhen(
                   success: (_) {
                     context.read<BasketBloc>().add(SetPromo(
-                          promo: (state is BasketLoaded && (state.basket.promocode == null || state.basket.promocode?.isEmpty == true)) ? controller.text : '',
+                          promo: ((state.basket.promocode == null ||
+                                  state.basket.promocode?.isEmpty == true))
+                              ? controller.text
+                              : '',
                         ));
 
                     // if (state is BasketLoaded && state.basket.promocode?.isNotEmpty == true) {
@@ -63,9 +66,13 @@ class Promocode extends StatelessWidget {
                       Expanded(
                         child: InputText(
                           controller: controller,
-                          hintText:
-                              (state is BasketLoaded && (state.basket.promocode == null || state.basket.promocode?.isEmpty == true)) ? 'Введите промокод' : (state as BasketLoaded).basket.promocode,
-                          readOnly: (state is BasketLoaded && state.basket.promocode?.isNotEmpty == true),
+                          hintText: (state is BasketLoaded &&
+                                  (state.basket.promocode == null ||
+                                      state.basket.promocode?.isEmpty == true))
+                              ? 'Введите промокод'
+                              : (state as BasketLoaded).basket.promocode,
+                          readOnly:
+                              (state.basket.promocode?.isNotEmpty == true),
                           height: 46,
                         ),
                       ),
@@ -80,17 +87,27 @@ class Promocode extends StatelessWidget {
                             return ElevatedButton(
                               onPressed: promocodeState.maybeWhen(
                                 orElse: () => () {
-                                  if (state is BasketLoaded && state.basket.promocode?.isNotEmpty == true) {
-                                    context
-                                        .read<BasketBloc>()
-                                        .add(SetPromo(promo: (state is BasketLoaded && (state.basket.promocode == null || state.basket.promocode?.isEmpty == true)) ? controller.text : ''));
+                                  if (state.basket.promocode?.isNotEmpty ==
+                                      true) {
+                                    context.read<BasketBloc>().add(SetPromo(
+                                        promo:
+                                            ((state.basket.promocode == null ||
+                                                    state.basket.promocode
+                                                            ?.isEmpty ==
+                                                        true))
+                                                ? controller.text
+                                                : ''));
 
-                                    if (state is BasketLoaded && state.basket.promocode?.isNotEmpty == true) {
+                                    if (state.basket.promocode?.isNotEmpty ==
+                                        true) {
                                       controller.setText('');
                                     }
-                                    getIt<PromocodeBloc>().emit(PromocodeState.initial());
+                                    getIt<PromocodeBloc>()
+                                        .emit(const PromocodeState.initial());
                                   } else if (controller.text.isNotEmpty) {
-                                    getIt<PromocodeBloc>().add(PromocodeEvent.getPromocode(controller.text));
+                                    getIt<PromocodeBloc>().add(
+                                        PromocodeEvent.getPromocode(
+                                            controller.text));
                                     // context
                                     //     .read<BasketBloc>()
                                     //     .add(SetPromo(promo: (state is BasketLoaded && (state.basket.promocode == null || state.basket.promocode?.isEmpty == true)) ? controller.text : ''));
@@ -103,9 +120,17 @@ class Promocode extends StatelessWidget {
                               ),
                               style: AppStyles.greyElevatedButton,
                               child: Text(
-                                (state is BasketLoaded && (state.basket.promocode == null || state.basket.promocode?.isEmpty == true)) ? 'Ввести' : 'Отменить',
+                                ((state.basket.promocode == null ||
+                                        state.basket.promocode?.isEmpty ==
+                                            true))
+                                    ? 'Ввести'
+                                    : 'Отменить',
                                 style: AppStyles.footnoteBold.copyWith(
-                                  color: (state is BasketLoaded && (state.basket.promocode == null || state.basket.promocode?.isEmpty == true)) ? AppColors.darkPrimary : AppColors.darkGray,
+                                  color: ((state.basket.promocode == null ||
+                                          state.basket.promocode?.isEmpty ==
+                                              true))
+                                      ? AppColors.darkPrimary
+                                      : AppColors.darkGray,
                                   height: 18 / 13,
                                 ),
                               ),
@@ -129,7 +154,8 @@ class Promocode extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             promocodeState.maybeWhen(
-                              success: (promocodeInfo) => promocodeInfo.message ?? promocodeInfo.code,
+                              success: (promocodeInfo) =>
+                                  promocodeInfo.message ?? promocodeInfo.code,
                               error: (error) => error.message,
                               orElse: () => '',
                             ),

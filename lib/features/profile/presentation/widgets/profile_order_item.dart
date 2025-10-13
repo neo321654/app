@@ -172,7 +172,9 @@ class ProfileOrderItem extends StatelessWidget {
                               ))
                           .toList();
                       if (!context.mounted) return;
-                      context.router.parent<TabsRouter>()?.navigate(const BasketRoute());
+                      context.router
+                          .parent<TabsRouter>()
+                          ?.navigate(const BasketRoute());
                     }
                   },
                   child: Center(

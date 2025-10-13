@@ -102,7 +102,8 @@ class GiftItem extends StatelessWidget {
                 height: 29,
                 child: ElevatedButton(
                   onPressed: () {
-                    basketBloc.chooseGift(basketBloc.giftIsInBasket(product) ? null : product);
+                    basketBloc.chooseGift(
+                        basketBloc.giftIsInBasket(product) ? null : product);
                     // if (basketBloc.giftIsInBasket(product)) {
                     //   basketBloc.add(RemoveGift(product));
                     // } else {
@@ -115,7 +116,9 @@ class GiftItem extends StatelessWidget {
                     width: double.infinity,
                     child: Center(
                       child: Text(
-                        basketBloc.giftIsInBasket(product) ? 'Убрать' : 'Выбрать',
+                        basketBloc.giftIsInBasket(product)
+                            ? 'Убрать'
+                            : 'Выбрать',
                         style: AppStyles.footnoteBold.copyWith(
                           color: AppColors.darkPrimary,
                           height: 1,

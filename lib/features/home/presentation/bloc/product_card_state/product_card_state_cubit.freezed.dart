@@ -19,9 +19,7 @@ mixin _$ProductCardStateState {
   ProductEntity get product => throw _privateConstructorUsedError;
   Map<int, int> get selectedQuantities => throw _privateConstructorUsedError;
 
-  /// Create a copy of ProductCardStateState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $ProductCardStateStateCopyWith<ProductCardStateState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -46,8 +44,6 @@ class _$ProductCardStateStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of ProductCardStateState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -88,8 +84,6 @@ class __$$ProductCardStateStateImplCopyWithImpl<$Res>
       $Res Function(_$ProductCardStateStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ProductCardStateState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -148,9 +142,7 @@ class _$ProductCardStateStateImpl implements _ProductCardStateState {
   int get hashCode => Object.hash(runtimeType, product,
       const DeepCollectionEquality().hash(_selectedQuantities));
 
-  /// Create a copy of ProductCardStateState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ProductCardStateStateImplCopyWith<_$ProductCardStateStateImpl>
@@ -167,11 +159,8 @@ abstract class _ProductCardStateState implements ProductCardStateState {
   ProductEntity get product;
   @override
   Map<int, int> get selectedQuantities;
-
-  /// Create a copy of ProductCardStateState
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$ProductCardStateStateImplCopyWith<_$ProductCardStateStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

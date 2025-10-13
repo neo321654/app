@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:monobox/config/routes/app_router.dart';
 import '../../../../config/themes/colors.dart';
 import '../../../../config/themes/styles.dart';
 import '../../../../injection_container.dart';
@@ -10,7 +9,6 @@ import '../bloc/childrens/childrens_bloc.dart';
 import '../widgets/childrens_list.dart';
 import '../widgets/rules_link.dart';
 import '../widgets/add_child.dart';
-import '../bloc/add_child/add_child_bloc.dart';
 
 @RoutePage()
 class ChildrensPage extends StatelessWidget {
@@ -92,7 +90,8 @@ class ChildrensPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(
-          value: getIt<ChildrensBloc>()..add(const ChildrensEvent.loadChildrens()),
+          value: getIt<ChildrensBloc>()
+            ..add(const ChildrensEvent.loadChildrens()),
         ),
       ],
       child: BlocConsumer<ChildrensBloc, ChildrensState>(
@@ -110,7 +109,8 @@ class ChildrensPage extends StatelessWidget {
                   builder: (context, setState) {
                     return SingleChildScrollView(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 20),
                         child: AddChild(
                           key: UniqueKey(),
                           onChildAdded: () {
@@ -125,8 +125,7 @@ class ChildrensPage extends StatelessWidget {
                     );
                   },
                 );
-              }
-              else {
+              } else {
                 return SingleChildScrollView(
                   child: Column(
                     children: [

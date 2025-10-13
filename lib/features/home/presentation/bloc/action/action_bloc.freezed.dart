@@ -50,9 +50,7 @@ mixin _$ActionEvent {
   }) =>
       throw _privateConstructorUsedError;
 
-  /// Create a copy of ActionEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $ActionEventCopyWith<ActionEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -76,8 +74,6 @@ class _$ActionEventCopyWithImpl<$Res, $Val extends ActionEvent>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of ActionEvent
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -111,8 +107,6 @@ class __$$GetActionImplCopyWithImpl<$Res>
       _$GetActionImpl _value, $Res Function(_$GetActionImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ActionEvent
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -151,9 +145,7 @@ class _$GetActionImpl implements _GetAction {
   @override
   int get hashCode => Object.hash(runtimeType, id);
 
-  /// Create a copy of ActionEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetActionImplCopyWith<_$GetActionImpl> get copyWith =>
@@ -221,11 +213,8 @@ abstract class _GetAction implements ActionEvent {
 
   @override
   int get id;
-
-  /// Create a copy of ActionEvent
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetActionImplCopyWith<_$GetActionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -300,9 +289,6 @@ class _$ActionStateCopyWithImpl<$Res, $Val extends ActionState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of ActionState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -319,9 +305,6 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of ActionState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -436,9 +419,6 @@ class __$$LoadingImplCopyWithImpl<$Res>
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of ActionState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -556,8 +536,6 @@ class __$$SuccessImplCopyWithImpl<$Res>
       _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ActionState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -596,9 +574,7 @@ class _$SuccessImpl implements _Success {
   @override
   int get hashCode => Object.hash(runtimeType, action);
 
-  /// Create a copy of ActionState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
@@ -683,10 +659,7 @@ abstract class _Success implements ActionState {
   const factory _Success(final ActionEntity action) = _$SuccessImpl;
 
   ActionEntity get action;
-
-  /// Create a copy of ActionState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -708,8 +681,6 @@ class __$$ErrorStateImplCopyWithImpl<$Res>
       _$ErrorStateImpl _value, $Res Function(_$ErrorStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ActionState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -748,9 +719,7 @@ class _$ErrorStateImpl implements _ErrorState {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  /// Create a copy of ActionState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ErrorStateImplCopyWith<_$ErrorStateImpl> get copyWith =>
@@ -835,10 +804,7 @@ abstract class _ErrorState implements ActionState {
   const factory _ErrorState(final String message) = _$ErrorStateImpl;
 
   String get message;
-
-  /// Create a copy of ActionState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$ErrorStateImplCopyWith<_$ErrorStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

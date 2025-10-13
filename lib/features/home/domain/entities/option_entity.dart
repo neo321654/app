@@ -41,18 +41,18 @@ class ProductOptionEntity extends Equatable {
   }
 
   Map<String, dynamic> toJson() => {
-    'id': id,
-    'qnt': quantity,
-  };
+        'id': id,
+        'qnt': quantity,
+      };
 
   @override
   List<Object?> get props => [
-    id,
-    name,
-    description,
-    image,
-    price,
-    unit,
-    quantity,
-  ];
+        id,
+        name,
+        description,
+        image,
+        price,
+        unit,
+        quantity,
+      ];
 }
