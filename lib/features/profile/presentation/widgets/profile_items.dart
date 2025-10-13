@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:monobox/features/address_setup/presentation/bloc/user_address/user_address_bloc.dart';
+import 'package:monobox/features/home/domain/entities/settings_entity.dart';
 
 import 'package:monobox/features/profile/presentation/widgets/my_address.dart';
 
@@ -15,7 +16,9 @@ import 'add_children.dart';
 import 'profile_item.dart';
 
 class ProfileItems extends StatelessWidget {
-  ProfileItems({super.key});
+  final SettingsEntity? settings;
+
+  ProfileItems({super.key, required this.settings});
 
   @override
   Widget build(BuildContext context) {
@@ -69,8 +72,7 @@ class ProfileItems extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (BuildContext context, int index) {
-              // Фильтруем элементы, исключая "Добавить ребёнка" если пользователь закрыл информационное сообщение
-              final filteredItems = _getFilteredItems();
+              final filteredItems = _getFilteredItems(settings);
               if (index >= filteredItems.length) return const SizedBox.shrink();
 
               return ProfileItem(
@@ -90,9 +92,10 @@ class ProfileItems extends StatelessWidget {
               );
             },
             separatorBuilder: (context, index) {
-              final filteredItems = _getFilteredItems();
-              if (index >= filteredItems.length - 1)
+              final filteredItems = _getFilteredItems(settings);
+              if (index >= filteredItems.length - 1) {
                 return const SizedBox.shrink();
+              }
 
               return Container(
                 height: 20,
@@ -106,19 +109,22 @@ class ProfileItems extends StatelessWidget {
                 ),
               );
             },
-            itemCount: _getFilteredItems().length,
+            itemCount: _getFilteredItems(settings).length,
           ),
         ],
       ),
     );
   }
 
-  List<profile_item_model.ProfileItem> _getFilteredItems() {
+  List<profile_item_model.ProfileItem> _getFilteredItems(
+      SettingsEntity? settings) {
     final store = getIt<Store>();
-    final isChildrenClosed = store.isClosedAboutChildren();
+    final isChildrenClosedLocally = store.isClosedAboutChildren();
 
-    if (isChildrenClosed) {
-      // Исключаем элемент "Добавить ребёнка" из списка
+    // Условие для скрытия: false от сервера ИЛИ если пользователь закрыл блок локально.
+    final bool hideBasedOnServer = settings != null && !settings.children;
+
+    if (hideBasedOnServer || isChildrenClosedLocally) {
       return _prfileItems
           .where((item) => item.text != 'Добавить ребёнка')
           .toList();

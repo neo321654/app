@@ -236,7 +236,14 @@ class AuthProfile extends StatelessWidget {
             // SizedBox(
             //   height: 32,
             // ),
-            ProfileItems(),
+            BlocBuilder<SettingsBloc, SettingsState>(
+              builder: (context, state) {
+                return state.maybeWhen(
+                  success: (settings) => ProfileItems(settings: settings),
+                  orElse: () => ProfileItems(settings: null),
+                );
+              },
+            ),
             const SizedBox(
               height: 16,
             ),
