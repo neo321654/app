@@ -132,15 +132,15 @@ class ShopCard extends StatelessWidget {
           maxLines: 3,
           overflow: TextOverflow.ellipsis,
         ),
-        if (shop.waitingTime != null)
-          const SizedBox(
-            height: 4,
-          ),
-        if (shop.waitingTime != null)
-          Text(
-            'Время ожидания ${shop.waitingTime!}',
-            style: AppStyles.subheadBold.copyWith(color: AppColors.gray),
-          ),
+        // if (shop.waitingTime != null)
+        //   const SizedBox(
+        //     height: 4,
+        //   ),
+        // if (shop.waitingTime != null)
+        //   Text(
+        //     'Время ожидания ${shop.waitingTime!}',
+        //     style: AppStyles.subheadBold.copyWith(color: AppColors.gray),
+        //   ),
         if (shop.workTime?.isNotEmpty == true)
           const SizedBox(
             height: 16,
