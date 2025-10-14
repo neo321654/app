@@ -57,6 +57,9 @@ class _OrderDetailsState extends State<OrderDetails> {
     // Нельзя отменить если заказ уже отменен
     if (isCanceled) return false;
 
+    // Нельзя отменить если заказ не оплачен
+    if (!widget.order.paymentStatus) return false;
+
     // Нельзя отменить если заказ доставлен
     if (widget.order.status.toLowerCase() == 'заказ доставлен') return false;
 
@@ -508,7 +511,33 @@ class _OrderDetailsState extends State<OrderDetails> {
                 const SizedBox(
                   height: 12,
                 ),
-                if (canCancelOrder)
+                if (!widget.order.paymentStatus)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12.0),
+                    child: Text(
+                      'Требуется оплата',
+                      style: AppStyles.bodyBold
+                          .copyWith(color: AppColors.destructive),
+                    ),
+                  ),
+                if (!widget.order.paymentStatus)
+                  SizedBox(
+                    height: 56,
+                    child: ElevatedButton(
+                      style: AppStyles.lightGreyElevatedButton,
+                      onPressed: () {
+                        // TODO: Implement payment logic
+                      },
+                      child: Text(
+                        'Оплатить заказ',
+                        style: AppStyles.callout.copyWith(
+                          color: AppColors.darkPrimary,
+                          height: 1,
+                        ),
+                      ),
+                    ),
+                  )
+                else if (canCancelOrder)
                   SizedBox(
                     height: 56,
                     child: ElevatedButton(
