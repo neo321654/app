@@ -248,8 +248,8 @@ class OrderPage extends StatelessWidget {
     }
     return BlocBuilder<OrderDetailsBloc, OrderDetailsState>(
       builder: (context, state) {
-        return BlocProvider.value(
-          value: getIt<OrderBloc>(),
+        return BlocProvider(
+          create: (_) => getIt<OrderBloc>(),
           child: state.maybeMap(
             success: (value) => OrderDetails(order: value.order),
             loading: (value) => const OrderDetailPreloader(),
