@@ -28,3 +28,8 @@ class OrderError extends OrderState {
   final Error error;
   const OrderError(this.error);
 }
+
+class OrderPaymentUrlReady extends OrderState {
+  final String paymentUrl;
+  const OrderPaymentUrlReady(this.paymentUrl);
+}

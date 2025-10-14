@@ -12,6 +12,7 @@ import '../../models/order_details_dto.dart';
 import '../../models/order_dto.dart';
 import '../../models/upsale_request_dto.dart';
 import '../../models/upsales_dto.dart';
+import '../../models/payment_url_dto.dart';
 
 part 'order_api_service.g.dart';
 
@@ -58,5 +59,10 @@ abstract class OrderApiService {
   @GET('/promocode/{promocode}')
   Future<PromocodeDto> getPromocode(
     @Path('promocode') String promocode,
+  );
+
+  @GET('/order/pay/{id}')
+  Future<PaymentUrlDto> getPaymentUrl(
+    @Path('id') int id,
   );
 }
