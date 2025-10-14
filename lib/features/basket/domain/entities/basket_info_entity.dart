@@ -13,5 +13,6 @@ class BasketInfoEntity with _$BasketInfoEntity {
     required List<BasketPretotalnfoEntity> pretotalInfo,
     required BasketPretotalnfoEntity bonusInfo,
     required List<String> warnings,
+    String? timeDelay,
   }) = _BasketInfoEntity;
 }

@@ -25,4 +25,5 @@ BasketInfoDto _$BasketInfoDtoFromJson(Map<String, dynamic> json) =>
               ?.map((e) => e as String)
               .toList() ??
           const [],
+      timeDelay: json['time_delay'] as String?,
     );

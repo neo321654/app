@@ -17,6 +17,7 @@ class BasketInfoDto {
     this.pretotalInfo = const [],
     required this.bonusInfo,
     this.warnings = const [],
+    this.timeDelay,
   });
 
   final List<ProductDto> products;
@@ -24,6 +25,7 @@ class BasketInfoDto {
   final List<BasketPretotalnfoDto> pretotalInfo;
   final BasketPretotalnfoDto bonusInfo;
   final List<String> warnings;
+  final String? timeDelay;
 
   factory BasketInfoDto.fromJson(Map<String, dynamic> json) {
     return _$BasketInfoDtoFromJson(json);
