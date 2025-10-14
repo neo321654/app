@@ -34,7 +34,8 @@ class BasketInfoBloc extends Bloc<BasketInfoEvent, BasketInfoState> {
       ));
 
       if (dataState is DataSuccess && dataState.data != null) {
-        emit(BasketInfoState.success(dataState.data!));
+        emit(BasketInfoState.success(dataState.data!,
+            timeDelay: dataState.data!.timeDelay));
       }
 
       if (dataState is DataFailed) {

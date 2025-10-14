@@ -499,7 +499,7 @@ class _CatalogPageState extends State<CatalogPage> {
                                         state.maybeWhen(
                                           loading: () => print(
                                               "BasketInfoBloc: loading state"),
-                                          success: (basketInfo) => print(
+                                          success: (basketInfo, timeDelay) => print(
                                               "BasketInfoBloc: success, total = ${basketInfo.totalInfo.total}"),
                                           error: (message) => print(
                                               "BasketInfoBloc: error, message = $message"),
@@ -514,7 +514,7 @@ class _CatalogPageState extends State<CatalogPage> {
                                               color: AppColors.black,
                                             ),
                                           ),
-                                          success: (basketInfo) {
+                                          success: (basketInfo, timeDelay) {
                                             // Получаем тип доставки
                                             final deliveryType =
                                                 getIt<CreateOrderStateCubit>()
@@ -607,7 +607,8 @@ class _CatalogPageState extends State<CatalogPage> {
                                       return ElevatedButton(
                                         onPressed: state.maybeWhen(
                                           orElse: () => null,
-                                          success: (basketInfo) => () {
+                                          success: (basketInfo, timeDelay) =>
+                                              () {
                                             context.router
                                                 .parent<TabsRouter>()
                                                 ?.navigate(const BasketRoute());
@@ -616,7 +617,7 @@ class _CatalogPageState extends State<CatalogPage> {
                                         child: Text(
                                           state.maybeWhen(
                                             orElse: () => 'В корзину',
-                                            success: (basketInfo) =>
+                                            success: (basketInfo, timeDelay) =>
                                                 basketInfo.warnings.isEmpty
                                                     ? 'В корзину'
                                                     : basketInfo.warnings[0],

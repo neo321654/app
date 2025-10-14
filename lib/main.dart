@@ -314,9 +314,11 @@ class MainWidget extends StatelessWidget {
             listener: (context, state) {
               state.whenOrNull(
                 success: (shops) {
-                  // if (shops.isNotEmpty && getIt<CreateOrderStateCubit>().state.deliveryShop == null) {
-                  //   getIt<CreateOrderStateCubit>().setDeliveryShop(shops[0]);
-                  // }
+                  if (shops.isNotEmpty &&
+                      getIt<CreateOrderStateCubit>().state.deliveryShop ==
+                          null) {
+                    getIt<CreateOrderStateCubit>().setDeliveryShop(shops[0]);
+                  }
                 },
               );
             },

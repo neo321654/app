@@ -80,10 +80,9 @@ class BasketRepositoryImpl implements BasketRepository {
   Future<DataState<BasketInfoEntity>> getBasketInfo(
       List<BasketInfoRequestEntity> request, int deliveryId) async {
     try {
-      // Получаем выбранный адрес
-      final selectedAddress =
-          getIt<CreateOrderStateCubit>().state.deliveryAddress;
-      final addressId = selectedAddress?.id;
+      final createOrderState = getIt<CreateOrderStateCubit>().state;
+      final addressId = createOrderState.deliveryAddress?.id;
+      final filialId = createOrderState.deliveryShop?.id;
 
       var requestDto = BasketInfoRequestBasketDto(
         basket: request
@@ -101,6 +100,7 @@ class BasketRepositoryImpl implements BasketRepository {
             .toList(),
         deliveryId: deliveryId,
         addressId: addressId,
+        filialId: filialId,
       );
       BasketInfoDto basketInfo = await _service.basketInfo(requestDto);
       print('BASKET REQUEST: ${jsonEncode(requestDto.toJson())}');
@@ -125,6 +125,7 @@ class BasketRepositoryImpl implements BasketRepository {
             value: basketInfo.bonusInfo.value ?? "",
           ),
           warnings: basketInfo.warnings,
+          timeDelay: basketInfo.timeDelay,
         ),
       );
     } on DioException catch (e) {

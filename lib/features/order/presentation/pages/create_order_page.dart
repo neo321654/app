@@ -567,7 +567,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                         BlocBuilder<BasketInfoBloc, BasketInfoState>(
                           builder: (context, state) {
                             return state.maybeWhen(
-                              success: (basketInfo) {
+                              success: (basketInfo, timeDelay) {
                                 print(
                                     'CREATE ORDER - TOTAL FROM BACKEND: ${basketInfo.totalInfo.total} ₽');
                                 print(
@@ -619,11 +619,23 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                                       'CREATE ORDER - PICKUP SELECTED, NOT ADDING DELIVERY COST');
                                 }
 
-                                return Text(
-                                  '$totalWithDelivery ₽',
-                                  style: AppStyles.bodyBold.copyWith(
-                                    color: AppColors.black,
-                                  ),
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '$totalWithDelivery ₽',
+                                      style: AppStyles.bodyBold.copyWith(
+                                        color: AppColors.black,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 4,
+                                    ),
+                                    Text(
+                                      timeDelay ?? '',
+                                      style: AppStyles.caption1,
+                                    ),
+                                  ],
                                 );
                               },
                               orElse: () => Text(
@@ -634,13 +646,6 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                               ),
                             );
                           },
-                        ),
-                        const SizedBox(
-                          height: 4,
-                        ),
-                        Text(
-                          '45–50 мин',
-                          style: AppStyles.caption1,
                         ),
                       ],
                     ),

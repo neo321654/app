@@ -14,6 +14,7 @@ BasketInfoRequestBasketDto _$BasketInfoRequestBasketDtoFromJson(
           .toList(),
       deliveryId: (json['delivery_id'] as num).toInt(),
       addressId: (json['address_id'] as num?)?.toInt(),
+      filialId: (json['filial_id'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$BasketInfoRequestBasketDtoToJson(
@@ -30,5 +31,6 @@ Map<String, dynamic> _$BasketInfoRequestBasketDtoToJson(
   }
 
   writeNotNull('address_id', instance.addressId);
+  writeNotNull('filial_id', instance.filialId);
   return val;
 }

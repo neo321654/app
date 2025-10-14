@@ -34,7 +34,7 @@ class ItogoBottom extends StatelessWidget {
                         color: AppColors.black,
                       ),
                     ),
-                    success: (basketInfo) {
+                    success: (basketInfo, timeDelay) {
                       // Получаем тип доставки
                       final deliveryType =
                           getIt<CreateOrderStateCubit>().state.delivery?.type;
@@ -120,7 +120,7 @@ class ItogoBottom extends StatelessWidget {
                 return ElevatedButton(
                   onPressed: state.maybeWhen(
                     orElse: () => null,
-                    success: (basketInfo) => () {
+                    success: (basketInfo, timeDelay) => () {
                       getIt<PromocodeBloc>().state.maybeWhen(
                             error: (error) => getIt<PromocodeBloc>()
                                 .emit(const PromocodeState.initial()),
@@ -134,9 +134,10 @@ class ItogoBottom extends StatelessWidget {
                   child: Text(
                     state.maybeWhen(
                       orElse: () => 'Оформить',
-                      success: (basketInfo) => basketInfo.warnings.isEmpty
-                          ? 'Оформить'
-                          : basketInfo.warnings[0],
+                      success: (basketInfo, timeDelay) =>
+                          basketInfo.warnings.isEmpty
+                              ? 'Оформить'
+                              : basketInfo.warnings[0],
                     ),
                   ),
                 );
