@@ -241,4 +241,14 @@ class OrderRepositoryImpl implements OrderRepository {
       return DataFailed(e);
     }
   }
+
+  @override
+  Future<DataState<String>> getPaymentUrl(int orderId) async {
+    try {
+      final response = await service.getPaymentUrl(orderId);
+      return DataSuccess(response.paymentUrl);
+    } on DioException catch (e) {
+      return DataFailed(e);
+    }
+  }
 }

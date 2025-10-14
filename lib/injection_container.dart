@@ -16,6 +16,7 @@ import 'package:monobox/features/home/domain/usecases/serach_filials_usecase.dar
 import 'package:monobox/features/home/presentation/bloc/action/action_bloc.dart';
 import 'package:monobox/features/more/data/repository/delivery_zones_repository_impl.dart';
 import 'package:monobox/features/more/data/repository/pages_repositore_impl.dart';
+import 'package:monobox/features/order/domain/usecases/get_payment_url_usecase.dart';
 import 'package:monobox/features/order/presentation/bloc/promocode/promocode_bloc.dart';
 import 'package:monobox/features/profile/data/datasources/remote/feedback_service.dart';
 import 'package:monobox/features/profile/domain/usecases/delete_profile_usecase.dart';
@@ -394,6 +395,7 @@ Future setupDependencies() async {
       DeleteOrderUsecase(
         orderRepository: orderRepository,
       ),
+      GetPaymentUrlUsecase(orderRepository),
     ),
   );
   getIt.registerLazySingleton<ProfileCubit>(

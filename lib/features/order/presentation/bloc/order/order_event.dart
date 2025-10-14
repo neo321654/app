@@ -16,3 +16,8 @@ class CancelOrder extends OrderEvent {
   final int orderId;
   const CancelOrder(this.orderId);
 }
+
+class PayForOrder extends OrderEvent {
+  final int orderId;
+  const PayForOrder(this.orderId);
+}

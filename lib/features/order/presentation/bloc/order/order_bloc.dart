@@ -11,6 +11,7 @@ import '../../../domain/entities/ordered_position_entity.dart';
 import '../../../domain/entities/payment_method_entity.dart';
 import '../../../domain/usecases/create_order_usecase.dart';
 import '../../../domain/usecases/delete_order_usecase.dart';
+import '../../../domain/usecases/get_payment_url_usecase.dart';
 
 part 'order_event.dart';
 part 'order_state.dart';
@@ -18,13 +19,16 @@ part 'order_state.dart';
 class OrderBloc extends Bloc<OrderEvent, OrderState> {
   final CreateOrderUsecase _createOrderUsecase;
   final DeleteOrderUsecase _deleteOrderUsecase;
+  final GetPaymentUrlUsecase _getPaymentUrlUsecase;
 
   OrderBloc(
     this._createOrderUsecase,
     this._deleteOrderUsecase,
+    this._getPaymentUrlUsecase,
   ) : super(OrderInitial()) {
     on<CreateOrder>(_onCreateOrder);
     on<CancelOrder>(_onCancelOrder);
+    on<PayForOrder>(_onPayForOrder);
   }
 
   void _onCreateOrder(CreateOrder event, Emitter<OrderState> emit) async {
@@ -103,6 +107,25 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       emit(OrderError(
         StateError('Ошибка'),
       ));
+    } catch (e) {
+      emit(OrderError(
+        StateError('Ошибка'),
+      ));
+    }
+  }
+
+  void _onPayForOrder(PayForOrder event, Emitter<OrderState> emit) async {
+    try {
+      final dataState = await _getPaymentUrlUsecase.call(params: event.orderId);
+
+      if (dataState is DataSuccess && dataState.data != null) {
+        emit(OrderPaymentUrlReady(dataState.data!));
+      } else if (dataState is DataFailed) {
+        emit(OrderError(
+          StateError(dataState.error?.message ??
+              'Ошибка при получении URL для оплаты'),
+        ));
+      }
     } catch (e) {
       emit(OrderError(
         StateError('Ошибка'),

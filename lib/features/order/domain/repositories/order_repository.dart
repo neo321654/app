@@ -32,4 +32,6 @@ abstract class OrderRepository {
   Future<DataState<List<GiftsScaleEntity>>> getGiftsScale();
 
   Future<DataState<PromocodeEntity>> getPromocode(String promocode);
+
+  Future<DataState<String>> getPaymentUrl(int orderId);
 }
