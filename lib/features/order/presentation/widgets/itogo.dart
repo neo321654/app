@@ -133,7 +133,7 @@ class Itogo extends StatelessWidget {
                     //     ),
                     //   ),
                     // ),
-                    success: (basketInfo) => Column(
+                    success: (basketInfo, timeDelay) => Column(
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(bottom: 8),

@@ -261,7 +261,8 @@ mixin _$BasketInfoState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(BasketInfoEntity basketInfo) success,
+    required TResult Function(BasketInfoEntity basketInfo, String? timeDelay)
+        success,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -269,7 +270,7 @@ mixin _$BasketInfoState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(BasketInfoEntity basketInfo)? success,
+    TResult? Function(BasketInfoEntity basketInfo, String? timeDelay)? success,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -277,7 +278,7 @@ mixin _$BasketInfoState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(BasketInfoEntity basketInfo)? success,
+    TResult Function(BasketInfoEntity basketInfo, String? timeDelay)? success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -367,7 +368,8 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(BasketInfoEntity basketInfo) success,
+    required TResult Function(BasketInfoEntity basketInfo, String? timeDelay)
+        success,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -378,7 +380,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(BasketInfoEntity basketInfo)? success,
+    TResult? Function(BasketInfoEntity basketInfo, String? timeDelay)? success,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -389,7 +391,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(BasketInfoEntity basketInfo)? success,
+    TResult Function(BasketInfoEntity basketInfo, String? timeDelay)? success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -481,7 +483,8 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(BasketInfoEntity basketInfo) success,
+    required TResult Function(BasketInfoEntity basketInfo, String? timeDelay)
+        success,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -492,7 +495,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(BasketInfoEntity basketInfo)? success,
+    TResult? Function(BasketInfoEntity basketInfo, String? timeDelay)? success,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -503,7 +506,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(BasketInfoEntity basketInfo)? success,
+    TResult Function(BasketInfoEntity basketInfo, String? timeDelay)? success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -561,7 +564,7 @@ abstract class _$$SuccessImplCopyWith<$Res> {
           _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
       __$$SuccessImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({BasketInfoEntity basketInfo});
+  $Res call({BasketInfoEntity basketInfo, String? timeDelay});
 
   $BasketInfoEntityCopyWith<$Res> get basketInfo;
 }
@@ -578,12 +581,17 @@ class __$$SuccessImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? basketInfo = null,
+    Object? timeDelay = freezed,
   }) {
     return _then(_$SuccessImpl(
       null == basketInfo
           ? _value.basketInfo
           : basketInfo // ignore: cast_nullable_to_non_nullable
               as BasketInfoEntity,
+      timeDelay: freezed == timeDelay
+          ? _value.timeDelay
+          : timeDelay // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 
@@ -599,14 +607,16 @@ class __$$SuccessImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SuccessImpl implements _Success {
-  const _$SuccessImpl(this.basketInfo);
+  const _$SuccessImpl(this.basketInfo, {this.timeDelay});
 
   @override
   final BasketInfoEntity basketInfo;
+  @override
+  final String? timeDelay;
 
   @override
   String toString() {
-    return 'BasketInfoState.success(basketInfo: $basketInfo)';
+    return 'BasketInfoState.success(basketInfo: $basketInfo, timeDelay: $timeDelay)';
   }
 
   @override
@@ -615,11 +625,13 @@ class _$SuccessImpl implements _Success {
         (other.runtimeType == runtimeType &&
             other is _$SuccessImpl &&
             (identical(other.basketInfo, basketInfo) ||
-                other.basketInfo == basketInfo));
+                other.basketInfo == basketInfo) &&
+            (identical(other.timeDelay, timeDelay) ||
+                other.timeDelay == timeDelay));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, basketInfo);
+  int get hashCode => Object.hash(runtimeType, basketInfo, timeDelay);
 
   @JsonKey(ignore: true)
   @override
@@ -632,10 +644,11 @@ class _$SuccessImpl implements _Success {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(BasketInfoEntity basketInfo) success,
+    required TResult Function(BasketInfoEntity basketInfo, String? timeDelay)
+        success,
     required TResult Function(String message) error,
   }) {
-    return success(basketInfo);
+    return success(basketInfo, timeDelay);
   }
 
   @override
@@ -643,10 +656,10 @@ class _$SuccessImpl implements _Success {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(BasketInfoEntity basketInfo)? success,
+    TResult? Function(BasketInfoEntity basketInfo, String? timeDelay)? success,
     TResult? Function(String message)? error,
   }) {
-    return success?.call(basketInfo);
+    return success?.call(basketInfo, timeDelay);
   }
 
   @override
@@ -654,12 +667,12 @@ class _$SuccessImpl implements _Success {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(BasketInfoEntity basketInfo)? success,
+    TResult Function(BasketInfoEntity basketInfo, String? timeDelay)? success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(basketInfo);
+      return success(basketInfo, timeDelay);
     }
     return orElse();
   }
@@ -703,9 +716,11 @@ class _$SuccessImpl implements _Success {
 }
 
 abstract class _Success implements BasketInfoState {
-  const factory _Success(final BasketInfoEntity basketInfo) = _$SuccessImpl;
+  const factory _Success(final BasketInfoEntity basketInfo,
+      {final String? timeDelay}) = _$SuccessImpl;
 
   BasketInfoEntity get basketInfo;
+  String? get timeDelay;
   @JsonKey(ignore: true)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -777,7 +792,8 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(BasketInfoEntity basketInfo) success,
+    required TResult Function(BasketInfoEntity basketInfo, String? timeDelay)
+        success,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -788,7 +804,7 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(BasketInfoEntity basketInfo)? success,
+    TResult? Function(BasketInfoEntity basketInfo, String? timeDelay)? success,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -799,7 +815,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(BasketInfoEntity basketInfo)? success,
+    TResult Function(BasketInfoEntity basketInfo, String? timeDelay)? success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {

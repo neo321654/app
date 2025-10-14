@@ -6,6 +6,8 @@
 
 *   **2025-10-14:** Начало работы. План реализации создан и одобрен.
 *   **2025-10-14:** Фаза 0 завершена. Исходное состояние проекта проверено, все тесты пройдены.
+*   **2025-10-14:** Фаза 1 завершена. Модели данных `BasketInfoRequestBasketDto`, `BasketInfoDto` и `BasketInfoEntity` были обновлены для включения полей `filialId` и `timeDelay`. Запущена кодогенерация. Все проверки пройдены успешно.
+*   **2025-10-14:** Фаза 2 завершена. `BasketRepositoryImpl` обновлен для корректной передачи `filial_id` (полученного из `CreateOrderStateCubit`) в запрос корзины. Также добавлена обработка поля `time_delay` из ответа. Раскомментирована логика в `main.dart` для установки филиала по умолчанию.
 
 ---
 
@@ -22,34 +24,34 @@
 
 ### Фаза 1: Модификация Слоя Данных и Домена
 
-- [ ] Добавить поле `filialId` в `lib/features/order/data/models/basket_info_request_basket_dto.dart`.
-- [ ] Добавить поле `timeDelay` в `lib/features/order/data/models/basket_info_dto.dart`.
-- [ ] Добавить поле `timeDelay` в `lib/features/basket/domain/entities/basket_info_entity.dart`.
-- [ ] Запустить `dart run build_runner build --delete-conflicting-outputs` для обновления сгенерированных файлов.
-- [ ] Запустить `dart_fix` для исправления кода.
-- [ ] Запустить `analyze_files` для анализа и исправления ошибок.
-- [ ] Запустить все тесты.
-- [ ] Запустить `dart_format` для форматирования.
-- [ ] Проверить изменения с помощью `git diff` и подготовить коммит.
-- [ ] **Получить ваше одобрение** на коммит.
-- [ ] Сделать коммит.
-- [ ] Обновить `MODIFICATION_IMPLEMENTATION.md`.
+- [x] Добавить поле `filialId` в `lib/features/order/data/models/basket_info_request_basket_dto.dart`.
+- [x] Добавить поле `timeDelay` в `lib/features/order/data/models/basket_info_dto.dart`.
+- [x] Добавить поле `timeDelay` в `lib/features/basket/domain/entities/basket_info_entity.dart`.
+- [x] Запустить `dart run build_runner build --delete-conflicting-outputs` для обновления сгенерированных файлов.
+- [x] Запустить `dart_fix` для исправления кода.
+- [x] Запустить `analyze_files` для анализа и исправления ошибок.
+- [x] Запустить все тесты.
+- [x] Запустить `dart_format` для форматирования.
+- [x] Проверить изменения с помощью `git diff` и подготовить коммит.
+- [x] **Получить ваше одобрение** на коммит.
+- [x] Сделать коммит.
+- [x] Обновить `MODIFICATION_IMPLEMENTATION.md`.
 
 ### Фаза 2: Модификация Слоя Репозитория
 
-- [ ] Обновить `lib/features/basket/data/repository/basket_repository_impl.dart`:
+- [x] Обновить `lib/features/basket/data/repository/basket_repository_impl.dart`:
     - Получить `filial_id` из `FilialCubit`.
     - Передать `filial_id` в конструктор `BasketInfoRequestBasketDto`.
     - При маппинге ответа, передать `timeDelay` из `BasketInfoDto` в `BasketInfoEntity`.
-- [ ] Создать/модифицировать юнит-тесты для `BasketRepositoryImpl`, если это необходимо.
-- [ ] Запустить `dart_fix`.
-- [ ] Запустить `analyze_files`.
-- [ ] Запустить тесты.
-- [ ] Запустить `dart_format`.
-- [ ] Проверить изменения и подготовить коммит.
-- [ ] **Получить ваше одобрение** на коммит.
-- [ ] Сделать коммит.
-- [ ] Обновить `MODIFICATION_IMPLEMENTATION.md`.
+- [x] Создать/модифицировать юнит-тесты для `BasketRepositoryImpl`, если это необходимо.
+- [x] Запустить `dart_fix`.
+- [x] Запустить `analyze_files`.
+- [x] Запустить тесты.
+- [x] Запустить `dart_format`.
+- [x] Проверить изменения и подготовить коммит.
+- [x] **Получить ваше одобрение** на коммит.
+- [x] Сделать коммит.
+- [x] Обновить `MODIFICATION_IMPLEMENTATION.md`.
 
 ### Фаза 3: Модификация Управления Состоянием (BLoC)
 

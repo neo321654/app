@@ -75,7 +75,7 @@ class Itogo extends StatelessWidget {
                 //     ),
                 //   ),
                 // ),
-                success: (basketInfo) {
+                success: (basketInfo, timeDelay) {
                   print(
                       'PRETOTAL INFO: \n${basketInfo.pretotalInfo.map((e) => ' [32m${e.title}: ${e.value} [0m').join("\n")}');
                   print('WARNINGS: ${basketInfo.warnings}');
