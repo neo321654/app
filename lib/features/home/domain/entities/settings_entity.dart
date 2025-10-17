@@ -11,6 +11,7 @@ class SettingsEntity with _$SettingsEntity {
     MonoboxEntity? monobox,
     @Default(true) bool loyalty,
     @Default(false) bool children,
+    @Default(false) bool callback,
   }) = _SettingsEntity;
 }
 

@@ -1,83 +1,80 @@
-# Implementation Plan: Payment Button for Unpaid Orders
+# План реализации: Скрытие блока "Обратный звонок"
 
-This document outlines the step-by-step plan to implement the "Pay for order" functionality as described in `MODIFICATION_DESIGN.md`.
+Этот документ описывает пошаговый план реализации для скрытия блока "Обратный звонок" на основе настроек с бэкенда.
 
-## Journal
+## Журнал
 
-- **2025-10-14**: Analyzed the user's existing code. A significant portion of the implementation is already complete. The data layer (DTO, Service, Repository, UseCase) and BLoC layer (Event, State, Bloc logic) for fetching the payment URL are already implemented. The UI in `order_details.dart` is also partially updated with a `BlocListener` and conditional rendering for the payment button. The main missing piece is connecting the `onPressed` event of the button to the BLoC.
-- **2025-10-14**: Connected the `onPressed` callback of the "Оплатить заказ" button to dispatch the `PayForOrder` event to the `OrderBloc`. Added `intl` and `rxdart` to dependencies. Ran `dart_fix` and `dart_format`.
+*   **Фаза 4 (2025-10-17):** Завершение. Файлы `README.md` и `GEMINI.md` не требовали обновлений. Ожидается проверка от пользователя.
+*   **Фаза 3 (2025-10-17):** Обновлен UI. Виджет "Обратный звонок" в `more.dart` теперь отображается условно, в зависимости от значения `settings.callback` из `SettingsBloc`.
+*   **Фаза 2 (2025-10-17):** Обновлен слой данных. Добавлено поле `callback` в `SettingsEntity` и `SettingsDto`. Обновлен `SettingsMapper` и соответствующие тесты. Обнаружено, что поле `callback` уже существовало в `SettingsDto`, что было неожиданно.
+*   **Фаза 1 (2025-10-17):** Все тесты успешно пройдены. Проект готов к модификации.
+
+*Здесь будут записываться действия, наблюдения и отклонения от плана.*
 
 ---
 
-## Phase 1: Project Setup and Initial Analysis
+## Фаза 1: Подготовка и первоначальное тестирование
 
-- [x] Run all tests to ensure the project is in a good state before starting modifications.
-- [x] Identify the exact files to be modified:
-    - `lib/features/order/presentation/pages/order_page.dart` (UI)
-    - The BLoC/Cubit file associated with `order_page.dart`.
-    - The repository and data source files for orders.
-- [x] Create a new feature branch named `feature/payment-button`. (Already on this branch).
+- [x] Запустить все тесты, чтобы убедиться, что проект находится в рабочем состоянии перед началом модификаций.
 
-After completing this phase, I will:
-- [x] Create/modify unit tests for testing the code added or modified in this phase, if relevant.
-- [x] Run the `dart_fix` tool to clean up the code.
-- [x] Run the `analyze_files` tool one more time and fix any issues.
-- [x] Run any tests to make sure they all pass.
-- [x] Run `dart_format` to make sure that the formatting is correct.
-- [x] Re-read the `MODIFICATION_IMPLEMENTATION.md` file to see what, if anything, has changed in the implementation plan, and if it has changed, take care of anything the changes imply.
-- [x] Update the `MODIFICATION_IMPLEMENTATION.md` file with the current state, including any learnings, surprises, or deviations in the Journal section. Check off any checkboxes of items that have been completed.
-- [ ] Use `git diff` to verify the changes that have been made, and create a suitable commit message for any changes, following any guidelines you have about commit messages. Be sure to properly escape dollar signs and backticks, and present the change message to the user for approval.
-- [ ] Wait for approval. Don't commit the changes or move on to the next phase of implementation until the user approves the commit.
-- [ ] After commiting the change, if an app is running, use the `hot_reload` tool to reload it.
+**После завершения фазы:**
 
-## Phase 2: BLoC/Cubit and Data Layer Changes
+- [ ] Создать/изменить юнит-тесты для проверки кода, добавленного или измененного в этой фазе, если это применимо.
+- [ ] Запустить инструмент `dart_fix` для очистки кода.
+- [ ] Еще раз запустить инструмент `analyze_files` и исправить все возникшие проблемы.
+- [ ] Запустить все тесты, чтобы убедиться, что они все проходят.
+- [ ] Запустить `dart_format` для корректной формации кода.
+- [ ] Повторно прочитать файл `MODIFICATION_IMPLEMENTATION.md`, чтобы увидеть, что, если что-то, изменилось в плане реализации, и если он изменился, позаботиться обо всем, что подразумевают изменения.
+- [ ] Обновить файл `MODIFICATION_IMPLEMENTATION.md` с текущим состоянием, включая любые знания, сюрпризы или отклонения в разделе "Журнал". Отметить все выполненные флажки.
+- [ ] Использовать `git diff` для проверки внесенных изменений и создать подходящее сообщение о коммите для любых изменений, следуя любым рекомендациям, которые у вас есть относительно сообщений о коммитах. Обязательно правильно экранируйте знаки доллара и обратные кавычки и представьте сообщение об изменении пользователю на утверждение.
+- [ ] Дождаться одобрения. Не фиксировать изменения и не переходить к следующему этапу реализации, пока пользователь не одобрит коммит.
+- [ ] После фиксации изменения, если приложение запущено, используйте инструмент `hot_reload` для его перезагрузки.
 
-- [x] In the Order BLoC/Cubit:
-    - [x] Add a new event for paying an order (e.g., `PayOrder`).
-    - [x] Add a new state to handle the payment URL (e.g., `OrderPaymentUrlReady`).
-    - [x] Implement the logic to handle the `PayOrder` event, call the repository, and emit the `OrderPaymentUrlReady` state.
-- [x] In the Order Repository:
-    - [x] Add a new method `getPaymentUrl(String orderId)`.
-- [x] In the Order Data Source:
-    - [x] Implement the `getPaymentUrl` method to make the GET request to `/api/v1/order/pay/{ID}`.
+---
 
-After completing this phase, I will:
-- [x] Create/modify unit tests for testing the code added or modified in this phase, if relevant.
-- [x] Run the `dart_fix` tool to clean up the code.
-- [x] Run the `analyze_files` tool one more time and fix any issues.
-- [x] Run any tests to make sure they all pass.
-- [x] Run `dart_format` to make sure that the formatting is correct.
-- [x] Re-read the `MODIFICATION_IMPLEMENTATION.md` file to see what, if anything, has changed in the implementation plan, and if it has changed, take care of anything the changes imply.
-- [x] Update the `MODIFICATION_IMPLEMENTATION.md` file with the current state, including any learnings, surprises, or deviations in the Journal section. Check off any checkboxes of items that have been completed.
-- [ ] Use `git diff` to verify the changes that have been made, and create a suitable commit message for any changes, following any guidelines you have about commit messages. Be sure to properly escape dollar signs and backticks, and present the change message to the user for approval.
-- [ ] Wait for approval. Don't commit the changes or move on to the next phase of implementation until the user approves the commit.
-- [ ] After commiting the change, if an app is running, use the `hot_reload` tool to reload it.
+## Фаза 2: Обновление слоя данных
 
-## Phase 3: UI Implementation
+- [x] Модифицировать `lib/features/home/data/models/settings_dto.dart`, добавив поле `callback`.
+- [x] Модифицировать `lib/features/home/domain/entities/settings_entity.dart`, добавив поле `callback`.
+- [x] Запустить `dart run build_runner build --delete-conflicting-outputs` для обновления сгенерированных файлов (`.g.dart`, `.freezed.dart`).
+- [x] Модифицировать `lib/features/home/data/repository/mappers/settings_mapper.dart`, чтобы он обрабатывал новое поле `callback`.
 
-- [x] In `lib/features/order/presentation/widgets/order_details.dart`:
-    - [x] Wrap the main widget with a `BlocListener` to listen for the `OrderPaymentUrlReady` state.
-    - [x] When the state is received, navigate to `CustonWebViewPage` with the payment URL.
-    - [x] Based on `orderDetails.paymentStatus`, conditionally render:
-        - [x] A `Text` widget with "Требуется оплата" if the order is unpaid.
-        - [x] The "Оплатить заказ" button if the order is unpaid.
-        - [x] The "Отменить заказ" button if the order is paid.
-    - [x] Connect the `onPressed` callback of the "Оплатить заказ" button to dispatch the `PayOrder` event to the BLoC/Cubit.
+**После завершения фазы:**
 
-After completing this phase, I will:
-- [x] Create/modify unit tests for testing the code added or modified in this phase, if relevant.
-- [x] Run the `dart_fix` tool to clean up the code.
-- [x] Run the `analyze_files` tool one more time and fix any issues.
-- [x] Run any tests to make sure they all pass.
-- [x] Run `dart_format` to make sure that the formatting is correct.
-- [x] Re-read the `MODIFICATION_IMPLEMENTATION.md` file to see what, if anything, has changed in the implementation plan, and if it has changed, take care of anything the changes imply.
-- [x] Update the `MODIFICATION_IMPLEMENTATION.md` file with the current state, including any learnings, surprises, or deviations in the Journal section. Check off any checkboxes of items that have been completed.
-- [ ] Use `git diff` to verify the changes that have been made, and create a suitable commit message for any changes, following any guidelines you have about commit messages. Be sure to properly escape dollar signs and backticks, and present the change message to the user for approval.
-- [ ] Wait for approval. Don't commit the changes or move on to the next phase of implementation until the user approves the commit.
-- [ ] After commiting the change, if an app is running, use the `hot_reload` tool to reload it.
+- [ ] Создать/изменить юнит-тесты для проверки кода, добавленного или измененного в этой фазе, если это применимо.
+- [ ] Запустить инструмент `dart_fix` для очистки кода.
+- [ ] Еще раз запустить инструмент `analyze_files` и исправить все возникшие проблемы.
+- [ ] Запустить все тесты, чтобы убедиться, что они все проходят.
+- [ ] Запустить `dart_format` для корректной формации кода.
+- [ ] Повторно прочитать файл `MODIFICATION_IMPLEMENTATION.md`, чтобы увидеть, что, если что-то, изменилось в плане реализации, и если он изменился, позаботиться обо всем, что подразумевают изменения.
+- [ ] Обновить файл `MODIFICATION_IMPLEMENTATION.md` с текущим состоянием, включая любые знания, сюрпризы или отклонения в разделе "Журнал". Отметить все выполненные флажки.
+- [ ] Использовать `git diff` для проверки внесенных изменений и создать подходящее сообщение о коммите для любых изменений, следуя любым рекомендациям, которые у вас есть относительно сообщений о коммитах. Обязательно правильно экранируйте знаки доллара и обратные кавычки и представьте сообщение об изменении пользователю на утверждение.
+- [ ] Дождаться одобрения. Не фиксировать изменения и не переходить к следующему этапу реализации, пока пользователь не одобрит коммит.
+- [ ] После фиксации изменения, если приложение запущено, используйте инструмент `hot_reload` для его перезагрузки.
 
-## Phase 4: Finalization
+---
 
-- [ ] Update any `README.md` file for the package with relevant information from the modification (if any).
-- [ ] Update any `GEMINI.md` file in the project directory so that it still correctly describes the app, its purpose, and implementation details and the layout of the files.
-- [ ] Ask the user to inspect the package (and running app, if any) and say if they are satisfied with it, or if any modifications are needed.
+## Фаза 3: Обновление пользовательского интерфейса
+
+- [x] Модифицировать `lib/features/order/presentation/widgets/more.dart`, обернув виджет "Обратный звонок" в `BlocBuilder<SettingsBloc, SettingsState>` для условного отображения.
+
+**После завершения фазы:**
+
+- [ ] Создать/изменить юнит-тесты для проверки кода, добавленного или измененного в этой фазе, если это применимо.
+- [ ] Запустить инструмент `dart_fix` для очистки кода.
+- [ ] Еще раз запустить инструмент `analyze_files` и исправить все возникшие проблемы.
+- [ ] Запустить все тесты, чтобы убедиться, что они все проходят.
+- [ ] Запустить `dart_format` для корректной формации кода.
+- [ ] Повторно прочитать файл `MODIFICATION_IMPLEMENTATION.md`, чтобы увидеть, что, если что-то, изменилось в плане реализации, и если он изменился, позаботиться обо всем, что подразумевают изменения.
+- [ ] Обновить файл `MODIFICATION_IMPLEMENTATION.md` с текущим состоянием, включая любые знания, сюрпризы или отклонения в разделе "Журнал". Отметить все выполненные флажки.
+- [ ] Использовать `git diff` для проверки внесенных изменений и создать подходящее сообщение о коммите для любых изменений, следуя любым рекомендациям, которые у вас есть относительно сообщений о коммитах. Обязательно правильно экранируйте знаки доллара и обратные кавычки и представьте сообщение об изменении пользователю на утверждение.
+- [ ] Дождаться одобрения. Не фиксировать изменения и не переходить к следующему этапу реализации, пока пользователь не одобрит коммит.
+- [ ] После фиксации изменения, если приложение запущено, используйте инструмент `hot_reload` для его перезагрузки.
+
+---
+
+## Фаза 4: Завершение
+
+- [x] Обновить файл `README.md` (если необходимо) с информацией о новой функциональности.
+- [x] Обновить файл `GEMINI.md` (если необходимо), чтобы он корректно описывал изменения.
+- [x] Попросить вас проверить работу приложения и подтвердить, что все работает корректно.
