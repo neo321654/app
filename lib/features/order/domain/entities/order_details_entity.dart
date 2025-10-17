@@ -52,4 +52,36 @@ class OrderDetailsEntity extends Equatable {
         paymentStatus,
         address,
       ];
+
+  OrderDetailsEntity copyWith({
+    int? id,
+    String? number,
+    String? status,
+    Decimal? totalPrice,
+    DateTime? createdAt,
+    String? comment,
+    DeliveryEntity? delivery,
+    PaymentMethodEntity? payment,
+    List<OrderProductEntity>? products,
+    bool? paymentStatus,
+    bool? needReview,
+    OrderDetailsAddressEntity? address,
+    List<OrderDetailsStatusEntity>? statuses,
+  }) {
+    return OrderDetailsEntity(
+      id: id ?? this.id,
+      number: number ?? this.number,
+      status: status ?? this.status,
+      totalPrice: totalPrice ?? this.totalPrice,
+      createdAt: createdAt ?? this.createdAt,
+      comment: comment ?? this.comment,
+      delivery: delivery ?? this.delivery,
+      payment: payment ?? this.payment,
+      products: products ?? this.products,
+      paymentStatus: paymentStatus ?? this.paymentStatus,
+      needReview: needReview ?? this.needReview,
+      address: address ?? this.address,
+      statuses: statuses ?? this.statuses,
+    );
+  }
 }
