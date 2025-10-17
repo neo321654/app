@@ -20,32 +20,38 @@ mixin _$OrderDetailsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int orderId) getOrder,
+    required TResult Function(int orderId) paymentCompleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int orderId)? getOrder,
+    TResult? Function(int orderId)? paymentCompleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int orderId)? getOrder,
+    TResult Function(int orderId)? paymentCompleted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetOrder value) getOrder,
+    required TResult Function(_PaymentCompleted value) paymentCompleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetOrder value)? getOrder,
+    TResult? Function(_PaymentCompleted value)? paymentCompleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetOrder value)? getOrder,
+    TResult Function(_PaymentCompleted value)? paymentCompleted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -155,6 +161,7 @@ class _$GetOrderImpl implements _GetOrder {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int orderId) getOrder,
+    required TResult Function(int orderId) paymentCompleted,
   }) {
     return getOrder(orderId);
   }
@@ -163,6 +170,7 @@ class _$GetOrderImpl implements _GetOrder {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int orderId)? getOrder,
+    TResult? Function(int orderId)? paymentCompleted,
   }) {
     return getOrder?.call(orderId);
   }
@@ -171,6 +179,7 @@ class _$GetOrderImpl implements _GetOrder {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int orderId)? getOrder,
+    TResult Function(int orderId)? paymentCompleted,
     required TResult orElse(),
   }) {
     if (getOrder != null) {
@@ -183,6 +192,7 @@ class _$GetOrderImpl implements _GetOrder {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetOrder value) getOrder,
+    required TResult Function(_PaymentCompleted value) paymentCompleted,
   }) {
     return getOrder(this);
   }
@@ -191,6 +201,7 @@ class _$GetOrderImpl implements _GetOrder {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetOrder value)? getOrder,
+    TResult? Function(_PaymentCompleted value)? paymentCompleted,
   }) {
     return getOrder?.call(this);
   }
@@ -199,6 +210,7 @@ class _$GetOrderImpl implements _GetOrder {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetOrder value)? getOrder,
+    TResult Function(_PaymentCompleted value)? paymentCompleted,
     required TResult orElse(),
   }) {
     if (getOrder != null) {
@@ -216,6 +228,144 @@ abstract class _GetOrder implements OrderDetailsEvent {
   @override
   @JsonKey(ignore: true)
   _$$GetOrderImplCopyWith<_$GetOrderImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PaymentCompletedImplCopyWith<$Res>
+    implements $OrderDetailsEventCopyWith<$Res> {
+  factory _$$PaymentCompletedImplCopyWith(_$PaymentCompletedImpl value,
+          $Res Function(_$PaymentCompletedImpl) then) =
+      __$$PaymentCompletedImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int orderId});
+}
+
+/// @nodoc
+class __$$PaymentCompletedImplCopyWithImpl<$Res>
+    extends _$OrderDetailsEventCopyWithImpl<$Res, _$PaymentCompletedImpl>
+    implements _$$PaymentCompletedImplCopyWith<$Res> {
+  __$$PaymentCompletedImplCopyWithImpl(_$PaymentCompletedImpl _value,
+      $Res Function(_$PaymentCompletedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? orderId = null,
+  }) {
+    return _then(_$PaymentCompletedImpl(
+      null == orderId
+          ? _value.orderId
+          : orderId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$PaymentCompletedImpl implements _PaymentCompleted {
+  const _$PaymentCompletedImpl(this.orderId);
+
+  @override
+  final int orderId;
+
+  @override
+  String toString() {
+    return 'OrderDetailsEvent.paymentCompleted(orderId: $orderId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PaymentCompletedImpl &&
+            (identical(other.orderId, orderId) || other.orderId == orderId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, orderId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PaymentCompletedImplCopyWith<_$PaymentCompletedImpl> get copyWith =>
+      __$$PaymentCompletedImplCopyWithImpl<_$PaymentCompletedImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int orderId) getOrder,
+    required TResult Function(int orderId) paymentCompleted,
+  }) {
+    return paymentCompleted(orderId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int orderId)? getOrder,
+    TResult? Function(int orderId)? paymentCompleted,
+  }) {
+    return paymentCompleted?.call(orderId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int orderId)? getOrder,
+    TResult Function(int orderId)? paymentCompleted,
+    required TResult orElse(),
+  }) {
+    if (paymentCompleted != null) {
+      return paymentCompleted(orderId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetOrder value) getOrder,
+    required TResult Function(_PaymentCompleted value) paymentCompleted,
+  }) {
+    return paymentCompleted(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetOrder value)? getOrder,
+    TResult? Function(_PaymentCompleted value)? paymentCompleted,
+  }) {
+    return paymentCompleted?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetOrder value)? getOrder,
+    TResult Function(_PaymentCompleted value)? paymentCompleted,
+    required TResult orElse(),
+  }) {
+    if (paymentCompleted != null) {
+      return paymentCompleted(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PaymentCompleted implements OrderDetailsEvent {
+  const factory _PaymentCompleted(final int orderId) = _$PaymentCompletedImpl;
+
+  @override
+  int get orderId;
+  @override
+  @JsonKey(ignore: true)
+  _$$PaymentCompletedImplCopyWith<_$PaymentCompletedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

@@ -12,9 +12,21 @@ part 'order_details_bloc.freezed.dart';
 class OrderDetailsBloc extends Bloc<OrderDetailsEvent, OrderDetailsState> {
   OrderDetailsBloc(this._getOrderUsecase) : super(const Initial()) {
     on<_GetOrder>(_onGetOrder);
+    on<_PaymentCompleted>(_onPaymentCompleted);
   }
 
   final GetOrderUsecase _getOrderUsecase;
+
+  void _onPaymentCompleted(
+    _PaymentCompleted event,
+    Emitter<OrderDetailsState> emit,
+  ) async {
+    final currentState = state;
+    if (currentState is Success) {
+      final updatedOrder = currentState.order.copyWith(paymentStatus: true);
+      emit(OrderDetailsState.success(updatedOrder));
+    }
+  }
 
   void _onGetOrder(
     OrderDetailsEvent event,

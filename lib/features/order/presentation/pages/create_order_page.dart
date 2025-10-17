@@ -126,6 +126,11 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                       title: '',
                       url: state.created.paymentUrl!,
                       onPageFinished: (finishUrl) {
+                        if (finishUrl.contains('/tinkoff/success')) {
+                          getIt<OrderDetailsBloc>().add(
+                              OrderDetailsEvent.paymentCompleted(
+                                  state.created.id));
+                        }
                         if (finishUrl.contains('/tinkoff/success') ||
                             finishUrl.contains('/tinkoff/fail')) {
                           // Дополнительно обновляем список заказов после оплаты
