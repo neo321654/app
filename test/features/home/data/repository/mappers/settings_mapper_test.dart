@@ -56,5 +56,56 @@ void main() {
       expect(settingsEntity, isA<SettingsEntity>());
       expect(settingsEntity.children, false);
     });
+
+    test(
+        'should map SettingsDto to SettingsEntity correctly when callback is true',
+        () {
+      // Arrange
+      final settingsDto = SettingsDto(
+        loyalty: true,
+        callback: true,
+      );
+
+      // Act
+      final settingsEntity = SettingsMapper.toEntity(settingsDto);
+
+      // Assert
+      expect(settingsEntity, isA<SettingsEntity>());
+      expect(settingsEntity.callback, true);
+    });
+
+    test(
+        'should map SettingsDto to SettingsEntity correctly when callback is false',
+        () {
+      // Arrange
+      final settingsDto = SettingsDto(
+        loyalty: true,
+        callback: false,
+      );
+
+      // Act
+      final settingsEntity = SettingsMapper.toEntity(settingsDto);
+
+      // Assert
+      expect(settingsEntity, isA<SettingsEntity>());
+      expect(settingsEntity.callback, false);
+    });
+
+    test(
+        'should map SettingsDto to SettingsEntity with callback as false when it is null',
+        () {
+      // Arrange
+      final settingsDto = SettingsDto(
+        loyalty: true,
+        callback: null,
+      );
+
+      // Act
+      final settingsEntity = SettingsMapper.toEntity(settingsDto);
+
+      // Assert
+      expect(settingsEntity, isA<SettingsEntity>());
+      expect(settingsEntity.callback, false);
+    });
   });
 }

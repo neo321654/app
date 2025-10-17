@@ -1,98 +1,153 @@
-# Design Document: Payment Button for Unpaid Orders
+# Дизайн модификации: Скрытие блока "Обратный звонок"
 
-## 1. Overview
+## 1. Обзор
 
-This document outlines the design for a modification to the order details screen. The goal is to add a "Pay for order" button and a "Payment required" notice for orders that have been created but not yet paid. This will improve user experience by making it clear when an order requires payment and providing a direct way to complete it.
+Этот документ описывает дизайн для реализации функционала скрытия блока "Обратный звонок" в зависимости от настроек, получаемых с бэкенда.
 
-## 2. Problem Analysis
+## 2. Детальный анализ проблемы
 
-Currently, when a user has an unpaid order, the UI does not clearly indicate that a payment is required, nor does it provide a direct way to pay. The user has to manually navigate to a payment section or re-initiate the payment process, which is not ideal.
+Пользователи должны иметь возможность включать или отключать отображение кнопки "Обратный звонок" в приложении через административную панель. Приложение должно запрашивать эти настройки с сервера и, если получен флаг `callback` со значением `false`, скрывать соответствующий блок в пользовательском интерфейсе.
 
-The proposed solution is to:
-1.  In the order details screen, check if the order is unpaid.
-2.  If the order is unpaid:
-    *   Display a prominent "Payment required" label.
-    *   Replace the "Cancel order" button with a "Pay for order" button.
-3.  When the "Pay for order" button is tapped, the application will fetch a payment URL from the backend and open it in a web view to allow the user to complete the payment.
+- **API эндпоинт**: `GET https://admin.monobox.app/api/v1/settings/app`
+- **Параметр**: `callback` (boolean)
+- **Целевой виджет**: Блок "Обратный звонок", расположенный в `lib/features/order/presentation/widgets/more.dart`.
 
-This will be implemented in the `order_page.dart` file, using the `paymentStatus` field from the `OrderDetailsDto` to determine if an order is paid.
+В приложении уже существует архитектура для получения и обработки настроек (`SettingsBloc`, `SettingsRepository`, `SettingsApiService`), что значительно упрощает задачу.
 
-## 3. Alternatives Considered
+## 3. Альтернативы
 
-No significant alternatives were considered, as the user's request is specific and aligns with standard e-commerce application practices. The proposed solution is a direct implementation of the user's requirements.
+Альтернативных подходов не рассматривалось, так как существующая архитектура приложения уже предоставляет четкий и эффективный способ для реализации данного функционала. Использование `SettingsBloc` является наиболее правильным и последовательным решением.
 
-## 4. Detailed Design
+## 4. Детальный дизайн
 
-The implementation will be focused on the `lib/features/order/presentation/pages/order_page.dart` file.
+### 4.1. Обновление моделей данных
 
-### 4.1. Data Model
+Нужно добавить новое поле `callback` в `SettingsDto` и `SettingsEntity`.
 
-The `OrderDetailsDto` from `lib/features/order/data/models/order_details_dto.dart` will be used. The `paymentStatus` boolean field will be the primary indicator of the order's payment state.
-*   `paymentStatus: true` means the order is paid.
-*   `paymentStatus: false` means the order is unpaid.
-
-### 4.2. UI Changes in `order_page.dart`
-
-The widget tree in `order_page.dart` will be modified to conditionally render the "Payment required" label and the "Pay for order" button.
-
-A new stateful widget or a modification to the existing widget will be made to handle the button's state.
+**`lib/features/home/data/models/settings_dto.dart`**
 
 ```dart
-// Pseudocode for the widget build method in order_page.dart
+@JsonSerializable()
+class SettingsDto {
+  // ... существующие поля
+  final bool? callback;
 
-@override
-Widget build(BuildContext context) {
-  // ... existing code ...
+  SettingsDto({
+    // ... существующие параметры
+    this.callback,
+  });
 
-  final bool isPaid = orderDetails.paymentStatus;
-
-  // ... existing code ...
-
-  // Add the "Payment required" label
-  if (!isPaid) {
-    // Add a Text widget with "Требуется оплата" in red color
-  }
-
-  // ... existing code ...
-
-  // Modify the button section
-  if (isPaid) {
-    // Show the "Cancel order" button
-  } else {
-    // Show the "Pay for order" button
-  }
-
-  // ... existing code ...
+  factory SettingsDto.fromJson(Map<String, dynamic> json) => _$SettingsDtoFromJson(json);
+  Map<String, dynamic> toJson() => _$SettingsDtoToJson(this);
 }
 ```
 
-### 4.3. "Pay for order" Button Logic
+**`lib/features/home/domain/entities/settings_entity.dart`**
 
-A new method will be added to the BLoC or Cubit responsible for the `order_page.dart` to handle the payment logic.
+```dart
+@freezed
+class SettingsEntity with _$SettingsEntity {
+  const factory SettingsEntity({
+    // ... существующие поля
+    required bool callback,
+  }) = _SettingsEntity;
+}
+```
+Поле `callback` в `SettingsEntity` будет обязательным (`required`), чтобы избежать неопределенного состояния в UI.
 
-1.  When the "Pay for order" button is tapped, a new event will be added to the BLoC/Cubit.
-2.  The BLoC/Cubit will call a new method in the order repository (and subsequently the data source) to make a GET request to `https://admin.monobox.app/api/v1/order/pay/{ID}`.
-3.  The repository will parse the response and extract the `payment_url`.
-4.  The BLoC/Cubit will emit a new state containing the `payment_url`.
-5.  The `order_page.dart` will listen for this new state and, upon receiving it, will navigate to the `CustonWebViewPage`, passing the `payment_url`.
+### 4.2. Обновление маппера
 
-### 4.4. Diagram
+Маппер `SettingsMapper` должен быть обновлен для корректного преобразования `SettingsDto` в `SettingsEntity`.
 
-```mermaid
-graph TD
-    A[Order Details Screen] --> B{Is order paid?};
-    B -- Yes --> C["Show 'Cancel order' button"];
-    B -- No --> D["Show 'Payment required' label"];
-    B -- No --> E["Show 'Pay for order' button"];
-    E -- on tap --> F[Call payment API];
-    F --> G{Get payment_url};
-    G --> H[Open WebView with payment_url];
+**`lib/features/home/data/repository/mappers/settings_mapper.dart`**
+
+```dart
+class SettingsMapper {
+  static SettingsEntity toEntity(SettingsDto model) {
+    return SettingsEntity(
+      // ... существующие поля
+      callback: model.callback ?? false, // По умолчанию false, если с бэкенда придет null
+    );
+  }
+}
 ```
 
-## 5. Summary
+### 4.3. Обновление пользовательского интерфейса
 
-The modification will be implemented by conditionally rendering UI elements in `order_page.dart` based on the `paymentStatus` field of the `OrderDetailsDto`. A new BLoC/Cubit event and state will be added to handle the payment process, which involves fetching a payment URL from the backend and opening it in the existing `CustonWebViewPage`.
+В виджете `more.dart` необходимо использовать `BlocBuilder` для получения состояния `SettingsBloc` и условного отображения блока "Обратный звонок".
 
-## 6. References
+**`lib/features/order/presentation/widgets/more.dart`**
 
-No external web research was required. The design is based on the analysis of the existing codebase.
+```dart
+// ... импорты
+import 'package:monobox/features/home/presentation/bloc/settings/settings_bloc.dart';
+
+// ...
+
+@override
+Widget build(BuildContext context) {
+  // ...
+  return BlocBuilder<SettingsBloc, SettingsState>(
+    builder: (context, state) {
+      return state.maybeWhen(
+        success: (settings) {
+          if (settings.callback) {
+            // Возвращаем виджет "Обратный звонок"
+            return _buildCallbackWidget(); // Пример
+          } else {
+            // Возвращаем пустой контейнер, если callback отключен
+            return const SizedBox.shrink();
+          }
+        },
+        // По умолчанию показываем виджет, если настройки еще не загружены
+        orElse: () => _buildCallbackWidget(), // Пример
+      );
+    },
+  );
+}
+
+Widget _buildCallbackWidget() {
+  // ... существующий код виджета "Обратный звонок"
+}
+```
+
+### 4.4. Диаграмма последовательности
+
+```mermaid
+sequenceDiagram
+    participant User as Пользователь
+    participant UI as more.dart
+    participant BLoC as SettingsBloc
+    participant Repository as SettingsRepository
+    participant API as /v1/settings/app
+
+    User->>UI: Открывает экран
+    UI->>BLoC: Запрашивает текущее состояние
+    BLoC-->>UI: Возвращает состояние (например, loading)
+    
+    alt Настройки еще не загружены
+        BLoC->>Repository: getSettings()
+        Repository->>API: GET-запрос
+        API-->>Repository: Ответ с { "callback": true/false }
+        Repository-->>BLoC: Возвращает SettingsEntity
+        BLoC->>BLoC: Обновляет состояние на success(settings)
+        BLoC-->>UI: Уведомляет о новом состоянии
+    end
+
+    UI->>UI: Перерисовывает виджет
+    alt settings.callback == true
+        UI-->>User: Показывает блок "Обратный звонок"
+    else settings.callback == false
+        UI-->>User: Скрывает блок "Обратный звонок"
+    end
+```
+
+## 5. Краткое резюме
+
+1.  **Модели**: Добавить поле `callback` в `SettingsDto` и `SettingsEntity`.
+2.  **Маппер**: Обновить `SettingsMapper` для обработки нового поля.
+3.  **UI**: В `more.dart` использовать `BlocBuilder<SettingsBloc, SettingsState>` для условного отображения блока "Обратный звонок".
+
+## 6. Исследования
+
+Для подготовки этого документа не потребовалось внешних исследований, так как вся необходимая информация была найдена в кодовой базе проекта.

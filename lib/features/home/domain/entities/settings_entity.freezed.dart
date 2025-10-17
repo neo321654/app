@@ -22,6 +22,7 @@ mixin _$SettingsEntity {
   MonoboxEntity? get monobox => throw _privateConstructorUsedError;
   bool get loyalty => throw _privateConstructorUsedError;
   bool get children => throw _privateConstructorUsedError;
+  bool get callback => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SettingsEntityCopyWith<SettingsEntity> get copyWith =>
@@ -40,7 +41,8 @@ abstract class $SettingsEntityCopyWith<$Res> {
       FeedbackEntity? feedback,
       MonoboxEntity? monobox,
       bool loyalty,
-      bool children});
+      bool children,
+      bool callback});
 
   $SocnetEntityCopyWith<$Res>? get socnet;
   $PdfEntityCopyWith<$Res>? get pdf;
@@ -67,6 +69,7 @@ class _$SettingsEntityCopyWithImpl<$Res, $Val extends SettingsEntity>
     Object? monobox = freezed,
     Object? loyalty = null,
     Object? children = null,
+    Object? callback = null,
   }) {
     return _then(_value.copyWith(
       socnet: freezed == socnet
@@ -92,6 +95,10 @@ class _$SettingsEntityCopyWithImpl<$Res, $Val extends SettingsEntity>
       children: null == children
           ? _value.children
           : children // ignore: cast_nullable_to_non_nullable
+              as bool,
+      callback: null == callback
+          ? _value.callback
+          : callback // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -159,7 +166,8 @@ abstract class _$$SettingsEntityImplCopyWith<$Res>
       FeedbackEntity? feedback,
       MonoboxEntity? monobox,
       bool loyalty,
-      bool children});
+      bool children,
+      bool callback});
 
   @override
   $SocnetEntityCopyWith<$Res>? get socnet;
@@ -188,6 +196,7 @@ class __$$SettingsEntityImplCopyWithImpl<$Res>
     Object? monobox = freezed,
     Object? loyalty = null,
     Object? children = null,
+    Object? callback = null,
   }) {
     return _then(_$SettingsEntityImpl(
       socnet: freezed == socnet
@@ -214,6 +223,10 @@ class __$$SettingsEntityImplCopyWithImpl<$Res>
           ? _value.children
           : children // ignore: cast_nullable_to_non_nullable
               as bool,
+      callback: null == callback
+          ? _value.callback
+          : callback // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -227,7 +240,8 @@ class _$SettingsEntityImpl implements _SettingsEntity {
       this.feedback,
       this.monobox,
       this.loyalty = true,
-      this.children = false});
+      this.children = false,
+      this.callback = false});
 
   @override
   final SocnetEntity? socnet;
@@ -243,10 +257,13 @@ class _$SettingsEntityImpl implements _SettingsEntity {
   @override
   @JsonKey()
   final bool children;
+  @override
+  @JsonKey()
+  final bool callback;
 
   @override
   String toString() {
-    return 'SettingsEntity(socnet: $socnet, pdf: $pdf, feedback: $feedback, monobox: $monobox, loyalty: $loyalty, children: $children)';
+    return 'SettingsEntity(socnet: $socnet, pdf: $pdf, feedback: $feedback, monobox: $monobox, loyalty: $loyalty, children: $children, callback: $callback)';
   }
 
   @override
@@ -261,12 +278,14 @@ class _$SettingsEntityImpl implements _SettingsEntity {
             (identical(other.monobox, monobox) || other.monobox == monobox) &&
             (identical(other.loyalty, loyalty) || other.loyalty == loyalty) &&
             (identical(other.children, children) ||
-                other.children == children));
+                other.children == children) &&
+            (identical(other.callback, callback) ||
+                other.callback == callback));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, socnet, pdf, feedback, monobox, loyalty, children);
+      runtimeType, socnet, pdf, feedback, monobox, loyalty, children, callback);
 
   @JsonKey(ignore: true)
   @override
@@ -283,7 +302,8 @@ abstract class _SettingsEntity implements SettingsEntity {
       final FeedbackEntity? feedback,
       final MonoboxEntity? monobox,
       final bool loyalty,
-      final bool children}) = _$SettingsEntityImpl;
+      final bool children,
+      final bool callback}) = _$SettingsEntityImpl;
 
   @override
   SocnetEntity? get socnet;
@@ -297,6 +317,8 @@ abstract class _SettingsEntity implements SettingsEntity {
   bool get loyalty;
   @override
   bool get children;
+  @override
+  bool get callback;
   @override
   @JsonKey(ignore: true)
   _$$SettingsEntityImplCopyWith<_$SettingsEntityImpl> get copyWith =>
