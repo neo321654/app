@@ -71,7 +71,20 @@ class _OrderDetailsState extends State<OrderDetails> {
     return BlocListener<OrderBloc, OrderState>(
         listener: (context, state) {
           if (state is OrderPaymentUrlReady) {
-            context.router.push(CustonWebViewRoute(url: state.paymentUrl));
+            context.router.root.push(CustonWebViewRoute(
+              url: state.paymentUrl,
+              onPageFinished: (finishUrl) {
+                if (finishUrl.contains('/tinkoff/success')) {
+                  context
+                      .read<OrderDetailsBloc>()
+                      .add(OrderDetailsEvent.paymentCompleted(widget.order.id));
+                }
+                if (finishUrl.contains('/tinkoff/success') ||
+                    finishUrl.contains('/tinkoff/fail')) {
+                  context.router.root.pop();
+                }
+              },
+            ));
           }
           if (state is OrderCanceled) {
             ScaffoldMessenger.of(context).showSnackBar(

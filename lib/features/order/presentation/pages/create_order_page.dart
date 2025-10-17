@@ -31,6 +31,7 @@ import '../../../basket/presentation/bloc/basket_info/basket_info_bloc.dart';
 import '../bloc/create_order_state_cubit/create_order_state_cubit.dart';
 import '../bloc/deliveries/deliveries_bloc.dart';
 import '../bloc/order/order_bloc.dart';
+import '../bloc/order_details/order_details_bloc.dart';
 import '../models/create_order_state.dart';
 import '../widgets/bonuses.dart';
 import '../widgets/comment.dart';
