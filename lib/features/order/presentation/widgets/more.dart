@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:monobox/config/themes/colors.dart';
+import 'package:monobox/features/home/presentation/bloc/settings/settings_bloc.dart';
 import 'package:monobox/features/order/presentation/bloc/payment_methods/payment_methods_bloc.dart';
 
 import '../../../../config/themes/styles.dart';
@@ -17,6 +18,22 @@ class More extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<SettingsBloc, SettingsState>(
+      builder: (context, state) {
+        return state.maybeWhen(
+          success: (settings) {
+            if (settings.callback) {
+              return _buildContent(context);
+            }
+            return const SizedBox.shrink();
+          },
+          orElse: () => _buildContent(context),
+        );
+      },
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(
