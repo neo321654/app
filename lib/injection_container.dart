@@ -15,7 +15,9 @@ import 'package:monobox/features/home/domain/usecases/action_usecase.dart';
 import 'package:monobox/features/home/domain/usecases/serach_filials_usecase.dart';
 import 'package:monobox/features/home/presentation/bloc/action/action_bloc.dart';
 import 'package:monobox/features/more/data/repository/delivery_zones_repository_impl.dart';
-import 'package:monobox/features/more/data/repository/pages_repositore_impl.dart';
+import 'package:monobox/features/more/data/data_source/remote/menu_api_service.dart';
+import 'package:monobox/features/more/domain/repositories/menu_repository.dart';
+import 'package:monobox/features/more/domain/usecases/get_menu.dart';
 import 'package:monobox/features/order/domain/usecases/get_payment_url_usecase.dart';
 import 'package:monobox/features/order/presentation/bloc/promocode/promocode_bloc.dart';
 import 'package:monobox/features/profile/data/datasources/remote/feedback_service.dart';
@@ -101,6 +103,7 @@ import 'features/home/presentation/bloc/products/products_bloc.dart';
 import 'features/home/presentation/bloc/settings/settings_bloc.dart';
 import 'features/home/presentation/bloc/tags/tags_bloc.dart';
 import 'features/more/data/data_source/remote/pages_api_service.dart';
+import 'features/more/data/repositories/menu_repository_impl.dart';
 import 'features/more/domain/usecases/get_delivery_zone_usecase.dart';
 import 'features/more/domain/usecases/get_page_usecase.dart';
 import 'features/more/presentation/bloc/delivery_zones/delivery_zones_bloc.dart';
@@ -313,6 +316,16 @@ Future setupDependencies() async {
     () => CollectionUsecase(
       collectionsRepository: getIt<CollectionsRepository>(),
     ),
+  );
+
+  getIt.registerLazySingleton<MenuApiService>(
+    () => MenuApiService(dio),
+  );
+  getIt.registerLazySingleton<MenuRepository>(
+    () => MenuRepositoryImpl(remoteDataSource: getIt()),
+  );
+  getIt.registerLazySingleton<GetMenuUseCase>(
+    () => GetMenuUseCase(getIt()),
   );
 
   //Blocs
@@ -532,15 +545,7 @@ Future setupDependencies() async {
       ),
     ),
   );
-  getIt.registerFactory<PagesBloc>(
-    () => PagesBloc(
-      GetPageUsecase(
-        repository: PagesRepositoryImpl(
-          service: PagesApiService(dio),
-        ),
-      ),
-    ),
-  );
+
   getIt.registerLazySingleton<CreateAddressBloc>(
     () => CreateAddressBloc(
       saveUserAddressesUsecase: SaveUserAddressesUsecase(
