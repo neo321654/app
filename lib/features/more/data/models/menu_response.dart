@@ -6,14 +6,14 @@ part 'menu_response.g.dart';
 @JsonSerializable()
 class MenuResponse {
   final List<MenuGroup> top;
-  final List<MenuGroup> footer_left;
-  final List<MenuGroup> footer_right;
+  final List<MenuGroup> footerLeft;
+  final List<MenuGroup> footerRight;
   final List<MenuGroup> mobile;
 
   MenuResponse({
     required this.top,
-    required this.footer_left,
-    required this.footer_right,
+    required this.footerLeft,
+    required this.footerRight,
     required this.mobile,
   });
 

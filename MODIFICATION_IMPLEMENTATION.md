@@ -46,24 +46,24 @@
 *   [x] Create the directory `lib/features/more/domain/usecases`.
 *   [x] Create the file `lib/features/more/domain/usecases/get_menu.dart` with the `GetMenu` use case.
 *   [x] Update `injection_container.dart` to register the new data source, repository, and use case.
-*   [ ] Create/modify unit tests for testing the code added or modified in this phase, if relevant.
-*   [ ] Run the `dart_fix` tool to clean up the code.
-*   [ ] Run the `analyze_files` tool one more time and fix any issues.
-*   [ ] Run any tests to make sure they all pass.
-*   [ ] Run `dart_format` to make sure that the formatting is correct.
-*   [ ] Re-read the `MODIFICATION_IMPLEMENTATION.md` file to see what, if anything, has changed in the implementation plan, and if it has changed, take care of anything the changes imply.
-*   [ ] Update the `MODIFICATION_IMPLEMENTATION.md` file with the current state, including any learnings, surprises, or deviations in the Journal section. Check off any checkboxes of items that have been completed.
+*   [x] Create/modify unit tests for testing the code added or modified in this phase, if relevant.
+*   [x] Run the `dart_fix` tool to clean up the code.
+*   [x] Run the `analyze_files` tool one more time and fix any issues.
+*   [x] Run any tests to make sure they all pass.
+*   [x] Run `dart_format` to make sure that the formatting is correct.
+*   [x] Re-read the `MODIFICATION_IMPLEMENTATION.md` file to see what, if anything, has changed in the implementation plan, and if it has changed, take care of anything the changes imply.
+*   [x] Update the `MODIFICATION_IMPLEMENTATION.md` file with the current state, including any learnings, surprises, or deviations in the Journal section. Check off any checkboxes of items that have been completed.
 *   [ ] Use `git diff` to verify the changes that have been made, and. Be sure to properly escape dollar signs and backticks, and present the change message to the user for approval.
 *   [ ] Wait for approval. Don't commit the changes or move on to the next phase of implementation until the user approves the commit.
 *   [ ] After commiting the change, if an app is running, use the `hot_reload` tool to reload it.
 
 ##### Phase 4: Presentation Layer (Bloc)
 
-*   [ ] Create the directory `lib/features/more/presentation/bloc`.
-*   [ ] Create the file `lib/features/more/presentation/bloc/menu_event.dart` with the `MenuEvent`.
-*   [ ] Create the file `lib/features/more/presentation/bloc/menu_state.dart` with the `MenuState`.
-*   [ ] Create the file `lib/features/more/presentation/bloc/menu_bloc.dart` with the `MenuBloc`.
-*   [ ] Update `injection_container.dart` to register the `MenuBloc`.
+*   [x] Create the directory `lib/features/more/presentation/bloc`.
+*   [x] Create the file `lib/features/more/presentation/bloc/menu_event.dart` with the `MenuEvent`.
+*   [x] Create the file `lib/features/more/presentation/bloc/menu_state.dart` with the `MenuState`.
+*   [x] Create the file `lib/features/more/presentation/bloc/menu_bloc.dart` with the `MenuBloc`.
+*   [x] Update `injection_container.dart` to register the `MenuBloc`.
 *   [ ] Create/modify unit tests for testing the code added or modified in this phase, if relevant.
 *   [ ] Run the `dart_fix` tool to clean up the code.
 *   [ ] Run the `analyze_files` tool one more time and fix any issues.
