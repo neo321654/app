@@ -107,8 +107,12 @@ import 'features/home/presentation/bloc/tags/tags_bloc.dart';
 import 'features/more/data/data_source/remote/pages_api_service.dart';
 import 'features/more/data/datasources/menu_remote_data_source.dart';
 import 'features/more/data/repositories/menu_repository_impl.dart';
+import 'features/more/data/repository/pages_repositore_impl.dart';
+import 'features/more/domain/repository/pages_repository.dart';
 import 'features/more/domain/usecases/get_delivery_zone_usecase.dart';
+import 'features/more/domain/usecases/get_page_usecase.dart';
 import 'features/more/presentation/bloc/delivery_zones/delivery_zones_bloc.dart';
+import 'features/more/presentation/bloc/pages/pages_bloc.dart';
 import 'features/order/data/datasources/remote/delivery_api_service.dart';
 import 'features/order/data/datasources/remote/order_api_service.dart';
 import 'features/order/data/datasources/remote/payment_api_service.dart';
@@ -567,6 +571,19 @@ Future setupDependencies() async {
       ),
     ),
   );
+
+
+
+  getIt.registerLazySingleton<PagesRepository>(
+    () => PagesRepositoryImpl(service: PagesApiService(dio)),
+  );
+  getIt.registerLazySingleton<GetPageUsecase>(
+    () => GetPageUsecase(repository: getIt()),
+  );
+  getIt.registerFactory<PagesBloc>(
+    () => PagesBloc(getIt()),
+  );
+
   getIt.registerLazySingleton<SearchCubit>(
     () => SearchCubit(),
   );
