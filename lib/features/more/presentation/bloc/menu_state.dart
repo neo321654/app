@@ -7,7 +7,16 @@ abstract class MenuState extends Equatable {
   const MenuState({this.menuResponse, this.error});
 
   @override
-  List<Object> get props => [menuResponse!, error!];
+  List<Object> get props {
+    final props = <Object>[];
+    if (menuResponse != null) {
+      props.add(menuResponse!);
+    }
+    if (error != null) {
+      props.add(error!);
+    }
+    return props;
+  }
 }
 
 class MenuLoading extends MenuState {

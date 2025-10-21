@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+import 'package:monobox/features/more/data/data_source/remote/menu_api_service.dart';
 import '../models/menu_response.dart';
 
 abstract class MenuRemoteDataSource {
@@ -6,18 +6,12 @@ abstract class MenuRemoteDataSource {
 }
 
 class MenuRemoteDataSourceImpl implements MenuRemoteDataSource {
-  final Dio dio;
+  final MenuApiService _menuApiService;
 
-  MenuRemoteDataSourceImpl({required this.dio});
+  MenuRemoteDataSourceImpl(this._menuApiService);
 
   @override
   Future<MenuResponse> getMenu() async {
-    final response =
-        await dio.get('https://admin.monobox.app/api/v1/pages/menu_links');
-    if (response.statusCode == 200) {
-      return MenuResponse.fromJson(response.data);
-    } else {
-      throw Exception('Failed to load menu');
-    }
+    return await _menuApiService.getMenu();
   }
 }

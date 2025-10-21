@@ -20,9 +20,7 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
 
     if (dataState is DataSuccess && dataState.data != null) {
       emit(MenuDone(dataState.data!));
-    }
-
-    if (dataState is DataFailed) {
+    } else if (dataState is DataFailed) {
       emit(MenuError(dataState.error!));
     }
   }

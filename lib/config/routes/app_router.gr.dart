@@ -11,7 +11,7 @@ part of 'app_router.dart';
 
 abstract class _$AppRouter extends RootStackRouter {
   // ignore: unused_element
-  _$AppRouter();
+  _$AppRouter({super.navigatorKey});
 
   @override
   final Map<String, PageFactory> pagesMap = {
@@ -234,11 +234,9 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     MoreRoute.name: (routeData) {
-      final args =
-          routeData.argsAs<MoreRouteArgs>(orElse: () => const MoreRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: MorePage(key: args.key),
+        child: const MorePage(),
       );
     },
     MyAddressesRoute.name: (routeData) {
@@ -992,30 +990,16 @@ class MoreNavigationRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [MorePage]
-class MoreRoute extends PageRouteInfo<MoreRouteArgs> {
-  MoreRoute({
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
+class MoreRoute extends PageRouteInfo<void> {
+  const MoreRoute({List<PageRouteInfo>? children})
+      : super(
           MoreRoute.name,
-          args: MoreRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'MoreRoute';
 
-  static const PageInfo<MoreRouteArgs> page = PageInfo<MoreRouteArgs>(name);
-}
-
-class MoreRouteArgs {
-  const MoreRouteArgs({this.key});
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'MoreRouteArgs{key: $key}';
-  }
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

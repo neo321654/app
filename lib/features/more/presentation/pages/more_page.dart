@@ -13,14 +13,25 @@ import '../../../../config/themes/colors.dart';
 import '../../../../config/themes/styles.dart';
 import '../../../../core/widgets/rounded_container.dart';
 import '../../../home/presentation/bloc/settings/settings_bloc.dart';
-import '../../../profile/presentation/models/profile_item.dart'
-    as profile_item_model;
 import '../../../profile/presentation/widgets/profile_item.dart';
 import '../widgets/social_networks.dart';
 
+import 'package:monobox/features/more/presentation/bloc/menu_bloc.dart';
+
 @RoutePage()
-class MorePage extends StatelessWidget {
-  MorePage({super.key});
+class MorePage extends StatefulWidget {
+  const MorePage({super.key});
+
+  @override
+  State<MorePage> createState() => _MorePageState();
+}
+
+class _MorePageState extends State<MorePage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<MenuBloc>().add(const GetMenu());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,33 +71,58 @@ class MorePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (BuildContext context, int index) {
-                    return ProfileItem(
-                      icon: _prfileItems[index].icon,
-                      text: _prfileItems[index].text,
-                      onTap: (BuildContext context) =>
-                          _prfileItems[index].onTap != null
-                              ? _prfileItems[index].onTap!(context)
-                              : null,
-                    );
+                BlocBuilder<MenuBloc, MenuState>(
+                  builder: (context, state) {
+                    if (state is MenuLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    if (state is MenuError) {
+                      return const Center(child: Text('Error'));
+                    }
+                    if (state is MenuDone && state.menuResponse?.mobile?.isNotEmpty == true) {
+                      final menuItems = state.menuResponse!.mobile!.first.links;
+                      return ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (BuildContext context, int index) {
+                          return ProfileItem(
+                            icon: menuItems[index].icon ?? '',
+                            text: menuItems[index].title,
+                            onTap: (BuildContext context) {
+                              final path = menuItems[index].link;
+                              if (path == '/shops') {
+                                context.navigateTo(const ShopsRoute());
+                              } else if (path == '/about-delivery') {
+                                context.navigateTo(const AboutDeliveryRoute());
+                              } else if (path == '/about-payments') {
+                                context.navigateTo(const AboutPaymentsRoute());
+                              } else if (path == '/notifications') {
+                                context.navigateTo(
+                                    const NotificationsSettingsRoute());
+                              } else if (path == '/about-politics') {
+                                context.navigateTo(const AboutPoliticsRoute());
+                              }
+                            },
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return Container(
+                            height: 20,
+                            decoration: const BoxDecoration(
+                              border: Border(
+                                top: BorderSide(
+                                  width: 1,
+                                  color: Color(0xFFE0E0E0),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                        itemCount: menuItems.length,
+                      );
+                    }
+                    return const SizedBox.shrink();
                   },
-                  separatorBuilder: (context, index) {
-                    return Container(
-                      height: 20,
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          top: BorderSide(
-                            width: 1,
-                            color: Color(0xFFE0E0E0),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                  itemCount: _prfileItems.length,
                 ),
                 const SizedBox(
                   height: 32,
@@ -352,42 +388,4 @@ class MorePage extends StatelessWidget {
       ),
     );
   }
-
-  final List<profile_item_model.ProfileItem> _prfileItems = [
-    profile_item_model.ProfileItem(
-      icon: 'assets/icons/compas.svg',
-      text: 'Где рестораны?',
-      onTap: (BuildContext context) {
-        context.navigateTo(const ShopsRoute());
-      },
-    ),
-    profile_item_model.ProfileItem(
-      icon: 'assets/icons/beg.svg',
-      text: 'О доставке',
-      onTap: (BuildContext context) {
-        context.navigateTo(const AboutDeliveryRoute());
-      },
-    ),
-    profile_item_model.ProfileItem(
-      icon: 'assets/icons/bank.svg',
-      text: 'Об оплате',
-      onTap: (BuildContext context) {
-        context.navigateTo(const AboutPaymentsRoute());
-      },
-    ),
-    profile_item_model.ProfileItem(
-      icon: 'assets/icons/ring.svg',
-      text: 'Уведомления',
-      onTap: (BuildContext context) {
-        context.navigateTo(const NotificationsSettingsRoute());
-      },
-    ),
-    profile_item_model.ProfileItem(
-      icon: 'assets/icons/beg2.svg',
-      text: 'Политика и соглашения',
-      onTap: (BuildContext context) {
-        context.navigateTo(const AboutPoliticsRoute());
-      },
-    ),
-  ];
 }

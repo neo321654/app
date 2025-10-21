@@ -5,16 +5,16 @@ part 'menu_response.g.dart';
 
 @JsonSerializable()
 class MenuResponse {
-  final List<MenuGroup> top;
-  final List<MenuGroup> footerLeft;
-  final List<MenuGroup> footerRight;
-  final List<MenuGroup> mobile;
+  final List<MenuGroup>? top;
+  final List<MenuGroup>? footerLeft;
+  final List<MenuGroup>? footerRight;
+  final List<MenuGroup>? mobile;
 
   MenuResponse({
-    required this.top,
-    required this.footerLeft,
-    required this.footerRight,
-    required this.mobile,
+    this.top,
+    this.footerLeft,
+    this.footerRight,
+    this.mobile,
   });
 
   factory MenuResponse.fromJson(Map<String, dynamic> json) =>

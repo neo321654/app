@@ -7,17 +7,17 @@ part of 'menu_response.dart';
 // **************************************************************************
 
 MenuResponse _$MenuResponseFromJson(Map<String, dynamic> json) => MenuResponse(
-      top: (json['top'] as List<dynamic>)
-          .map((e) => MenuGroup.fromJson(e as Map<String, dynamic>))
+      top: (json['top'] as List<dynamic>?)
+          ?.map((e) => MenuGroup.fromJson(e as Map<String, dynamic>))
           .toList(),
-      footerLeft: (json['footerLeft'] as List<dynamic>)
-          .map((e) => MenuGroup.fromJson(e as Map<String, dynamic>))
+      footerLeft: (json['footerLeft'] as List<dynamic>?)
+          ?.map((e) => MenuGroup.fromJson(e as Map<String, dynamic>))
           .toList(),
-      footerRight: (json['footerRight'] as List<dynamic>)
-          .map((e) => MenuGroup.fromJson(e as Map<String, dynamic>))
+      footerRight: (json['footerRight'] as List<dynamic>?)
+          ?.map((e) => MenuGroup.fromJson(e as Map<String, dynamic>))
           .toList(),
-      mobile: (json['mobile'] as List<dynamic>)
-          .map((e) => MenuGroup.fromJson(e as Map<String, dynamic>))
+      mobile: (json['mobile'] as List<dynamic>?)
+          ?.map((e) => MenuGroup.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
