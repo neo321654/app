@@ -5,7 +5,8 @@
 ## Журнал
 
 *   **Фаза 1 (22.10.2025):** Проверка состояния проекта. Все тесты успешно пройдены, что подтверждает стабильность кодовой базы перед началом внесения изменений.
-*   **Фаза 2 (22.10.2025):** Слой данных (Data Layer). Созданы `BasketProfileBonusDto` и обновлен `BasketInfoDto`. Успешно сгенерированы `.g.dart` файлы. Созданы и пройдены юнит-тесты для `BasketInfoDto`. Выполнены `dart fix` и `dart format`.
+*   **Фаза 2 (22.10.2025):** Слой данных (Data Layer). Созданы `BasketProfileBonusDto` и обновлен `BasketInfoDto`. Успешно сгенерированы `.g.dart` файлы. Созданы и пройдены юнит-тесты для `BasketInfoDto`. Выполнены `dart fix` и `dart format`. Изменения закоммичены.
+*   **Фаза 3 (22.10.2025):** Слой домена (Domain Layer). Созданы `BasketProfileBonusEntity` и обновлен `BasketInfoEntity`. Успешно сгенерированы `.freezed.dart` файлы. Выполнены `dart fix` и `dart format`. Тесты были пропущены по указанию пользователя.
 
 ---
 
@@ -32,26 +33,26 @@
 - [x] Запустить все тесты и убедиться, что они проходят.
 - [x] Запустить `dart format .` для форматирования кода.
 - [x] Перечитать `MODIFICATION_IMPLEMENTATION.md` для проверки на наличие изменений.
-- [ ] Обновить `MODIFICATION_IMPLEMENTATION.md`, отметив выполненные задачи и заполнив "Журнал".
-- [ ] Использовать `git diff` для проверки изменений, подготовить коммит-сообщение и запросить одобрение.
-- [ ] Дождаться одобрения и выполнить коммит.
+- [x] Обновить `MODIFICATION_IMPLEMENTATION.md`, отметив выполненные задачи и заполнив "Журнал".
+- [x] Использовать `git diff` для проверки изменений, подготовить коммит-сообщение и запросить одобрение.
+- [x] Дождаться одобрения и выполнить коммит.
 - [ ] Если приложение запущено, выполнить горячую перезагрузку.
 
 ---
 
 ## Фаза 3: Слой домена (Domain Layer)
 
-- [ ] Создать файл `lib/features/basket/domain/entities/basket_profile_bonus_entity.dart` с классом `BasketProfileBonusEntity`.
-- [ ] Добавить поле `profileBonus` типа `BasketProfileBonusEntity?` в `lib/features/basket/domain/entities/basket_info_entity.dart`.
-- [ ] Запустить `flutter pub run build_runner build --delete-conflicting-outputs` для генерации файлов `.freezed.dart`.
+- [x] Создать файл `lib/features/basket/domain/entities/basket_profile_bonus_entity.dart` с классом `BasketProfileBonusEntity`.
+- [x] Добавить поле `profileBonus` типа `BasketProfileBonusEntity?` в `lib/features/basket/domain/entities/basket_info_entity.dart`.
+- [x] Запустить `flutter pub run build_runner build --delete-conflicting-outputs` для генерации файлов `.freezed.dart`.
 
 После завершения этой фазы:
 - [ ] Создать/изменить юнит-тесты для `BasketInfoEntity`.
-- [ ] Запустить `dart fix --apply`.
-- [ ] Запустить `analyze_files` и исправить все проблемы.
+- [x] Запустить `dart fix --apply`.
+- [x] Запустить `analyze_files` и исправить все проблемы.
 - [ ] Запустить все тесты.
-- [ ] Запустить `dart format .`.
-- [ ] Перечитать `MODIFICATION_IMPLEMENTATION.md`.
+- [x] Запустить `dart format .`.
+- [x] Перечитать `MODIFICATION_IMPLEMENTATION.md`.
 - [ ] Обновить `MODIFICATION_IMPLEMENTATION.md`.
 - [ ] Использовать `git diff`, подготовить коммит-сообщение и запросить одобрение.
 - [ ] Дождаться одобрения и выполнить коммит.
