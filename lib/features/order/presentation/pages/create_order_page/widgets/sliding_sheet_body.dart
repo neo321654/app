@@ -20,8 +20,6 @@ import '../../../bloc/payment_methods/payment_methods_bloc.dart';
 import '../../../models/create_order_state.dart';
 import '../../../widgets/widgets.dart';
 
-
-
 class SlidingSheetBody extends StatelessWidget {
   const SlidingSheetBody({
     super.key,
@@ -64,8 +62,7 @@ class SlidingSheetBody extends StatelessWidget {
                       if (state.delivery == null) {
                         context
                             .read<CreateOrderStateCubit>()
-                            .setDelivery(
-                            deliveriesState.deliveries![0]);
+                            .setDelivery(deliveriesState.deliveries![0]);
                       }
                       return TextSwitcher(
                         items: (deliveriesState.deliveries ?? [])
@@ -74,10 +71,10 @@ class SlidingSheetBody extends StatelessWidget {
                         selectedIndex: state.delivery == null
                             ? 0
                             : deliveriesState.deliveries!
-                            .indexOf(state.delivery!),
+                                .indexOf(state.delivery!),
                         onTap: (int itemIndex) {
                           final selectedDelivery =
-                          deliveriesState.deliveries![itemIndex];
+                              deliveriesState.deliveries![itemIndex];
                           context
                               .read<CreateOrderStateCubit>()
                               .setDelivery(selectedDelivery);
@@ -88,41 +85,34 @@ class SlidingSheetBody extends StatelessWidget {
 
                           // Обновляем корзину с новым типом доставки
                           if (context.read<BasketBloc>().state
-                          is BasketLoaded) {
-                            final basket = (context
-                                .read<BasketBloc>()
-                                .state as BasketLoaded)
+                              is BasketLoaded) {
+                            final basket = (context.read<BasketBloc>().state
+                                    as BasketLoaded)
                                 .basket;
                             context.read<BasketInfoBloc>().add(
-                              BasketInfoEvent.getBasketInfo(
-                                basket.offers
-                                    .map((offer) =>
-                                    BasketInfoRequestEntity(
-                                      id: offer.product.id ?? 0,
-                                      qnt: offer.quantity ?? 1,
-                                      modifiers: offer
-                                          .addOptions !=
-                                          null
-                                          ? offer.addOptions!
-                                          .where(
-                                              (modifier) =>
-                                          modifier
-                                              .id !=
-                                              null)
-                                          .map((modifier) =>
-                                          BasketModifireEntity(
-                                            id: modifier
-                                                .id!,
-                                            qnt: modifier
-                                                .quantity,
-                                          ))
-                                          .toList()
-                                          : [],
-                                    ))
-                                    .toList(),
-                                deliveryId: selectedDelivery.id,
-                              ),
-                            );
+                                  BasketInfoEvent.getBasketInfo(
+                                    basket.offers
+                                        .map((offer) => BasketInfoRequestEntity(
+                                              id: offer.product.id ?? 0,
+                                              qnt: offer.quantity ?? 1,
+                                              modifiers: offer.addOptions !=
+                                                      null
+                                                  ? offer.addOptions!
+                                                      .where((modifier) =>
+                                                          modifier.id != null)
+                                                      .map((modifier) =>
+                                                          BasketModifireEntity(
+                                                            id: modifier.id!,
+                                                            qnt: modifier
+                                                                .quantity,
+                                                          ))
+                                                      .toList()
+                                                  : [],
+                                            ))
+                                        .toList(),
+                                    deliveryId: selectedDelivery.id,
+                                  ),
+                                );
                           }
                         },
                       );
@@ -164,14 +154,12 @@ class SlidingSheetBody extends StatelessWidget {
             builder: (context, state) {
               if (state.delivery != null) {
                 if (state.delivery!.type == 'delivery') {
-                  return BlocListener<CreateAddressBloc,
-                      CreateAddressState>(
+                  return BlocListener<CreateAddressBloc, CreateAddressState>(
                     listener: (context, state) {
                       state.whenOrNull(
-                        success: (address) =>
-                            getIt<UserAddressBloc>().add(
-                              const UserAddressEvent.getAddresses(),
-                            ),
+                        success: (address) => getIt<UserAddressBloc>().add(
+                          const UserAddressEvent.getAddresses(),
+                        ),
                       );
                     },
                     child: const YourAddress(),
@@ -208,15 +196,15 @@ class SlidingSheetBody extends StatelessWidget {
             height: 8,
           ),
           context.watch<ProfileCubit>().state.maybeMap(
-            done: (value) => value.profile.bonus != null &&
-                value.profile.bonus!.count > 0
-                ? const Padding(
-              padding: EdgeInsets.only(bottom: 8),
-              child: Bonuses(),
-            )
-                : Container(),
-            orElse: () => Container(),
-          ),
+                done: (value) => value.profile.bonus != null &&
+                        value.profile.bonus!.count > 0
+                    ? const Padding(
+                        padding: EdgeInsets.only(bottom: 8),
+                        child: Bonuses(),
+                      )
+                    : Container(),
+                orElse: () => Container(),
+              ),
           Promocode(
             controller: promoTextController,
           ),

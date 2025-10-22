@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../../../../config/themes/styles.dart';
 import '../../../widgets/social_networks.dart';
 
-
 class SocialSection extends StatelessWidget {
   const SocialSection({super.key});
 

@@ -12,10 +12,12 @@ import '../../../order/data/models/basket_info_dto.dart';
 import '../../../order/data/models/basket_info_request_basket_dto.dart';
 import '../../../order/data/models/basket_info_request_dto.dart';
 import '../../../order/data/models/basket_modifire_dto.dart';
+// Import BasketProfileBonusDto
 import '../../domain/entities/basket_info_entity.dart';
 import '../../domain/entities/basket_offer_entity.dart';
 import '../../domain/entities/basket_pretotal_info_entity.dart';
 import '../../domain/entities/basket_total_info_entity.dart';
+import '../../domain/entities/basket_profile_bonus_entity.dart'; // Import BasketProfileBonusEntity
 import '../../domain/repository/basket_repository.dart';
 import '../data_sources/locale/basket_locale.dart';
 import '../models/basket_offer_dto.dart';
@@ -126,6 +128,12 @@ class BasketRepositoryImpl implements BasketRepository {
           ),
           warnings: basketInfo.warnings,
           timeDelay: basketInfo.timeDelay,
+          profileBonus: basketInfo.profileBonus != null
+              ? BasketProfileBonusEntity(
+                  totalBonus: basketInfo.profileBonus!.totalBonus,
+                  availableBonus: basketInfo.profileBonus!.availableBonus,
+                )
+              : null,
         ),
       );
     } on DioException catch (e) {

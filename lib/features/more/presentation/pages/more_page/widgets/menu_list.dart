@@ -19,7 +19,8 @@ class MenuList extends StatelessWidget {
         if (state is MenuError) {
           return const Center(child: Text('Error'));
         }
-        if (state is MenuDone && state.menuResponse?.mobile?.isNotEmpty == true) {
+        if (state is MenuDone &&
+            state.menuResponse?.mobile?.isNotEmpty == true) {
           final menuItems = state.menuResponse!.mobile!.first.links;
           return ListView.separated(
             shrinkWrap: true,

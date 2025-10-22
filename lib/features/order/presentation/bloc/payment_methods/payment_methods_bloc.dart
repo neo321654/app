@@ -10,7 +10,8 @@ part 'payment_methods_state.dart';
 
 class PaymentMethodsBloc
     extends Bloc<PaymentMethodsEvent, PaymentMethodsState> {
-  final UseCase<DataState<List<PaymentMethodEntity>>?, int?> _paymentMethodsUsecase;
+  final UseCase<DataState<List<PaymentMethodEntity>>?, int?>
+      _paymentMethodsUsecase;
 
   PaymentMethodsBloc(this._paymentMethodsUsecase)
       : super(PaymentMethodsInitial()) {

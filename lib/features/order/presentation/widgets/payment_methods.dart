@@ -155,7 +155,7 @@ class PaymentMethodItem extends StatelessWidget {
 }
 
 class _PaymentMethodsList extends StatelessWidget {
-  const _PaymentMethodsList({super.key});
+  const _PaymentMethodsList();
 
   @override
   Widget build(BuildContext context) {
@@ -206,5 +206,3 @@ class _PaymentMethodsList extends StatelessWidget {
     );
   }
 }
-
-

@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:monobox/features/home/domain/entities/product_entity.dart';
 import 'basket_pretotal_info_entity.dart';
 import 'basket_total_info_entity.dart';
+import 'basket_profile_bonus_entity.dart'; // Import the new entity
 
 part 'basket_info_entity.freezed.dart';
 
@@ -14,5 +15,6 @@ class BasketInfoEntity with _$BasketInfoEntity {
     required BasketPretotalnfoEntity bonusInfo,
     required List<String> warnings,
     String? timeDelay,
+    BasketProfileBonusEntity? profileBonus, // Add the new field
   }) = _BasketInfoEntity;
 }
