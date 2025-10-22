@@ -35,7 +35,7 @@ import '../../features/more/presentation/pages/about_payments_page.dart';
 import '../../features/more/presentation/pages/more_navigation_page.dart';
 import '../../features/more/presentation/pages/more_page/more_page.dart';
 import '../../features/more/presentation/pages/shops_page.dart';
-import '../../features/order/presentation/pages/create_order_page.dart';
+import '../../features/order/presentation/pages/create_order_page/create_order_page.dart';
 import '../../features/order/presentation/pages/order_page.dart';
 import '../../features/profile/presentation/pages/add_child_page.dart';
 import '../../features/profile/presentation/pages/childrens_page.dart';

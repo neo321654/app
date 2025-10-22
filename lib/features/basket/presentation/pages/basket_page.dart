@@ -36,6 +36,7 @@ import 'package:monobox/injection_container.dart';
 import '../../../../config/themes/colors.dart';
 import '../../../../config/themes/styles.dart';
 import '../../../../core/widgets/text_switcher.dart';
+import '../../../order/presentation/bloc/payment_methods/payment_methods_bloc.dart';
 
 @RoutePage()
 class BasketPage extends StatefulWidget {
@@ -383,6 +384,10 @@ class _BasketPageState extends State<BasketPage> {
                                       context
                                           .read<CreateOrderStateCubit>()
                                           .setDelivery(selectedDelivery);
+
+                                      context.read<PaymentMethodsBloc>().add(
+                                          GetPaymentMethods(
+                                              deliveryId: selectedDelivery.id));
 
                                       // Отменяем предыдущий таймер, если он есть
                                       _debounceTimer?.cancel();

@@ -49,109 +49,7 @@ class PaymentMethods extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            SizedBox(
-              width: double.infinity,
-              height: 72,
-              child: BlocBuilder<CreateOrderStateCubit, CreateOrderState>(
-                builder: (context, state) {
-                  return BlocBuilder<PaymentMethodsBloc, PaymentMethodsState>(
-                    builder: (context, paymentMethodsState) {
-                      if (paymentMethodsState is PaymentMethodsDone) {
-                        final paymentMethods =
-                            paymentMethodsState.paymentMethods ?? [];
-                        return ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: paymentMethods.length,
-                          itemBuilder: (context, index) => Row(
-                            children: [
-                              if (index == 0)
-                                const SizedBox(
-                                  width: 16,
-                                ),
-                              PaymentMethodItem(
-                                title: paymentMethods[index].name,
-                                icon: 'assets/icons/cash.svg',
-                                isSelected: state.paymentMethodIndex == index
-                                    ? true
-                                    : false,
-                                onTap: () => context
-                                    .read<CreateOrderStateCubit>()
-                                    .setPaymentMethodIndex(index),
-                              ),
-                              if ((index + 1) != paymentMethods.length)
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                              if ((index + 1) == paymentMethods.length)
-                                const SizedBox(
-                                  width: 16,
-                                ),
-                            ],
-                          ),
-                        );
-                      }
-                      return Container();
-                      // return ListView(
-                      //   scrollDirection: Axis.horizontal,
-                      //   children: [
-                      //     SizedBox(
-                      //       width: 16,
-                      //     ),
-                      //     PaymentMethodItem(
-                      //       title: 'Наличные',
-                      //       icon: 'assets/icons/cash.svg',
-                      //       isSelected:
-                      //           state.paymentMethodIndex == 0 ? true : false,
-                      //       onTap: () => context
-                      //           .read<CreateOrderStateCubit>()
-                      //           .setPaymentMethodIndex(0),
-                      //     ),
-                      //     SizedBox(
-                      //       width: 8,
-                      //     ),
-                      //     PaymentMethodItem(
-                      //       title: 'Карта *** 4323',
-                      //       icon: 'assets/icons/mir.svg',
-                      //       isSelected:
-                      //           state.paymentMethodIndex == 1 ? true : false,
-                      //       onTap: () => context
-                      //           .read<CreateOrderStateCubit>()
-                      //           .setPaymentMethodIndex(1),
-                      //     ),
-                      //     SizedBox(
-                      //       width: 8,
-                      //     ),
-                      //     PaymentMethodItem(
-                      //       title: 'СБП',
-                      //       icon: 'assets/icons/sbp.svg',
-                      //       isSelected:
-                      //           state.paymentMethodIndex == 2 ? true : false,
-                      //       onTap: () => context
-                      //           .read<CreateOrderStateCubit>()
-                      //           .setPaymentMethodIndex(2),
-                      //     ),
-                      //     SizedBox(
-                      //       width: 8,
-                      //     ),
-                      //     PaymentMethodItem(
-                      //       title: 'Новая карта',
-                      //       icon: 'assets/icons/add_new_card.svg',
-                      //       isSelected:
-                      //           state.paymentMethodIndex == 3 ? true : false,
-                      //       onTap: () => context
-                      //           .read<CreateOrderStateCubit>()
-                      //           .setPaymentMethodIndex(3),
-                      //     ),
-                      //     SizedBox(
-                      //       width: 16,
-                      //     ),
-                      //   ],
-                      // );
-                    },
-                  );
-                },
-              ),
-            ),
+            const _PaymentMethodsList(),
             BlocBuilder<CreateOrderStateCubit, CreateOrderState>(
               builder: (context, state) {
                 if (state.paymentMethodIndex == 2) {
@@ -255,3 +153,58 @@ class PaymentMethodItem extends StatelessWidget {
     );
   }
 }
+
+class _PaymentMethodsList extends StatelessWidget {
+  const _PaymentMethodsList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: 72,
+      child: BlocBuilder<CreateOrderStateCubit, CreateOrderState>(
+        builder: (context, state) {
+          return BlocBuilder<PaymentMethodsBloc, PaymentMethodsState>(
+            builder: (context, paymentMethodsState) {
+              if (paymentMethodsState is PaymentMethodsDone) {
+                final paymentMethods = paymentMethodsState.paymentMethods ?? [];
+                return ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: paymentMethods.length,
+                  itemBuilder: (context, index) => Row(
+                    children: [
+                      if (index == 0)
+                        const SizedBox(
+                          width: 16,
+                        ),
+                      PaymentMethodItem(
+                        title: paymentMethods[index].name,
+                        icon: 'assets/icons/cash.svg',
+                        isSelected:
+                            state.paymentMethodIndex == index ? true : false,
+                        onTap: () => context
+                            .read<CreateOrderStateCubit>()
+                            .setPaymentMethodIndex(index),
+                      ),
+                      if ((index + 1) != paymentMethods.length)
+                        const SizedBox(
+                          width: 8,
+                        ),
+                      if ((index + 1) == paymentMethods.length)
+                        const SizedBox(
+                          width: 16,
+                        ),
+                    ],
+                  ),
+                );
+              }
+              return Container();
+            },
+          );
+        },
+      ),
+    );
+  }
+}
+
+

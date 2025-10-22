@@ -5,5 +5,6 @@ sealed class PaymentMethodsEvent {
 }
 
 class GetPaymentMethods extends PaymentMethodsEvent {
-  const GetPaymentMethods();
+  final int? deliveryId;
+  const GetPaymentMethods({this.deliveryId});
 }
