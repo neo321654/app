@@ -22,8 +22,8 @@ import '../../../widgets/widgets.dart';
 
 
 
-class CheckoutBody extends StatelessWidget {
-  const CheckoutBody({
+class SlidingSheetBody extends StatelessWidget {
+  const SlidingSheetBody({
     super.key,
     required this.cashPropouseTextController,
     required this.promoTextController,

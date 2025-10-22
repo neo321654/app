@@ -3,45 +3,28 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:monobox/core/widgets/warning_container.dart';
-import 'package:monobox/features/order/domain/entities/delivery_entity.dart';
-import 'package:monobox/features/order/domain/entities/ordered_position_entity.dart';
-import 'package:monobox/features/order/domain/entities/payment_method_entity.dart';
 import 'package:monobox/features/order/presentation/bloc/orders_list/orders_list_bloc.dart';
 import 'package:monobox/features/order/presentation/bloc/payment_methods/payment_methods_bloc.dart';
 import 'package:monobox/features/order/presentation/bloc/promocode/promocode_bloc.dart';
 import 'package:monobox/features/profile/presentation/bloc/profile/profile_cubit.dart';
 import 'package:pinput/pinput.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:sliding_sheet2/sliding_sheet2.dart';
 
 import '/../../../../config/routes/app_router.dart';
 import '/../../../../config/themes/colors.dart';
 import '/../../../../config/themes/styles.dart';
-import '/../../../../core/widgets/text_switcher.dart';
 import '/../../../../injection_container.dart';
 import '../../../../address_setup/presentation/bloc/create_address/create_address_bloc.dart';
-import '../../../../address_setup/presentation/bloc/user_address/user_address_bloc.dart';
 import '../../../../basket/domain/entities/basket_entity.dart';
-import '../../../../basket/domain/entities/basket_info_request_entity.dart';
-import '../../../../basket/domain/entities/basket_modifire_entity.dart';
 import '../../../../basket/presentation/bloc/basket/basket_bloc.dart';
-import '../../../../basket/presentation/bloc/basket_info/basket_info_bloc.dart';
 import '../../bloc/create_order_state_cubit/create_order_state_cubit.dart';
 import '../../bloc/deliveries/deliveries_bloc.dart';
 import '../../bloc/order/order_bloc.dart';
 import '../../bloc/order_details/order_details_bloc.dart';
 import '../../models/create_order_state.dart';
-import '../../widgets/bonuses.dart';
-import '../../widgets/comment.dart';
-import '../../widgets/delivery_time.dart';
-import '../../widgets/itogo.dart';
-import '../../widgets/more.dart';
-import '../../widgets/payment_methods.dart';
-import '../../widgets/promocode.dart';
-import '../../widgets/shop_addresses.dart';
-import '../../widgets/your_address.dart';
+import '../../widgets/widgets.dart';
+import 'widgets/botom_buttom_sheet.dart';
 import 'widgets/order_app_bar.dart';
 import 'widgets/sliding_sheet_body.dart';
 
@@ -279,305 +262,14 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
             },
             builder: (context, state) =>
                 Itogo(sheetController: sheetController),
-            body: CheckoutBody(
+            body: SlidingSheetBody(
               cashPropouseTextController: cashPropouseTextController,
               promoTextController: promoTextController,
               commentController: promoTextController,
             ),
           ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              color: AppColors.white,
-              padding: EdgeInsets.only(
-                right: 16,
-                bottom: Platform.isIOS ? 36 : 16,
-                left: 16,
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        BlocBuilder<BasketInfoBloc, BasketInfoState>(
-                          builder: (context, state) {
-                            return state.maybeWhen(
-                              success: (basketInfo, timeDelay) {
-                                print(
-                                    'CREATE ORDER - TOTAL FROM BACKEND: ${basketInfo.totalInfo.total} ₽');
-                                print(
-                                    'CREATE ORDER - DISCOUNT FROM BACKEND: ${basketInfo.totalInfo.discountPrice} ₽');
+           BottomButtonSheet(commentController: commentController,basketBloc: basketBloc,),
 
-                                // Получаем тип доставки
-                                final deliveryType =
-                                    getIt<CreateOrderStateCubit>()
-                                        .state
-                                        .delivery
-                                        ?.type;
-                                int totalWithDelivery =
-                                    basketInfo.totalInfo.total;
-
-                                // Добавляем стоимость доставки только если это не самовывоз
-                                if (deliveryType != 'pickup') {
-                                  // Ищем строку с доставкой в pretotalInfo
-                                  for (var pretotalItem
-                                      in basketInfo.pretotalInfo) {
-                                    // Проверяем, что это строка с адресом (содержит адрес и стоимость)
-                                    if (pretotalItem.title.contains('ул') ||
-                                        pretotalItem.title.contains('д') ||
-                                        pretotalItem.title.contains('г')) {
-                                      // Извлекаем стоимость доставки из строки "500 ₽"
-                                      String deliveryValue = pretotalItem.value;
-                                      if (deliveryValue.contains('₽')) {
-                                        // Убираем " ₽" и парсим число
-                                        String deliveryPriceStr = deliveryValue
-                                            .replaceAll(' ₽', '')
-                                            .trim();
-                                        try {
-                                          int deliveryPrice =
-                                              int.parse(deliveryPriceStr);
-                                          totalWithDelivery += deliveryPrice;
-                                          print(
-                                              'CREATE ORDER - DELIVERY COST FOUND: $deliveryPrice ₽');
-                                          print(
-                                              'CREATE ORDER - TOTAL WITH DELIVERY: $totalWithDelivery ₽');
-                                          break; // Нашли доставку, выходим из цикла
-                                        } catch (e) {
-                                          print(
-                                              'CREATE ORDER - ERROR PARSING DELIVERY PRICE: $deliveryPriceStr');
-                                        }
-                                      }
-                                    }
-                                  }
-                                } else {
-                                  print(
-                                      'CREATE ORDER - PICKUP SELECTED, NOT ADDING DELIVERY COST');
-                                }
-
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      '$totalWithDelivery ₽',
-                                      style: AppStyles.bodyBold.copyWith(
-                                        color: AppColors.black,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 4,
-                                    ),
-                                    Text(
-                                      timeDelay ?? '',
-                                      style: AppStyles.caption1,
-                                    ),
-                                  ],
-                                );
-                              },
-                              orElse: () => Text(
-                                '${basketBloc.subtotal} ₽',
-                                // Fallback to subtotal if BasketInfoBloc is not in success state
-                                style: AppStyles.bodyBold.copyWith(
-                                  color: AppColors.black,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: SizedBox(
-                      height: 52,
-                      child:
-                          BlocBuilder<CreateOrderStateCubit, CreateOrderState>(
-                        builder: (context, createOrderState) {
-                          return BlocBuilder<OrderBloc, OrderState>(
-                            builder: (context, state) {
-                              return ElevatedButton(
-                                onPressed: (state is OrderCreating ||
-                                        !getIt<CreateOrderStateCubit>()
-                                            .isAllowToCreate())
-                                    ? null
-                                    : () {
-                                        final DeliveryEntity delivery =
-                                            getIt<CreateOrderStateCubit>()
-                                                .state
-                                                .delivery!;
-
-                                        final PaymentMethodEntity
-                                            paymentMethod =
-                                            (getIt<PaymentMethodsBloc>().state
-                                                        as PaymentMethodsDone)
-                                                    .paymentMethods![
-                                                getIt<CreateOrderStateCubit>()
-                                                        .state
-                                                        .paymentMethodIndex ??
-                                                    0];
-                                        final List<OrderedPositionEntity>
-                                            orderedPositions = [];
-                                        (basketBloc.state as BasketLoaded)
-                                            .basket
-                                            .offers
-                                            .map(
-                                              (o) => orderedPositions
-                                                  .add(OrderedPositionEntity(
-                                                productId: o.product.id!,
-                                                quantity: o.quantity ?? 1,
-                                                modifiers: o.addOptions ?? [],
-                                              )),
-                                            )
-                                            .toList();
-                                        int? addressId = context
-                                                    .read<
-                                                        CreateOrderStateCubit>()
-                                                    .state
-                                                    .delivery
-                                                    ?.type ==
-                                                'delivery'
-                                            ? context
-                                                .read<CreateOrderStateCubit>()
-                                                .state
-                                                .deliveryAddress
-                                                ?.id
-                                            : context
-                                                .read<CreateOrderStateCubit>()
-                                                .state
-                                                .deliveryShop
-                                                ?.id;
-
-                                        String? bonusWithdraw = (context
-                                                    .read<
-                                                        CreateOrderStateCubit>()
-                                                    .state
-                                                    .useBonuses ??
-                                                false)
-                                            ? context
-                                                .read<ProfileCubit>()
-                                                .state
-                                                .maybeMap(
-                                                  done: (value) {
-                                                    return value.profile
-                                                                .bonus !=
-                                                            null
-                                                        ? value.profile.bonus!
-                                                            .count
-                                                            .toString()
-                                                        : '';
-                                                  },
-                                                  orElse: () => '',
-                                                )
-                                            : null;
-
-                                        context.read<OrderBloc>().createOrder(
-                                              context.read<OrderBloc>().offer(
-                                                    paymentMethod:
-                                                        paymentMethod,
-                                                    delivery: delivery,
-                                                    orderedPositions:
-                                                        orderedPositions,
-                                                    addressId: context
-                                                                .read<
-                                                                    CreateOrderStateCubit>()
-                                                                .state
-                                                                .delivery
-                                                                ?.type ==
-                                                            'delivery'
-                                                        ? context
-                                                            .read<
-                                                                CreateOrderStateCubit>()
-                                                            .state
-                                                            .deliveryAddress
-                                                            ?.id
-                                                        : null,
-                                                    filialId: context
-                                                                .read<
-                                                                    CreateOrderStateCubit>()
-                                                                .state
-                                                                .delivery
-                                                                ?.type !=
-                                                            'delivery'
-                                                        ? context
-                                                            .read<
-                                                                CreateOrderStateCubit>()
-                                                            .state
-                                                            .deliveryShop
-                                                            ?.id
-                                                        : null,
-                                                    promocode: (basketBloc.state
-                                                            as BasketLoaded)
-                                                        .basket
-                                                        .promocode,
-                                                    moneyChange:
-                                                        (basketBloc.state
-                                                                as BasketLoaded)
-                                                            .basket
-                                                            .moneyChange,
-                                                    bonusWithdraw:
-                                                        bonusWithdraw,
-                                                    orderComment:
-                                                        commentController.text,
-                                                  ),
-                                            );
-                                        // Navigator.of(context).push(
-                                        //     MaterialPageRoute(builder: (context) => AuthPage()));
-                                      },
-                                child: (state is OrderCreating)
-                                    ? const SizedBox(
-                                        width: 24,
-                                        height: 24,
-                                        child: CircularProgressIndicator(
-                                          color: AppColors.white,
-                                          strokeWidth: 2,
-                                        ),
-                                      )
-                                    : BlocBuilder<PaymentMethodsBloc,
-                                        PaymentMethodsState>(
-                                        builder: (context, state) {
-                                          if (getIt<PaymentMethodsBloc>().state
-                                              is PaymentMethodsDone) {
-                                            return Text(
-                                              ((getIt<PaymentMethodsBloc>()
-                                                                  .state
-                                                              as PaymentMethodsDone)
-                                                          .paymentMethods![getIt<
-                                                                      CreateOrderStateCubit>()
-                                                                  .state
-                                                                  .paymentMethodIndex ??
-                                                              0]
-                                                          .name
-                                                          .toLowerCase() ==
-                                                      'онлайн'
-                                                  ? 'К оплате'
-                                                  : 'Создать'),
-                                            );
-                                          }
-                                          return const SizedBox(
-                                            width: 24,
-                                            height: 24,
-                                            child: CircularProgressIndicator(
-                                              color: AppColors.white,
-                                              strokeWidth: 2,
-                                            ),
-                                          );
-                                        },
-                                      ),
-                              );
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
         ],
       ),
     );
