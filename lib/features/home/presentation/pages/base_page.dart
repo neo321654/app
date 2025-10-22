@@ -35,10 +35,10 @@ class BasePage extends StatelessWidget {
         bottom: false,
         child: AutoTabsScaffold(
           lazyLoad: false,
-          routes: [
-            const HomeRoute(),
-            const BasketRoute(),
-            const ProfileRoute(),
+          routes: const [
+            HomeRoute(),
+            BasketRoute(),
+            ProfileRoute(),
             //AuthRoute(),
             MoreRoute(),
           ],
@@ -347,7 +347,7 @@ class BasePage extends StatelessWidget {
                       context.navigateTo(const ProfileRoute());
                     }
                     if (index == 3) {
-                      context.navigateTo(MoreRoute());
+                      context.navigateTo(const MoreRoute());
                     }
                     tabsRouter.setActiveIndex(index);
                   },

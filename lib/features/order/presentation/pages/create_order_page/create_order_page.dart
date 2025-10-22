@@ -268,8 +268,10 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
               commentController: promoTextController,
             ),
           ),
-           BottomButtonSheet(commentController: commentController,basketBloc: basketBloc,),
-
+          BottomButtonSheet(
+            commentController: commentController,
+            basketBloc: basketBloc,
+          ),
         ],
       ),
     );

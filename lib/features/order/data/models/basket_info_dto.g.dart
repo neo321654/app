@@ -26,4 +26,8 @@ BasketInfoDto _$BasketInfoDtoFromJson(Map<String, dynamic> json) =>
               .toList() ??
           const [],
       timeDelay: json['time_delay'] as String?,
+      profileBonus: json['profile_bonus'] == null
+          ? null
+          : BasketProfileBonusDto.fromJson(
+              json['profile_bonus'] as Map<String, dynamic>),
     );

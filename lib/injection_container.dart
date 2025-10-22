@@ -572,8 +572,6 @@ Future setupDependencies() async {
     ),
   );
 
-
-
   getIt.registerLazySingleton<PagesRepository>(
     () => PagesRepositoryImpl(service: PagesApiService(dio)),
   );

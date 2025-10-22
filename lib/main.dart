@@ -197,8 +197,8 @@ class MainWidget extends StatelessWidget {
               print('MAIN - DELIVERY BLOC STATE: ${state.runtimeType}');
               if (state is DeliveriesDone) {
                 if (state.deliveries?.isNotEmpty == true) {
-                  getIt<PaymentMethodsBloc>().add(
-                      GetPaymentMethods(deliveryId: state.deliveries!.first.id));
+                  getIt<PaymentMethodsBloc>().add(GetPaymentMethods(
+                      deliveryId: state.deliveries!.first.id));
                 }
                 print('MAIN - DELIVERIES DONE, LOADING BASKET');
                 getIt<BasketBloc>().add(LoadBasket());

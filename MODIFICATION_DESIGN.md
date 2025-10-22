@@ -1,90 +1,65 @@
-### MODIFICATION_DESIGN.md
+# Дизайн-документ модификации: Интеграция бонусов профиля в корзину
 
-#### Overview
+## Обзор
 
-The goal is to replace the static menu in the "More" screen with a dynamic menu fetched from the API endpoint `https://admin.monobox.app/api/v1/pages/menu_links`. The implementation should be able to handle cases where a menu item from the API is already implemented statically in the app, in which case the static implementation should be used.
+Целью данной модификации является интеграция информации о бонусах профиля пользователя, получаемой из API корзины, в приложение. В частности, будет добавлена возможность отображения и использования `available_bonus` (доступных бонусов) при оформлении заказа.
 
-#### Detailed analysis of the goal or problem
+## Детальный анализ цели/проблемы
 
-The current implementation in `lib/features/more/presentation/pages/more_page.dart` uses a hardcoded list of `profile_item_model.ProfileItem` objects to display the menu. This is inflexible and requires an app update to change the menu items.
+Изначально API корзины возвращает объект `profile_bonus`, содержащий `total_bonus` и `available_bonus`. Однако текущая реализация приложения не парсит и не использует эти данные. `ProfileBonusDto` существует, но его структура не соответствует `profile_bonus` из ответа корзины, и он используется в другом контексте (профиль пользователя).
 
-The API provides a JSON response with a `mobile` key, which contains an array of menu groups. Each menu group has a title and a list of links. Each link has a title, a link, an icon, and a target.
+Проблема заключается в том, что пользователь может иметь большое количество бонусов, но только часть из них может быть использована в текущем заказе. Эта информация (`available_bonus`) критически важна для корректного отображения и применения бонусов в UI корзины.
 
-The task is to:
-1.  Create data models for the API response.
-2.  Create a data source to fetch the data from the API.
-3.  Create a repository to abstract the data source.
-4.  Create a use case to get the menu data.
-5.  Inject the dependencies using the existing dependency injection setup.
-6.  Modify the `MorePage` to use a `Bloc` to manage the state of the menu.
-7.  The `Bloc` will fetch the menu data using the use case.
-8.  The `MorePage` will display the menu items from the `Bloc`'s state.
-9.  For each menu item, if a static implementation exists, it will be used. Otherwise, a generic implementation will be used to navigate to the link provided in the API response.
+## Рассмотренные альтернативы
 
-#### Alternatives considered
+1.  **Переиспользование существующего `ProfileBonusDto`:** Эта альтернатива была отклонена, так как структура `ProfileBonusDto` (`count`, `available`) не соответствует структуре `profile_bonus` из ответа корзины (`total_bonus`, `available_bonus`). Попытка переиспользования привела бы к ошибкам парсинга и некорректной работе.
 
-1.  **Fetching the menu directly in the `MorePage` widget.** This is not a good practice as it mixes UI and business logic, and makes the code harder to test and maintain.
-2.  **Using a different state management solution.** The project already uses `flutter_bloc`, so it's better to stick with it for consistency.
+2.  **Игнорирование `profile_bonus` из API корзины:** Эта альтернатива была отклонена, так как она не решает основную проблему пользователя и не позволяет использовать функциональность `available_bonus`.
 
-#### Detailed design for the modification
+## Детальный дизайн модификации
 
-1.  **Data Models:**
-    *   Create `MenuResponse`, `MenuGroup`, and `MenuLink` data models with `fromJson` constructors to parse the JSON response. These models will be placed in `lib/features/more/data/models/`.
-    *   The models will use `json_serializable` for code generation.
+Модификация будет реализована в несколько этапов, затрагивающих слои данных и домена, а затем и слой представления (UI).
 
-2.  **Data Source:**
-    *   Create an abstract class `MenuRemoteDataSource` in `lib/features/more/data/datasources/`.
-    *   Create an implementation `MenuRemoteDataSourceImpl` that uses the `http` package to fetch the data from the API. It will have a method `Future<MenuResponse> getMenu()`.
+### 1. Слой данных (Data Layer)
 
-3.  **Repository:**
-    *   Create an abstract class `MenuRepository` in `lib/features/more/domain/repositories/`.
-    *   Create an implementation `MenuRepositoryImpl` in `lib/features/more/data/repositories/` that uses the `MenuRemoteDataSource` to get the menu data. It will have a method `Future<Either<Failure, MenuResponse>> getMenu()`.
+*   **Создание `BasketProfileBonusDto`:** Будет создан новый DTO-объект `BasketProfileBonusDto` в `lib/features/order/data/models/basket_profile_bonus_dto.dart`. Этот DTO будет точно соответствовать структуре `profile_bonus` из JSON-ответа API корзины, включая поля `totalBonus` (int) и `availableBonus` (int?).
+*   **Обновление `BasketInfoDto`:** В `lib/features/order/data/models/basket_info_dto.dart` будет добавлено новое поле `profileBonus` типа `BasketProfileBonusDto?`. Это позволит парсить `profile_bonus` из JSON-ответа в основной DTO корзины.
+*   **Генерация кода:** После создания и обновления DTO-объектов будут запущены команды `flutter pub run build_runner build --delete-conflicting-outputs` для генерации соответствующих `.g.dart` файлов, обеспечивающих корректную JSON-сериализацию/десериализацию.
 
-4.  **Use Case:**
-    *   Create a use case `GetMenu` in `lib/features/more/domain/usecases/` that calls the `MenuRepository` to get the menu data.
+### 2. Слой домена (Domain Layer)
 
-5.  **Dependency Injection:**
-    *   Update `injection_container.dart` to register the new data source, repository, use case, and `Bloc`.
+*   **Создание `BasketProfileBonusEntity`:** Будет создан новый Entity-объект `BasketProfileBonusEntity` в `lib/features/basket/domain/entities/basket_profile_bonus_entity.dart`. Этот Entity будет соответствовать `BasketProfileBonusDto`, содержащему поля `totalBonus` (int) и `availableBonus` (int?).
+*   **Обновление `BasketInfoEntity`:** В `lib/features/basket/domain/entities/basket_info_entity.dart` будет добавлено новое поле `profileBonus` типа `BasketProfileBonusEntity?`.
+*   **Генерация кода:** После создания и обновления Entity-объектов будут запущены команды `flutter pub run build_runner build --delete-conflicting-outputs` для генерации соответствующих `.freezed.dart` файлов.
+*   **Обновление маппера:** В `lib/features/basket/data/repository/basket_repository_impl.dart` будет обновлен метод `getBasketInfo`. В этом методе будет добавлена логика маппинга `basketInfo.profileBonus` (из DTO) в `BasketInfoEntity.profileBonus` (в Entity).
 
-6.  **Bloc:**
-    *   Create `MenuBloc`, `MenuState`, and `MenuEvent` in `lib/features/more/presentation/bloc/`.
-    *   `MenuEvent` will have a `GetMenuEvent`.
-    *   `MenuState` will have `MenuInitial`, `MenuLoading`, `MenuLoaded`, and `MenuError` states.
-    *   `MenuBloc` will handle the `GetMenuEvent` by calling the `GetMenu` use case and emitting the appropriate states.
+### 3. Слой представления (UI Layer)
 
-7.  **UI:**
-    *   Modify `MorePage` to use a `BlocProvider` to provide the `MenuBloc`.
-    *   The `MorePage` will dispatch the `GetMenuEvent` in the `initState`.
-    *   The `MorePage` will use a `BlocBuilder` to listen to the `MenuBloc`'s state and display the menu items.
-    *   The `ListView.builder` will be used to display the menu items.
-    *   A new widget `MenuItem` will be created to display each menu item.
-    *   The `onTap` handler for each `MenuItem` will check the `link` of the menu item. If it matches a predefined route for a static implementation, it will navigate to that route. Otherwise, it will use the `url_launcher` package to open the link.
+*   **Использование `available_bonus` в UI:** После того как данные о `profileBonus` станут доступны в `BasketInfoEntity`, будет реализована логика в UI корзины для отображения `availableBonus` и управления списанием бонусов. Это может включать:
+    *   Отображение максимального количества бонусов, которые можно списать.
+    *   Поле ввода для указания количества бонусов для списания, с валидацией на основе `availableBonus`.
+    *   Обновление общей суммы заказа при применении бонусов.
 
-#### Diagrams
+## Диаграммы
 
 ```mermaid
 graph TD
-    A[MorePage] -- dispatches --> B(GetMenuEvent)
-    B -- handled by --> C{MenuBloc}
-    C -- calls --> D(GetMenu use case)
-    D -- calls --> E{MenuRepository}
-    E -- calls --> F{MenuRemoteDataSource}
-    F -- fetches from --> G[API]
-    G -- returns --> F
-    F -- returns --> E
-    E -- returns --> D
-    D -- returns --> C
-    C -- emits --> H(MenuLoaded state)
-    H -- listened by --> A
-    A -- displays --> I[Menu]
+    A[API Response] --> B{JSON Parsing};
+    B -- "profile_bonus" --> C[BasketProfileBonusDto];
+    B -- "other_basket_info" --> D[BasketInfoDto];
+    C --> E[BasketProfileBonusEntity];
+    D --> F[BasketInfoEntity];
+    E -- "mapped to" --> F;
+    F --> G[UI Layer];
+    G -- "display available_bonus" --> H[User Interface];
 ```
 
-#### Summary of the design
+## Резюме дизайна
 
-The design follows the existing architecture of the app, which is based on Clean Architecture and `flutter_bloc`. It separates the concerns of data, domain, and presentation, making the code more modular, testable, and maintainable. The use of dependency injection will make it easy to manage the dependencies of the different components.
+Данный дизайн предлагает четкий и структурированный подход к интеграции информации о бонусах профиля из API корзины. Создание отдельных DTO и Entity для `profile_bonus` обеспечивает чистоту архитектуры и предотвращает конфликты с существующими моделями. Обновление мапперов гарантирует корректную передачу данных между слоями. Наконец, использование этих данных в UI позволит реализовать функциональность списания бонусов, улучшая пользовательский опыт.
 
-#### Research URLs
+## Ссылки на исследования
 
-*   [flutter_bloc documentation](https://bloclibrary.dev/)
-*   [json_serializable documentation](https://pub.dev/packages/json_serializable)
-*   [url_launcher documentation](https://pub.dev/packages/url_launcher)
+*   [Freezed package documentation](https://pub.dev/packages/freezed)
+*   [JsonSerializable package documentation](https://pub.dev/packages/json_annotation)
+*   [Flutter BLoC pattern](https://bloclibrary.dev/)

@@ -1,83 +1,106 @@
-### MODIFICATION_IMPLEMENTATION.md
+# План реализации: Интеграция бонусов профиля в корзину
 
-#### Phased Implementation Plan
+Этот документ описывает пошаговый план реализации для интеграции доступных бонусов в функционал корзины.
 
-##### Phase 1: Setup and Data Models
+## Журнал
 
-*   [x] Run all tests to ensure the project is in a good state before starting modifications.
-*   [x] Add `json_serializable` and `build_runner` to `pubspec.yaml` if they are not already there.
-*   [x] Create the directory `lib/features/more/data/models`.
-*   [x] Create the file `lib/features/more/data/models/menu_link.dart` with the `MenuLink` model.
-*   [x] Create the file `lib/features/more/data/models/menu_group.dart` with the `MenuGroup` model.
-*   [x] Create the file `lib/features/more/data/models/menu_response.dart` with the `MenuResponse` model.
-*   [x] Run `dart run build_runner build --delete-conflicting-outputs` to generate the `*.g.dart` files.
-*   [x] Create/modify unit tests for testing the code added or modified in this phase, if relevant.
-*   [x] Run the `dart_fix` tool to clean up the code.
-*   [x] Run the `analyze_files` tool one more time and fix any issues.
-*   [x] Run any tests to make sure they all pass.
-*   [x] Run `dart_format` to make sure that the formatting is correct.
-*   [x] Re-read the `MODIFICATION_IMPLEMENTATION.md` file to see what, if anything, has changed in the implementation plan, and if it has changed, take care of anything the changes imply.
-*   [x] Update the `MODIFICATION_IMPLEMENTATION.md` file with the current state, including any learnings, surprises, or deviations in the Journal section. Check off any checkboxes of items that have been completed.
-*   [x] Use `git diff` to verify the changes that have been made, and create a suitable commit message for any changes, following any guidelines you have about commit messages. Be sure to properly escape dollar signs and backticks, and present the change message to the user for approval.
-*   [x] Wait for approval. Don't commit the changes or move on to the next phase of implementation until the user approves the commit.
-*   [x] After commiting the change, if an app is running, use the `hot_reload` tool to reload it.
+*   **Фаза 1 (22.10.2025):** Проверка состояния проекта. Все тесты успешно пройдены, что подтверждает стабильность кодовой базы перед началом внесения изменений.
+*   **Фаза 2 (22.10.2025):** Слой данных (Data Layer). Созданы `BasketProfileBonusDto` и обновлен `BasketInfoDto`. Успешно сгенерированы `.g.dart` файлы. Созданы и пройдены юнит-тесты для `BasketInfoDto`. Выполнены `dart fix` и `dart format`.
 
-##### Phase 2: Data Layer
+---
 
-*   [x] Create the directory `lib/features/more/data/datasources`.
-*   [x] Create the file `lib/features/more/data/datasources/menu_remote_data_source.dart` with the `MenuRemoteDataSource` abstract class and its implementation.
-*   [x] Create the directory `lib/features/more/domain/repositories`.
-*   [x] Create the file `lib/features/more/domain/repositories/menu_repository.dart` with the `MenuRepository` abstract class.
-*   [x] Create the directory `lib/features/more/data/repositories`.
-*   [x] Create the file `lib/features/more/data/repositories/menu_repository_impl.dart` with the `MenuRepositoryImpl` implementation.
-*   [x] Create/modify unit tests for testing the code added or modified in this phase, if relevant.
-*   [x] Run the `dart_fix` tool to clean up the code.
-*   [x] Run the `analyze_files` tool one more time and fix any issues.
-*   [x] Run any tests to make sure they all pass.
-*   [x] Run `dart_format` to make sure that the formatting is correct.
-*   [x] Re-read the `MODIFICATION_IMPLEMENTATION.md` file to see what, if anything, has changed in the implementation plan, and if it has changed, take care of anything the changes imply.
-*   [x] Update the `MODIFICATION_IMPLEMENTATION.md` file with the current state, including any learnings, surprises, or deviations in the Journal section. Check off any checkboxes of items that have been completed.
-*   [x] Use `git diff` to verify the changes that have been made, and create a suitable commit message for any changes, following any guidelines you have about commit messages. Be sure to properly escape dollar signs and backticks, and present the change message to the user for approval.
-*   [x] Wait for approval. Don't commit the changes or move on to the next phase of implementation until the user approves the commit.
-*   [x] After commiting the change, if an app is running, use the `hot_reload` tool to reload it.
+## Фаза 1: Проверка состояния проекта
 
-##### Phase 3: Domain Layer and Dependency Injection
+- [x] Запустить все существующие тесты, чтобы убедиться, что проект находится в стабильном состоянии перед началом модификаций.
 
-*   [x] Create the directory `lib/features/more/domain/usecases`.
-*   [x] Create the file `lib/features/more/domain/usecases/get_menu.dart` with the `GetMenu` use case.
-*   [x] Update `injection_container.dart` to register the new data source, repository, and use case.
-*   [x] Create/modify unit tests for testing the code added or modified in this phase, if relevant.
-*   [x] Run the `dart_fix` tool to clean up the code.
-*   [x] Run the `analyze_files` tool one more time and fix any issues.
-*   [x] Run any tests to make sure they all pass.
-*   [x] Run `dart_format` to make sure that the formatting is correct.
-*   [x] Re-read the `MODIFICATION_IMPLEMENTATION.md` file to see what, if anything, has changed in the implementation plan, and if it has changed, take care of anything the changes imply.
-*   [x] Update the `MODIFICATION_IMPLEMENTATION.md` file with the current state, including any learnings, surprises, or deviations in the Journal section. Check off any checkboxes of items that have been completed.
-*   [x] Use `git diff` to verify the changes that have been made, and. Be sure to properly escape dollar signs and backticks, and present the change message to the user for approval.
-*   [x] Wait for approval. Don't commit the changes or move on to the next phase of implementation until the user approves the commit.
-*   [x] After commiting the change, if an app is running, use the `hot_reload` tool to reload it.
+После завершения этой фазы:
+- [x] Обновить этот файл `MODIFICATION_IMPLEMENTATION.md`, отметив выполненные задачи и заполнив раздел "Журнал".
+- [ ] Запросить одобрение для перехода к следующей фазе.
 
-##### Phase 4: Presentation Layer (Bloc)
+---
 
-*   [x] Create the directory `lib/features/more/presentation/bloc`.
-*   [x] Create the file `lib/features/more/presentation/bloc/menu_event.dart` with the `MenuEvent`.
-*   [x] Create the file `lib/features/more/presentation/bloc/menu_state.dart` with the `MenuState`.
-*   [x] Create the file `lib/features/more/presentation/bloc/menu_bloc.dart` with the `MenuBloc`.
-*   [x] Update `injection_container.dart` to register the `MenuBloc`.
-*   [x] Create/modify unit tests for testing the code added or modified in this phase, if relevant.
-*   [x] Run the `dart_fix` tool to clean up the code.
-*   [x] Run the `analyze_files` tool one more time and fix any issues.
-*   [x] Run any tests to make sure they all pass.
-*   [x] Run `dart_format` to make sure that the formatting is correct.
-*   [x] Re-read the `MODIFICATION_IMPLEMENTATION.md` file to see what, if anything, has changed in the implementation plan, and if it has changed, take care of anything the changes imply.
-*   [x] Update the `MODIFICATION_IMPLEMENTATION.md` file with the current state, including any learnings, surprises, or deviations in the Journal section. Check off any checkboxes of items that have been completed.
-*   [x] Use `git diff` to verify the changes that have been made, and create a suitable commit message for any changes, following any guidelines you have about commit messages. Be sure to properly escape dollar signs and backticks, and present the change message to the user for approval.
-*   [x] Wait for approval. Don't commit the changes or move on to the next phase of implementation until the user approves the commit.
-*   [ ] After commiting the change, if an app is running, use the `hot_reload` tool to reload it.
+## Фаза 2: Слой данных (Data Layer)
 
-##### Phase 5: Finalization
+- [x] Создать файл `lib/features/order/data/models/basket_profile_bonus_dto.dart` с классом `BasketProfileBonusDto`.
+- [x] Добавить поле `profileBonus` типа `BasketProfileBonusDto?` в `lib/features/order/data/models/basket_info_dto.dart`.
+- [x] Запустить `flutter pub run build_runner build --delete-conflicting-outputs` для генерации файлов `.g.dart`.
 
-*   [ ] Finalize the implementation and test it, then ask the user to check it.
-*   [ ] Delete the `MODIFICATION_DESIGN.md` and `MODIFICATION_IMPLEMENTATION.md` files.
-*   [ ] Create a commit with the deleted files.
-*   [ ] Inform the user that the implementation is complete and that the task is finished.
+После завершения этой фазы:
+- [x] Создать/изменить юнит-тесты для проверки парсинга `BasketInfoDto` с новым полем.
+- [x] Запустить `dart fix --apply` для исправления возможных проблем.
+- [x] Запустить `analyze_files` и исправить все обнаруженные проблемы.
+- [x] Запустить все тесты и убедиться, что они проходят.
+- [x] Запустить `dart format .` для форматирования кода.
+- [x] Перечитать `MODIFICATION_IMPLEMENTATION.md` для проверки на наличие изменений.
+- [ ] Обновить `MODIFICATION_IMPLEMENTATION.md`, отметив выполненные задачи и заполнив "Журнал".
+- [ ] Использовать `git diff` для проверки изменений, подготовить коммит-сообщение и запросить одобрение.
+- [ ] Дождаться одобрения и выполнить коммит.
+- [ ] Если приложение запущено, выполнить горячую перезагрузку.
+
+---
+
+## Фаза 3: Слой домена (Domain Layer)
+
+- [ ] Создать файл `lib/features/basket/domain/entities/basket_profile_bonus_entity.dart` с классом `BasketProfileBonusEntity`.
+- [ ] Добавить поле `profileBonus` типа `BasketProfileBonusEntity?` в `lib/features/basket/domain/entities/basket_info_entity.dart`.
+- [ ] Запустить `flutter pub run build_runner build --delete-conflicting-outputs` для генерации файлов `.freezed.dart`.
+
+После завершения этой фазы:
+- [ ] Создать/изменить юнит-тесты для `BasketInfoEntity`.
+- [ ] Запустить `dart fix --apply`.
+- [ ] Запустить `analyze_files` и исправить все проблемы.
+- [ ] Запустить все тесты.
+- [ ] Запустить `dart format .`.
+- [ ] Перечитать `MODIFICATION_IMPLEMENTATION.md`.
+- [ ] Обновить `MODIFICATION_IMPLEMENTATION.md`.
+- [ ] Использовать `git diff`, подготовить коммит-сообщение и запросить одобрение.
+- [ ] Дождаться одобрения и выполнить коммит.
+- [ ] Если приложение запущено, выполнить горячую перезагрузку.
+
+---
+
+## Фаза 4: Обновление репозитория и маппера
+
+- [ ] Обновить метод `getBasketInfo` в `lib/features/basket/data/repository/basket_repository_impl.dart` для маппинга `BasketProfileBonusDto` в `BasketProfileBonusEntity`.
+
+После завершения этой фазы:
+- [ ] Создать/изменить юнит-тесты для `BasketRepositoryImpl`, чтобы проверить корректность маппинга.
+- [ ] Запустить `dart fix --apply`.
+- [ ] Запустить `analyze_files` и исправить все проблемы.
+- [ ] Запустить все тесты.
+- [ ] Запустить `dart format .`.
+- [ ] Перечитать `MODIFICATION_IMPLEMENTATION.md`.
+- [ ] Обновить `MODIFICATION_IMPLEMENTATION.md`.
+- [ ] Использовать `git diff`, подготовить коммит-сообщение и запросить одобрение.
+- [ ] Дождаться одобрения и выполнить коммит.
+- [ ] Если приложение запущено, выполнить горячую перезагрузку.
+
+---
+
+## Фаза 5: Слой представления (UI Layer)
+
+- [ ] Найти и модифицировать виджет корзины для отображения `availableBonus`.
+- [ ] Добавить логику для ввода и применения бонусов, включая валидацию на основе `availableBonus`.
+- [ ] Обновить UI для корректного отображения итоговой суммы заказа после применения бонусов.
+
+После завершения этой фазы:
+- [ ] Создать/изменить виджет-тесты для проверки нового UI и логики.
+- [ ] Запустить `dart fix --apply`.
+- [ ] Запустить `analyze_files` и исправить все проблемы.
+- [ ] Запустить все тесты.
+- [ ] Запустить `dart format .`.
+- [ ] Перечитать `MODIFICATION_IMPLEMENTATION.md`.
+- [ ] Обновить `MODIFICATION_IMPLEMENTATION.md`.
+- [ ] Использовать `git diff` для проверки изменений, подготовить коммит-сообщение и запросить одобрение.
+- [ ] Дождаться одобрения и выполнить коммит.
+- [ ] Если приложение запущено, выполнить горячую перезагрузку.
+
+---
+
+## Фаза 6: Завершение
+
+- [ ] Обновить `README.md` и/или `GEMINI.md`, если были внесены значительные изменения, требующие документирования.
+- [ ] Запросить у вас проверку реализованной функциональности в приложении.
+- [ ] Убедиться, что вы удовлетворены результатом.
+- [ ] После вашего окончательного одобрения, удалить `MODIFICATION_DESIGN.md` и `MODIFICATION_IMPLEMENTATION.md`.
+- [ ] Объединить ветку `feature/bonus-integration` в `develop`.

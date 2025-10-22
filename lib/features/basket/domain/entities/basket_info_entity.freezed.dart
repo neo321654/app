@@ -23,6 +23,8 @@ mixin _$BasketInfoEntity {
   BasketPretotalnfoEntity get bonusInfo => throw _privateConstructorUsedError;
   List<String> get warnings => throw _privateConstructorUsedError;
   String? get timeDelay => throw _privateConstructorUsedError;
+  BasketProfileBonusEntity? get profileBonus =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BasketInfoEntityCopyWith<BasketInfoEntity> get copyWith =>
@@ -41,10 +43,12 @@ abstract class $BasketInfoEntityCopyWith<$Res> {
       List<BasketPretotalnfoEntity> pretotalInfo,
       BasketPretotalnfoEntity bonusInfo,
       List<String> warnings,
-      String? timeDelay});
+      String? timeDelay,
+      BasketProfileBonusEntity? profileBonus});
 
   $BasketTotalInfoEntityCopyWith<$Res> get totalInfo;
   $BasketPretotalnfoEntityCopyWith<$Res> get bonusInfo;
+  $BasketProfileBonusEntityCopyWith<$Res>? get profileBonus;
 }
 
 /// @nodoc
@@ -66,6 +70,7 @@ class _$BasketInfoEntityCopyWithImpl<$Res, $Val extends BasketInfoEntity>
     Object? bonusInfo = null,
     Object? warnings = null,
     Object? timeDelay = freezed,
+    Object? profileBonus = freezed,
   }) {
     return _then(_value.copyWith(
       products: null == products
@@ -92,6 +97,10 @@ class _$BasketInfoEntityCopyWithImpl<$Res, $Val extends BasketInfoEntity>
           ? _value.timeDelay
           : timeDelay // ignore: cast_nullable_to_non_nullable
               as String?,
+      profileBonus: freezed == profileBonus
+          ? _value.profileBonus
+          : profileBonus // ignore: cast_nullable_to_non_nullable
+              as BasketProfileBonusEntity?,
     ) as $Val);
   }
 
@@ -110,6 +119,19 @@ class _$BasketInfoEntityCopyWithImpl<$Res, $Val extends BasketInfoEntity>
       return _then(_value.copyWith(bonusInfo: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $BasketProfileBonusEntityCopyWith<$Res>? get profileBonus {
+    if (_value.profileBonus == null) {
+      return null;
+    }
+
+    return $BasketProfileBonusEntityCopyWith<$Res>(_value.profileBonus!,
+        (value) {
+      return _then(_value.copyWith(profileBonus: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -126,12 +148,15 @@ abstract class _$$BasketInfoEntityImplCopyWith<$Res>
       List<BasketPretotalnfoEntity> pretotalInfo,
       BasketPretotalnfoEntity bonusInfo,
       List<String> warnings,
-      String? timeDelay});
+      String? timeDelay,
+      BasketProfileBonusEntity? profileBonus});
 
   @override
   $BasketTotalInfoEntityCopyWith<$Res> get totalInfo;
   @override
   $BasketPretotalnfoEntityCopyWith<$Res> get bonusInfo;
+  @override
+  $BasketProfileBonusEntityCopyWith<$Res>? get profileBonus;
 }
 
 /// @nodoc
@@ -151,6 +176,7 @@ class __$$BasketInfoEntityImplCopyWithImpl<$Res>
     Object? bonusInfo = null,
     Object? warnings = null,
     Object? timeDelay = freezed,
+    Object? profileBonus = freezed,
   }) {
     return _then(_$BasketInfoEntityImpl(
       products: null == products
@@ -177,6 +203,10 @@ class __$$BasketInfoEntityImplCopyWithImpl<$Res>
           ? _value.timeDelay
           : timeDelay // ignore: cast_nullable_to_non_nullable
               as String?,
+      profileBonus: freezed == profileBonus
+          ? _value.profileBonus
+          : profileBonus // ignore: cast_nullable_to_non_nullable
+              as BasketProfileBonusEntity?,
     ));
   }
 }
@@ -190,7 +220,8 @@ class _$BasketInfoEntityImpl implements _BasketInfoEntity {
       required final List<BasketPretotalnfoEntity> pretotalInfo,
       required this.bonusInfo,
       required final List<String> warnings,
-      this.timeDelay})
+      this.timeDelay,
+      this.profileBonus})
       : _products = products,
         _pretotalInfo = pretotalInfo,
         _warnings = warnings;
@@ -225,10 +256,12 @@ class _$BasketInfoEntityImpl implements _BasketInfoEntity {
 
   @override
   final String? timeDelay;
+  @override
+  final BasketProfileBonusEntity? profileBonus;
 
   @override
   String toString() {
-    return 'BasketInfoEntity(products: $products, totalInfo: $totalInfo, pretotalInfo: $pretotalInfo, bonusInfo: $bonusInfo, warnings: $warnings, timeDelay: $timeDelay)';
+    return 'BasketInfoEntity(products: $products, totalInfo: $totalInfo, pretotalInfo: $pretotalInfo, bonusInfo: $bonusInfo, warnings: $warnings, timeDelay: $timeDelay, profileBonus: $profileBonus)';
   }
 
   @override
@@ -245,7 +278,9 @@ class _$BasketInfoEntityImpl implements _BasketInfoEntity {
                 other.bonusInfo == bonusInfo) &&
             const DeepCollectionEquality().equals(other._warnings, _warnings) &&
             (identical(other.timeDelay, timeDelay) ||
-                other.timeDelay == timeDelay));
+                other.timeDelay == timeDelay) &&
+            (identical(other.profileBonus, profileBonus) ||
+                other.profileBonus == profileBonus));
   }
 
   @override
@@ -256,7 +291,8 @@ class _$BasketInfoEntityImpl implements _BasketInfoEntity {
       const DeepCollectionEquality().hash(_pretotalInfo),
       bonusInfo,
       const DeepCollectionEquality().hash(_warnings),
-      timeDelay);
+      timeDelay,
+      profileBonus);
 
   @JsonKey(ignore: true)
   @override
@@ -273,7 +309,8 @@ abstract class _BasketInfoEntity implements BasketInfoEntity {
       required final List<BasketPretotalnfoEntity> pretotalInfo,
       required final BasketPretotalnfoEntity bonusInfo,
       required final List<String> warnings,
-      final String? timeDelay}) = _$BasketInfoEntityImpl;
+      final String? timeDelay,
+      final BasketProfileBonusEntity? profileBonus}) = _$BasketInfoEntityImpl;
 
   @override
   List<ProductEntity> get products;
@@ -287,6 +324,8 @@ abstract class _BasketInfoEntity implements BasketInfoEntity {
   List<String> get warnings;
   @override
   String? get timeDelay;
+  @override
+  BasketProfileBonusEntity? get profileBonus;
   @override
   @JsonKey(ignore: true)
   _$$BasketInfoEntityImplCopyWith<_$BasketInfoEntityImpl> get copyWith =>

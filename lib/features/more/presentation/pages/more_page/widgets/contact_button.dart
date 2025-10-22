@@ -10,7 +10,6 @@ import '../../../../../../config/themes/colors.dart';
 import '../../../../../../config/themes/styles.dart';
 import '../../../../../home/presentation/bloc/settings/settings_bloc.dart';
 
-
 class ContactButton extends StatelessWidget {
   const ContactButton({super.key});
 
@@ -21,7 +20,9 @@ class ContactButton extends StatelessWidget {
         _addContactAction(
           actions: actions,
           title: 'Вызов +${settings.feedback?.phone ?? ""}',
-          url: settings.feedback?.phone != null ? 'tel:${settings.feedback!.phone!}' : null,
+          url: settings.feedback?.phone != null
+              ? 'tel:${settings.feedback!.phone!}'
+              : null,
         );
         _addContactAction(
           actions: actions,
