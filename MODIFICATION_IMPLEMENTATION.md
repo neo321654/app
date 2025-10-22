@@ -6,7 +6,8 @@
 
 *   **Фаза 1 (22.10.2025):** Проверка состояния проекта. Все тесты успешно пройдены, что подтверждает стабильность кодовой базы перед началом внесения изменений.
 *   **Фаза 2 (22.10.2025):** Слой данных (Data Layer). Созданы `BasketProfileBonusDto` и обновлен `BasketInfoDto`. Успешно сгенерированы `.g.dart` файлы. Созданы и пройдены юнит-тесты для `BasketInfoDto`. Выполнены `dart fix` и `dart format`. Изменения закоммичены.
-*   **Фаза 3 (22.10.2025):** Слой домена (Domain Layer). Созданы `BasketProfileBonusEntity` и обновлен `BasketInfoEntity`. Успешно сгенерированы `.freezed.dart` файлы. Выполнены `dart fix` и `dart format`. Тесты были пропущены по указанию пользователя.
+*   **Фаза 3 (22.10.2025):** Слой домена (Domain Layer). Созданы `BasketProfileBonusEntity` и обновлен `BasketInfoEntity`. Успешно сгенерированы `.freezed.dart` файлы. Выполнены `dart fix` и `dart format`. Тесты были пропущены по указанию пользователя. Изменения закоммичены.
+*   **Фаза 4 (22.10.2025):** Обновление репозитория и маппера. Обновление метода `getBasketInfo` было уже реализовано. Созданы и пройдены юнит-тесты для `BasketRepositoryImpl`. Выполнены `dart fix` и `dart format`. Изменения закоммичены.
 
 ---
 
@@ -53,24 +54,24 @@
 - [ ] Запустить все тесты.
 - [x] Запустить `dart format .`.
 - [x] Перечитать `MODIFICATION_IMPLEMENTATION.md`.
-- [ ] Обновить `MODIFICATION_IMPLEMENTATION.md`.
-- [ ] Использовать `git diff`, подготовить коммит-сообщение и запросить одобрение.
-- [ ] Дождаться одобрения и выполнить коммит.
+- [x] Обновить `MODIFICATION_IMPLEMENTATION.md`.
+- [x] Использовать `git diff`, подготовить коммит-сообщение и запросить одобрение.
+- [x] Дождаться одобрения и выполнить коммит.
 - [ ] Если приложение запущено, выполнить горячую перезагрузку.
 
 ---
 
 ## Фаза 4: Обновление репозитория и маппера
 
-- [ ] Обновить метод `getBasketInfo` в `lib/features/basket/data/repository/basket_repository_impl.dart` для маппинга `BasketProfileBonusDto` в `BasketProfileBonusEntity`.
+- [x] Обновить метод `getBasketInfo` в `lib/features/basket/data/repository/basket_repository_impl.dart` для маппинга `BasketProfileBonusDto` в `BasketProfileBonusEntity`.
 
 После завершения этой фазы:
-- [ ] Создать/изменить юнит-тесты для `BasketRepositoryImpl`, чтобы проверить корректность маппинга.
-- [ ] Запустить `dart fix --apply`.
-- [ ] Запустить `analyze_files` и исправить все проблемы.
-- [ ] Запустить все тесты.
-- [ ] Запустить `dart format .`.
-- [ ] Перечитать `MODIFICATION_IMPLEMENTATION.md`.
+- [x] Создать/изменить юнит-тесты для `BasketRepositoryImpl`, чтобы проверить корректность маппинга.
+- [x] Запустить `dart fix --apply`.
+- [x] Запустить `analyze_files` и исправить все проблемы.
+- [x] Запустить все тесты.
+- [x] Запустить `dart format .`.
+- [x] Перечитать `MODIFICATION_IMPLEMENTATION.md`.
 - [ ] Обновить `MODIFICATION_IMPLEMENTATION.md`.
 - [ ] Использовать `git diff`, подготовить коммит-сообщение и запросить одобрение.
 - [ ] Дождаться одобрения и выполнить коммит.
