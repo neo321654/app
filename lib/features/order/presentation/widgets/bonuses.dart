@@ -7,7 +7,7 @@ import 'package:monobox/core/widgets/rounded_container.dart';
 import '../../../../config/themes/colors.dart';
 import '../../../../config/themes/styles.dart';
 import '../../../../injection_container.dart';
-import '../../../profile/presentation/bloc/profile/profile_cubit.dart';
+import '../../../basket/presentation/bloc/basket_info/basket_info_bloc.dart'; // Import BasketInfoBloc
 import '../bloc/create_order_state_cubit/create_order_state_cubit.dart';
 import '../models/create_order_state.dart';
 
@@ -18,100 +18,112 @@ class Bonuses extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: getIt<CreateOrderStateCubit>()..setUseBonuses(false),
-      child: RoundedContainer(
-        header: Text(
-          'Списать бонусы',
-          style: AppStyles.headline,
-        ),
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 16,
-            ),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12,
-                vertical: 16,
-              ),
-              decoration: BoxDecoration(
-                color: AppColors.lightScaffoldBackground,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(
-                    AppStyles.radiusElement,
-                  ),
+      child: BlocBuilder<BasketInfoBloc, BasketInfoState>(
+        builder: (context, basketInfoState) {
+          return basketInfoState.maybeMap(
+            success: (basketInfoSuccess) {
+              final availableBonuses =
+                  basketInfoSuccess.basketInfo.profileBonus?.availableBonus ??
+                      0;
+              final totalBonuses =
+                  basketInfoSuccess.basketInfo.profileBonus?.totalBonus ?? 0;
+
+              if (availableBonuses == 0) {
+                return const SizedBox.shrink();
+              }
+
+              return RoundedContainer(
+                header: Text(
+                  'Списать бонусы',
+                  style: AppStyles.headline,
                 ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        context.watch<ProfileCubit>().state.maybeMap(
-                              done: (value) =>
-                                  'У вас ${value.profile.bonus!.count} бонусов',
-                              orElse: () => '',
-                            ),
-                        style: AppStyles.footnote,
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 16,
                       ),
-                      const SizedBox(
-                        height: 4,
+                      decoration: BoxDecoration(
+                        color: AppColors.lightScaffoldBackground,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(
+                            AppStyles.radiusElement,
+                          ),
+                        ),
                       ),
-                      Row(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'У вас $totalBonuses бонусов',
+                                style: AppStyles.footnote,
+                              ),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              Row(
+                                children: [
+                                  BlocBuilder<CreateOrderStateCubit,
+                                      CreateOrderState>(
+                                    builder: (context, state) {
+                                      return Text(
+                                        (state.useBonuses ?? false)
+                                            ? 'Спишем $availableBonuses'
+                                            : 'Можете списать $availableBonuses',
+                                        style: AppStyles.callout,
+                                      );
+                                    },
+                                  ),
+                                  AppStyles.xSsmallHGap,
+                                  SizedBox(
+                                    width: 18,
+                                    height: 18,
+                                    child: SvgPicture.asset(
+                                      'assets/icons/bonus_icn.svg',
+                                      color: AppColors.lightPrimary,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                           BlocBuilder<CreateOrderStateCubit, CreateOrderState>(
                             builder: (context, state) {
-                              return Text(
-                                context.watch<ProfileCubit>().state.maybeMap(
-                                      done: (value) => (state.useBonuses ??
-                                              false)
-                                          ? 'Спишем ${value.profile.bonus!.count}'
-                                          : 'Можете списать ${value.profile.bonus!.count}',
-                                      orElse: () => '',
-                                    ),
-                                style: AppStyles.callout,
+                              return SizedBox(
+                                height: 31,
+                                width: 55,
+                                child: CupertinoSwitch(
+                                  activeTrackColor: AppColors.lightPrimary,
+                                  onChanged: (bool value) {
+                                    context
+                                        .read<CreateOrderStateCubit>()
+                                        .setUseBonuses(value);
+                                  },
+                                  value: state.useBonuses ?? false,
+                                ),
                               );
                             },
                           ),
-                          AppStyles.xSsmallHGap,
-                          SizedBox(
-                            width: 18,
-                            height: 18,
-                            child: SvgPicture.asset(
-                              'assets/icons/bonus_icn.svg',
-                              color: AppColors.lightPrimary,
-                            ),
-                          ),
                         ],
                       ),
-                    ],
-                  ),
-                  BlocBuilder<CreateOrderStateCubit, CreateOrderState>(
-                    builder: (context, state) {
-                      return SizedBox(
-                        height: 31,
-                        width: 55,
-                        child: CupertinoSwitch(
-                          activeTrackColor: AppColors.lightPrimary,
-                          onChanged: (bool value) {
-                            context
-                                .read<CreateOrderStateCubit>()
-                                .setUseBonuses(value);
-                          },
-                          value: state.useBonuses ?? false,
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+                    ),
+                  ],
+                ),
+              );
+            },
+            orElse: () => const SizedBox.shrink(),
+          );
+        },
       ),
     );
   }

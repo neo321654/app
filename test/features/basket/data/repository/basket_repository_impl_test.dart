@@ -12,13 +12,7 @@ import 'package:monobox/features/order/data/models/basket_info_dto.dart';
 import 'package:monobox/features/order/data/models/basket_profile_bonus_dto.dart';
 import 'package:monobox/features/basket/data/data_sources/locale/basket_locale.dart';
 import 'package:monobox/features/order/data/models/basket_pretotal_info_dto.dart';
-import 'package:monobox/features/basket/domain/entities/basket_pretotal_info_entity.dart';
 import 'package:monobox/features/home/data/models/product_dto.dart';
-import 'package:monobox/features/home/domain/entities/product_entity.dart';
-import 'package:monobox/features/home/domain/entities/kbzhu_entity.dart';
-import 'package:monobox/features/home/domain/entities/modifier_entity.dart';
-import 'package:monobox/features/home/domain/entities/tag_entity.dart';
-import 'package:decimal/decimal.dart';
 
 import 'basket_repository_impl_test.mocks.dart';
 
@@ -61,7 +55,7 @@ void main() {
         'should return BasketInfoEntity with profileBonus when API call is successful',
         () async {
       // Arrange
-      final basketProfileBonusDto = BasketProfileBonusDto(
+      const basketProfileBonusDto = BasketProfileBonusDto(
         totalBonus: 100,
         availableBonus: 50,
       );

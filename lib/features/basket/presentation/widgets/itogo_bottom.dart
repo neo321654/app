@@ -39,10 +39,18 @@ class ItogoBottom extends StatelessWidget {
                       final deliveryType =
                           getIt<CreateOrderStateCubit>().state.delivery?.type;
 
+                      // Получаем флаг использования бонусов
+                      final useBonuses = getIt<CreateOrderStateCubit>().state.useBonuses ?? false;
+                      final availableBonuses = basketInfo.profileBonus?.availableBonus ?? 0;
+
                       // Если это самовывоз, показываем только total без доставки
                       if (deliveryType == 'pickup') {
+                        int finalTotal = basketInfo.totalInfo.total;
+                        if (useBonuses && availableBonuses > 0) {
+                          finalTotal -= availableBonuses;
+                        }
                         return Text(
-                          '${basketInfo.totalInfo.total} ₽',
+                          '$finalTotal ₽',
                           style: AppStyles.bodyBold.copyWith(
                             color: AppColors.black,
                           ),
@@ -83,6 +91,11 @@ class ItogoBottom extends StatelessWidget {
                       if (!deliveryFound) {
                         print(
                             'BASKET - NO DELIVERY COST FOUND, USING TOTAL ONLY');
+                      }
+
+                      // Вычитаем бонусы из итоговой суммы, если они используются
+                      if (useBonuses && availableBonuses > 0) {
+                        totalWithDelivery -= availableBonuses;
                       }
 
                       return Text(
