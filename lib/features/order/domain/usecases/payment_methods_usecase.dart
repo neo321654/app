@@ -4,13 +4,13 @@ import '../entities/payment_method_entity.dart';
 import '../repositories/payment_repository.dart';
 
 class PaymentMethodsUsecase
-    implements UseCase<DataState<List<PaymentMethodEntity>>?, void> {
+    implements UseCase<DataState<List<PaymentMethodEntity>>?, int?> {
   final PaymentRepository paymentRepository;
 
   PaymentMethodsUsecase({required this.paymentRepository});
 
   @override
-  Future<DataState<List<PaymentMethodEntity>>?> call({params}) {
-    return paymentRepository.getPaymentMethods();
+  Future<DataState<List<PaymentMethodEntity>>?> call({int? params}) {
+    return paymentRepository.getPaymentMethods(deliveryId: params);
   }
 }

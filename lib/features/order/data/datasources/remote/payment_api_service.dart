@@ -10,5 +10,6 @@ abstract class PaymentApiService {
   factory PaymentApiService(Dio dio) = _PaymentApiService;
 
   @GET('/paymentmethods')
-  Future<PaymentMethodsDto> getPaymentMethods();
+  Future<PaymentMethodsDto> getPaymentMethods(
+      {@Query('delivery_id') int? deliveryId});
 }

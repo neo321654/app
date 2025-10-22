@@ -385,6 +385,10 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                                       .read<CreateOrderStateCubit>()
                                       .setDelivery(selectedDelivery);
 
+                                  context.read<PaymentMethodsBloc>().add(
+                                      GetPaymentMethods(
+                                          deliveryId: selectedDelivery.id));
+
                                   // Обновляем корзину с новым типом доставки
                                   if (context.read<BasketBloc>().state
                                       is BasketLoaded) {

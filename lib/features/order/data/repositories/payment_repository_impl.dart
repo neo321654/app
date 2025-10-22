@@ -12,8 +12,10 @@ class PaymentRepositoryImpl implements PaymentRepository {
   PaymentRepositoryImpl({required this.service});
 
   @override
-  Future<DataState<List<PaymentMethodEntity>>?> getPaymentMethods() async {
-    PaymentMethodsDto paymentMethods = await service.getPaymentMethods();
+  Future<DataState<List<PaymentMethodEntity>>?> getPaymentMethods(
+      {int? deliveryId}) async {
+    PaymentMethodsDto paymentMethods =
+        await service.getPaymentMethods(deliveryId: deliveryId);
 
     return DataSuccess(
       PaymentMapper.toEntities(paymentMethods),

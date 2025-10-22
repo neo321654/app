@@ -22,9 +22,10 @@ class _PaymentApiService implements PaymentApiService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<PaymentMethodsDto> getPaymentMethods() async {
+  Future<PaymentMethodsDto> getPaymentMethods({int? deliveryId}) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'delivery_id': deliveryId};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<PaymentMethodsDto>(Options(

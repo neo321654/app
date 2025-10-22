@@ -10,7 +10,7 @@ part 'payment_methods_state.dart';
 
 class PaymentMethodsBloc
     extends Bloc<PaymentMethodsEvent, PaymentMethodsState> {
-  final UseCase _paymentMethodsUsecase;
+  final UseCase<DataState<List<PaymentMethodEntity>>?, int?> _paymentMethodsUsecase;
 
   PaymentMethodsBloc(this._paymentMethodsUsecase)
       : super(PaymentMethodsInitial()) {
@@ -18,11 +18,11 @@ class PaymentMethodsBloc
   }
 
   void _onGetPaymentMethods(
-      PaymentMethodsEvent event, Emitter<PaymentMethodsState> emit) async {
+      GetPaymentMethods event, Emitter<PaymentMethodsState> emit) async {
     emit(const PaymentMethodsLoading());
 
     final DataState<List<PaymentMethodEntity>>? dataState =
-        await _paymentMethodsUsecase();
+        await _paymentMethodsUsecase(params: event.deliveryId);
 
     if (dataState is DataSuccess && dataState?.data != null) {
       emit(PaymentMethodsDone(dataState!.data ?? []));

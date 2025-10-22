@@ -35,6 +35,7 @@ import 'features/home/presentation/bloc/settings/settings_bloc.dart';
 import 'features/home/presentation/bloc/tags/tags_bloc.dart';
 import 'features/more/presentation/bloc/menu_bloc.dart';
 import 'features/order/presentation/bloc/create_order_state_cubit/create_order_state_cubit.dart';
+import 'features/order/presentation/bloc/payment_methods/payment_methods_bloc.dart';
 import 'features/profile/presentation/bloc/loyalty/loyalty_bloc.dart';
 import 'features/profile/presentation/bloc/notification/notification_settings_bloc.dart';
 import 'features/profile/presentation/bloc/profile/profile_cubit.dart';
@@ -162,6 +163,7 @@ class MainWidget extends StatelessWidget {
         BlocProvider.value(
           value: getIt<DeliveryBloc>()..add(const GetDeliveries()),
         ),
+        BlocProvider.value(value: getIt<PaymentMethodsBloc>()),
         BlocProvider(
           create: (context) => getIt<MenuBloc>(),
         ),
@@ -194,6 +196,10 @@ class MainWidget extends StatelessWidget {
             listener: (context, state) {
               print('MAIN - DELIVERY BLOC STATE: ${state.runtimeType}');
               if (state is DeliveriesDone) {
+                if (state.deliveries?.isNotEmpty == true) {
+                  getIt<PaymentMethodsBloc>().add(
+                      GetPaymentMethods(deliveryId: state.deliveries!.first.id));
+                }
                 print('MAIN - DELIVERIES DONE, LOADING BASKET');
                 getIt<BasketBloc>().add(LoadBasket());
               }
