@@ -430,6 +430,9 @@ class LoyaltyPage extends StatelessWidget {
                             }),
                           );
                         },
+                        // loading: () => const Center(
+                        //   child: CircularProgressIndicator(),
+                        // ),
                         orElse: () => Column(
                           children: [
                             const LoyaltyDescItem(
@@ -442,7 +445,7 @@ class LoyaltyPage extends StatelessWidget {
                             ),
                             const LoyaltyDescItem(
                               title:
-                                  'Мы начисли11м бонусы в зависимости\nот вашего статуса заказ',
+                                  'Мы начислим бонусы в зависимости\nот вашего статуса заказ',
                               description: '',
                               icon: 'assets/icons/how_works2.svg',
                             ),
