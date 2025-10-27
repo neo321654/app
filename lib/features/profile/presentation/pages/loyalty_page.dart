@@ -13,6 +13,7 @@ import '../../../../config/themes/styles.dart';
 import '../../../../core/widgets/rounded_container.dart';
 import '../bloc/add_child/add_child_bloc.dart';
 import '../bloc/loyalty/loyalty_bloc.dart';
+import '../../../phrases/presentation/bloc/phrases_bloc.dart';
 import '../widgets/loyalty_desc_item.dart';
 import '../widgets/profile_bonusses.dart';
 
@@ -104,345 +105,377 @@ class LoyaltyPage extends StatelessWidget {
     BuildContext context,
   ) {
     final double width = MediaQuery.of(context).size.width - (16 * 2);
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 32),
-          context.watch<ProfileCubit>().state.maybeMap(
-                done: (value) => value.profile.bonus != null
-                    ? value.profile.bonus!.available
-                        ? const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
-                            child: ProfileBonusses(isClickabel: false),
-                          )
-                        : Padding(
-                            padding: const EdgeInsets.only(
-                              left: 16,
-                              right: 16,
-                              bottom: 20,
-                            ),
-                            child: GestureDetector(
-                              onTap: () {
-                                context.router.push(
-                                  const LoyalEntityRoute(),
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 20,
-                                  vertical: 16,
-                                ),
-                                height: 140,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(
-                                      AppStyles.radiusBlock,
-                                    ),
+    return BlocProvider(
+      create: (context) => getIt<PhrasesBloc>()..add(const GetPhrases()),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 32),
+            context.watch<ProfileCubit>().state.maybeMap(
+                  done: (value) => value.profile.bonus != null
+                      ? value.profile.bonus!.available
+                          ? const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16),
+                              child: ProfileBonusses(isClickabel: false),
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.only(
+                                left: 16,
+                                right: 16,
+                                bottom: 20,
+                              ),
+                              child: GestureDetector(
+                                onTap: () {
+                                  context.router.push(
+                                    const LoyalEntityRoute(),
+                                  );
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 20,
+                                    vertical: 16,
                                   ),
-                                  color: AppColors.lightPrimary,
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Копите бонусы',
-                                      style: AppStyles.title1
-                                          .copyWith(color: AppColors.white),
-                                    ),
-                                    Text(
-                                      'в программе лояльности',
-                                      style: AppStyles.footnote
-                                          .copyWith(color: AppColors.white),
-                                    ),
-                                    const Spacer(),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 12,
-                                        vertical: 8,
+                                  height: 140,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(
+                                        AppStyles.radiusBlock,
                                       ),
-                                      height: 36,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(
-                                            AppStyles.radiusElement,
-                                          ),
+                                    ),
+                                    color: AppColors.lightPrimary,
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Копите бонусы',
+                                        style: AppStyles.title1
+                                            .copyWith(color: AppColors.white),
+                                      ),
+                                      Text(
+                                        'в программе лояльности',
+                                        style: AppStyles.footnote
+                                            .copyWith(color: AppColors.white),
+                                      ),
+                                      const Spacer(),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 12,
+                                          vertical: 8,
                                         ),
-                                        color: AppColors.white,
-                                      ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(
-                                            'Зарегистрироваться',
-                                            style:
-                                                AppStyles.subheadBold.copyWith(
-                                              color: AppColors.black,
-                                              height: 1,
+                                        height: 36,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(
+                                              AppStyles.radiusElement,
                                             ),
                                           ),
-                                          SizedBox(
-                                            width: 24,
-                                            child: SvgPicture.asset(
-                                              'assets/icons/arrow_right.svg',
-                                              colorFilter:
-                                                  const ColorFilter.mode(
-                                                AppColors.black,
-                                                BlendMode.srcIn,
+                                          color: AppColors.white,
+                                        ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              'Зарегистрироваться',
+                                              style:
+                                                  AppStyles.subheadBold.copyWith(
+                                                color: AppColors.black,
+                                                height: 1,
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                            SizedBox(
+                                              width: 24,
+                                              child: SvgPicture.asset(
+                                                'assets/icons/arrow_right.svg',
+                                                colorFilter:
+                                                    const ColorFilter.mode(
+                                                  AppColors.black,
+                                                  BlendMode.srcIn,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            )
+                      : Container(),
+                  orElse: () => Padding(
+                    padding: const EdgeInsets.only(
+                      left: 16,
+                      right: 16,
+                      bottom: 20,
+                    ),
+                    child: GestureDetector(
+                      onTap: () {
+                        context.router.push(
+                          const LoyalEntityRoute(),
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 16,
+                        ),
+                        height: 140,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(
+                              AppStyles.radiusBlock,
+                            ),
+                          ),
+                          color: AppColors.lightPrimary,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Копите бонусы',
+                              style: AppStyles.title1
+                                  .copyWith(color: AppColors.white),
+                            ),
+                            Text(
+                              'в программе лояльности',
+                              style: AppStyles.footnote
+                                  .copyWith(color: AppColors.white),
+                            ),
+                            const Spacer(),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 8,
+                              ),
+                              height: 36,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(
+                                    AppStyles.radiusElement,
+                                  ),
+                                ),
+                                color: AppColors.white,
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'Зарегистрироваться',
+                                    style: AppStyles.subheadBold.copyWith(
+                                      color: AppColors.black,
+                                      height: 1,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 24,
+                                    child: SvgPicture.asset(
+                                      'assets/icons/arrow_right.svg',
+                                      colorFilter: const ColorFilter.mode(
+                                        AppColors.black,
+                                        BlendMode.srcIn,
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
-                          )
-                    : Container(),
-                orElse: () => Padding(
-                  padding: const EdgeInsets.only(
-                    left: 16,
-                    right: 16,
-                    bottom: 20,
-                  ),
-                  child: GestureDetector(
-                    onTap: () {
-                      context.router.push(
-                        const LoyalEntityRoute(),
-                      );
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 16,
-                      ),
-                      height: 140,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(
-                            AppStyles.radiusBlock,
-                          ),
+                          ],
                         ),
-                        color: AppColors.lightPrimary,
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Копите бонусы',
-                            style: AppStyles.title1
-                                .copyWith(color: AppColors.white),
-                          ),
-                          Text(
-                            'в программе лояльности',
-                            style: AppStyles.footnote
-                                .copyWith(color: AppColors.white),
-                          ),
-                          const Spacer(),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 8,
-                            ),
-                            height: 36,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(
-                                  AppStyles.radiusElement,
-                                ),
-                              ),
-                              color: AppColors.white,
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  'Зарегистрироваться',
-                                  style: AppStyles.subheadBold.copyWith(
-                                    color: AppColors.black,
-                                    height: 1,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 24,
-                                  child: SvgPicture.asset(
-                                    'assets/icons/arrow_right.svg',
-                                    colorFilter: const ColorFilter.mode(
-                                      AppColors.black,
-                                      BlendMode.srcIn,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
                       ),
                     ),
                   ),
                 ),
+            const SizedBox(height: 24),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                'Как это работает?',
+                style: AppStyles.title2,
               ),
-          const SizedBox(height: 24),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Text(
-              'Как это работает?',
-              style: AppStyles.title2,
             ),
-          ),
-          const SizedBox(height: 20),
-          RoundedContainer(
-            child: Column(
-              children: [
-                BlocBuilder<LoyaltyBloc, LoyaltyState>(
-                  builder: (context, state) {
-                    bool activeWas = false;
+            const SizedBox(height: 20),
+            RoundedContainer(
+              child: Column(
+                children: [
+                  BlocBuilder<LoyaltyBloc, LoyaltyState>(
+                    builder: (context, state) {
+                      bool activeWas = false;
 
-                    return state.maybeWhen(
-                      success: (loyalties) => SizedBox(
-                        height: 90,
-                        width: double.infinity,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemCount: loyalties.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            final item = loyalties[index];
-                            final bool isActive = activeWas;
+                      return state.maybeWhen(
+                        success: (loyalties) => SizedBox(
+                          height: 90,
+                          width: double.infinity,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            itemCount: loyalties.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              final item = loyalties[index];
+                              final bool isActive = activeWas;
 
-                            if (item.active) {
-                              activeWas = true;
-                            }
+                              if (item.active) {
+                                activeWas = true;
+                              }
 
-                            return TimelineTile(
-                              axis: TimelineAxis.horizontal,
-                              lineXY: .7,
-                              isFirst: index == 0,
-                              //isLast: (index + 1) == loyalties.length,
-                              alignment: TimelineAlign.manual,
-                              endChild: SizedBox(
-                                width: width / loyalties.length,
-                                height: 18,
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        item.discount,
-                                        style: AppStyles.footnoteBold.copyWith(
-                                          color: !item.active
-                                              ? AppColors.gray
-                                              : AppColors.lightPrimary,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              startChild: Align(
-                                alignment: Alignment.center,
-                                child: SizedBox(
+                              return TimelineTile(
+                                axis: TimelineAxis.horizontal,
+                                lineXY: .7,
+                                isFirst: index == 0,
+                                //isLast: (index + 1) == loyalties.length,
+                                alignment: TimelineAlign.manual,
+                                endChild: SizedBox(
                                   width: width / loyalties.length,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        item.title,
-                                        style: AppStyles.subheadBold.copyWith(
-                                          color: AppColors.darkGray,
+                                  height: 18,
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          item.discount,
+                                          style: AppStyles.footnoteBold.copyWith(
+                                            color: !item.active
+                                                ? AppColors.gray
+                                                : AppColors.lightPrimary,
+                                          ),
                                         ),
-                                      ),
-                                      const SizedBox(
-                                        height: 4,
-                                      ),
-                                      Text(
-                                        item.sumFrom,
-                                        style: AppStyles.caption2,
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                              beforeLineStyle: LineStyle(
-                                color: isActive
-                                    ? AppColors.lightGray
-                                    : AppColors.lightPrimary,
-                                thickness: 2,
-                              ),
-                              afterLineStyle: LineStyle(
-                                //color: isActive ? AppColors.lightGray : AppColors.lightPrimary,
-                                color: isActive || activeWas
-                                    ? AppColors.lightGray
-                                    : AppColors.lightPrimary,
-                                thickness: 2,
-                              ),
-                              indicatorStyle: IndicatorStyle(
-                                width: 8,
-                                height: 8,
-                                color: isActive
-                                    ? AppColors.lightGray
-                                    : AppColors.lightPrimary,
-                                indicatorXY: 0,
-                              ),
-                            );
-                          },
+                                startChild: Align(
+                                  alignment: Alignment.center,
+                                  child: SizedBox(
+                                    width: width / loyalties.length,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          item.title,
+                                          style: AppStyles.subheadBold.copyWith(
+                                            color: AppColors.darkGray,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 4,
+                                        ),
+                                        Text(
+                                          item.sumFrom,
+                                          style: AppStyles.caption2,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                beforeLineStyle: LineStyle(
+                                  color: isActive
+                                      ? AppColors.lightGray
+                                      : AppColors.lightPrimary,
+                                  thickness: 2,
+                                ),
+                                afterLineStyle: LineStyle(
+                                  //color: isActive ? AppColors.lightGray : AppColors.lightPrimary,
+                                  color: isActive || activeWas
+                                      ? AppColors.lightGray
+                                      : AppColors.lightPrimary,
+                                  thickness: 2,
+                                ),
+                                indicatorStyle: IndicatorStyle(
+                                  width: 8,
+                                  height: 8,
+                                  color: isActive
+                                      ? AppColors.lightGray
+                                      : AppColors.lightPrimary,
+                                  indicatorXY: 0,
+                                ),
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                      orElse: () => Container(),
-                    );
-                  },
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                const LoyaltyDescItem(
-                  title: 'Сделайте заказ',
-                  description: '',
-                  icon: 'assets/icons/how_works1.svg',
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                const LoyaltyDescItem(
-                  title:
-                      'Мы начислим бонусы в зависимости\nот вашего статуса заказ',
-                  description: '',
-                  icon: 'assets/icons/how_works2.svg',
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                const LoyaltyDescItem(
-                  title: 'Повысим ваш статус за покупки',
-                  description: '',
-                  icon: 'assets/icons/how_works3.svg',
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                const LoyaltyDescItem(
-                  title: 'Можете списать бонусами до 35% от суммы заказа',
-                  description: '',
-                  icon: 'assets/icons/how_works4.svg',
-                  isLast: true,
-                ),
-              ],
+                        orElse: () => Container(),
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  BlocBuilder<PhrasesBloc, PhrasesState>(
+                    builder: (context, state) {
+                      return state.maybeWhen(
+                        success: (phrases) {
+                          return Column(
+                            children: List.generate(phrases.length, (index) {
+                              final item = phrases[index];
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 24),
+                                child: LoyaltyDescItem(
+                                  title: item.title,
+                                  description: item.description,
+                                  icon: 'assets/icons/how_works${index + 1}.svg',
+                                  isLast: index == phrases.length - 1,
+                                ),
+                              );
+                            }),
+                          );
+                        },
+                        // loading: () => const Center(
+                        //   child: CircularProgressIndicator(),
+                        // ),
+                        orElse: () => Column(
+                          children: [
+                            const LoyaltyDescItem(
+                              title: 'Сделайте заказ',
+                              description: '',
+                              icon: 'assets/icons/how_works1.svg',
+                            ),
+                            const SizedBox(
+                              height: 24,
+                            ),
+                            const LoyaltyDescItem(
+                              title:
+                                  'Мы начислим бонусы в зависимости\nот вашего статуса заказ',
+                              description: '',
+                              icon: 'assets/icons/how_works2.svg',
+                            ),
+                            const SizedBox(
+                              height: 24,
+                            ),
+                            const LoyaltyDescItem(
+                              title: 'Повысим ваш статус за покупки',
+                              description: '',
+                              icon: 'assets/icons/how_works3.svg',
+                            ),
+                            const SizedBox(
+                              height: 24,
+                            ),
+                            const LoyaltyDescItem(
+                              title: 'Можете списать бонусами до 35% от суммы заказа',
+                              description: '',
+                              icon: 'assets/icons/how_works4.svg',
+                              isLast: true,
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

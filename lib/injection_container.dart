@@ -27,6 +27,12 @@ import 'package:monobox/features/profile/domain/usecases/delete_profile_usecase.
 import 'package:monobox/features/profile/domain/usecases/loyalty_entry_usecase.dart';
 import 'package:monobox/features/profile/presentation/bloc/delete_profile/delete_profile_bloc.dart';
 import 'package:monobox/features/profile/presentation/bloc/loyalty_entry/loyalty_entry_bloc.dart';
+import 'package:monobox/features/phrases/data/datasources/phrases_remote_data_source.dart';
+import 'package:monobox/features/phrases/data/repositories/phrases_repository_impl.dart';
+import 'package:monobox/features/phrases/domain/repositories/phrases_repository.dart';
+import 'package:monobox/features/phrases/domain/usecases/get_phrases_usecase.dart';
+import 'package:monobox/features/phrases/presentation/bloc/phrases_bloc.dart';
+
 
 import 'core/network/authorization_interceptor.dart';
 import 'core/network/pretty_dio_logger.dart';
@@ -645,5 +651,22 @@ Future setupDependencies() async {
         bannersRepository: getIt(),
       ),
     ),
+  );
+
+  //Phrases
+  getIt.registerLazySingleton<PhrasesRemoteDataSource>(
+    () => PhrasesRemoteDataSource(dio),
+  );
+
+  getIt.registerLazySingleton<PhrasesRepository>(
+    () => PhrasesRepositoryImpl(getIt()),
+  );
+
+  getIt.registerLazySingleton<GetPhrasesUseCase>(
+    () => GetPhrasesUseCase(getIt()),
+  );
+
+  getIt.registerFactory<PhrasesBloc>(
+    () => PhrasesBloc(getIt()),
   );
 }
