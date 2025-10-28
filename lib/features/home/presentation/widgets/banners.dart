@@ -85,7 +85,8 @@ class Banners extends StatelessWidget {
                                   BorderRadius.circular(AppStyles.btnRadius),
                               child: FastCachedImage(
                                 url: banner.image,
-                                fit: BoxFit.contain,
+                                // fit: BoxFit.contain,
+                                fit: BoxFit.fill,
                                 width: bannerWidth,
                                 height: bannerHeight,
                                 fadeInDuration: const Duration(seconds: 0),
@@ -120,7 +121,8 @@ class Banners extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        color: AppColors.shimmer,
+        // color: AppColors.shimmer,
+        color: Colors.red,
         borderRadius: BorderRadius.all(
           Radius.circular(AppStyles.btnRadius),
         ),
