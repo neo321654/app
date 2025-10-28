@@ -121,8 +121,7 @@ class Banners extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        // color: AppColors.shimmer,
-        color: Colors.red,
+        color: AppColors.shimmer,
         borderRadius: BorderRadius.all(
           Radius.circular(AppStyles.btnRadius),
         ),
