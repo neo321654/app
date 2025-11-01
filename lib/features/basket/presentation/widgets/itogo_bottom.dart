@@ -117,9 +117,19 @@ class ItogoBottom extends StatelessWidget {
               const SizedBox(
                 height: 4,
               ),
-              Text(
-                '',
-                style: AppStyles.caption1,
+              BlocBuilder<BasketInfoBloc, BasketInfoState>(
+                builder: (context, state) {
+                  return state.maybeWhen(
+                    orElse: () =>  Text(
+                      '',
+                      style: AppStyles.caption1,
+                    ),
+                    success: (basketInfo, timeDelay) => Text(
+                      timeDelay ?? '',
+                      style: AppStyles.caption1,
+                    ),
+                  );
+                },
               ),
             ],
           ),
