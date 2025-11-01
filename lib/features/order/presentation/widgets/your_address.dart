@@ -9,7 +9,10 @@ import '../../../../core/widgets/rounded_container.dart';
 import '../../../../injection_container.dart';
 import '../../../address_setup/domain/entities/address_entity.dart';
 import '../../../address_setup/presentation/bloc/user_address/user_address_bloc.dart';
-
+import '../../../basket/domain/entities/basket_info_request_entity.dart';
+import '../../../basket/domain/entities/basket_modifire_entity.dart';
+import '../../../basket/presentation/bloc/basket/basket_bloc.dart';
+import '../../../basket/presentation/bloc/basket_info/basket_info_bloc.dart';
 import '../bloc/create_order_state_cubit/create_order_state_cubit.dart';
 import '../models/create_order_state.dart';
 import '../../../../core/widgets/your_address_item.dart';
@@ -74,6 +77,42 @@ class YourAddress extends StatelessWidget {
                                 context
                                     .read<CreateOrderStateCubit>()
                                     .setDeliveryAddress((addresses[index]));
+
+                                // Обновляем корзину с новым типом доставки
+                                if (context.read<BasketBloc>().state
+                                    is BasketLoaded) {
+                                  final basket = (context.read<BasketBloc>().state
+                                          as BasketLoaded)
+                                      .basket;
+                                  final deliveryId = context.read<CreateOrderStateCubit>().state.delivery?.id;
+
+                                  if (deliveryId != null) {
+                                      context.read<BasketInfoBloc>().add(
+                                            BasketInfoEvent.getBasketInfo(
+                                              basket.offers
+                                                  .map((offer) => BasketInfoRequestEntity(
+                                                        id: offer.product.id ?? 0,
+                                                        qnt: offer.quantity ?? 1,
+                                                        modifiers: offer.addOptions !=
+                                                                null
+                                                            ? offer.addOptions!
+                                                                .where((modifier) =>
+                                                                    modifier.id != null)
+                                                                .map((modifier) =>
+                                                                    BasketModifireEntity(
+                                                                      id: modifier.id!,
+                                                                      qnt: modifier
+                                                                          .quantity,
+                                                                    ))
+                                                                .toList()
+                                                            : [],
+                                                      ))
+                                                  .toList(),
+                                              deliveryId: deliveryId,
+                                            ),
+                                          );
+                                  }
+                                }
                               },
                               onEditTap: () {
                                 context.router.push(
