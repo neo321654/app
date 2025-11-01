@@ -22,6 +22,7 @@ class OrderDetailsEntity extends Equatable {
     required this.needReview,
     this.address,
     this.statuses = const [],
+    this.cancelled,
   });
 
   final int id;
@@ -37,6 +38,7 @@ class OrderDetailsEntity extends Equatable {
   final bool needReview;
   final OrderDetailsAddressEntity? address;
   final List<OrderDetailsStatusEntity> statuses;
+  final bool? cancelled;
 
   @override
   List<Object?> get props => [
@@ -51,6 +53,7 @@ class OrderDetailsEntity extends Equatable {
         products,
         paymentStatus,
         address,
+        cancelled,
       ];
 
   OrderDetailsEntity copyWith({
@@ -67,6 +70,7 @@ class OrderDetailsEntity extends Equatable {
     bool? needReview,
     OrderDetailsAddressEntity? address,
     List<OrderDetailsStatusEntity>? statuses,
+    bool? cancelled,
   }) {
     return OrderDetailsEntity(
       id: id ?? this.id,
@@ -82,6 +86,7 @@ class OrderDetailsEntity extends Equatable {
       needReview: needReview ?? this.needReview,
       address: address ?? this.address,
       statuses: statuses ?? this.statuses,
+      cancelled: cancelled ?? this.cancelled,
     );
   }
 }

@@ -14,6 +14,7 @@ class Comment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    controller.text = 'Тест! Не готовить!';
     return RoundedContainer(
       header: Text(
         'Комментарий',

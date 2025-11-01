@@ -44,7 +44,7 @@ class _OrderDetailsState extends State<OrderDetails> {
 
   @override
   void initState() {
-    isCanceled = widget.order.status.toLowerCase() == 'отменен';
+    isCanceled = widget.order.cancelled ?? false;
 
     // 🔎 Debug: print address info
     print('fullAddress: ${widget.order.address?.fullAddress}');

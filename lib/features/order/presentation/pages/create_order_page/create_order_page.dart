@@ -265,7 +265,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
             body: SlidingSheetBody(
               cashPropouseTextController: cashPropouseTextController,
               promoTextController: promoTextController,
-              commentController: promoTextController,
+              commentController: commentController,
             ),
           ),
           BottomButtonSheet(

@@ -31,4 +31,5 @@ OrderDetailsDto _$OrderDetailsDtoFromJson(Map<String, dynamic> json) =>
                   OrderDetailsStatusDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      cancelled: json['cancelled'] as bool?,
     );

@@ -28,6 +28,7 @@ class OrderDetailsDto {
     required this.needReview,
     this.address,
     this.statuses = const [],
+    this.cancelled, // Добавлено новое поле
   });
 
   final int id;
@@ -44,6 +45,7 @@ class OrderDetailsDto {
   final OrderDetailsAddressDto? address;
   @JsonKey(name: 'order_statuses')
   final List<OrderDetailsStatusDto> statuses;
+  final bool? cancelled; // Добавлено новое поле
 
   factory OrderDetailsDto.fromJson(Map<String, dynamic> json) =>
       _$OrderDetailsDtoFromJson(json);

@@ -111,7 +111,8 @@ class OrderRepositoryImpl implements OrderRepository {
                   uid: order.address!.uid,
                   domofon: order.address!.domofon,
                 )
-              : null),
+              : null,
+          cancelled: order.cancelled),
     );
   }
 
