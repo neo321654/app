@@ -18,7 +18,7 @@ class PhrasesRepositoryImpl implements PhrasesRepository {
       final httpResponse = await _phrasesRemoteDataSource.getPhrases();
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(
-          httpResponse.data.map((e) => Phrase(id: e.id, title: e.title, description: e.description, icon: e.icon)).toList(),
+          httpResponse.data.map((e) => Phrase(id: e.id, title: e.title, content: e.content)).toList(),
         );
       } else {
         return DataFailed(

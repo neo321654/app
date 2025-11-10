@@ -422,7 +422,7 @@ class LoyaltyPage extends StatelessWidget {
                                 padding: const EdgeInsets.only(bottom: 24),
                                 child: LoyaltyDescItem(
                                   title: item.title,
-                                  description: item.description,
+                                  description: item.content,
                                   icon: 'assets/icons/how_works${index + 1}.svg',
                                   isLast: index == phrases.length - 1,
                                 ),

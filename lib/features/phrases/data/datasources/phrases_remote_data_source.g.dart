@@ -36,7 +36,7 @@ class _PhrasesRemoteDataSource implements PhrasesRemoteDataSource {
     )
         .compose(
           _dio.options,
-          '/phrases/1',
+          '/phrases/loyalty',
           queryParameters: queryParameters,
           data: _data,
         )

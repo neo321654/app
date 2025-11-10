@@ -9,8 +9,7 @@ class PhraseModel with _$PhraseModel {
   const factory PhraseModel({
     required int id,
     required String title,
-    required String description,
-    required String icon,
+    required String content,
   }) = _PhraseModel;
 
   factory PhraseModel.fromJson(Map<String, dynamic> json) =>

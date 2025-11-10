@@ -8,6 +8,6 @@ part 'phrases_remote_data_source.g.dart';
 abstract class PhrasesRemoteDataSource {
   factory PhrasesRemoteDataSource(Dio dio, {String baseUrl}) = _PhrasesRemoteDataSource;
 
-  @GET("/phrases/1")
+  @GET("/phrases/loyalty")
   Future<HttpResponse<List<PhraseModel>>> getPhrases();
 }

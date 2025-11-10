@@ -22,8 +22,7 @@ PhraseModel _$PhraseModelFromJson(Map<String, dynamic> json) {
 mixin _$PhraseModel {
   int get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
-  String get icon => throw _privateConstructorUsedError;
+  String get content => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +36,7 @@ abstract class $PhraseModelCopyWith<$Res> {
           PhraseModel value, $Res Function(PhraseModel) then) =
       _$PhraseModelCopyWithImpl<$Res, PhraseModel>;
   @useResult
-  $Res call({int id, String title, String description, String icon});
+  $Res call({int id, String title, String content});
 }
 
 /// @nodoc
@@ -55,8 +54,7 @@ class _$PhraseModelCopyWithImpl<$Res, $Val extends PhraseModel>
   $Res call({
     Object? id = null,
     Object? title = null,
-    Object? description = null,
-    Object? icon = null,
+    Object? content = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -67,13 +65,9 @@ class _$PhraseModelCopyWithImpl<$Res, $Val extends PhraseModel>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      icon: null == icon
-          ? _value.icon
-          : icon // ignore: cast_nullable_to_non_nullable
+      content: null == content
+          ? _value.content
+          : content // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -87,7 +81,7 @@ abstract class _$$PhraseModelImplCopyWith<$Res>
       __$$PhraseModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String title, String description, String icon});
+  $Res call({int id, String title, String content});
 }
 
 /// @nodoc
@@ -103,8 +97,7 @@ class __$$PhraseModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? title = null,
-    Object? description = null,
-    Object? icon = null,
+    Object? content = null,
   }) {
     return _then(_$PhraseModelImpl(
       id: null == id
@@ -115,13 +108,9 @@ class __$$PhraseModelImplCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      icon: null == icon
-          ? _value.icon
-          : icon // ignore: cast_nullable_to_non_nullable
+      content: null == content
+          ? _value.content
+          : content // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -131,10 +120,7 @@ class __$$PhraseModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$PhraseModelImpl implements _PhraseModel {
   const _$PhraseModelImpl(
-      {required this.id,
-      required this.title,
-      required this.description,
-      required this.icon});
+      {required this.id, required this.title, required this.content});
 
   factory _$PhraseModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$PhraseModelImplFromJson(json);
@@ -144,13 +130,11 @@ class _$PhraseModelImpl implements _PhraseModel {
   @override
   final String title;
   @override
-  final String description;
-  @override
-  final String icon;
+  final String content;
 
   @override
   String toString() {
-    return 'PhraseModel(id: $id, title: $title, description: $description, icon: $icon)';
+    return 'PhraseModel(id: $id, title: $title, content: $content)';
   }
 
   @override
@@ -160,14 +144,12 @@ class _$PhraseModelImpl implements _PhraseModel {
             other is _$PhraseModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.icon, icon) || other.icon == icon));
+            (identical(other.content, content) || other.content == content));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, description, icon);
+  int get hashCode => Object.hash(runtimeType, id, title, content);
 
   @JsonKey(ignore: true)
   @override
@@ -187,8 +169,7 @@ abstract class _PhraseModel implements PhraseModel {
   const factory _PhraseModel(
       {required final int id,
       required final String title,
-      required final String description,
-      required final String icon}) = _$PhraseModelImpl;
+      required final String content}) = _$PhraseModelImpl;
 
   factory _PhraseModel.fromJson(Map<String, dynamic> json) =
       _$PhraseModelImpl.fromJson;
@@ -198,9 +179,7 @@ abstract class _PhraseModel implements PhraseModel {
   @override
   String get title;
   @override
-  String get description;
-  @override
-  String get icon;
+  String get content;
   @override
   @JsonKey(ignore: true)
   _$$PhraseModelImplCopyWith<_$PhraseModelImpl> get copyWith =>
